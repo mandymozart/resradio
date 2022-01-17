@@ -4,12 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { PrismicProvider } from '@prismicio/react'
+import { client } from './prismic'
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PrismicProvider client={client}>
+      <App />
+    </PrismicProvider>
   </React.StrictMode>,
   document.getElementById('root')
-);
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -1,25 +1,22 @@
 import logo from './logo.svg';
-import './App.css';
+
+import { PrismicRichText, useFirstPrismicDocument } from '@prismicio/react'
+import Announcement from './Components/Announcement/Announcement';
+import ShowList from './Components/Shows/ShowList';
 
 function App() {
+  const [document] = useFirstPrismicDocument()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Announcement/>
+      <img src={logo} className="App-logo" alt="logo" />
+      {document && (
+        <PrismicRichText field={document.data.example_rich_text} />
+      )}
+      {/* <ShowList/> */}
     </div>
-  );
+  )
 }
 
 export default App;
