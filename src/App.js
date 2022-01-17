@@ -1,8 +1,11 @@
 import logo from './logo.svg';
 
 import { PrismicRichText, useFirstPrismicDocument } from '@prismicio/react'
-import Announcement from './Components/Announcement/Announcement';
+
 import ShowList from './Components/Shows/ShowList';
+import EventList from './Components/Events/EventList';
+import Announcement from './Components/Announcement copy/Announcement';
+import About from './Components/About/About';
 
 function App() {
   const [document] = useFirstPrismicDocument()
@@ -14,7 +17,10 @@ function App() {
       {document && (
         <PrismicRichText field={document.data.example_rich_text} />
       )}
-      {/* <ShowList/> */}
+      <EventList/>
+      <ShowList/>
+      <About/>
+
     </div>
   )
 }
