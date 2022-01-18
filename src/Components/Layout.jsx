@@ -6,6 +6,9 @@ const Container = styled.div`
   display: block;
   margin-top: 3rem;
   padding: 1rem;
+  a {
+    text-decoration: underline;
+  }
   div > h2 {
     text-align: center;
   }

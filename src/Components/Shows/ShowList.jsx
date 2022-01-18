@@ -8,10 +8,17 @@ const ShowList = () => {
   return (
     <div>
       {documents.results.map((show) => (
+          <>
         <Link key={show.id} to={show.url}>
-          {show.data.title}
-          <img width="100%" src={show.data.image.url} alt={show.data.image.alt} />
+          <h3>{show.data.title}</h3>
+          <img
+            width="100%"
+            src={show.data.image.url}
+            alt={show.data.image.alt}
+          />
         </Link>
+        <p style={{textAlign:"center"}}>&mdash;</p>
+        </>
       ))}
     </div>
   );

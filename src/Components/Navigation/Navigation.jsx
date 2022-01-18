@@ -1,3 +1,4 @@
+import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
@@ -43,7 +44,7 @@ const Container = styled.div`
     height: calc(100vh - 11rem);
     width: 100%;
     margin: 0 auto;
-    background: white;
+    background: var(--background);
     /* Hole */
     box-sizing: border-box;
     border-radius: 1rem;
@@ -69,6 +70,8 @@ const Container = styled.div`
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const [showTheme, setShowTheme] = useState(false);
 
   const toggleOpen = (value) => {
     setIsOpen(value);
@@ -98,6 +101,20 @@ const Navigation = () => {
         <a onClick={() => goToLink("/events")}>Schedule</a>
         <a onClick={() => goToLink("/shows")}>Shows</a>
         <a onClick={() => goToLink("/about")}>About</a>
+        <a onClick={() => setShowTheme(!showTheme)}>Toggle Theme</a>
+        {showTheme && (
+          <div>
+            <Global
+              styles={css`
+                :root {
+                  --color: blue;
+                  --second: #8000ff;
+                  --background: red;
+                }
+              `}
+            />
+          </div>
+        )}
       </section>
     </Container>
   );

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import React from "react";
 import { useParams } from "react-router-dom";
+import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
@@ -35,7 +36,7 @@ const Player = styled.div`
 `;
 
 const Description = styled.section`
-  font-size: 1.2rem;
+  font-size: 2rem;
 `;
 
 const Show = () => {
@@ -71,7 +72,7 @@ const Show = () => {
           </Meta>
           <Description>
             <h3>{document[0].data.title}</h3>
-            {document[0].data.description}
+            <KeyFieldParagraph text={document[0].data.description}/>
           </Description>
         </Container>
       </Layout>

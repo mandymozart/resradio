@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import { RichText } from "prismic-reactjs";
 import React from "react";
 import { useParams } from "react-router-dom";
+import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
+import Timeslots from "../Components/Timeslots/Timeslots";
 
 const Container = styled.div``;
 const Header = styled.header`
@@ -14,17 +15,13 @@ const Header = styled.header`
 `;
 const Meta = styled.div`
   text-align: center;
-  padding: 1rem;
 `;
 const TeaserImage = styled.img`
   width: 100%;
 `;
 
 const Description = styled.section`
-  max-width: var(--content-width-narrow);
-  font-size: 1.2rem;
-  margin: 0 auto;
-  padding: 1rem;
+  font-size: 2rem;
 `;
 const Event = () => {
   const { uid } = useParams();
@@ -48,12 +45,15 @@ const Event = () => {
             )}
           </Header>
           <Meta>
-            <Tags tags={document[0].data.tags} />
+            <Tags tags={document[0].data?.tags} />
           </Meta>
           <Description>
-            <h3>{document[0].data.title}</h3>
-            <RichText render={document[0].data.description} />
+            <h3>{document[0].data?.title}</h3>
+            <KeyFieldParagraph text={document[0].data.description} />
           </Description>
+          {document[0].data.body?.map((timeslots, index) => (
+            <Timeslots key={`timeslot${index}`} timeslots={timeslots} />
+          ))}
         </Container>
       </Layout>
     );
