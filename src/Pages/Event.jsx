@@ -4,8 +4,8 @@ import { RichText } from "prismic-reactjs";
 import React from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../Components/Layout";
-import Loader from "../Components/Loader";
 import NotFound from "../Components/NotFound";
+import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
 
 const Container = styled.div``;
@@ -17,7 +17,7 @@ const Meta = styled.div`
   padding: 1rem;
 `;
 const TeaserImage = styled.img`
-  width: 25rem;
+  width: 100%;
 `;
 
 const Description = styled.section`
@@ -26,11 +26,10 @@ const Description = styled.section`
   margin: 0 auto;
   padding: 1rem;
 `;
-
 const Event = () => {
   const { uid } = useParams();
 
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("event", [
+  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", [
     uid,
   ]);
 
@@ -59,7 +58,7 @@ const Event = () => {
       </Layout>
     );
   }
-  return <Loader />;
+  return <PageLoader />;
 };
 
 export default Event;

@@ -4,6 +4,7 @@ import React from "react";
 const Container = styled.footer`
   text-align: center;
   padding: 2rem;
+  font-size: 1.2rem;
 `;
 
 const Footer = () => {

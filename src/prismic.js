@@ -17,11 +17,11 @@ export const client = prismic.createClient(endpoint, {
   routes: [
     {
       type: 'shows',
-      path: '/:uid',
+      path: '/show/:uid',
     },
     {
       type: 'events',
-      path: '/:uid',
+      path: '/event/:uid',
     },
   ],
 })

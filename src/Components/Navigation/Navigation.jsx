@@ -2,14 +2,15 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { FaPause, FaPlay } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const Container = styled.div`
   position: sticky;
   top: 5rem;
-  width: var(--content-width);
+  width: calc(var(--content-width) - 2rem);
   margin: 0 auto;
+  line-height: 4rem;
   background: rgba(255, 255, 255, 0.7);
   /* Hole */
   /* border: 2px solid var(--color); */
@@ -24,6 +25,7 @@ const Container = styled.div`
     grid-template-columns: 4rem auto 4rem;
     align-items: center;
     a {
+      cursor: pointer;
       img {
         height: 4rem;
       }
@@ -37,16 +39,15 @@ const Container = styled.div`
     display: none;
     flex-direction: column;
     position: fixed;
-    top: 6rem;
-    width: var(--header-width);
+    top: 5rem;
+    height: calc(100vh - 11rem);
+    width: 100%;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.7);
+    background: white;
     /* Hole */
-    /* border: 2px solid var(--color); */
     box-sizing: border-box;
     border-radius: 1rem;
     z-index: 1000;
-    backdrop-filter: blur(8px);
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -55,57 +56,48 @@ const Container = styled.div`
     display: flex;
     opacity: 0;
     pointer-events: none;
-    a button {
-      width: 100%;
+    a {
+      cursor: pointer;
     }
     &.isOpen {
       opacity: 1;
       pointer-events: visible;
     }
   }
-  .divider {
-    flex: 1;
-  }
-  button {
-    background: transparent;
-    color: var(--color);
-    border: 0;
-    border-radius: 0.25rem;
-    height: 3rem;
-    padding: 0 2rem;
-    cursor: pointer;
-    font-weight: bold;
-    line-height: 0.75rem;
-  }
-`;
-
-const PlayButton = styled.button`
-  position: relative;
-  span {
-    padding-left: 0.5rem;
-  }
 `;
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleOpen = (value) => {
+    setIsOpen(value);
+  };
+
+  const goToLink = (link) => {
+    setIsOpen(false);
+    navigate(link);
+  };
+
   return (
     <Container>
       <header>
-        <PlayButton onClick={() => setIsPlaying(!isPlaying)}>
-          {isPlaying ? <FaPause /> : <FaPlay />}
-        </PlayButton>
+        <AudioPlayer />
         <Link to="/">
           {/* <img src={logo} alt="res.radio" /> */}
           <span>RES</span>
           .RADIO
         </Link>
-        <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
+        <Hamburger
+          toggled={isOpen}
+          toggle={toggleOpen}
+          color={"var(--color)"}
+        />
       </header>
       <section className={clsx({ isOpen: isOpen })}>
-        <NavLink to={"/events"}>Schedule</NavLink>
-        <NavLink to={"/shows"}>Shows</NavLink>
-        <NavLink to={"/about"}>About</NavLink>
+        <a onClick={() => goToLink("/events")}>Schedule</a>
+        <a onClick={() => goToLink("/shows")}>Shows</a>
+        <a onClick={() => goToLink("/about")}>About</a>
       </section>
     </Container>
   );

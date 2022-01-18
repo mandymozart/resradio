@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 import React from "react";
 
 const Container = styled.div`
-  min-height: calc(100vh - 16rem);
+  min-height: calc(100vh - 3rem);
   display: block;
-  
   margin-top: 3rem;
   padding: 1rem;
   div > h2 {
