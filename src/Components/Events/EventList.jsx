@@ -24,8 +24,8 @@ const EventList = () => {
           </Link>
           {event.data.body.length > 0 ? (
             <>
-              {event.data.body.map((timeslots) => (
-                <Timeslots timeslots={timeslots} />
+              {event.data.body.map((timeslots,index) => (
+                <Timeslots key={index} timeslots={timeslots} />
               ))}
             </>
           ) : (

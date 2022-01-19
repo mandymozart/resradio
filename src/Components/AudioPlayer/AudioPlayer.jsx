@@ -59,8 +59,11 @@ const AudioPlayer = () => {
     setShowVolumeSlider(!showVolumeSlider);
   };
   const changeVolume = (e) => {
-    setVolume(e.target.value / 100);
-    audioPlayer.current.volume = e.target.value / 100;
+      console.log(typeof e.target.value)
+      if(typeof e.target.value === 'number'){
+          setVolume(e.target.value / 100);
+          audioPlayer.current.volume = e.target.value / 100;
+      }
   };
   return (
     <Container>
@@ -81,7 +84,7 @@ const AudioPlayer = () => {
             max="100"
             ref={volumeSlider}
             onChange={changeVolume}
-            defaultValue={70}
+            defaultValue="70"
           />
         </VolumeSlider>
       )}

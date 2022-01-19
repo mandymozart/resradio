@@ -4,11 +4,11 @@ const KeyFieldParagraph = ({ text }) => {
   if (!text) return <></>;
   return (
     <p>
-      {text?.split("\n").map((line) => (
-        <>
+      {text?.split("\n").map((line,index) => (
+        <span key={index}>
           {line}
           <br />
-        </>
+        </span>
       ))}
     </p>
   );

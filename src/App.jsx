@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { useDidMount } from "rooks";
 import Announcement from "./Components/Announcement copy/Announcement";
+import Chat from "./Components/Chat/Chat";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
+import RandomBackground from "./Components/RandomBackground/RandomBackground";
 import AboutPage from "./Pages/About";
 import Event from "./Pages/Event";
 import Events from "./Pages/Events";
@@ -30,7 +32,7 @@ const scrollToPosition = (top = 0) => {
   }
 };
 
-const ScrollToTop = ({children}) => {
+const ScrollToTop = ({ children }) => {
   const didMount = useDidMount();
   const location = useLocation();
   useEffect(() => {
@@ -45,6 +47,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop>
+        <RandomBackground />
         <Announcement />
         <Navigation />
         <Routes>
@@ -58,6 +61,7 @@ function App() {
           <Route element={<NotFound />} />
         </Routes>
         <Footer />
+        <Chat />
       </ScrollToTop>
     </BrowserRouter>
   );
