@@ -2,16 +2,18 @@ import styled from "@emotion/styled";
 import { usePrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Ticker from "react-ticker";
 
 const Container = styled.div`
   text-align: center;
-  line-height: 3rem;
-  font-size: 1.5rem;
-  position: fixed;
+  line-height: 1rem;
+  font-size: 1rem;
+  padding: 1rem;
+  height: 3rem;
   top: 0;
   left: 0;
   width: 100vw;
+  color: var(--color);
+  background: var(--background);
 `;
 
 const Announcement = () => {
@@ -24,15 +26,14 @@ const Announcement = () => {
   if (!documents) return <></>;
   return (
     <Container
-      style={{
-        backgroundColor: documents.results[0].data.backgroundcolor,
-        color: documents.results[0].data.textcolor,
-      }}
+      // style={{
+      //   backgroundColor: documents.results[0].data.backgroundcolor,
+      //   color: documents.results[0].data.textcolor,
+      // }}
       onClick={() => navigate(documents.results[0].data.targetcontent.url)}
+      className="glassomorphism"
     >
-      <Ticker>
-        {({ index }) => <>{documents.results[0].data.text}&nbsp;</>}
-      </Ticker>
+      {documents.results[0].data.text} 
     </Container>
   );
 };

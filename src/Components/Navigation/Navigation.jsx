@@ -3,25 +3,27 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
+import { BsFillLightningChargeFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const Container = styled.div`
-  position: sticky;
+  position: fixed;
   top: 5rem;
-  width: calc(var(--content-width) - 2rem);
-  margin: 0 auto;
+  width: 100%;
+  pointer-events: none;
   line-height: 4rem;
-  background: rgba(255, 255, 255, 0.7);
-  /* Hole */
-  /* border: 2px solid var(--color); */
+  background: transparent;
   box-sizing: border-box;
-  /* Up 1 */
-  /* box-shadow: 4px 4px 0px var(--color); */
-  border-radius: 1rem;
-  z-index: 1000;
-  backdrop-filter: blur(8px);
+  /* overflow: hidden; */
+  header, section {
+    width: calc(var(--content-width) - 2rem);
+    margin: 0 auto;
+    pointer-events: visible;
+  }
   header {
+    z-index: 1000;
+    border-radius: 1rem;
     display: grid;
     grid-template-columns: 4rem auto 4rem;
     align-items: center;
@@ -36,33 +38,39 @@ const Container = styled.div`
     }
   }
   section {
-    pointer-events: none;
-    display: none;
-    flex-direction: column;
-    position: fixed;
-    top: 5rem;
-    height: calc(100vh - 11rem);
-    width: 100%;
-    margin: 0 auto;
-    background: var(--background);
-    /* Hole */
-    box-sizing: border-box;
-    border-radius: 1rem;
     z-index: 1000;
+    display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
+    margin-top: 1rem;
+    height: calc(100vh - 15rem);
+    box-sizing: border-box;
+    border-radius: 1rem;
     gap: 0.5rem;
     padding: 1rem;
-    transition: all 0.5s ease-in;
-    display: flex;
+    transition: all 0.5s cubic-bezier(1,0,0,1);
     opacity: 0;
-    pointer-events: none;
+    z-index: 1000;
+    transform: translateY(100vh);
+    
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      li {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+    }
     a {
       cursor: pointer;
     }
     &.isOpen {
       opacity: 1;
       pointer-events: visible;
+      transform: translateY(0);
     }
   }
 `;
@@ -84,7 +92,7 @@ const Navigation = () => {
 
   return (
     <Container>
-      <header>
+      <header className="glassomorphism">
         <AudioPlayer />
         <Link to="/">
           {/* <img src={logo} alt="res.radio" /> */}
@@ -97,23 +105,38 @@ const Navigation = () => {
           color={"var(--color)"}
         />
       </header>
-      <section className={clsx({ isOpen: isOpen })}>
-        <a onClick={() => goToLink("/events")}>Schedule</a>
-        <a onClick={() => goToLink("/shows")}>Shows</a>
-        <a onClick={() => goToLink("/about")}>About</a>
-        <a onClick={() => setShowTheme(!showTheme)}>Toggle Theme</a>
+      <section className={clsx({ isOpen: isOpen }, "glassomorphism")}>
+        <ul>
+          <li>
+            <a onClick={() => goToLink("/events")}>Schedule</a>
+          </li>
+          <li>
+            <a onClick={() => goToLink("/shows")}>Shows</a>
+          </li>
+          <li>
+            <a onClick={() => goToLink("/about")}>About</a>
+          </li>
+          <li>
+            <a onClick={() => setShowTheme(!showTheme)}>
+              <BsFillLightningChargeFill />
+            </a>
+          </li>
+        </ul>
         {showTheme && (
-          <div>
+          <>
             <Global
               styles={css`
                 :root {
-                  --color: blue;
-                  --second: #8000ff;
-                  --background: red;
+                  --color: #ff0062;
+                  --second: #88ff00;
+                  --background: rgb(1, 0, 9);
+                }
+                .glassomorphism {
+                  background: rgba(1, 0, 9, 0.2);
                 }
               `}
             />
-          </div>
+          </>
         )}
       </section>
     </Container>

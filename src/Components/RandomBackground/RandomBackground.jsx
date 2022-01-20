@@ -10,8 +10,8 @@ const Container = styled.div`
     left: 0;
     z-index: -1;
     object-fit: cover;
-    opacity: 0.2;
-    filter: blur(0.2rem);
+    opacity: 0.4;
+    /* filter: blur(0.2rem); */
   }
 `;
 
@@ -29,7 +29,7 @@ const RandomBackground = () => {
   }, [setGif]);
   return (
     <Container>
-      <img src={gif} alt="gif" />
+      {/* <img src={gif} alt="gif" /> */}
     </Container>
   );
 };

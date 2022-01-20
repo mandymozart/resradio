@@ -47,6 +47,8 @@ body {
   line-height: 1.3;
   color: var(--color);
   background: var(--background);
+
+  transition: all 0.5s cubic-bezier(1,0,0,1);
 }
 a {
   color: var(--color);
@@ -78,4 +80,13 @@ strong {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+	.glassomorphism {
+    background: rgba(255, 255, 255, 0.2);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / 11%)
+	}
 }

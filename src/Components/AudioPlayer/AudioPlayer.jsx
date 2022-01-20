@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import React, { useRef, useState } from "react";
 import {
-    BsFillPlayFill,
-    //   BsFillVolumeOffFill,
-    BsFillVolumeDownFill,
-    BsFillVolumeMuteFill,
-    BsFillVolumeUpFill,
-    BsPause
+  BsFillPlayFill,
+  //   BsFillVolumeOffFill,
+  BsFillVolumeDownFill,
+  BsFillVolumeMuteFill,
+  BsFillVolumeUpFill,
+  BsPause
 } from "react-icons/bs";
 
 const Container = styled.div`
@@ -59,15 +59,12 @@ const AudioPlayer = () => {
     setShowVolumeSlider(!showVolumeSlider);
   };
   const changeVolume = (e) => {
-      console.log(typeof e.target.value)
-      if(typeof e.target.value === 'number'){
-          setVolume(e.target.value / 100);
-          audioPlayer.current.volume = e.target.value / 100;
-      }
+    setVolume(e.target.value);
+    audioPlayer.current.volume = e.target.value;
   };
   return (
     <Container>
-      <audio ref={audioPlayer} preload="auto" volume>
+      <audio ref={audioPlayer} preload="auto">
         <source src="https://edge.mixlr.com/channel/zwtuo"></source>
       </audio>
       <VolumeButton onClick={toggleVolumeSlider}>
@@ -80,11 +77,12 @@ const AudioPlayer = () => {
           <input
             orient="vertical"
             type="range"
+            max="1"
             min="0"
-            max="100"
+            step="0.01"
             ref={volumeSlider}
             onChange={changeVolume}
-            defaultValue="70"
+            defaultValue="0.7"
           />
         </VolumeSlider>
       )}

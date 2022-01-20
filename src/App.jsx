@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { useDidMount } from "rooks";
@@ -49,22 +50,116 @@ function App() {
       <ScrollToTop>
         <RandomBackground />
         <Announcement />
-        <Navigation />
-        <Routes>
-          <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/events" element={<Events />} />
-          <Route exact path="/event/:uid" element={<Event />} />
-          <Route exact path="/shows" element={<Shows />} />
-          <Route exact path="/show/:uid" element={<Show />} />
-          <Route exact path="/about" element={<AboutPage />} />
 
-          <Route element={<NotFound />} />
-        </Routes>
+        <AnimatePresence>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <PageWrapper>
+                  <LandingPage />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/events"
+              element={
+                <PageWrapper>
+                  <Events />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/event/:uid"
+              element={
+                <PageWrapper>
+                  <Event />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/shows"
+              element={
+                <PageWrapper>
+                  <Shows />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/show/:uid"
+              element={
+                <PageWrapper>
+                  <Show />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/about"
+              element={
+                <PageWrapper>
+                  <AboutPage />
+                </PageWrapper>
+              }
+            />
+
+            <Route element={<NotFound />} />
+          </Routes>
+        </AnimatePresence>
+        <Navigation />
         <Footer />
         <Chat />
       </ScrollToTop>
     </BrowserRouter>
   );
 }
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: "-100vh",
+    scale: 0.8,
+  },
+  in: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  },
+  out: {
+    opacity: 0,
+    y: "100vh",
+    scale: 1.2,
+  },
+};
+
+const pageTransition = {
+  type: "tween",
+  ease: "anticipate",
+  duration: 0.5,
+};
+
+const pageStyle = {
+  // position: "absolute"
+};
+
+const PageWrapper = ({ children }) => {
+  return (
+    <motion.div
+      style={pageStyle}
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default App;
