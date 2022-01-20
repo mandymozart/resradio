@@ -17,7 +17,7 @@ const Container = styled.div`
   box-sizing: border-box;
   /* overflow: hidden; */
   header, section {
-    width: calc(var(--content-width) - 2rem);
+    width: calc(var(--content-width) - 4rem);
     margin: 0 auto;
     pointer-events: visible;
   }
