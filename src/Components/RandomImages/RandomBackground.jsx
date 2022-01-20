@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
+import { MobileView } from "react-device-detect";
+import useThemeStore from "../../Stores/ThemeStore";
 
 const Container = styled.div`
   img {
@@ -16,21 +18,24 @@ const Container = styled.div`
 `;
 
 const RandomBackground = () => {
+  const keyword = useThemeStore((store) => store.theme);
   const [gif, setGif] = useState();
   useEffect(() => {
     fetch(
-      "https://api.giphy.com/v1/gifs/random?api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=vienna"
+      `https://api.giphy.com/v1/gifs/random?api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=${keyword}`
     )
       .then((response) => response.json())
       .then((data) => {
         setGif(data.data.images.fixed_height_downsampled.url);
       })
       .catch((error) => console.warn("giphy api exceeded rate limit"));
-  }, [setGif]);
+  }, [setGif, keyword]);
   return (
-    <Container>
-      {/* <img src={gif} alt="gif" /> */}
-    </Container>
+    <MobileView>
+      <Container>
+        <img src={gif} alt="gif" />
+      </Container>
+    </MobileView>
   );
 };
 

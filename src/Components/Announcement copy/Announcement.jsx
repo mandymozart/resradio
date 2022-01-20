@@ -8,12 +8,17 @@ const Container = styled.div`
   line-height: 1rem;
   font-size: 1rem;
   padding: 1rem;
-  height: 3rem;
+  height: 1rem;
   top: 0;
   left: 0;
   width: 100vw;
   color: var(--color);
   background: var(--background);
+  cursor: pointer;
+  a {
+    text-decoration: underline;
+  }
+
 `;
 
 const Announcement = () => {
@@ -31,9 +36,8 @@ const Announcement = () => {
       //   color: documents.results[0].data.textcolor,
       // }}
       onClick={() => navigate(documents.results[0].data.targetcontent.url)}
-      className="glassomorphism"
     >
-      {documents.results[0].data.text} 
+      {documents.results[0].data.text} ... <a name="more">read more</a>
     </Container>
   );
 };

@@ -7,7 +7,9 @@ import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
+import TeaserImage from "../Components/TeaserImage/TeaserImage";
 import Timeslots from "../Components/Timeslots/Timeslots";
+import useThemeStore from "../Stores/ThemeStore";
 
 const Container = styled.div``;
 const Header = styled.header`
@@ -16,15 +18,13 @@ const Header = styled.header`
 const Meta = styled.div`
   text-align: center;
 `;
-const TeaserImage = styled.img`
-  width: 100%;
-`;
 
 const Description = styled.section`
   font-size: 2rem;
 `;
 const Event = () => {
   const { uid } = useParams();
+  const setKeyword = useThemeStore((store) => store.setKeyword);
 
   const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", [
     uid,
@@ -32,14 +32,14 @@ const Event = () => {
 
   if (state === "failed") return <NotFound error={error} />;
   else if (state === "loaded") {
-    console.log(document[0]);
+    if (document[0].data.keyword !== "") setKeyword(document[0].data.keyword);
     return (
       <Layout>
         <Container>
           <Header>
             {document[0].data?.image.url && (
               <TeaserImage
-                src={document[0].data.image.url}
+                image={document[0].data.image.url}
                 alt={document[0].data.image.alt}
               />
             )}

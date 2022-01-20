@@ -1,6 +1,7 @@
 import { usePrismicDocumentsByType } from "@prismicio/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import TeaserImage from "../TeaserImage/TeaserImage";
 
 const ShowList = () => {
   const [documents] = usePrismicDocumentsByType("shows");
@@ -11,9 +12,8 @@ const ShowList = () => {
           <>
         <Link key={show.id} to={show.url}>
           <h3>{show.data.title}</h3>
-          <img
-            width="100%"
-            src={show.data.image.url}
+          <TeaserImage
+            image={show.data.image.url}
             alt={show.data.image.alt}
           />
         </Link>

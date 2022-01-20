@@ -2,6 +2,7 @@ import { usePrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import KeyFieldParagraph from "../KeyFieldParagraph";
+import TeaserImage from "../TeaserImage/TeaserImage";
 import Timeslots from "../Timeslots/Timeslots";
 
 const EventList = () => {
@@ -16,9 +17,8 @@ const EventList = () => {
         <div key={event.id}>
           <Link to={event.url}>
             <h3>{event.data.title}</h3>
-            <img
-              width="100%"
-              src={event.data.image.url}
+            <TeaserImage
+              image={event.data.image.url}
               alt={event.data.image.alt}
             />
           </Link>

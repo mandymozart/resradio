@@ -19,6 +19,9 @@ const Container = styled.div`
     margin: 0 auto;
     margin-top: 2rem;
   }
+  img {
+    max-width: 100%;
+  }
 `;
 
 const Layout = ({ children }) => {

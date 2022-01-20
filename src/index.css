@@ -6,8 +6,8 @@
   --form-width: 30rem;
   --content-height: calc(100vh - var(--header-height));
 
-  --color: #0d011d;
-  --second: #251af9;
+  --color: rgb(13, 1, 29);
+  --second: rgb(37, 26, 249);
   --background: #ffffff;
 }
 
