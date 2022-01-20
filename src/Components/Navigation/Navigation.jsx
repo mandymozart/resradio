@@ -11,14 +11,14 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer";
 const Container = styled.div`
   position: fixed;
   top: 5rem;
-  width: 100%;
+  max-width: 100%;
   pointer-events: none;
   line-height: 4rem;
   background: transparent;
   box-sizing: border-box;
   /* overflow: hidden; */
   header, section {
-    width: calc(var(--content-width) - 4rem);
+    max-width: calc(var(--content-width) - 4rem);
     margin: 0 auto;
     pointer-events: visible;
   }

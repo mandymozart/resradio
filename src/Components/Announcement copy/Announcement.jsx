@@ -11,7 +11,7 @@ const Container = styled.div`
   height: 1rem;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: calc(100% - 2rem);
   color: var(--color);
   background: var(--background);
   cursor: pointer;
