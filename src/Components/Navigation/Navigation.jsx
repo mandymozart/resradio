@@ -5,6 +5,7 @@ import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const Container = styled.div`
@@ -79,7 +80,8 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const [showTheme, setShowTheme] = useState(false);
+  const nightMode = useThemeStore(store => store.nightMode)
+  const setNightMode = useThemeStore(store => store.setNightMode)
 
   const toggleOpen = (value) => {
     setIsOpen(value);
@@ -117,17 +119,17 @@ const Navigation = () => {
             <a onClick={() => goToLink("/about")}>About</a>
           </li>
           <li>
-            <a onClick={() => setShowTheme(!showTheme)}>
+            <a onClick={() => setNightMode(!nightMode)}>
               <BsFillLightningChargeFill />
             </a>
           </li>
         </ul>
-        {showTheme && (
+        {nightMode && (
           <>
             <Global
               styles={css`
                 :root {
-                  --color: #ff0062;
+                  --color: rgb(255, 0, 98);
                   --second: #88ff00;
                   --background: rgb(1, 0, 9);
                 }

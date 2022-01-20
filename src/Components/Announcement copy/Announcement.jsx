@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { usePrismicDocumentsByType } from "@prismicio/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -24,10 +24,6 @@ const Container = styled.div`
 const Announcement = () => {
   const [documents] = usePrismicDocumentsByType("announcement");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (documents) console.log(documents.results[0].data);
-  }, [documents]);
   if (!documents) return <></>;
   return (
     <Container

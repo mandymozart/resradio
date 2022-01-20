@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
+import TeaserImage from "../Components/TeaserImage/TeaserImage";
 import useThemeStore from "../Stores/ThemeStore";
 
 const Container = styled.div``;
@@ -17,9 +18,7 @@ const Meta = styled.div`
   text-align: center;
   padding: 1rem;
 `;
-const TeaserImage = styled.img`
-  width: 100%;
-`;
+
 const Player = styled.div`
   position: relative;
   overflow: hidden;
@@ -44,31 +43,25 @@ const Show = () => {
   const { uid } = useParams();
   const setKeyword = useThemeStore((store) => store.setKeyword);
 
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("shows", [
-    uid,
-  ]);
+  const [document, { state }] = useAllPrismicDocumentsByUIDs("shows", [uid]);
+  useEffect(() => {
+    if (document) setKeyword(document[0].data.keyword);
+  }, [setKeyword]);
 
-  if (state === "failed") return <NotFound error={error} />;
-  else if (state === "loaded") {
-    if (document[0].data.keyword !== "") {
-      setKeyword(document[0].data.keyword);
-    }
+  if (state === "loading") return <PageLoader />;
+  else if (state === "failed") return <NotFound />;
+  else if (state === "loaded" && document[0])
     return (
       <Layout>
         <Container>
           <Header>
-            {document[0].data?.image.url && (
-              <TeaserImage
-                image={document[0].data.image.url}
-                alt={document[0].data.image.alt}
+            <TeaserImage image={document[0].data.image} />
+            {document[0].data?.soundcloud.html && (
+              <Player
+                dangerouslySetInnerHTML={{
+                  __html: document[0].data.soundcloud.html,
+                }}
               />
-            )}
-            {document[0].data?.soundcloud.html &&(
-                <Player
-                  dangerouslySetInnerHTML={{
-                    __html: document[0].data.soundcloud.html,
-                  }}
-                />
             )}
           </Header>
           <Meta>
@@ -76,13 +69,12 @@ const Show = () => {
           </Meta>
           <Description>
             <h3>{document[0].data.title}</h3>
-            <KeyFieldParagraph text={document[0].data.description}/>
+            <KeyFieldParagraph text={document[0].data.description} />
           </Description>
         </Container>
       </Layout>
     );
-  }
-  return <PageLoader />;
+  return <NotFound />;
 };
 
 export default Show;

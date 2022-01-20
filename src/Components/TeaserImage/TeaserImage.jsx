@@ -20,16 +20,17 @@ const Image = styled(ImageFilter)`
 const filterNone = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];
 const filterDuotone = "duotone";
 
-const TeaserImage = ({ ...props }) => {
+const TeaserImage = ({image, ...props }) => {
   const [filter, setFilter] = useState("duotone");
-
   return (
     <Image
       filter={filter}
-      colorOne={[13, 1, 29]}
-      colorTwo={[37, 26, 249]}
+      colorOne={[37, 26, 249]}
+      colorTwo={[255, 0, 98]}
       onMouseEnter={() => setFilter(filterNone)}
       onMouseLeave={() => setFilter(filterDuotone)}
+      image={image.url}
+      alt={image.alt}
       {...props}
     />
   );

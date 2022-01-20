@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
@@ -25,24 +25,22 @@ const Description = styled.section`
 const Event = () => {
   const { uid } = useParams();
   const setKeyword = useThemeStore((store) => store.setKeyword);
-
   const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", [
     uid,
   ]);
 
-  if (state === "failed") return <NotFound error={error} />;
-  else if (state === "loaded") {
-    if (document[0].data.keyword !== "") setKeyword(document[0].data.keyword);
+  useEffect(() => {
+    if (document) setKeyword(document[0].data.keyword);
+  }, [setKeyword]);
+
+  if (state === "loading") return <PageLoader />;
+  else if (state === "failed") return <NotFound />;
+  else if (state === "loaded" && document[0])
     return (
       <Layout>
         <Container>
           <Header>
-            {document[0].data?.image.url && (
-              <TeaserImage
-                image={document[0].data.image.url}
-                alt={document[0].data.image.alt}
-              />
-            )}
+            <TeaserImage image={document[0].data.image} />
           </Header>
           <Meta>
             <Tags tags={document[0].data?.tags} />
@@ -57,8 +55,7 @@ const Event = () => {
         </Container>
       </Layout>
     );
-  }
-  return <PageLoader />;
+  else return <NotFound />;
 };
 
 export default Event;

@@ -4,7 +4,7 @@ import React from "react";
 const Container = styled.div`
   min-height: calc(100vh - 3rem);
   display: block;
-  margin-top: 3rem;
+  margin-top: 10rem;
   padding: 1rem;
   a {
     text-decoration: underline;

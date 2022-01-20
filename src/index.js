@@ -7,9 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 import { PrismicProvider } from "@prismicio/react";
 import { client } from "./prismic";
 
-import { enableMapSet } from "immer";
-enableMapSet();
-
 ReactDOM.render(
   <React.StrictMode>
     <PrismicProvider client={client}>

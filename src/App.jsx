@@ -7,7 +7,6 @@ import Chat from "./Components/Chat/Chat";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
-import RandomBackground from "./Components/RandomImages/RandomBackground";
 import RandomImage from "./Components/RandomImages/RandomImage";
 import AboutPage from "./Pages/About";
 import Event from "./Pages/Event";
@@ -53,10 +52,11 @@ function App() {
   return (
     <MousePositionProvider>
       <BrowserRouter>
-        <RandomBackground />
+        {/* <RandomBackground /> */}
         <Announcement />
-        <RandomImage scale={0.75} />
-
+        <RandomImage scale={0.9} />
+        {/* <RandomImage /> */}
+        {/* <RandomImage /> */}
 
         <AnimatePresence>
           <Routes>
@@ -115,12 +115,13 @@ function App() {
               }
             />
 
-            <Route element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
-        <RandomImage scale={1} />
+
         <Navigation />
-        <RandomImage scale={1.25} opacity={1} />
+        <RandomImage scale={1.1}/>
+        {/* <RandomImage scale={1.15}/> */}
         <Footer />
         <Chat />
       </BrowserRouter>

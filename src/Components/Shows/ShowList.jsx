@@ -1,24 +1,22 @@
 import { usePrismicDocumentsByType } from "@prismicio/react";
-import React from "react";
-import { Link } from "react-router-dom";
-import TeaserImage from "../TeaserImage/TeaserImage";
+import React, { useEffect, useState } from "react";
+import { shuffle } from "../../utils";
+import ShowItem from "./ShowItem";
 
 const ShowList = () => {
   const [documents] = usePrismicDocumentsByType("shows");
-  if (!documents) return <></>;
+  const [shows, setShows] = useState();
+
+  useEffect(() => {
+    if (documents) {
+      setShows(shuffle(documents.results));
+    }
+  }, [shows, documents]);
+  if (!documents && !shows) return <></>;
   return (
     <div>
-      {documents.results.map((show) => (
-          <>
-        <Link key={show.id} to={show.url}>
-          <h3>{show.data.title}</h3>
-          <TeaserImage
-            image={show.data.image.url}
-            alt={show.data.image.alt}
-          />
-        </Link>
-        <p style={{textAlign:"center"}}>&mdash;</p>
-        </>
+      {shows?.map((show) => (
+        <ShowItem key={show.id} show={show}/>
       ))}
     </div>
   );

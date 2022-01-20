@@ -9,7 +9,6 @@ const Timeslots = ({ timeslots }) => {
   return (
     <Container>
       {timeslots.items.map((timeslot) => {
-        console.log(timeslot);
         return (
           <p key={`timeslot-${timeslot.from}-${timeslot.to}`}>
             {dayjs(timeslot.from).format("HH:mm")} &mdash; {" "} 

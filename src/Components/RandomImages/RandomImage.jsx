@@ -1,27 +1,16 @@
 import styled from "@emotion/styled";
-import { enableMapSet } from "immer";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import React, { useEffect, useState } from "react";
 import { BrowserView } from "react-device-detect";
 import useThemeStore from "../../Stores/ThemeStore";
 
-enableMapSet();
-
-const Layer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-`;
-
 const getRandomNumber = (min, max) => {
-  console.log(max);
   return Math.random() * (max - min) + min;
 };
 
 const OFFSET = 200; // pixel offset of images from border
 const DEATHZONE = 512; // pixel in center to not enter for images
+const DRIFT = 30;
 
 const placeholderImage =
   "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
@@ -29,21 +18,29 @@ const placeholderImage =
 const floatingPointRange = (value, max) => (value * 2) / max - 1;
 
 const Image = styled.img(
-  ({ pos, scale, opacity, shift, windowWidth, windowHeight }) => `
+  ({ pos, scale, opacity, shift, blur, scroll, windowWidth, windowHeight }) => `
+  position: fixed;
+  top: 50px;
   width: ${OFFSET}px;
-  transform-origin: center;
+  transform-origin: center - ${OFFSET / 2}px;
   transition: all 0.5s cubic-bezier(1,0,0,1);
   transform: translateX(${
-    pos.left + OFFSET/4 * scale * floatingPointRange(shift.x, windowWidth)
-  }px) translateY(${
-    pos.top + OFFSET/4 * scale * floatingPointRange(shift.y, windowHeight)
+    (pos.left - (OFFSET / DRIFT) * floatingPointRange(shift.x, windowWidth)) *
+    scale
+  }px) 
+  translateY(${
+    (pos.top +
+      (OFFSET / DRIFT) * floatingPointRange(shift.y * scroll, windowHeight)) *
+    scale
   }px) scale(${scale});
-  transition: transform .1s ease;
+  transition: transform .7s ease;
   opacity: ${opacity};
+  filter: blur(${blur});
+  pointer-events: visible;
 `
 );
 
-const RandomImage = ({ scale = 1, opacity = 1 }) => {
+const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
   const keyword = useThemeStore((store) => store.keyword);
   const mousePosition = useThemeStore((store) => store.mousePosition);
   const [gif, setGif] = useState();
@@ -53,12 +50,41 @@ const RandomImage = ({ scale = 1, opacity = 1 }) => {
   const windowWidth = window.innerWidth;
 
   const getRandomHorizontalPosition = () => {
-    let output = 1000;
-    while (true) {
-      output = getRandomNumber(OFFSET, windowWidth - OFFSET);
-      if (output < DEATHZONE + OFFSET || output > OFFSET + DEATHZONE) break;
-    }
-    return output - OFFSET;
+    const left = getRandomNumber(
+      OFFSET / 2,
+      windowWidth / 2 - DEATHZONE / 2 - OFFSET / 2
+    );
+    const right = getRandomNumber(
+      windowWidth / 2 + DEATHZONE / 2,
+      windowWidth - OFFSET / 2
+    );
+    return Math.random() < 0.5 ? left : right;
+  };
+
+  const [scrollFloatingPoint, setScrollFloatingPoint] = useState(-1);
+
+  const documentHeight = () =>
+    Math.max(
+      document.documentElement.clientHeight,
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
+
+  useScrollPosition(
+    ({ prevPos, currPos }) => {
+      const value = floatingPointRange(currPos, documentHeight());
+      setScrollFloatingPoint(value ? value : -1);
+    },
+    [scrollFloatingPoint]
+  );
+
+  const setNewPosition = () => {
+    setPos({
+      top: getRandomNumber(50, windowHeight - OFFSET),
+      left: getRandomHorizontalPosition(),
+    });
   };
 
   useEffect(() => {
@@ -70,39 +96,23 @@ const RandomImage = ({ scale = 1, opacity = 1 }) => {
         setGif(data.data.images.fixed_height_downsampled.url);
       })
       .catch((error) => console.warn("giphy api exceeded rate limit"));
-    setPos({
-      top: getRandomNumber(OFFSET, windowHeight - OFFSET),
-      left: getRandomHorizontalPosition(),
-    });
+    setNewPosition();
   }, [setGif, keyword]);
 
-  // useEffect(() => {
-  //   // console.log(mousePosition);
-  //   setPos(
-  //     produce((draft) => {
-  //       draft.left = draft.left * mousePosition.x / windowWidth;
-  //       console.log(draft)
-  //       draft.top = draft.top * mousePosition.y / windowHeight;
-  //       console.log(draft.top,draft.left,mousePosition.y / windowHeight)
-  //     })
-  //   );
-  // }, [mousePosition, setPos]);
   return (
     <BrowserView>
-      <Layer>
-        {
-          <Image
-            src={gif ? gif : placeholderImage}
-            scale={gif ? scale : 0}
-            pos={pos}
-            shift={{ x: mousePosition.x, y: mousePosition.y }}
-            windowWidth={windowWidth}
-            windowHeight={windowHeight}
-            opacity={gif ? opacity : 0}
-            alt="WHY WHY WHY"
-          />
-        }
-      </Layer>
+      <Image
+        src={gif ? gif : placeholderImage}
+        scale={gif ? scale : 0}
+        pos={pos}
+        shift={{ x: mousePosition.x, y: mousePosition.y }}
+        scroll={scrollFloatingPoint}
+        blur={blur}
+        windowWidth={windowWidth}
+        windowHeight={windowHeight}
+        opacity={gif ? opacity : 0}
+        alt="WHY WHY WHY"
+      />
     </BrowserView>
   );
 };
