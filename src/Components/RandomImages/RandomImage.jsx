@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
+import { enableMapSet } from "immer";
 import React, { useEffect, useState } from "react";
 import { BrowserView } from "react-device-detect";
 import useThemeStore from "../../Stores/ThemeStore";
+
+enableMapSet();
 
 const Layer = styled.div`
   width: 100vw;
@@ -17,21 +20,32 @@ const getRandomNumber = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-const OFFSET = 50; // pixel offset of images from border
+const OFFSET = 200; // pixel offset of images from border
 const DEATHZONE = 512; // pixel in center to not enter for images
 
+const placeholderImage =
+  "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+
+const floatingPointRange = (value, max) => (value * 2) / max - 1;
+
 const Image = styled.img(
-  ({ pos, scale, opacity }) => `
-  width: ${OFFSET/2};
+  ({ pos, scale, opacity, shift, windowWidth, windowHeight }) => `
+  width: ${OFFSET}px;
+  transform-origin: center;
   transition: all 0.5s cubic-bezier(1,0,0,1);
-  transform: translateX(${pos.left}px) translateY(${pos.top}px) scale(${scale});
-  transition: transform 0.5s cubic(1,0,0,1);
+  transform: translateX(${
+    pos.left + OFFSET/4 * scale * floatingPointRange(shift.x, windowWidth)
+  }px) translateY(${
+    pos.top + OFFSET/4 * scale * floatingPointRange(shift.y, windowHeight)
+  }px) scale(${scale});
+  transition: transform .1s ease;
   opacity: ${opacity};
 `
 );
 
 const RandomImage = ({ scale = 1, opacity = 1 }) => {
   const keyword = useThemeStore((store) => store.keyword);
+  const mousePosition = useThemeStore((store) => store.mousePosition);
   const [gif, setGif] = useState();
   const [pos, setPos] = useState({ top: 0, left: 0 });
 
@@ -44,13 +58,12 @@ const RandomImage = ({ scale = 1, opacity = 1 }) => {
       output = getRandomNumber(OFFSET, windowWidth - OFFSET);
       if (output < DEATHZONE + OFFSET || output > OFFSET + DEATHZONE) break;
     }
-    console.log(output);
-    return output-OFFSET;
+    return output - OFFSET;
   };
 
   useEffect(() => {
     fetch(
-      `https://api.giphy.com/v1/gifs/random?api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=${keyword}`
+      `https://api.giphy.com/v1/gifs/random?rating=g&api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=${keyword}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -61,21 +74,32 @@ const RandomImage = ({ scale = 1, opacity = 1 }) => {
       top: getRandomNumber(OFFSET, windowHeight - OFFSET),
       left: getRandomHorizontalPosition(),
     });
-    console.log(pos);
   }, [setGif, keyword]);
-  useEffect(() => {
-    console.log(keyword);
-  }, [keyword]);
+
+  // useEffect(() => {
+  //   // console.log(mousePosition);
+  //   setPos(
+  //     produce((draft) => {
+  //       draft.left = draft.left * mousePosition.x / windowWidth;
+  //       console.log(draft)
+  //       draft.top = draft.top * mousePosition.y / windowHeight;
+  //       console.log(draft.top,draft.left,mousePosition.y / windowHeight)
+  //     })
+  //   );
+  // }, [mousePosition, setPos]);
   return (
     <BrowserView>
       <Layer>
         {
           <Image
-            src={gif}
-            scale={scale}
+            src={gif ? gif : placeholderImage}
+            scale={gif ? scale : 0}
             pos={pos}
-            opacity={opacity}
-            alt="gif"
+            shift={{ x: mousePosition.x, y: mousePosition.y }}
+            windowWidth={windowWidth}
+            windowHeight={windowHeight}
+            opacity={gif ? opacity : 0}
+            alt="WHY WHY WHY"
           />
         }
       </Layer>

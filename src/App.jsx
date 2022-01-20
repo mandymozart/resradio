@@ -1,7 +1,7 @@
+import useMouse from "@react-hook/mouse-position";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { useDidMount } from "rooks";
+import { useEffect, useRef } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Announcement from "./Components/Announcement copy/Announcement";
 import Chat from "./Components/Chat/Chat";
 import Footer from "./Components/Footer";
@@ -15,6 +15,7 @@ import Events from "./Pages/Events";
 import LandingPage from "./Pages/LandingPage";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
+import useThemeStore from "./Stores/ThemeStore";
 
 const scrollToPosition = (top = 0) => {
   try {
@@ -34,25 +35,28 @@ const scrollToPosition = (top = 0) => {
   }
 };
 
-const ScrollToTop = ({ children }) => {
-  const didMount = useDidMount();
-  const location = useLocation();
+const MousePositionProvider = ({ children }) => {
+  const setMousePosition = useThemeStore((store) => store.setMousePosition);
+  const ref = useRef(null);
+  const mouse = useMouse(ref, {
+    enterDelay: 100,
+    leaveDelay: 100,
+  });
   useEffect(() => {
-    if (didMount) {
-      scrollToPosition();
-    }
-  }, [location, didMount]);
-  return children;
+    setMousePosition({ x: mouse.screenX, y: mouse.screenY });
+  }, [mouse, setMousePosition]);
+
+  return <div ref={ref}>{children}</div>;
 };
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop>
+    <MousePositionProvider>
+      <BrowserRouter>
         <RandomBackground />
         <Announcement />
         <RandomImage scale={0.75} />
-        <RandomImage scale={1} />
+
 
         <AnimatePresence>
           <Routes>
@@ -114,13 +118,13 @@ function App() {
             <Route element={<NotFound />} />
           </Routes>
         </AnimatePresence>
-
-        <RandomImage scale={1.25} opacity={.5}/>
+        <RandomImage scale={1} />
         <Navigation />
+        <RandomImage scale={1.25} opacity={1} />
         <Footer />
         <Chat />
-      </ScrollToTop>
-    </BrowserRouter>
+      </BrowserRouter>
+    </MousePositionProvider>
   );
 }
 

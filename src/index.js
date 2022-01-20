@@ -1,11 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-import { PrismicProvider } from '@prismicio/react'
-import { client } from './prismic'
+import { PrismicProvider } from "@prismicio/react";
+import { client } from "./prismic";
+
+import { enableMapSet } from "immer";
+enableMapSet();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,8 +16,8 @@ ReactDOM.render(
       <App />
     </PrismicProvider>
   </React.StrictMode>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

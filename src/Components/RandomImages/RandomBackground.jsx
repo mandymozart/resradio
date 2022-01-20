@@ -22,7 +22,7 @@ const RandomBackground = () => {
   const [gif, setGif] = useState();
   useEffect(() => {
     fetch(
-      `https://api.giphy.com/v1/gifs/random?api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=${keyword}`
+      `https://api.giphy.com/v1/gifs/random?rating=g&api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=${keyword}`
     )
       .then((response) => response.json())
       .then((data) => {
