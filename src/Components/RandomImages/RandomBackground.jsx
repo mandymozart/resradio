@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const RandomBackground = () => {
-  const keyword = useThemeStore((store) => store.theme);
+  const keyword = useThemeStore((store) => store.keyword);
   const [gif, setGif] = useState();
   useEffect(() => {
     fetch(
