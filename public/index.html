@@ -28,7 +28,72 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <style>
+      :root {
+        --widgetbot-height: calc(100vh - 16rem);
+        --widgetbot-width: calc(var(--content-width)-2rem);
+      }
+      .widgetbot {
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        transform: translateY(var(--widgetbot-height));
+        opacity: 0;
+        transition: all 1s ease-in-out;
+        z-index: 1;
+        max-width: var(--widgetbot-width) !important;
+        max-height: var(--widgetbot-height);
+        margin: 0 auto;
+        pointer-events: none;
+      }
+      .widgetbot.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: visible;
+      }
+      #chatToggle {
+        color: var(--color);
+        z-index: 100000;
+        font-family: "Scope-Medium", "Courir", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+          "Droid Sans", "Helvetica Neue", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 1.5rem;
+        /* border: 2px solid; */
+        border: 0;
+        border-radius: 1rem;
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        height: 3rem;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #chatToggle:hover {
+        color: var(--second);
+        cursor: pointer;
+        }
+    </style>
+    <script>
+      const openChat = () => {
+        document.querySelector("#chat").classList.toggle("open");
+      };
+    </script>
     <div id="root"></div>
+    <widgetbot
+    id="chat"
+    class="widgetbot"
+    server="933844609870729236"
+    channel="933844609870729241"
+    width="var(--widgetbot-width)"
+    height="var(--widgetbot-height)"
+    ></widgetbot>
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+    <button id="chatToggle" class="glassomorphism" onclick="openChat()">Chat</button>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -40,28 +105,9 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script
-      id="cid0020000288633636892"
-      data-cfasync="false"
       async
-      src="http://st.chatango.com/js/gz/emb.js"
-      style="width: 200px; height: 300px"
-    >
-      {`{"handle":"viennaresradio","arch": "js","styles": {"a": "0d011d","b": 100,"c": "FFFFFF","d": "FFFFFF",
-                    "k": "0d011d",
-                    "l": "0d011d",
-                    "m": "0d011d",
-                    "n": "FFFFFF",
-                    "p": "10",
-                    "q": "0d011d",
-                    "r": 100,
-                    "pos": "br",
-                    "cv": 1,
-                    "cvbg": "0d011d",
-                    "cvw": 75,
-                    "cvh": 30
-                }
-            }`}
-    </script>
-    <script async defer src="https://static.cdn.prismic.io/prismic.js?new=true&repo=your-repo-name"></script>
+      defer
+      src="https://static.cdn.prismic.io/prismic.js?new=true&repo=resradio"
+    ></script>
   </body>
 </html>

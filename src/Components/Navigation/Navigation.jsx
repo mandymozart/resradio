@@ -11,7 +11,7 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer";
 const Container = styled.div`
   position: fixed;
   top: 5rem;
-  max-width: 100%;
+  width: 100%;
   pointer-events: none;
   line-height: 4rem;
   background: transparent;

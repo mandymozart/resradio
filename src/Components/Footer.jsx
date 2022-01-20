@@ -5,6 +5,13 @@ const Container = styled.footer`
   text-align: center;
   padding: 2rem;
   font-size: 1.2rem;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background: var(--background);
 `;
 
 const Footer = () => {
@@ -12,10 +19,16 @@ const Footer = () => {
     <Container>
       &copy; 2022 res.radio
       <br />
-      Made by{" "}
-      <a href="https://www.viennastruggle.com" rel="noreferrer" target="_blank">
-        Vienna Struggle
-      </a>
+      <span>
+        App made by{" "}
+        <a
+          href="https://www.viennastruggle.com"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Vienna Struggle
+        </a>
+      </span>
     </Container>
   );
 };

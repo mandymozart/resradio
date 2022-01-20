@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useRef, useState } from "react";
-import { BrowserView } from "react-device-detect";
+import { isDesktop } from "react-device-detect";
 import {
   BsFillPlayFill,
   //   BsFillVolumeOffFill,
@@ -68,27 +68,31 @@ const AudioPlayer = () => {
       <audio ref={audioPlayer} preload="auto">
         <source src="https://edge.mixlr.com/channel/zwtuo"></source>
       </audio>
-      <BrowserView>
-        <VolumeButton onClick={toggleVolumeSlider}>
-          {volume === 0 && <BsFillVolumeMuteFill />}
-          {volume > 0 && volume < 0.6 && <BsFillVolumeDownFill />}
-          {volume >= 0.6 && <BsFillVolumeUpFill />}
-        </VolumeButton>
-      </BrowserView>
-      {showVolumeSlider && (
-        <VolumeSlider>
-          <input
-            orient="vertical"
-            type="range"
-            max="1"
-            min="0"
-            step="0.01"
-            ref={volumeSlider}
-            onChange={changeVolume}
-            defaultValue="0.7"
-          />
-        </VolumeSlider>
+      {isDesktop && (
+        <>
+          <VolumeButton onClick={toggleVolumeSlider}>
+            {volume === 0 && <BsFillVolumeMuteFill />}
+            {volume > 0 && volume < 0.6 && <BsFillVolumeDownFill />}
+            {volume >= 0.6 && <BsFillVolumeUpFill />}
+          </VolumeButton>
+
+          {showVolumeSlider && (
+            <VolumeSlider>
+              <input
+                orient="vertical"
+                type="range"
+                max="1"
+                min="0"
+                step="0.01"
+                ref={volumeSlider}
+                onChange={changeVolume}
+                defaultValue="0.7"
+              />
+            </VolumeSlider>
+          )}
+        </>
       )}
+
       <PlayButton onClick={togglePlay}>
         {isPlaying ? <BsPause /> : <BsFillPlayFill />}
       </PlayButton>
