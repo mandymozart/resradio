@@ -3,7 +3,14 @@ import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Container = styled.section``;
+const Container = styled.section`
+  span {
+    font-size: 1.5rem;
+  }
+  p {
+    margin: 0;
+  }
+`;
 
 const Timeslots = ({ timeslots }) => {
   return (
@@ -11,8 +18,10 @@ const Timeslots = ({ timeslots }) => {
       {timeslots.items.map((timeslot) => {
         return (
           <p key={`timeslot-${timeslot.from}-${timeslot.to}`}>
-            {dayjs(timeslot.from).format("HH:mm")} &mdash; {" "} 
-            {dayjs(timeslot.to).format("HH:mm")}
+            <span>
+              {dayjs(timeslot.from).format("HH:mm")} &mdash;{" "}
+              {dayjs(timeslot.to).format("HH:mm")}
+            </span>
             <br />
             <Link to={timeslot.relatedshow.url}>
               {timeslot.relatedshow.slug}
