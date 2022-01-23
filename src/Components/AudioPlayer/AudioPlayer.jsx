@@ -63,9 +63,10 @@ const AudioPlayer = () => {
     setVolume(e.target.value);
     audioPlayer.current.volume = e.target.value;
   };
+
   return (
     <Container>
-      <audio ref={audioPlayer} preload="auto">
+      <audio ref={audioPlayer} id="audioPlayer" preload="auto">
         <source src="https://edge.mixlr.com/channel/zwtuo"></source>
       </audio>
       {isDesktop && (

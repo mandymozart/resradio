@@ -8,7 +8,7 @@ const useThemeStore = create(
       keyword: "vienna",
       setKeyword: (keyword) => set((state) => (state.keyword = keyword)),
       mousePosition: {x:0,y:0}, 
-      nightMode: false,
+      nightMode: true,
       setNightMode: (value)=> set((state) => {
         state.nightMode = value;
       }),

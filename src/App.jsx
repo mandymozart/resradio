@@ -2,7 +2,6 @@ import useMouse from "@react-hook/mouse-position";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Announcement from "./Components/Announcement copy/Announcement";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
@@ -53,7 +52,7 @@ function App() {
     <MousePositionProvider>
       <BrowserRouter>
         <RandomBackground />
-        <Announcement />
+        
         <RandomImage scale={0.9} />
         {/* <RandomImage /> */}
         {/* <RandomImage /> */}

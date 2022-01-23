@@ -1,5 +1,6 @@
 import { PrismicRichText, usePrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect } from "react";
+import FadeIn from "../../Animations/FadeIn";
 import useThemeStore from "../../Stores/ThemeStore";
 
 const About = ({ hideContent }) => {
@@ -12,9 +13,13 @@ const About = ({ hideContent }) => {
   if (!documents) return <></>;
   return (
     <div>
-      <h1>{documents.results[0].data.title}</h1>
+      <FadeIn>
+        <h1>{documents.results[0].data.title}</h1>
+      </FadeIn>
       {!hideContent && (
-        <PrismicRichText field={documents.results[0].data.content} />
+        <FadeIn>
+          <PrismicRichText field={documents.results[0].data.content} />
+        </FadeIn>
       )}
     </div>
   );

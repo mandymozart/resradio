@@ -6,12 +6,7 @@ const Container = styled.div`
   display: block;
   margin-top: 7rem;
   padding: 1rem;
-  a {
-    text-decoration: underline;
-  }
-  div > h2 {
-    text-align: center;
-  }
+
   // Inner
   > div {
     /* padding: 1rem; */

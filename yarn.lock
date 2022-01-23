@@ -1628,6 +1628,11 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.6.1.tgz#0c74724ba6e9ea6ad25a391eab60a79eaba4c556"
   integrity sha512-9FqhNjKQWpQ3fGnSOCovHOm+yhhiorKEqYLAfd525jWavunDJcx8rOW6i6ozAh+FbwcYMkL7b+3j4UR/30MpoQ==
 
+"@foobar404/wave@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@foobar404/wave/-/wave-1.2.7.tgz#d17160c495f9fac9ba2139190349f4586b8882fc"
+  integrity sha512-ynWWvfP4Dw1dUe4IupRiJGrh0nSfiYtBnY2ZU4CzGYUMvT9LVWMmpSvDjptgkl5whcwNBjGhVM1Gq1b1J/Z3TA==
+
 "@giphy/js-analytics@^4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@giphy/js-analytics/-/js-analytics-4.0.7.tgz#98f5179e933719da00c9f01ae70d9205449026c3"
@@ -8062,6 +8067,11 @@ react-image-filter@^0.1.2:
   integrity sha512-bNUqDBB/R6npdtIDyzJjFCUX3mXvR2LhFTV4Wg2gi0kUkSW2fEWfDv4LZpng/SieXL86rnqK8PIAzibvBCL6iQ==
   dependencies:
     prop-types "^15.5.8"
+
+react-intersection-observer@^8.33.1:
+  version "8.33.1"
+  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-8.33.1.tgz#8e6442cac7052ed63056e191b7539e423e7d5c64"
+  integrity sha512-3v+qaJvp3D1MlGHyM+KISVg/CMhPiOlO6FgPHcluqHkx4YFCLuyXNlQ/LE6UkbODXlQcLOppfX6UMxCEkUhDLw==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"

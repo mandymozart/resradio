@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@foobar404/wave": "^1.2.7",
     "@giphy/js-fetch-api": "^4.1.2",
     "@giphy/react-components": "^5.4.0",
     "@n8tb1t/use-scroll-position": "^2.0.3",
@@ -29,6 +30,7 @@
     "react-firebase-hooks": "^4.0.2",
     "react-icons": "^4.3.1",
     "react-image-filter": "^0.1.2",
+    "react-intersection-observer": "^8.33.1",
     "react-range": "^1.8.11",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",

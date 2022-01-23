@@ -1,48 +1,76 @@
 import styled from "@emotion/styled";
 import clsx from "clsx";
-import React from "react";
-import { isDesktop } from "react-device-detect";
+import dayjs from "dayjs";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Divider from "../Divider";
-import KeyFieldParagraph from "../KeyFieldParagraph";
+import FadeIn from "../../Animations/FadeIn";
 import TeaserImage from "../TeaserImage/TeaserImage";
-import Timeslots from "../Timeslots/Timeslots";
 
 const Container = styled.div`
-  .isDesktop {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    & > div {
-        width: 20rem;
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1.1rem;
+  margin-bottom: 2rem;
+
+  .image {
+    flex: 0 0 10rem;
+  }
+  .meta {
+    h3 {
+      font-size: 1.1rem;
+      margin: 0;
     }
-    & > h3 {
-        flex: 100%;
+    span {
+      font-size: 1.1rem;
+      line-height: 1.1rem;
     }
   }
-
 `;
 
 const EventItem = ({ event }) => {
+  const [isHovered, setHovered] = useState(false);
+  console.log(event.data.image);
+
   return (
-    <Container >
-      <Link to={event.url} className={clsx({isDesktop: isDesktop})}>
-        <TeaserImage image={event.data.image} />
-        <h3>{event.data.title}</h3>
-      </Link>
-      {event.data.body.length > 0 ? (
-        <>
-          {event.data.body.map((timeslots, index) => (
-            <Timeslots key={index} timeslots={timeslots} />
-          ))}
-        </>
-      ) : (
-        <KeyFieldParagraph text={event.data.description} />
-      )}
-      <Divider />
-    </Container>
+    <FadeIn>
+      <Container
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <Link to={event.url} className={clsx("image", { rotate: isHovered })}>
+          <TeaserImage image={event.data.image} />
+        </Link>
+        <div className="meta">
+          <Link to={event.url}>
+            <h3>{event.data.title}</h3>
+          </Link>
+
+          {event.data.body.length > 0 && (
+            <>
+              {event.data.body.map((timeslots, index) => (
+                <span key={index}>
+                  w/{" "}
+                  {timeslots.items.map((timeslot, index) => {
+                    return (
+                      <span key={index}>
+                        <Link to={timeslot.relatedshow.url}>
+                          {timeslot.relatedshow.slug},
+                        </Link>{" "}
+                      </span>
+                    );
+                  })}
+                  <br />
+                </span>
+              ))}
+            </>
+          )}
+          <p>{dayjs(event.data.begin).format("ddd, MMM D, YYYY h:mm A")} </p>
+        </div>
+      </Container>
+    </FadeIn>
   );
 };
 export default EventItem;

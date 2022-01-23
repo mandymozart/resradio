@@ -30,8 +30,8 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <style>
       :root {
-        --widgetbot-height: calc(100vh - 2rem);
-        --widgetbot-width: calc(var(--content-width)-2rem);
+        --widgetbot-height: calc(100vh - 6rem);
+        --widgetbot-width: var(--content-width);
       }
       .widgetbot {
         position: fixed;
@@ -47,7 +47,7 @@
         margin: 0 auto;
         pointer-events: none;
       }
-      .widgetbot.open {
+      .open .widgetbot {
         transform: translateY(0);
         opacity: 1;
         pointer-events: visible;
@@ -77,10 +77,14 @@
         color: var(--second);
         cursor: pointer;
         }
+        .open #chatToggle {
+          top: 2rem;
+          bottom: auto;
+        }
     </style>
     <script>
       const openChat = () => {
-        document.querySelector("#chat").classList.toggle("open");
+        document.querySelector("body").classList.toggle("open");
       };
     </script>
     <div id="root"></div>

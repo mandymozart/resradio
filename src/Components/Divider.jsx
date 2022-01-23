@@ -1,5 +1,5 @@
 import React from "react";
 const Divider = () => {
-  return <p style={{ textAlign: "center" }}>&mdash;</p>;
+  return <p>&nbsp;</p>;
 };
 export default Divider;

@@ -1,5 +1,6 @@
 import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
+import Wave from "@foobar404/wave";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
@@ -10,14 +11,15 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const Container = styled.div`
   position: fixed;
-  top: 5rem;
+  top: 3rem;
   width: 100%;
   pointer-events: none;
   line-height: 4rem;
   background: transparent;
   box-sizing: border-box;
   /* overflow: hidden; */
-  header, section {
+  header,
+  section {
     max-width: calc(var(--content-width) - 4rem);
     margin: 0 auto;
     pointer-events: visible;
@@ -50,11 +52,11 @@ const Container = styled.div`
     border-radius: 1rem;
     gap: 0.5rem;
     padding: 1rem;
-    transition: all 0.5s cubic-bezier(1,0,0,1);
+    transition: all 0.5s cubic-bezier(1, 0, 0, 1);
     opacity: 0;
     z-index: 1000;
     transform: translateY(100vh);
-    
+
     ul {
       padding: 0;
       margin: 0;
@@ -66,6 +68,7 @@ const Container = styled.div`
       }
     }
     a {
+      font-size: 2rem;
       cursor: pointer;
     }
     &.isOpen {
@@ -80,11 +83,19 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const nightMode = useThemeStore(store => store.nightMode)
-  const setNightMode = useThemeStore(store => store.setNightMode)
+  let [wave] = useState(new Wave());
+
+      wave.fromElement("#audioPlayer", "audioVisualizer", {
+        type: "shine",
+        colors: ["red", "white", "blue"],
+      });
+
+  const nightMode = useThemeStore((store) => store.nightMode);
+  const setNightMode = useThemeStore((store) => store.setNightMode);
 
   const toggleOpen = (value) => {
     setIsOpen(value);
+    wave.stopStream();
   };
 
   const goToLink = (link) => {

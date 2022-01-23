@@ -36,7 +36,7 @@ const Player = styled.div`
 `;
 
 const Description = styled.section`
-  font-size: 2rem;
+  font-size: 1rem;
 `;
 
 const Show = () => {
