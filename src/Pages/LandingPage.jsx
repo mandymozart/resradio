@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import FadeIn from "../Animations/FadeIn";
-import About from "../Components/About/About";
 import Announcement from "../Components/Announcement copy/Announcement";
 import Divider from "../Components/Divider";
 import EventList from "../Components/Events/EventList";
@@ -14,7 +13,11 @@ const LandingPage = () => {
   }, [setKeyword]);
   return (
     <Layout>
-      <About hideContent={true} />
+      <FadeIn>
+        <h2>
+      We are res.radio community radio Vienna
+        </h2>
+      </FadeIn>
       <Divider />
       <FadeIn>
         <Announcement />

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import FadeIn from "../Animations/FadeIn";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
@@ -20,7 +21,6 @@ const Meta = styled.div`
 `;
 
 const Description = styled.section`
-  font-size: 2rem;
 `;
 const Event = () => {
   const { uid } = useParams();
@@ -39,15 +39,23 @@ const Event = () => {
     return (
       <Layout>
         <Container>
-          <Header>
-            <TeaserImage image={document[0].data.image} />
-          </Header>
-          <Meta>
-            <Tags tags={document[0].data?.tags} />
-          </Meta>
+          <FadeIn>
+            <Header>
+              <TeaserImage image={document[0].data.image} />
+            </Header>
+          </FadeIn>
+          <FadeIn>
+            <Meta>
+              <Tags tags={document[0].data?.tags} />
+            </Meta>
+          </FadeIn>
           <Description>
-            <h3>{document[0].data?.title}</h3>
-            <KeyFieldParagraph text={document[0].data.description} />
+            <FadeIn>
+              <h3>{document[0].data?.title}</h3>
+            </FadeIn>
+            <FadeIn>
+              <KeyFieldParagraph text={document[0].data.description} />
+            </FadeIn>
           </Description>
           {document[0].data.body?.map((timeslots, index) => (
             <Timeslots key={`timeslot${index}`} timeslots={timeslots} />

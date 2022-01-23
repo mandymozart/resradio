@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
+import FadeIn from "../../Animations/FadeIn";
 
 const Container = styled.section`
   span {
@@ -17,7 +18,7 @@ const Timeslots = ({ timeslots }) => {
     <Container>
       {timeslots.items.map((timeslot) => {
         return (
-          <p key={`timeslot-${timeslot.from}-${timeslot.to}`}>
+          <FadeIn key={`timeslot-${timeslot.from}-${timeslot.to}`}>
             <span>
               {dayjs(timeslot.from).format("HH:mm")} &mdash;{" "}
               {dayjs(timeslot.to).format("HH:mm")}
@@ -26,7 +27,7 @@ const Timeslots = ({ timeslots }) => {
             <Link to={timeslot.relatedshow.url}>
               {timeslot.relatedshow.slug}
             </Link>
-          </p>
+          </FadeIn>
         );
       })}
     </Container>

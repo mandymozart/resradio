@@ -1,14 +1,17 @@
 import React from "react";
+import FadeIn from "../Animations/FadeIn";
 
 const KeyFieldParagraph = ({ text }) => {
   if (!text) return <></>;
   return (
     <p>
       {text?.split("\n").map((line,index) => (
-        <span key={index}>
+        <FadeIn>
+          <span key={index}>
           {line}
           <br />
         </span>
+          </FadeIn>
       ))}
     </p>
   );

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import FadeIn from "../Animations/FadeIn";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
@@ -23,6 +24,7 @@ const Player = styled.div`
   position: relative;
   overflow: hidden;
   width: 100%;
+  margin-top: 1rem;
   padding-top: 56.25%;
   iframe {
     position: absolute;
@@ -55,21 +57,31 @@ const Show = () => {
       <Layout>
         <Container>
           <Header>
-            <TeaserImage image={document[0].data.image} />
+            <FadeIn>
+              <TeaserImage image={document[0].data.image} />
+            </FadeIn>
             {document[0].data?.soundcloud.html && (
-              <Player
-                dangerouslySetInnerHTML={{
-                  __html: document[0].data.soundcloud.html,
-                }}
-              />
+              <FadeIn>
+                <Player
+                  dangerouslySetInnerHTML={{
+                    __html: document[0].data.soundcloud.html,
+                  }}
+                />
+              </FadeIn>
             )}
           </Header>
-          <Meta>
-            <Tags tags={document[0].data.tags} />
-          </Meta>
+          <FadeIn>
+            <Meta>
+              <Tags tags={document[0].data.tags} />
+            </Meta>
+          </FadeIn>
           <Description>
-            <h3>{document[0].data.title}</h3>
-            <KeyFieldParagraph text={document[0].data.description} />
+            <FadeIn>
+              <h3>{document[0].data.title}</h3>
+            </FadeIn>
+            <FadeIn>
+              <KeyFieldParagraph text={document[0].data.description} />
+            </FadeIn>
           </Description>
         </Container>
       </Layout>

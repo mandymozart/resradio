@@ -109,8 +109,8 @@ const Navigation = () => {
         <AudioPlayer />
         <Link to="/">
           {/* <img src={logo} alt="res.radio" /> */}
-          <span>RES</span>
-          .RADIO
+          <span>res</span>
+          .radio
         </Link>
         <Hamburger
           toggled={isOpen}
