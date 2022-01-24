@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
-import RandomBackground from "./Components/RandomImages/RandomBackground";
 import RandomImage from "./Components/RandomImages/RandomImage";
 import AboutPage from "./Pages/About";
 import Event from "./Pages/Event";
@@ -51,7 +50,7 @@ function App() {
   return (
     <MousePositionProvider>
       <BrowserRouter>
-        <RandomBackground />
+        {/* <RandomBackground /> */}
         
         <RandomImage scale={0.9} />
         {/* <RandomImage /> */}
