@@ -140,8 +140,9 @@ const Navigation = () => {
             <Global
               styles={css`
                 :root {
-                  --color: rgb(255, 0, 98);
-                  --second: #88ff00;
+                  --color: #f2fefd;
+                  --second: rgb(255, 0, 98);
+                  /* --second: #88ff00; */
                   --background: rgb(1, 0, 9);
                 }
                 .glassomorphism {

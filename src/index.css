@@ -50,9 +50,6 @@ body {
 
   transition: all 0.5s cubic-bezier(1, 0, 0, 1);
 }
-p {
-  mix-blend-mode: difference;
-}
 a {
   color: var(--color);
   text-decoration: none;
@@ -92,6 +89,9 @@ strong {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+p {
+  margin-bottom: 3rem;
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
