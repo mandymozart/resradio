@@ -1,14 +1,20 @@
 :root {
-  --sidebar-width: 15rem;
-  --header-height: 8rem;
-  --header-width: 20rem;
   --content-width: min(100%, 32rem);
-  --form-width: 30rem;
-  --content-height: calc(100vh - var(--header-height));
+  --header-width: min(100%, 72rem);
 
-  --color: rgb(13, 1, 29);
-  --second: rgb(37, 26, 249);
-  --background: #ffffff;
+  /* Day */
+  --color-day: #343b84;
+  --second-day: rgb(136, 255, 0);
+  --background-day: rgb(255,255,255);
+
+  /* Night */
+  --color-night: #f2fefd;
+  --second-night: rgb(255, 0, 98);
+  --background-night: rgb(1, 0, 9);
+
+  --color: var(--color-day);
+  --second: var(--second-day);
+  --background: var(--background-day);
 }
 
 @font-face {

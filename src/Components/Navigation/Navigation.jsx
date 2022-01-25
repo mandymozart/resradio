@@ -6,6 +6,7 @@ import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../../images/Logo";
 import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
@@ -20,7 +21,7 @@ const Container = styled.div`
   /* overflow: hidden; */
   header,
   section {
-    max-width: calc(var(--content-width) - 4rem);
+    max-width: calc(var(--header-width) - 4rem);
     margin: 0 auto;
     pointer-events: visible;
   }
@@ -28,12 +29,13 @@ const Container = styled.div`
     z-index: 1000;
     border-radius: 1rem;
     display: grid;
-    grid-template-columns: 4rem auto 4rem;
+    grid-template-columns: 6rem auto 4rem;
     align-items: center;
     a {
+      padding-left: 1rem;
       cursor: pointer;
       img {
-        height: 4rem;
+        height: 1.5rem;
       }
       display: flex;
       align-items: center;
@@ -106,12 +108,12 @@ const Navigation = () => {
   return (
     <Container>
       <header className="glassomorphism">
-        <AudioPlayer />
         <Link to="/">
-          {/* <img src={logo} alt="res.radio" /> */}
-          <span>res</span>
-          .radio
+          <Logo/>
+          {/* <span>res</span>
+          .radio */}
         </Link>
+        <AudioPlayer />
         <Hamburger
           toggled={isOpen}
           toggle={toggleOpen}
@@ -143,7 +145,7 @@ const Navigation = () => {
                   --color: #f2fefd;
                   --second: rgb(255, 0, 98);
                   /* --second: #88ff00; */
-                  --background: rgb(1, 0, 9);
+                  --background: rgba(1, 0, 9);
                 }
                 .glassomorphism {
                   background: rgba(1, 0, 9, 0.2);
