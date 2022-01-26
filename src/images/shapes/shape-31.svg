@@ -1,9 +1,9 @@
 <svg width="77" height="39" viewBox="0 0 77 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M76.17 0.950012H0.960022V38.47H76.17V0.950012Z" stroke="black" stroke-miterlimit="10"/>
-<path d="M0.960022 33.61H23.38L31.45 22.38H76.16" stroke="black" stroke-miterlimit="10"/>
-<path d="M0.960022 23.11H19.81L22.89 27.4H47.18L50.21 31.61H76.16" stroke="black" stroke-miterlimit="10"/>
-<path d="M76.16 14.65H37.53L30.72 5.17001H0.960022" stroke="black" stroke-miterlimit="10"/>
-<path d="M0.960022 14.44H30.13L35.91 6.38H76.16" stroke="black" stroke-miterlimit="10"/>
-<path d="M6.45001 38.47L20.42 19H44.21L50.37 10.41H76.16" stroke="black" stroke-miterlimit="10"/>
-<path d="M0.960022 10.41H19.68L37.08 34.66H57.73L62.08 28.6H76.16" stroke="black" stroke-miterlimit="10"/>
+<path d="M76.17 0.950012H0.960022V38.47H76.17V0.950012Z" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M0.960022 33.61H23.38L31.45 22.38H76.16" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M0.960022 23.11H19.81L22.89 27.4H47.18L50.21 31.61H76.16" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M76.16 14.65H37.53L30.72 5.17001H0.960022" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M0.960022 14.44H30.13L35.91 6.38H76.16" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M6.45001 38.47L20.42 19H44.21L50.37 10.41H76.16" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M0.960022 10.41H19.68L37.08 34.66H57.73L62.08 28.6H76.16" stroke="#00ff3c" stroke-miterlimit="10"/>
 </svg>

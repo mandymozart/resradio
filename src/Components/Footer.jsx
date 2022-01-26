@@ -16,14 +16,15 @@ const Container = styled.footer`
 const Footer = () => {
   return (
     <Container>
-      <Divider/>
+      <Divider />
       <h3>res.radio</h3>
       <p>
         Res.Radio is a non-commercial community webradio based in Vienna to
         strengthen and display subcultural genres. From its founding in 2019,
         the radio grew into a multicultural community/platform featuring artists
-        with many different backgrounds. 
+        with many different backgrounds.
       </p>
+      <Grid />
       <p>
         &copy; 2022 res.radio
         <br />
@@ -38,7 +39,6 @@ const Footer = () => {
           </a>
         </span>
       </p>
-      <Grid/>
     </Container>
   );
 };

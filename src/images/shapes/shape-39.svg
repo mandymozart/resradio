@@ -1,8 +1,8 @@
 <svg width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M77.16 1.04999H1.81V76.3H77.16V1.04999Z" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M18.63 17.85L1.81 8.58002V1.04999H9.35L18.63 17.85Z" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M77.16 8.58002L60.34 17.85L69.63 1.04999H77.16V8.58002Z" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M9.35 76.3H1.81V68.78L18.63 59.5L9.35 76.3Z" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M77.16 76.3H69.63L60.34 59.5L77.16 68.78V76.3Z" stroke="black" stroke-width="2" stroke-miterlimit="10"/>
-<path d="M49.23 35.97H34.77L52.86 8.58002L27.59 37.03L23.72 41.39H29.74H44.2L26.11 68.78L51.38 40.33L55.25 35.97H49.23Z" fill="black"/>
+<path d="M77.16 1.04999H1.81V76.3H77.16V1.04999Z" stroke="#00ff3c" stroke-width="2" stroke-miterlimit="10"/>
+<path d="M18.63 17.85L1.81 8.58002V1.04999H9.35L18.63 17.85Z" stroke="#00ff3c" stroke-width="2" stroke-miterlimit="10"/>
+<path d="M77.16 8.58002L60.34 17.85L69.63 1.04999H77.16V8.58002Z" stroke="#00ff3c" stroke-width="2" stroke-miterlimit="10"/>
+<path d="M9.35 76.3H1.81V68.78L18.63 59.5L9.35 76.3Z" stroke="#00ff3c" stroke-width="2" stroke-miterlimit="10"/>
+<path d="M77.16 76.3H69.63L60.34 59.5L77.16 68.78V76.3Z" stroke="#00ff3c" stroke-width="2" stroke-miterlimit="10"/>
+<path d="M49.23 35.97H34.77L52.86 8.58002L27.59 37.03L23.72 41.39H29.74H44.2L26.11 68.78L51.38 40.33L55.25 35.97H49.23Z" fill="#00ff3c"/>
 </svg>

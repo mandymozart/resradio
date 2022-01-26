@@ -1,38 +1,38 @@
 <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M37.83 37.71V0.190002" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L31.3 0.76001" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L24.97 2.45999" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L19.03 5.22" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L13.66 8.97" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L9.03 13.59" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L5.26999 18.95" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L2.5 24.88" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L0.799988 31.19" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71H0.230011" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L0.799988 44.22" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L2.5 50.54" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L5.26999 56.47" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L9.03 61.82" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L13.66 66.45" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L19.03 70.2" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L24.97 72.96" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L31.3 74.65" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71V75.22" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L44.36 74.65" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L50.69 72.96" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L56.63 70.2" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L62 66.45" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L66.64 61.82" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L70.4 56.47" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L73.17 50.54" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L74.86 44.22" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71H75.44" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L74.86 31.19" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L73.17 24.88" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L70.4 18.95" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L66.64 13.59" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L62 8.97" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L56.63 5.22" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L50.69 2.45999" stroke="black" stroke-miterlimit="10"/>
-<path d="M37.83 37.71L44.36 0.76001" stroke="black" stroke-miterlimit="10"/>
+<path d="M37.83 37.71V0.190002" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L31.3 0.76001" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L24.97 2.45999" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L19.03 5.22" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L13.66 8.97" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L9.03 13.59" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L5.26999 18.95" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L2.5 24.88" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L0.799988 31.19" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71H0.230011" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L0.799988 44.22" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L2.5 50.54" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L5.26999 56.47" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L9.03 61.82" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L13.66 66.45" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L19.03 70.2" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L24.97 72.96" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L31.3 74.65" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71V75.22" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L44.36 74.65" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L50.69 72.96" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L56.63 70.2" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L62 66.45" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L66.64 61.82" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L70.4 56.47" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L73.17 50.54" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L74.86 44.22" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71H75.44" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L74.86 31.19" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L73.17 24.88" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L70.4 18.95" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L66.64 13.59" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L62 8.97" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L56.63 5.22" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L50.69 2.45999" stroke="#00ff3c" stroke-miterlimit="10"/>
+<path d="M37.83 37.71L44.36 0.76001" stroke="#00ff3c" stroke-miterlimit="10"/>
 </svg>

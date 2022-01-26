@@ -10,7 +10,7 @@ const getRandomNumber = (min, max) => {
 
 const OFFSET = 200; // pixel offset of images from border
 const DEATHZONE = 512; // pixel in center to not enter for images
-const DRIFT = 30;
+const DRIFT = 8;
 
 const placeholderImage =
   "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";

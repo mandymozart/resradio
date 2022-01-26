@@ -36,6 +36,7 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       margin-left: 1rem;
+      cursor: pointer;
     }
     > nav {
       text-align: right;
@@ -75,7 +76,7 @@ const Container = styled.div`
     box-sizing: border-box;
     gap: 0.5rem;
     padding: 1rem;
-    transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+    transition: transform 0.5s cubic-bezier(1, 0, 0, 1), opacity 0.5s ease-out;
     opacity: 0;
     z-index: 1000;
     transform: translateY(100vh);
