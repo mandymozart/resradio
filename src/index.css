@@ -3,8 +3,8 @@
   --header-width: min(100%, 72rem);
 
   /* Day */
-  --color-day: #343b84;
-  --second-day: rgb(136, 255, 0);
+  --color-day: #010317;
+  --second-day: rgb(218, 40, 0);
   --background-day: rgb(255,255,255);
 
   /* Night */
@@ -64,7 +64,7 @@ a:hover {
   color: var(--second);
   text-decoration: underline;
   text-decoration-color: var(--color);
-  text-decoration-style: wavy;
+  /* text-decoration-style: wavy; */
 }
 
 h1,
@@ -102,10 +102,10 @@ p {
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .glassomorphism {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 1rem 3rem rgb(0 0 0 / 11%);
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: blur(6px);
+    /* -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / 11%); */
   }
 }
 .rotate {

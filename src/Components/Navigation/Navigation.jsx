@@ -5,14 +5,14 @@ import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { BsFillLightningChargeFill } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../images/Logo";
 import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const Container = styled.div`
   position: fixed;
-  top: 3rem;
+  top: 0;
   width: 100%;
   pointer-events: none;
   line-height: 4rem;
@@ -21,13 +21,12 @@ const Container = styled.div`
   /* overflow: hidden; */
   header,
   section {
-    max-width: calc(var(--header-width) - 4rem);
+    max-width: 100%;
     margin: 0 auto;
     pointer-events: visible;
   }
   header {
     z-index: 1000;
-    border-radius: 1rem;
     display: grid;
     grid-template-columns: 6rem auto 4rem;
     align-items: center;
@@ -48,10 +47,8 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    margin-top: 1rem;
-    height: calc(100vh - 15rem);
+    height: calc(100vh - 4rem);
     box-sizing: border-box;
-    border-radius: 1rem;
     gap: 0.5rem;
     padding: 1rem;
     transition: all 0.5s cubic-bezier(1, 0, 0, 1);
@@ -108,11 +105,11 @@ const Navigation = () => {
   return (
     <Container>
       <header className="glassomorphism">
-        <Link to="/">
+        <a onClick={() => goToLink("/")}>
           <Logo/>
           {/* <span>res</span>
           .radio */}
-        </Link>
+        </a>
         <AudioPlayer />
         <Hamburger
           toggled={isOpen}

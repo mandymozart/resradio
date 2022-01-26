@@ -14,9 +14,7 @@ const LandingPage = () => {
   return (
     <Layout>
       <FadeIn>
-        <h2>
-      We are res.radio community radio Vienna
-        </h2>
+        <h2>We are res.radio community radio Vienna</h2>
       </FadeIn>
       <Divider />
       <FadeIn>

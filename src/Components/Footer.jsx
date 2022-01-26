@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import Grid from "../images/Grid";
 
 const Container = styled.footer`
   padding: 1rem;
@@ -35,6 +36,7 @@ const Footer = () => {
           </a>
         </span>
       </p>
+      <Grid/>
     </Container>
   );
 };

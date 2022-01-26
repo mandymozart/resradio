@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
+import { ItemContainer } from "../Shows/ShowItem";
 import TeaserImage from "../TeaserImage/TeaserImage";
 
 const Container = styled.div`
@@ -28,13 +29,17 @@ const Container = styled.div`
     }
   }
   .meta {
-    h3 {
+    h4 {
       font-size: 1.1rem;
+      line-height: 1.2;
       margin: 0;
     }
     span {
       font-size: 1.1rem;
       line-height: 1.1rem;
+    }
+    p {
+      margin-bottom: 0;
     }
   }
 `;
@@ -45,7 +50,7 @@ const EventItem = ({ event }) => {
 
   return (
     <FadeIn>
-      <Container
+      <ItemContainer
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -54,7 +59,7 @@ const EventItem = ({ event }) => {
         </Link>
         <div className="meta">
           <Link to={event.url}>
-            <h3>{event.data.title}</h3>
+            <h4>{event.data.title}</h4>
           </Link>
 
           {event.data.body.length > 0 && (
@@ -78,7 +83,7 @@ const EventItem = ({ event }) => {
           )}
           <p>{dayjs(event.data.begin).format("ddd, MMM D, YYYY h:mm A")} </p>
         </div>
-      </Container>
+      </ItemContainer>
     </FadeIn>
   );
 };
