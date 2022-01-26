@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 
 const Container = styled.button`
-  border: 1px solid var(--color);
+  border: 1px solid ${(props) => (props.ghost ? "transparent" : "var(--color)")};
   border-radius: 2px;
   color: ${(props) => (props.active ? "var(--background)" : "var(--color)")};
   background: ${(props) =>
@@ -21,9 +21,9 @@ const Container = styled.button`
   }
 `;
 
-const Button = ({ active, children, ...props }) => {
+const Button = ({ active, ghost, primary, children, ...props }) => {
   return (
-    <Container active={active} {...props}>
+    <Container active={active} primary={primary} ghost={ghost} {...props}>
       {children}
     </Container>
   );

@@ -2,12 +2,10 @@ import styled from "@emotion/styled";
 import React, { useRef, useState } from "react";
 import { isDesktop } from "react-device-detect";
 import {
-  BsFillPlayFill,
-  //   BsFillVolumeOffFill,
-  BsFillVolumeDownFill,
-  BsFillVolumeMuteFill,
-  BsFillVolumeUpFill,
-  BsPause
+  BsFillPlayFill, BsPause,
+  BsVolumeDown,
+  BsVolumeMute,
+  BsVolumeUp
 } from "react-icons/bs";
 
 const Container = styled.div`
@@ -72,9 +70,9 @@ const AudioPlayer = () => {
       {isDesktop && (
         <>
           <VolumeButton onClick={toggleVolumeSlider}>
-            {volume === 0 && <BsFillVolumeMuteFill />}
-            {volume > 0 && volume < 0.6 && <BsFillVolumeDownFill />}
-            {volume >= 0.6 && <BsFillVolumeUpFill />}
+            {volume === 0 && <BsVolumeMute />}
+            {volume > 0 && volume < 0.6 && <BsVolumeDown />}
+            {volume >= 0.6 && <BsVolumeUp />}
           </VolumeButton>
 
           {showVolumeSlider && (

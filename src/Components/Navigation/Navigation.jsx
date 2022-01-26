@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Wave from "@foobar404/wave";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { BsFillLightningChargeFill } from "react-icons/bs";
+import { BsMoon, BsSunFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
 import Logo from "../../images/Logo";
@@ -21,7 +21,7 @@ const Container = styled.div`
   box-sizing: border-box;
   /* overflow: hidden; */
   header,
-  section {
+  > nav {
     max-width: 100%;
     margin: 0 auto;
     pointer-events: visible;
@@ -29,20 +29,43 @@ const Container = styled.div`
   header {
     z-index: 1000;
     display: grid;
-    grid-template-columns: 6rem auto 6rem;
+    grid-template-columns: 6rem auto auto;
     align-items: center;
-    a {
-      padding-left: 1rem;
-      cursor: pointer;
-      img {
-        height: 1.5rem;
-      }
+    > a {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      margin-left: 1rem;
+    }
+    > nav {
+      text-align: right;
+      width: 100%;
+      > ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        margin-right: 1rem;
+        > li {
+          display: inline-block;
+          padding: 0;
+          margin: 0;
+          margin-left: 0.5rem;
+          text-align: center;
+          > a {
+            padding-left: 1rem;
+            cursor: pointer;
+            img {
+              height: 1.5rem;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
     }
   }
-  section {
+  > nav {
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -65,11 +88,16 @@ const Container = styled.div`
         padding: 0;
         margin: 0;
         text-align: center;
+        a {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          cursor: pointer;
+          text-transform: uppercase;
+        }
       }
-    }
-    a {
-      font-size: 2rem;
-      cursor: pointer;
     }
     &.isOpen {
       opacity: 1;
@@ -108,26 +136,33 @@ const Navigation = () => {
       <header className="glassomorphism">
         <a onClick={() => goToLink("/")}>
           <Logo />
-          {/* <span>res</span>
-          .radio */}
         </a>
         <AudioPlayer />
-        <div>
-          <Button
-            type="button"
-            active={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            MENU
-          </Button>
-        </div>
+        <nav>
+          <ul>
+            <li>
+              <a onClick={() => setNightMode(!nightMode)}>
+                {nightMode ? <BsSunFill /> : <BsMoon/>}
+              </a>
+            </li>
+            <li>
+              <Button
+                type="button"
+                active={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                MENU
+              </Button>
+            </li>
+          </ul>
+        </nav>
         {/* <Hamburger
           toggled={isOpen}
           toggle={toggleOpen}
           color={"var(--color)"}
         /> */}
       </header>
-      <section className={clsx({ isOpen: isOpen }, "glassomorphism")}>
+      <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <FadeIn>
           <ul>
             <li>
@@ -139,16 +174,8 @@ const Navigation = () => {
             <li>
               <a onClick={() => goToLink("/about")}>About</a>
             </li>
-            <li>
-              <a onClick={() => setNightMode(!nightMode)}>
-                <BsFillLightningChargeFill />
-              </a>
-            </li>
           </ul>
         </FadeIn>
-        {/* <FadeIn>
-          <PlasticWrap />
-        </FadeIn> */}
         {nightMode && (
           <>
             <Global
@@ -166,7 +193,7 @@ const Navigation = () => {
             />
           </>
         )}
-      </section>
+      </nav>
     </Container>
   );
 };
