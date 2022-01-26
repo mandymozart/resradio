@@ -1,6 +1,5 @@
 import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
-import Wave from "@foobar404/wave";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { BsMoon, BsSunFill } from "react-icons/bs";
@@ -112,19 +111,11 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  let [wave] = useState(new Wave());
-
-  wave.fromElement("#audioPlayer", "audioVisualizer", {
-    type: "shine",
-    colors: ["red", "white", "blue"],
-  });
-
   const nightMode = useThemeStore((store) => store.nightMode);
   const setNightMode = useThemeStore((store) => store.setNightMode);
 
   const toggleOpen = (value) => {
     setIsOpen(value);
-    wave.stopStream();
   };
 
   const goToLink = (link) => {

@@ -6,6 +6,7 @@ import {
   BsPlay,
   BsVolumeDown, BsVolumeMute, BsVolumeUp
 } from "react-icons/bs";
+import config from "../../config";
 
 const Container = styled.div`
   display: flex;
@@ -64,7 +65,7 @@ const AudioPlayer = () => {
   return (
     <Container>
       <audio ref={audioPlayer} id="audioPlayer" preload="auto">
-        <source src="https://edge.mixlr.com/channel/zwtuo"></source>
+        <source src={config.STREAM_URL}></source>
       </audio>
       {isDesktop && (
         <>
