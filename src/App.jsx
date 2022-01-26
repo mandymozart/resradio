@@ -2,7 +2,6 @@ import useMouse from "@react-hook/mouse-position";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Chat from "./Components/Chat/Chat";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
@@ -119,7 +118,7 @@ function App() {
         <RandomImage scale={1.1} />
         {/* <RandomImage scale={1.15}/> */}
         <Footer />
-        <Chat />
+        {/* <Chat /> */}
       </BrowserRouter>
     </MousePositionProvider>
   );

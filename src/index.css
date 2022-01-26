@@ -3,9 +3,9 @@
   --header-width: min(100%, 72rem);
 
   /* Day */
-  --color-day: #010317;
-  --second-day: rgb(218, 40, 0);
-  --background-day: rgb(255,255,255);
+  --color-day: #011707;
+  --second-day: rgb(0, 255, 60);
+  --background-day: rgb(255,255,255,0.7);
 
   /* Night */
   --color-night: #f2fefd;
@@ -73,16 +73,18 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Scope-BoldExpanded", "Courir", -apple-system, BlinkMacSystemFont,
+  font-family: "Scope-LightExpanded", "Courir", -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
   letter-spacing: 0.05rem;
   font-size: 2rem;
+
 }
 h1,
 h2 {
   font-size: 3.2rem;
+  text-transform: uppercase;
 }
 b,
 strong {
@@ -102,7 +104,7 @@ p {
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .glassomorphism {
-    background: rgba(255, 255, 255, 1);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(6px);
     /* -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 1rem 3rem rgb(0 0 0 / 11%); */

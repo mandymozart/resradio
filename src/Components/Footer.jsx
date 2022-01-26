@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import Grid from "../images/Grid";
+import Divider from "./Divider";
 
 const Container = styled.footer`
   padding: 1rem;
@@ -15,6 +16,7 @@ const Container = styled.footer`
 const Footer = () => {
   return (
     <Container>
+      <Divider/>
       <h3>res.radio</h3>
       <p>
         Res.Radio is a non-commercial community webradio based in Vienna to

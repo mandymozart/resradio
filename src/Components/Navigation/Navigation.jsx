@@ -2,13 +2,14 @@ import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import Wave from "@foobar404/wave";
 import clsx from "clsx";
-import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import FadeIn from "../../Animations/FadeIn";
 import Logo from "../../images/Logo";
 import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
+import Button from "../Button";
 
 const Container = styled.div`
   position: fixed;
@@ -28,7 +29,7 @@ const Container = styled.div`
   header {
     z-index: 1000;
     display: grid;
-    grid-template-columns: 6rem auto 4rem;
+    grid-template-columns: 6rem auto 6rem;
     align-items: center;
     a {
       padding-left: 1rem;
@@ -84,10 +85,10 @@ const Navigation = () => {
 
   let [wave] = useState(new Wave());
 
-      wave.fromElement("#audioPlayer", "audioVisualizer", {
-        type: "shine",
-        colors: ["red", "white", "blue"],
-      });
+  wave.fromElement("#audioPlayer", "audioVisualizer", {
+    type: "shine",
+    colors: ["red", "white", "blue"],
+  });
 
   const nightMode = useThemeStore((store) => store.nightMode);
   const setNightMode = useThemeStore((store) => store.setNightMode);
@@ -106,34 +107,48 @@ const Navigation = () => {
     <Container>
       <header className="glassomorphism">
         <a onClick={() => goToLink("/")}>
-          <Logo/>
+          <Logo />
           {/* <span>res</span>
           .radio */}
         </a>
         <AudioPlayer />
-        <Hamburger
+        <div>
+          <Button
+            type="button"
+            active={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            MENU
+          </Button>
+        </div>
+        {/* <Hamburger
           toggled={isOpen}
           toggle={toggleOpen}
           color={"var(--color)"}
-        />
+        /> */}
       </header>
       <section className={clsx({ isOpen: isOpen }, "glassomorphism")}>
-        <ul>
-          <li>
-            <a onClick={() => goToLink("/events")}>Schedule</a>
-          </li>
-          <li>
-            <a onClick={() => goToLink("/shows")}>Shows</a>
-          </li>
-          <li>
-            <a onClick={() => goToLink("/about")}>About</a>
-          </li>
-          <li>
-            <a onClick={() => setNightMode(!nightMode)}>
-              <BsFillLightningChargeFill />
-            </a>
-          </li>
-        </ul>
+        <FadeIn>
+          <ul>
+            <li>
+              <a onClick={() => goToLink("/events")}>Schedule</a>
+            </li>
+            <li>
+              <a onClick={() => goToLink("/shows")}>Shows</a>
+            </li>
+            <li>
+              <a onClick={() => goToLink("/about")}>About</a>
+            </li>
+            <li>
+              <a onClick={() => setNightMode(!nightMode)}>
+                <BsFillLightningChargeFill />
+              </a>
+            </li>
+          </ul>
+        </FadeIn>
+        {/* <FadeIn>
+          <PlasticWrap />
+        </FadeIn> */}
         {nightMode && (
           <>
             <Global

@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 
 const useThemeStore = create(
   persist(
-    produce((set, get) => ({
+    produce((set) => ({
       keyword: "vienna",
       setKeyword: (keyword) => set((state) => (state.keyword = keyword)),
       mousePosition: {x:0,y:0}, 

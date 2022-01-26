@@ -5,11 +5,11 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Community radio from Vienna"
+    <meta name="description" content="Community radio from Vienna" />
+    <link
+      rel="apple-touch-icon"
+      href="%PUBLIC_URL%/android-chrome-192x192.png"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/android-chrome-192x192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -53,51 +53,63 @@
         pointer-events: visible;
       }
       #chatToggle {
-        color: var(--color);
         z-index: 100000;
-        font-family: "Scope-Medium", "Courir", -apple-system, BlinkMacSystemFont,
-          "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-          "Droid Sans", "Helvetica Neue", sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-size: 1.5rem;
-        /* border: 2px solid; */
-        border: 0;
-        border-radius: 1rem;
+        border: 1px solid var(--color);
+        border-radius: 2px;
+        color: var(--color);
+        background: var(--background);
+        line-height: 1.5rem;
+        font-family: "Scope-LightExpanded", "Courir", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+          "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0.05rem;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        cursor: pointer;
         position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        height: 3rem;
-        padding: 0 2rem;
+        bottom: 1rem;
+        right: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
       }
       #chatToggle:hover {
-        color: var(--second);
         cursor: pointer;
-        }
-        .open #chatToggle {
-          top: 1rem;
-          bottom: auto;
-        }
+        color: var(--second);
+        background: var(--color);
+      }
+      .open #chatToggle {
+        top: 3rem;
+        right: 1.3rem;
+        bottom: auto;
+        color: var(--background);
+        background: var(--color);
+      }
     </style>
     <script>
-      const openChat = () => {
+      let isOpen = false;
+      const toggleChat = () => {
         document.querySelector("body").classList.toggle("open");
+        isOpen = !isOpen;
+        document.querySelector("#chatToggle").innerHTML = isOpen
+          
+          ? "Close Chat x" : "Chat";
       };
     </script>
     <div id="root"></div>
-    <!-- <widgetbot
-    id="chat"
-    class="widgetbot"
-    server="933844609870729236"
-    channel="933844609870729241"
-    width="var(--widgetbot-width)"
-    height="var(--widgetbot-height)"
+    <widgetbot
+      id="chat"
+      class="widgetbot"
+      server="933844609870729236"
+      channel="933844609870729241"
+      width="var(--widgetbot-width)"
+      height="var(--widgetbot-height)"
     ></widgetbot>
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-    <button id="chatToggle" class="glassomorphism" onclick="openChat()">Chat</button> -->
+    <button id="chatToggle" class="glassomorphism" onclick="toggleChat()">
+      Chat
+    </button>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
