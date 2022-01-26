@@ -26,6 +26,7 @@ const shapes = [
 const Container = styled.p`
   color: var(--color);
   text-align: center;
+  margin: 3rem 0;
 `
 
 const Divider = () => {
