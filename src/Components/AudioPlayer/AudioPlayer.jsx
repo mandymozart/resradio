@@ -18,7 +18,7 @@ const Container = styled.div`
   margin-left: 1rem;
   align-items: center;
 `;
-const Button = styled.button`
+const ControlButton = styled.button`
   color: var(--color);
   border: 0;
   border-radius: 0.25rem;
@@ -27,8 +27,11 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   line-height: 0.75rem;
+  &:hover {
+    color: var(--second);
+  }
 `;
-const PlayButton = styled(Button)`
+const PlayButton = styled(ControlButton)`
   position: relative;
   padding: 0;
   padding: 0;
