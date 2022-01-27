@@ -4,16 +4,16 @@ import FadeIn from "../Animations/FadeIn";
 const KeyFieldParagraph = ({ text }) => {
   if (!text) return <></>;
   return (
-    <p>
+    <div>
       {text?.split("\n").map((line,index) => (
-        <FadeIn>
+        <FadeIn key={index}>
           <span key={index}>
           {line}
           <br />
         </span>
           </FadeIn>
       ))}
-    </p>
+    </div>
   );
 };
 

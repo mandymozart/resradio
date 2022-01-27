@@ -7,6 +7,8 @@ import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
 import RandomImage from "./Components/RandomImages/RandomImage";
 import AboutPage from "./Pages/About";
+import Broadcast from "./Pages/Broadcast";
+import Broadcasts from "./Pages/Broadcasts";
 import Event from "./Pages/Event";
 import Events from "./Pages/Events";
 import LandingPage from "./Pages/LandingPage";
@@ -62,6 +64,24 @@ function App() {
             element={
               <PageWrapper>
                 <LandingPage />
+              </PageWrapper>
+            }
+          />
+          <Route
+            exact
+            path="/broadcasts"
+            element={
+              <PageWrapper>
+                <Broadcasts />
+              </PageWrapper>
+            }
+          />
+          <Route
+            exact
+            path="/broadcast/:uid"
+            element={
+              <PageWrapper>
+                <Broadcast />
               </PageWrapper>
             }
           />

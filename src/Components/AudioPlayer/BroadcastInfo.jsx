@@ -15,6 +15,7 @@ const Container = styled.div`
   text-align: center;
   > div {
     display: inline-flex;
+    text-transform: capitalize;
   }
 `;
 

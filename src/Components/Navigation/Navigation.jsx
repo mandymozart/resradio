@@ -158,7 +158,7 @@ const Navigation = () => {
         <FadeIn>
           <ul>
             <li>
-              <a onClick={() => goToLink("/events")}>Broadcasts</a>
+              <a onClick={() => goToLink("/broadcasts")}>Broadcasts</a>
             </li>
             <li>
               <a onClick={() => goToLink("/shows")}>Shows</a>

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import FadeIn from "../Animations/FadeIn";
 import Announcement from "../Components/Announcement copy/Announcement";
+import BroadcastList from "../Components/Broadcasts/BroadcastList";
 import Button from "../Components/Button";
 import Divider from "../Components/Divider";
-import EventList from "../Components/Events/EventList";
 import Layout from "../Components/Layout";
 import useThemeStore from "../Stores/ThemeStore";
 
@@ -31,7 +31,7 @@ const LandingPage = () => {
         <Announcement />
       </FadeIn>
       <FadeIn>
-        <EventList />
+        <BroadcastList tag="techno" />
       </FadeIn>
     </Layout>
   );
