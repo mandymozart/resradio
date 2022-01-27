@@ -1,9 +1,8 @@
 import { usePrismicDocumentByUID } from "@prismicio/react";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react/cjs/react.development";
 import FadeIn from "../../Animations/FadeIn";
 import { ItemContainer } from "../ItemContainer";
 import Loader from "../Loader";
