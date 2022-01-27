@@ -31,7 +31,7 @@ const BroadcastItem = ({ broadcast }) => {
           </Link>
 
           <p>
-            {dayjs(broadcast.data.begin).format("ddd, MMM D, YYYY h:mm A")}{" "}
+            {dayjs(broadcast.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}
           </p>
         </div>
       </ItemContainer>

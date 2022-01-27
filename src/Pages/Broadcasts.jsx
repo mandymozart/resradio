@@ -1,3 +1,4 @@
+import { usePrismicClient } from "@prismicio/react";
 import React, { useEffect } from "react";
 import FadeIn from "../Animations/FadeIn";
 import BroadcastList from "../Components/Broadcasts/BroadcastList";
@@ -8,7 +9,9 @@ import useThemeStore from "../Stores/ThemeStore";
 
 const Broadcasts = () => {
   const setKeyword = useThemeStore((store) => store.setKeyword);
-  const { broadcasts, currentBroadcast} = useBroadcastStore()
+  const client = usePrismicClient();
+  const { tags } = client.getTags();
+  const { broadcasts, currentBroadcast } = useBroadcastStore();
   useEffect(() => {
     setKeyword("broadcast");
   }, [setKeyword]);
@@ -18,11 +21,19 @@ const Broadcasts = () => {
         <h2>Missed out on a past broadcast?</h2>
       </FadeIn>
       <FadeIn>
-        <p>We collect all show on soundcloud. Feel free to browse and replay your favorite shows.</p>
+        <p>
+          We collect all shows on Soundcloud. Feel free to browse and replay your
+          favorite shows.
+        </p>
       </FadeIn>
-      <Divider/>
+      <Divider />
+      {tags?.map((tag, index) => (
+        <>
+          <BroadcastList key={index} tag={tag} />
+          <Divider />
+        </>
+      ))}
       <BroadcastList tag="techno"/>
-      <Divider/>
       <BroadcastList tag="ambient"/>
     </Layout>
   );

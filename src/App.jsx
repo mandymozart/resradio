@@ -130,6 +130,15 @@ function App() {
               </PageWrapper>
             }
           />
+          <Route
+            exact
+            path="/impressum"
+            element={
+              <PageWrapper>
+                <AboutPage />
+              </PageWrapper>
+            }
+          />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
