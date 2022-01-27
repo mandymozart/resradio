@@ -57,8 +57,6 @@ const AudioPlayer = () => {
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const volumeSlider = useRef();
   const audioPlayer = useRef();
-  // const [isPlaying, setIsPlaying] = useState(false);
-  // const [isLoading, setIsLoading] = useState(true);
   const {isPlaying, setIsPlaying, isLoading, setIsLoading} = useAudioPlayerStore();
 
   const togglePlay = () => {
@@ -75,12 +73,11 @@ const AudioPlayer = () => {
   };
   const changeVolume = (e) => {
     setVolume(e.target.value);
-    // console.log(e.target.value,volume)
     audioPlayer.current.volume = e.target.value;
   };
 
   const onPlaying = () => { 
-
+    // TODO: visualisation
   };
 
   const onCanPlay = () => {
