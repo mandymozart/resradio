@@ -46,7 +46,7 @@ const Container = styled.div`
 
 const EventItem = ({ event }) => {
   const [isHovered, setHovered] = useState(false);
-  console.log(event.data.image);
+  // console.log(event.data.image);
 
   return (
     <FadeIn>

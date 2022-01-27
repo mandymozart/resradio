@@ -174,8 +174,8 @@ const Navigation = () => {
               styles={css`
                 :root {
                   --color: #f2fefd;
-                  --second: rgb(255, 0, 98);
-                  /* --second: #88ff00; */
+                  /* --second: rgb(255, 0, 98); */
+                  --second: #88ff00;
                   --background: rgba(1, 0, 9);
                 }
                 .glassomorphism {

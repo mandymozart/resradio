@@ -4,13 +4,19 @@ import { isDesktop } from "react-device-detect";
 import {
   BsPause,
   BsPlay,
-  BsVolumeDown, BsVolumeMute, BsVolumeUp
+  BsVolumeDown,
+  BsVolumeMute,
+  BsVolumeUp
 } from "react-icons/bs";
 import config from "../../config";
+import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
+import Loader from "../Loader";
+import BroadcastInfo from "./BroadcastInfo";
 
 const Container = styled.div`
   display: flex;
-  padding-left: 1rem;
+  margin-left: 1rem;
+  align-items: center;
 `;
 const Button = styled.button`
   color: var(--color);
@@ -44,31 +50,46 @@ const VolumeSlider = styled.div`
 `;
 
 const AudioPlayer = () => {
-  const [volume, setVolume] = useState(0.7);
+  const [volume, setVolume] = useState(0.5);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const volumeSlider = useRef();
   const audioPlayer = useRef();
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
+  const {isPlaying, setIsPlaying, isLoading, setIsLoading} = useAudioPlayerStore();
 
   const togglePlay = () => {
-    isPlaying ? audioPlayer.current.pause() : audioPlayer.current.play();
-    setIsPlaying(!isPlaying);
+    // TODO: on mobile this has to be done asynchronous
+    if (isPlaying) {
+      audioPlayer.current.pause();
+    } else {
+      audioPlayer.current.play();
+    }
+    setIsPlaying((s) => !s);
   };
   const toggleVolumeSlider = () => {
     setShowVolumeSlider(!showVolumeSlider);
   };
   const changeVolume = (e) => {
     setVolume(e.target.value);
+    // console.log(e.target.value,volume)
     audioPlayer.current.volume = e.target.value;
   };
 
+  const onPlaying = () => { 
+
+  };
+
+  const onCanPlay = () => {
+    setIsLoading(false);
+    audioPlayer.current.volume = volume;
+  }
+
   return (
     <Container>
-      <audio ref={audioPlayer} id="audioPlayer" preload="auto">
-        <source src={config.STREAM_URL}></source>
-      </audio>
       {isDesktop && (
         <>
+        <audio ref={audioPlayer} volume={volume} onTimeUpdate={onPlaying} onCanPlay={onCanPlay} src={config.STREAM_URL}/>
           <VolumeButton onClick={toggleVolumeSlider}>
             {volume <= 0 && <BsVolumeMute />}
             {volume > 0 && volume < 0.6 && <BsVolumeDown />}
@@ -82,10 +103,10 @@ const AudioPlayer = () => {
                 type="range"
                 max="1"
                 min="0"
+                value={volume}
                 step="0.01"
                 ref={volumeSlider}
                 onChange={changeVolume}
-                defaultValue="0.7"
               />
             </VolumeSlider>
           )}
@@ -93,8 +114,9 @@ const AudioPlayer = () => {
       )}
 
       <PlayButton onClick={togglePlay}>
-        {isPlaying ? <BsPause /> : <BsPlay />}
+        {isLoading ? <Loader size={15} /> : <>{isPlaying ? <BsPause /> : <BsPlay />}</>}
       </PlayButton>
+      <BroadcastInfo/>
     </Container>
   );
 };

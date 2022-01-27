@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import FadeIn from "../Animations/FadeIn";
 import shape1 from "../images/shapes/shape-1.svg";
 import shape11 from "../images/shapes/shape-11.svg";
 import shape12 from "../images/shapes/shape-12.svg";
@@ -66,15 +67,17 @@ const Container = styled.p`
     margin: 3rem auto;
     width: 10rem;
   }
-`
+`;
 const Divider = () => {
   return (
-    <Container>
-      <img
-        src={shapes[Math.floor(Math.random() * shapes.length)]}
-        alt="divider"
-      />
-    </Container>
+    <FadeIn>
+      <Container>
+        <img
+          src={shapes[Math.floor(Math.random() * shapes.length)]}
+          alt="divider"
+        />
+      </Container>
+    </FadeIn>
   );
 };
 export default Divider;

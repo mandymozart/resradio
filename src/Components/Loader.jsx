@@ -9,9 +9,9 @@ const override = css`
   border-color: var(--color);
 `;
 
-const Loader = () => {
+const Loader = ({size=150}) => {
   return (
-      <ClipLoader css={override} size={150} />
+      <ClipLoader css={override} size={size} />
 
   );
 }

@@ -12,7 +12,6 @@ const Announcement = () => {
   const [documents, { state }] = usePrismicDocumentsByType("announcement");
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(documents?.results_size, state);
   }, [documents, state, documents]);
   if (documents?.results_size !== 1) return <></>;
   if (state === "loaded")

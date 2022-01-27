@@ -2,7 +2,7 @@ import * as prismic from '@prismicio/client'
 
 // Fill in your repository name
 export const repositoryName = 'resradio'
-const endpoint = prismic.getEndpoint(repositoryName)
+export const endpoint = prismic.getEndpoint(repositoryName)
 
 export const client = prismic.createClient(endpoint, {
   // If your repo is private, add an access token
@@ -22,6 +22,10 @@ export const client = prismic.createClient(endpoint, {
     {
       type: 'events',
       path: '/event/:uid',
+    },
+    {
+      type: 'broadcasts',
+      path: '/broadcast/:uid',
     },
   ],
 })
