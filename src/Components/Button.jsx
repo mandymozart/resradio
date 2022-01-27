@@ -20,7 +20,8 @@ const Container = styled.button`
   cursor: pointer;
   &:hover {
     color: var(--second);
-    background: var(--color);
+    border-color: var(--second);
+    background: transparent;
   }
 `;
 

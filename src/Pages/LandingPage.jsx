@@ -5,6 +5,7 @@ import BroadcastList from "../Components/Broadcasts/BroadcastList";
 import Button from "../Components/Button";
 import Divider from "../Components/Divider";
 import Layout from "../Components/Layout";
+import Social from "../Components/Social/Social";
 import useThemeStore from "../Stores/ThemeStore";
 
 const LandingPage = () => {
@@ -24,6 +25,7 @@ const LandingPage = () => {
           >
             <Button large> Join our discord</Button>
           </a>
+          <Social/>
         </div>
       </FadeIn>
       <Divider />

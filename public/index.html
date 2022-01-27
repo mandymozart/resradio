@@ -76,8 +76,10 @@
       }
       #chatToggle:hover {
         cursor: pointer;
+
         color: var(--second);
-        background: var(--color);
+        border-color: var(--second);
+        background: transparent;
       }
       .open #chatToggle {
         top: 3rem;
@@ -93,8 +95,8 @@
         document.querySelector("body").classList.toggle("open");
         isOpen = !isOpen;
         document.querySelector("#chatToggle").innerHTML = isOpen
-          
-          ? "Close Chat x" : "Chat";
+          ? "Close Chat x"
+          : "Chat";
       };
     </script>
     <div id="root"></div>

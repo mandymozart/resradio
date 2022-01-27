@@ -3,8 +3,9 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
-import { ItemContainer } from "../Shows/ShowItem";
+import { ItemContainer } from "../ItemContainer";
 import TeaserImage from "../TeaserImage/TeaserImage";
+
 
 const EventItem = ({ event }) => {
   const [isHovered, setHovered] = useState(false);
