@@ -74,26 +74,24 @@ const BroadcastInfo = () => {
     fetchPrismicContent();
   }, []);
 
-  // Return the page if a document was retrieved from Prismic
-  if (currentBroadcast) {
-    return (
-      <Container>
-        <Link to={currentBroadcast.url}>{currentBroadcast.data.title}</Link>
-        <BrowserView>
-          &nbsp; &mdash; &nbsp;{" "}
-          <Link to={currentBroadcast.data.hostedby.url}>
-            {currentBroadcast.data.hostedby.slug}
-          </Link>
-        </BrowserView>
-      </Container>
-    );
-  }
-
-  if (notFound) {
-    return "Offline!";
-  }
-
-  return <>Loading info...</>;
+  return (
+    <Container>
+      {currentBroadcast ? (
+        <>
+          <Link to={currentBroadcast.url}>{currentBroadcast.data.title}</Link>
+          <BrowserView>
+            &nbsp; &mdash; &nbsp;{" "}
+            <Link to={currentBroadcast.data.hostedby.url}>
+              {currentBroadcast.data.hostedby.slug}
+            </Link>
+          </BrowserView>
+          
+        </>
+      ) : (
+        <>{notFound ? "Offline" : "..."}</>
+      )}
+    </Container>
+  );
 };
 
 export default BroadcastInfo;
