@@ -65,7 +65,7 @@ const Container = styled.p`
   text-align: center;
   img {
     margin: 3rem auto;
-    width: 10rem;
+    width: 7rem;
   }
 `;
 const Divider = () => {
