@@ -9,15 +9,15 @@ const ImpressumPage = () => {
   }, [setKeyword]);
   return (
     <Layout>
-      <h3>This page is made with contributions by:</h3>
+      <h3>This page is made possible with contributions by:</h3>
       <ul>
-        <li>Lena Thomaka (Design Advisor)</li>
         <li>Vero ... (Product Owner)</li>
         <li>Reimundo ... (Product Owner)</li>
+        <li>Sabine ... (Management)</li>
+        <li>Lena Thomaka (Design Advisor)</li>
         <li>Chris ... (Product Owner)</li>
         <li>Marcel &amp; ... (Design Concept)</li>
         <li>Mandy Mozart (UX &amp; Code)</li>
-        <li>Sabine ... (Management)</li>
         <li>Jonas Pelzer (Scope Typeface)</li>
       </ul>
     </Layout>

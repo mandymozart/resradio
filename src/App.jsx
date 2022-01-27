@@ -11,6 +11,7 @@ import Broadcast from "./Pages/Broadcast";
 import Broadcasts from "./Pages/Broadcasts";
 import Event from "./Pages/Event";
 import Events from "./Pages/Events";
+import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
@@ -135,7 +136,7 @@ function App() {
             path="/impressum"
             element={
               <PageWrapper>
-                <AboutPage />
+                <ImpressumPage />
               </PageWrapper>
             }
           />
