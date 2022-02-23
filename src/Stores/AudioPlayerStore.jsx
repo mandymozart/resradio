@@ -8,7 +8,7 @@ const useAudioPlayerStore = create(
       set(() => ({
         isPlaying: value,
       })),
-    isLoading: true,
+    isLoading: false,
     setIsLoading: (value) =>
       set(() => ({
         isLoading: value,

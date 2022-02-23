@@ -57,16 +57,20 @@ const AudioPlayer = () => {
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const volumeSlider = useRef();
   const audioPlayer = useRef();
-  const {isPlaying, setIsPlaying, isLoading, setIsLoading} = useAudioPlayerStore();
+  // const source = useRef();
+  // const [track, setTrack] = useState(config.STREAM_URL);
+  const { isPlaying, setIsPlaying, isLoading, setIsLoading } =
+    useAudioPlayerStore();
 
   const togglePlay = () => {
-    // TODO: on mobile this has to be done asynchronous
     if (isPlaying) {
       audioPlayer.current.pause();
+      setIsPlaying(false)
     } else {
+      // setTrack(config.STREAM_URL);
+      setIsPlaying(true)
       audioPlayer.current.play();
     }
-    setIsPlaying((s) => !s);
   };
   const toggleVolumeSlider = () => {
     setShowVolumeSlider(!showVolumeSlider);
@@ -76,20 +80,26 @@ const AudioPlayer = () => {
     audioPlayer.current.volume = e.target.value;
   };
 
-  const onPlaying = () => { 
+  const onPlaying = () => {
     // TODO: visualisation
   };
 
   const onCanPlay = () => {
     setIsLoading(false);
     audioPlayer.current.volume = volume;
-  }
+  };
 
   return (
     <Container>
+      <audio
+        ref={audioPlayer}
+        volume={volume}
+        onTimeUpdate={onPlaying}
+        onCanPlay={onCanPlay}
+        src={config.STREAM_URL}
+      />
       {isDesktop && (
         <>
-        <audio ref={audioPlayer} volume={volume} onTimeUpdate={onPlaying} onCanPlay={onCanPlay} src={config.STREAM_URL}/>
           <VolumeButton onClick={toggleVolumeSlider}>
             {volume <= 0 && <BsVolumeMute />}
             {volume > 0 && volume < 0.6 && <BsVolumeDown />}
@@ -114,9 +124,13 @@ const AudioPlayer = () => {
       )}
 
       <PlayButton onClick={togglePlay}>
-        {isLoading ? <Loader size={15} /> : <>{isPlaying ? <BsPause /> : <BsPlay />}</>}
+        {isLoading ? (
+          <Loader size={15} />
+        ) : (
+          <>{isPlaying ? <BsPause /> : <BsPlay />}</>
+        )}
       </PlayButton>
-      <BroadcastInfo/>
+      <BroadcastInfo />
     </Container>
   );
 };
