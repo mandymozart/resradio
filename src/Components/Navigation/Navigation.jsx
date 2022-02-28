@@ -164,7 +164,7 @@ const Navigation = () => {
               <a onClick={() => goToLink("/shows")}>Shows</a>
             </li>
             <li>
-              <a onClick={() => goToLink("/schedule")}>Schedule</a>
+              <a onClick={() => goToLink("/events")}>Schedule</a>
             </li>
             <li>
               <a onClick={() => goToLink("/about")}>About</a>

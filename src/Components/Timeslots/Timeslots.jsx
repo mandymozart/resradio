@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
+import { PrismicLink } from "@prismicio/react";
 import dayjs from "dayjs";
 import React from "react";
-import { Link } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
 
 const Container = styled.section`
@@ -24,9 +24,9 @@ const Timeslots = ({ timeslots }) => {
               {dayjs(timeslot.to).format("HH:mm")}
             </span>
             <br />
-            <Link to={timeslot.relatedshow.url}>
-              {timeslot.relatedshow.slug}
-            </Link>
+            <PrismicLink field={timeslot.relatedshow}>
+              {timeslot.relatedshow.title}
+            </PrismicLink>
           </FadeIn>
         );
       })}

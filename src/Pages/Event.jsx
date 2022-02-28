@@ -20,14 +20,16 @@ const Meta = styled.div`
   text-align: center;
 `;
 
-const Description = styled.section`
-`;
+const Description = styled.section``;
 const Event = () => {
   const { uid } = useParams();
   const setKeyword = useThemeStore((store) => store.setKeyword);
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", [
-    uid,
-  ]);
+  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", 
+    ["xx"],
+    {
+      fetchLinks: "timeslot.relatedshow.slug",
+    },
+  );
 
   useEffect(() => {
     if (document) setKeyword(document[0].data.keyword);

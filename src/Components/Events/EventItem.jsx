@@ -1,7 +1,7 @@
+import { PrismicLink } from "@prismicio/react";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
 import { ItemContainer } from "../ItemContainer";
 import TeaserImage from "../TeaserImage/TeaserImage";
@@ -9,20 +9,20 @@ import TeaserImage from "../TeaserImage/TeaserImage";
 
 const EventItem = ({ event }) => {
   const [isHovered, setHovered] = useState(false);
-  
+  console.log(event)
   return (
     <FadeIn>
       <ItemContainer
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <Link to={event.url} className={clsx("image", { rotate: isHovered })}>
+        <PrismicLink field={event} className={clsx("image", { rotate: isHovered })}>
           <TeaserImage image={event.data.image} />
-        </Link>
+        </PrismicLink>
         <div className="meta">
-          <Link to={event.url}>
+          <PrismicLink field={event}>
             <h4>{event.data.title}</h4>
-          </Link>
+          </PrismicLink>
 
           {event.data.body.length > 0 && (
             <>
@@ -32,9 +32,9 @@ const EventItem = ({ event }) => {
                   {timeslots.items.map((timeslot, index) => {
                     return (
                       <span key={index}>
-                        <Link to={timeslot.relatedshow.url}>
-                          {timeslot.relatedshow.slug},
-                        </Link>{" "}
+                        <PrismicLink to={timeslot.relatedshow.url}>
+                          {timeslot.relatedshow.title},
+                        </PrismicLink>{" "}
                       </span>
                     );
                   })}

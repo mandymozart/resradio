@@ -6,6 +6,7 @@ import FadeIn from "../../Animations/FadeIn";
 
 const Container = styled.div`
   cursor: pointer;
+  text-align: center;
 `;
 
 const Announcement = () => {
@@ -24,7 +25,6 @@ const Announcement = () => {
             Announcement
           </h3>
           <p>{documents.results[0].data.text} ...</p>
-          <a name="more">read more</a>
         </FadeIn>
       </Container>
     );
