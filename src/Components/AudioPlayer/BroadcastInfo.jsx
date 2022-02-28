@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import React, { useEffect, useState } from "react";
 import { BrowserView } from "react-device-detect";
+import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import { client } from "./../../prismic";
@@ -76,13 +77,24 @@ const BroadcastInfo = () => {
 
   return (
     <Container>
+      {broadcasts && (<>
+        <Marquee>
+          {broadcasts.map(broadcast => (
+            <>
+            <Link to={currentBroadcast.url}>{dayjs(broadcast.data.begin).format("HH:mm")} - {dayjs(broadcast.data.end).format("HH:mm")}: {currentBroadcast.data.title} by {currentBroadcast.data.hostedby.slug}</Link>
+            </>
+          ))}
+        </Marquee>
+      </>)}
       {currentBroadcast ? (
         <>
           <Link to={currentBroadcast.url}>{currentBroadcast.data.title}</Link>
           <BrowserView>
             &nbsp; &mdash; &nbsp;{" "}
             <Link to={currentBroadcast.data.hostedby.url}>
-              {currentBroadcast.data.hostedby.slug}
+              <Marquee>
+                {currentBroadcast.data.hostedby.slug}
+                </Marquee>
             </Link>
           </BrowserView>
           

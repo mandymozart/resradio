@@ -70,7 +70,7 @@ function App() {
           />
           <Route
             exact
-            path="/broadcasts"
+            path="/schedule"
             element={
               <PageWrapper>
                 <Broadcasts />

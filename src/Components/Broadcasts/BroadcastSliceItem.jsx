@@ -18,7 +18,7 @@ const BroadcastSliceItem = ({ uid }) => {
     }
   );
   useEffect(() => {
-    console.log(document, uid);
+    // console.log(document, uid);
   }, [document]);
   if (state === "loading") return <Loader />;
   else if (state === "failed") return <></>;
