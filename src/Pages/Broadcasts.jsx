@@ -33,8 +33,6 @@ const Broadcasts = () => {
           <Divider />
         </>
       ))}
-      <BroadcastList tag="techno"/>
-      <BroadcastList tag="ambient"/>
     </Layout>
   );
 };
