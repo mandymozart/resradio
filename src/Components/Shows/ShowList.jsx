@@ -17,7 +17,7 @@ const ShowList = () => {
   if (!documents && !shows) return <></>;
   return (
     <div>
-      <p>{shows.length} shows!</p>
+      <p>{shows?.length} shows!</p>
       {shows?.map((show) => (
         <ShowItem key={show.id} show={show}/>
       ))}

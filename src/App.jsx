@@ -6,6 +6,7 @@ import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
 import RandomImage from "./Components/RandomImages/RandomImage";
+import ScrollToTop from "./Components/ScrollToTop";
 import AboutPage from "./Pages/About";
 import Broadcast from "./Pages/Broadcast";
 import Broadcasts from "./Pages/Broadcasts";
@@ -57,93 +58,93 @@ function App() {
         <RandomImage scale={0.9} />
         {/* <RandomImage /> */}
         {/* <RandomImage /> */}
+        <ScrollToTop>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <PageWrapper>
+                  <LandingPage />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/schedule"
+              element={
+                <PageWrapper>
+                  <Broadcasts />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/broadcast/:uid"
+              element={
+                <PageWrapper>
+                  <Broadcast />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/events"
+              element={
+                <PageWrapper>
+                  <Events />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/event/:uid"
+              element={
+                <PageWrapper>
+                  <Event />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/shows"
+              element={
+                <PageWrapper>
+                  <Shows />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/show/:uid"
+              element={
+                <PageWrapper>
+                  <Show />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/about"
+              element={
+                <PageWrapper>
+                  <AboutPage />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/impressum"
+              element={
+                <PageWrapper>
+                  <ImpressumPage />
+                </PageWrapper>
+              }
+            />
 
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <PageWrapper>
-                <LandingPage />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/schedule"
-            element={
-              <PageWrapper>
-                <Broadcasts />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/broadcast/:uid"
-            element={
-              <PageWrapper>
-                <Broadcast />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/events"
-            element={
-              <PageWrapper>
-                <Events />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/event/:uid"
-            element={
-              <PageWrapper>
-                <Event />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/shows"
-            element={
-              <PageWrapper>
-                <Shows />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/show/:uid"
-            element={
-              <PageWrapper>
-                <Show />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/about"
-            element={
-              <PageWrapper>
-                <AboutPage />
-              </PageWrapper>
-            }
-          />
-          <Route
-            exact
-            path="/impressum"
-            element={
-              <PageWrapper>
-                <ImpressumPage />
-              </PageWrapper>
-            }
-          />
-
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ScrollToTop>
         <Navigation />
         <RandomImage scale={1.1} />
         {/* <RandomImage scale={1.15}/> */}
