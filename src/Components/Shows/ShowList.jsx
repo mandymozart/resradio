@@ -4,7 +4,9 @@ import { shuffle } from "../../utils";
 import ShowItem from "./ShowItem";
 
 const ShowList = () => {
-  const [documents] = usePrismicDocumentsByType("shows");
+  const [documents] = usePrismicDocumentsByType("shows",{
+    pageSize: 200,
+  });
   const [shows, setShows] = useState();
 
   useEffect(() => {
@@ -15,6 +17,7 @@ const ShowList = () => {
   if (!documents && !shows) return <></>;
   return (
     <div>
+      <p>{shows.length} shows!</p>
       {shows?.map((show) => (
         <ShowItem key={show.id} show={show}/>
       ))}
