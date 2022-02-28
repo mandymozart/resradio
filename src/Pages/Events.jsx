@@ -14,7 +14,7 @@ const Events = () => {
   return (
     <Layout>
       <FadeIn>
-        <h2>Get to know the commies!</h2>
+        <h2>Events!</h2>
       </FadeIn>
       <FadeIn>
         <p>Join us on one of our exciting events around town or the internet.</p>
