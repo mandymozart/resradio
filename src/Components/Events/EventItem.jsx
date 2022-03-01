@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { PrismicLink } from "@prismicio/react";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -6,17 +7,24 @@ import FadeIn from "../../Animations/FadeIn";
 import { ItemContainer } from "../ItemContainer";
 import TeaserImage from "../TeaserImage/TeaserImage";
 
+const Hosts = styled.div`
+  span {
+    text-transform: capitalize;
+  }
+`;
 
 const EventItem = ({ event }) => {
   const [isHovered, setHovered] = useState(false);
-  console.log(event)
   return (
     <FadeIn>
       <ItemContainer
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <PrismicLink field={event} className={clsx("image", { rotate: isHovered })}>
+        <PrismicLink
+          field={event}
+          className={clsx("image", { rotate: isHovered })}
+        >
           <TeaserImage image={event.data.image} />
         </PrismicLink>
         <div className="meta">
@@ -25,16 +33,16 @@ const EventItem = ({ event }) => {
           </PrismicLink>
 
           {event.data.body.length > 0 && (
-            <>
+            <Hosts>
               {event.data.body.map((timeslots, index) => (
                 <span key={index}>
                   w/{" "}
                   {timeslots.items.map((timeslot, index) => {
-                    console.log(timeslot)
+                    console.log(timeslot.relatedshow.slug, index);
                     return (
                       <span key={index}>
-                        <PrismicLink to={timeslot.relatedshow.url}>
-                          {timeslot.relatedshow.title},
+                        <PrismicLink field={timeslot.relatedshow}>
+                          {timeslot.relatedshow.uid},
                         </PrismicLink>{" "}
                       </span>
                     );
@@ -42,9 +50,9 @@ const EventItem = ({ event }) => {
                   <br />
                 </span>
               ))}
-            </>
+            </Hosts>
           )}
-          <p>{dayjs(event.data.begin).format("ddd, MMM D, YYYY h:mm A")} </p>
+          <p>{dayjs(event.data.begin).format("MMM D, h:mm A")} </p>
         </div>
       </ItemContainer>
     </FadeIn>

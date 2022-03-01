@@ -33,7 +33,6 @@ const Event = () => {
 
   useEffect(() => {
     if (document) setKeyword(document[0].data.keyword);
-    console.log(document)
   }, [setKeyword]);
 
   if (state === "loading") return <PageLoader />;
