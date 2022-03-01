@@ -3,6 +3,7 @@ import * as prismic from "@prismicio/client";
 import { usePrismicDocumentsByType } from "@prismicio/react";
 import React from "react";
 import FadeIn from "../../Animations/FadeIn";
+import Divider from "../Divider";
 import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.section`
@@ -16,7 +17,7 @@ const BroadcastList = ({ tag }) => {
     predicates: [prismic.predicate.at("document.tags", [tag])],
       fetchLinks: "data.hostedby.title",
   });
-  if (!documents) return <></>;
+  if (!documents || documents.results.length < 1) return <></>;
   return (
     <Container>
       <FadeIn>
@@ -25,6 +26,7 @@ const BroadcastList = ({ tag }) => {
       {documents.results.map((broadcast) => (
         <BroadcastItem broadcast={broadcast} key={broadcast.id} />
       ))}
+      <Divider />
     </Container>
   );
 };

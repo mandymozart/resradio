@@ -5,7 +5,6 @@ import Grid from "../images/Grid";
 import Logo from "../images/Logo";
 import ViennaStruggleLogo from "../images/ViennaStruggleLogo";
 import Button from "./Button";
-import Divider from "./Divider";
 import Social from "./Social/Social";
 
 const Container = styled.footer`
@@ -22,7 +21,6 @@ const Container = styled.footer`
 const Footer = () => {
   return (
     <Container>
-      <Divider />
       <h3>WANT TO JOIN?</h3>
       <p>
         Res.Radio is a non-commercial community webradio based in Vienna to
@@ -33,8 +31,8 @@ const Footer = () => {
       <a href="https://discord.gg/Sm2N7HGdp9" target="_blank" rel="noreferrer">
         <Button large>Join us!</Button>
       </a>
-        <Social />
-        <Grid />
+      <Social />
+      <Grid />
       <div>
         <p className="copyright">
           <Logo className="logo" />

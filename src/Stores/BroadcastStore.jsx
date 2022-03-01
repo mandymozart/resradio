@@ -13,6 +13,11 @@ const useBroadcastStore = create(
       set(() => ({
         broadcasts: broadcasts,
       })),
+    tags: [],
+    setTags: (tags) =>
+      set(() => ({
+        tags: tags,
+      })),
   }))
 );
 

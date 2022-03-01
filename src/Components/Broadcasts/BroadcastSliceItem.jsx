@@ -1,8 +1,7 @@
-import { usePrismicDocumentByUID } from "@prismicio/react";
+import { PrismicLink, usePrismicDocumentByUID } from "@prismicio/react";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
 import { ItemContainer } from "../ItemContainer";
 import Loader from "../Loader";
@@ -29,20 +28,20 @@ const BroadcastSliceItem = ({ uid }) => {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          <Link
-            to={document.url}
+          <PrismicLink
+            field={document}
             className={clsx("image", { rotate: isHovered })}
           >
             <TeaserImage image={document.data.image} />
-          </Link>
+          </PrismicLink>
           <div className="meta">
-            <Link to={document.url}>
+            <PrismicLink field={document}>
               <h4>{document.data.title}</h4>
-            </Link>
+            </PrismicLink>
             by{" "}
-            <Link to={document.data.hostedby.url}>
+            <PrismicLink field={document.data.hostedby}>
               {document.data.hostedby.data.title}
-            </Link>
+            </PrismicLink>
             <p>
               {dayjs(document.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}
               &mdash; {dayjs(document.data.end).format("HH:mm")}

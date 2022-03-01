@@ -18,8 +18,9 @@ const Shows = () => {
       <FadeIn>
         <p>We are an open call radio. Hosts can apply with a program here.</p>
       </FadeIn>
-      <Divider/>
+      <Divider />
       <ShowList />
+      <Divider />
     </Layout>
   );
 };

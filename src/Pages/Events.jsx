@@ -20,10 +20,11 @@ const Events = () => {
         <p>Our programme is carefully selected and community driven.</p>
         <a href={"https://discord.gg/Q329eD2v8U"} target="_blank">
           <Button>Apply with your own show</Button>
-          </a>
+        </a>
       </FadeIn>
-      <Divider/>
+      <Divider />
       <EventList />
+      <Divider />
     </Layout>
   );
 };
