@@ -110,11 +110,11 @@ const BroadcastInfo = () => {
           </BrowserView>
         </>
       ) : (
-        <Marquee>
+        <>
           {notFound
-            ? "Offline"
+            ? ""
             : "..."}
-        </Marquee>
+        </>
       )}
     </Container>
   );
