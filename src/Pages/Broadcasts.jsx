@@ -15,14 +15,17 @@ const Broadcasts = () => {
   useEffect(() => {
     setKeyword("broadcast");
   }, [setKeyword]);
+  useEffect(() => {
+    console.log(tags)
+  },[tags])
   return (
     <Layout>
       <FadeIn>
-        <h2>Missed something?</h2>
+        <h2>Our broadcasts?</h2>
       </FadeIn>
       <FadeIn>
         <p>
-          We collect all shows on Soundcloud. Feel free to browse and replay your
+          Feel free to browse and replay your
           favorite shows.
         </p>
       </FadeIn>
