@@ -83,7 +83,7 @@ const BroadcastInfo = () => {
 
   return (
     <Container>
-      {broadcasts && (
+      {/* {broadcasts && (
         <>
           <Marquee>
             {broadcasts.map((broadcast) => (
@@ -98,7 +98,7 @@ const BroadcastInfo = () => {
             ))}
           </Marquee>
         </>
-      )}
+      )} */}
       {currentBroadcast ? (
         <>
           <PrismicLink field={currentBroadcast}>{currentBroadcast.data.title}</PrismicLink>
