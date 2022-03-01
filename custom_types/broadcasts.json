@@ -1,0 +1,75 @@
+{
+    "Main" : {
+      "uid" : {
+        "type" : "UID",
+        "config" : {
+          "label" : "slug"
+        }
+      },
+      "title" : {
+        "type" : "Text",
+        "config" : {
+          "label" : "title"
+        }
+      },
+      "hostedby" : {
+        "type" : "Link",
+        "config" : {
+          "select" : "document",
+          "customtypes" : [ "shows" ],
+          "label" : "hostedBy"
+        }
+      },
+      "description" : {
+        "type" : "Text",
+        "config" : {
+          "label" : "description"
+        }
+      },
+      "begin" : {
+        "type" : "Timestamp",
+        "config" : {
+          "label" : "begin"
+        }
+      },
+      "end" : {
+        "type" : "Timestamp",
+        "config" : {
+          "label" : "end"
+        }
+      },
+      "soundcloud" : {
+        "type" : "Embed",
+        "config" : {
+          "label" : "soundcloud",
+          "placeholder" : "After the broadcast aired, drop the soundcloud link here"
+        }
+      },
+      "keyword" : {
+        "type" : "Text",
+        "config" : {
+          "label" : "keyword",
+          "placeholder" : "Type a meaningfull term here. We will load a random giphy."
+        }
+      },
+      "image" : {
+        "type" : "Image",
+        "config" : {
+          "constraint" : {
+            "width" : 1080,
+            "height" : 1080
+          },
+          "thumbnails" : [ {
+            "name" : "2x",
+            "width" : 2160,
+            "height" : 2160
+          }, {
+            "name" : "thumbnail",
+            "width" : 320,
+            "height" : 320
+          } ],
+          "label" : "image"
+        }
+      }
+    }
+  }

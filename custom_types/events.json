@@ -1,0 +1,106 @@
+{
+    "Main" : {
+      "uid" : {
+        "type" : "UID",
+        "config" : {
+          "label" : "slug"
+        }
+      },
+      "title" : {
+        "type" : "Text",
+        "config" : {
+          "label" : "title"
+        }
+      },
+      "description" : {
+        "type" : "Text",
+        "config" : {
+          "label" : "description"
+        }
+      },
+      "begin" : {
+        "type" : "Timestamp",
+        "config" : {
+          "label" : "begin"
+        }
+      },
+      "end" : {
+        "type" : "Timestamp",
+        "config" : {
+          "label" : "end"
+        }
+      },
+      "keyword" : {
+        "type" : "Text",
+        "config" : {
+          "label" : "keyword",
+          "placeholder" : "Type a meaningfull term here. We will load a random giphy."
+        }
+      },
+      "image" : {
+        "type" : "Image",
+        "config" : {
+          "constraint" : {
+            "width" : 1080,
+            "height" : 1080
+          },
+          "thumbnails" : [ {
+            "name" : "2x",
+            "width" : 2160,
+            "height" : 2160
+          }, {
+            "name" : "thumbnail",
+            "width" : 320,
+            "height" : 320
+          } ],
+          "label" : "image"
+        }
+      },
+      "body" : {
+        "type" : "Slices",
+        "fieldset" : "Slice zone",
+        "config" : {
+          "labels" : null,
+          "choices" : {
+            "timeslots" : {
+              "type" : "Slice",
+              "fieldset" : "timeslots",
+              "description" : "Timeslots",
+              "icon" : "access_time",
+              "display" : "list",
+              "non-repeat" : {
+                "segment_title" : {
+                  "type" : "Text",
+                  "config" : {
+                    "label" : "Segment Title"
+                  }
+                }
+              },
+              "repeat" : {
+                "from" : {
+                  "type" : "Timestamp",
+                  "config" : {
+                    "label" : "from"
+                  }
+                },
+                "to" : {
+                  "type" : "Timestamp",
+                  "config" : {
+                    "label" : "to"
+                  }
+                },
+                "relatedshow" : {
+                  "type" : "Link",
+                  "config" : {
+                    "select" : "document",
+                    "customtypes" : [ "shows" ],
+                    "label" : "relatedShow"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
