@@ -14,12 +14,12 @@ const Events = () => {
   return (
     <Layout>
       <FadeIn>
-        <h2>Events!</h2>
+        <h2>Schedule</h2>
       </FadeIn>
       <FadeIn>
-        <p>Join us on one of our exciting events around town or the internet.</p>
+        <p>Our programme is carefully selected and community driven.</p>
         <a href={"https://discord.gg/Q329eD2v8U"} target="_blank">
-          <Button>Submit yours</Button>
+          <Button>Apply with your own show</Button>
           </a>
       </FadeIn>
       <Divider/>
