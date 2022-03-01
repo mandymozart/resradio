@@ -5,6 +5,7 @@ import React from "react";
 import FadeIn from "../../Animations/FadeIn";
 
 const Container = styled.section`
+text-transform: uppercase;
   span {
     font-size: 1.5rem;
   }
@@ -25,7 +26,7 @@ const Timeslots = ({ timeslots }) => {
             </span>
             <br />
             <PrismicLink field={timeslot.relatedshow}>
-              {timeslot.relatedshow.title}
+              {timeslot.relatedshow.uid}
             </PrismicLink>
           </FadeIn>
         );

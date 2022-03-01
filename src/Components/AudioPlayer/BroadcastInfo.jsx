@@ -101,10 +101,10 @@ const BroadcastInfo = () => {
       )}
       {currentBroadcast ? (
         <>
-          <PrismicLink to={currentBroadcast.url}>{currentBroadcast.data.title}</PrismicLink>
+          <PrismicLink field={currentBroadcast}>{currentBroadcast.data.title}</PrismicLink>
           <BrowserView>
             &nbsp; &mdash; &nbsp;{" "}
-            <PrismicLink to={currentBroadcast.data.hostedby.url}>
+            <PrismicLink field={currentBroadcast.data.hostedby}>
               <Marquee>{currentBroadcast.data.hostedby.slug}</Marquee>
             </PrismicLink>
           </BrowserView>

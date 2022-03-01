@@ -6,7 +6,7 @@ import EventItem from "./EventItem";
 const EventList = () => {
   const [documents] = usePrismicDocumentsByType("events", 
   {
-    fetchLinks: "timeslot.relatedshow.slug",
+    fetchLinks: "data.timeslot.relatedshow.title",
   }
   );
   if (!documents) return <></>;

@@ -25,14 +25,15 @@ const Event = () => {
   const { uid } = useParams();
   const setKeyword = useThemeStore((store) => store.setKeyword);
   const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", 
-    ["xx"],
+    [uid],
     {
-      fetchLinks: "timeslot.relatedshow.slug",
+      fetchLinks: "relatedshow.title",
     },
   );
 
   useEffect(() => {
     if (document) setKeyword(document[0].data.keyword);
+    console.log(document)
   }, [setKeyword]);
 
   if (state === "loading") return <PageLoader />;

@@ -30,6 +30,7 @@ const EventItem = ({ event }) => {
                 <span key={index}>
                   w/{" "}
                   {timeslots.items.map((timeslot, index) => {
+                    console.log(timeslot)
                     return (
                       <span key={index}>
                         <PrismicLink to={timeslot.relatedshow.url}>
