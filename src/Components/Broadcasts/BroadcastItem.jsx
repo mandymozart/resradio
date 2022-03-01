@@ -1,7 +1,7 @@
+import { PrismicLink } from "@prismicio/react";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
 import { ItemContainer } from "../ItemContainer";
 import TeaserImage from "../TeaserImage/TeaserImage";
@@ -15,20 +15,20 @@ const BroadcastItem = ({ broadcast }) => {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <Link
-          to={broadcast.url}
+        <PrismicLink
+          field={broadcast}
           className={clsx("image", { rotate: isHovered })}
         >
           <TeaserImage image={broadcast.data.image} />
-        </Link>
+        </PrismicLink>
         <div className="meta">
-          <Link to={broadcast.url}>
+          <PrismicLink field={broadcast}>
             <h4>{broadcast.data.title}</h4>
-          </Link>
+          </PrismicLink>
 
-          <Link to={broadcast.data.hostedby.url}>
-            {broadcast.data.hostedby.slug}
-          </Link>
+          <PrismicLink field={broadcast.data.hostedby}>
+            {broadcast.data.hostedby.title}
+          </PrismicLink>
 
           <p>
             {dayjs(broadcast.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}

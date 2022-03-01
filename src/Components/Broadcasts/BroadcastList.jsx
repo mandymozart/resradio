@@ -14,6 +14,7 @@ const Container = styled.section`
 const BroadcastList = ({ tag }) => {
   const [documents] = usePrismicDocumentsByType("broadcasts", {
     predicates: [prismic.predicate.at("document.tags", [tag])],
+      fetchLinks: "data.hostedby.title",
   });
   if (!documents) return <></>;
   return (

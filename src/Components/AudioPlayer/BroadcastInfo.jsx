@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import * as prismic from "@prismicio/client";
+import { PrismicLink } from "@prismicio/react";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import React, { useEffect, useState } from "react";
 import { BrowserView } from "react-device-detect";
 import Marquee from "react-double-marquee";
-import { Link } from "react-router-dom";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import { client } from "./../../prismic";
 dayjs.extend(isBetween);
@@ -88,12 +88,12 @@ const BroadcastInfo = () => {
           <Marquee>
             {broadcasts.map((broadcast) => (
               <>
-                <Link to={currentBroadcast.url}>
+                <PrismicLink field={broadcast}>
                   {dayjs(broadcast.data.begin).format("HH:mm")} -{" "}
                   {dayjs(broadcast.data.end).format("HH:mm")}:{" "}
-                  {currentBroadcast.data.title} by{" "}
-                  {currentBroadcast.data.hostedby.slug}
-                </Link>
+                  {broadcast.data.title} by{" "}
+                  {broadcast.data.hostedby.slug}
+                </PrismicLink>
               </>
             ))}
           </Marquee>
@@ -101,12 +101,12 @@ const BroadcastInfo = () => {
       )}
       {currentBroadcast ? (
         <>
-          <Link to={currentBroadcast.url}>{currentBroadcast.data.title}</Link>
+          <PrismicLink to={currentBroadcast.url}>{currentBroadcast.data.title}</PrismicLink>
           <BrowserView>
             &nbsp; &mdash; &nbsp;{" "}
-            <Link to={currentBroadcast.data.hostedby.url}>
+            <PrismicLink to={currentBroadcast.data.hostedby.url}>
               <Marquee>{currentBroadcast.data.hostedby.slug}</Marquee>
-            </Link>
+            </PrismicLink>
           </BrowserView>
         </>
       ) : (
