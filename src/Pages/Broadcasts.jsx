@@ -21,7 +21,7 @@ const Broadcasts = () => {
   return (
     <Layout>
       <FadeIn>
-        <h2>Our broadcasts?</h2>
+        <h2>Our broadcasts</h2>
       </FadeIn>
       <FadeIn>
         <p>
