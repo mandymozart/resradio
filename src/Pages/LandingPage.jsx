@@ -23,8 +23,7 @@ const LandingPage = () => {
     { fetchLinks: "broadcasts.title" }
   );
   useEffect(() => {
-    if (document) setKeyword("kermit");
-    console.log(document);
+    if (document) setKeyword(document[0].data.keyword);
   }, [document, setKeyword]);
   if (state === "loading") return <PageLoader />;
   else if (state === "failed") return <NotFound />;
