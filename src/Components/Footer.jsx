@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Grid from "../images/Grid";
 import Logo from "../images/Logo";
-import ViennaStruggleLogo from "../images/ViennaStruggleLogo";
 import Button from "./Button";
 import Social from "./Social/Social";
 
@@ -28,7 +27,7 @@ const Footer = () => {
         the radio grew into a multicultural community/platform featuring artists
         with many different backgrounds.
       </p>
-      <a href="https://discord.gg/Sm2N7HGdp9" target="_blank" rel="noreferrer">
+      <a href="https://t.me/resradio" target="_blank" rel="noreferrer">
         <Button large>Join us!</Button>
       </a>
       <Social />
@@ -46,17 +45,7 @@ const Footer = () => {
           </a>
         </p>
         <p>
-          App made by
-          <br />
-          <a
-            href="https://www.viennastruggle.com"
-            rel="noreferrer"
-            target="_blank"
-          >
-            <ViennaStruggleLogo className="logo" />
-          </a>
-          <br />
-          <Link to={"impressum"}>List of all contributers</Link>
+          <Link to={"impressum"}>Impressum</Link>
         </p>
       </div>
     </Container>
