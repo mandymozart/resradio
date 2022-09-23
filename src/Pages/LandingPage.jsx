@@ -35,11 +35,11 @@ const LandingPage = () => {
             <Hero image={document[0].data.image}>
               <h2>{document[0].data.welcome_message}</h2>
               <a
-                href="https://discord.gg/Sm2N7HGdp9"
+                href="mailto:program.resradio@gmail.com"
                 target="_blank"
                 rel="noreferrer"
               >
-                <Button large>Join our discord</Button>
+                <Button large>Join us</Button>
               </a>
               <Social />
             </Hero>
