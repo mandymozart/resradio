@@ -6,7 +6,7 @@ const EventList = () => {
   const [documents] = usePrismicDocumentsByType("events", {
     orderings: {
       field: 'my.events.begin',
-      direction: 'desc',
+      direction: 'asc',
     },
   });
   if (!documents) return <></>;
