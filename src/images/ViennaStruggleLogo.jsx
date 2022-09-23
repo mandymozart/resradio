@@ -7,9 +7,9 @@ const ViennaStruggleLogo = () => {
       baseProfile="basic"
       x="0px"
       y="0px"
-      width="700px"
+      width="250px"
       height="20px"
-      viewBox="0 0 700 90"
+      viewBox="0 0 250 100"
     >
       <polygon
         fill="currentColor"
