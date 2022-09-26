@@ -182,6 +182,9 @@ const Navigation = () => {
                   --background: rgba(1, 0, 9);
                 }
                 .glassomorphism {
+                  background: rgba(1, 0, 9, 0.9);
+                }
+                @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
                   background: rgba(1, 0, 9, 0.2);
                 }
               `}
