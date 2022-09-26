@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect } from "react";
 import FadeIn from "../Animations/FadeIn";
-import Announcement from "../Components/Announcement copy/Announcement";
+import Announcement from "../Components/Announcement/Announcement";
 import BroadcastSlice from "../Components/Broadcasts/BroadcastSlice";
 import Button from "../Components/Button";
 import Divider from "../Components/Divider";
@@ -44,7 +44,6 @@ const LandingPage = () => {
               <Social />
             </Hero>
           </FadeIn>
-          <Divider />
           <FadeIn>
             <Announcement />
           </FadeIn>
@@ -53,6 +52,7 @@ const LandingPage = () => {
               return <BroadcastSlice key={index} slice={slice} />;
             else return <></>;
           })}
+          <Divider />
         </Layout>
       </>
     );

@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
-import Grid from "../images/Grid";
-import Logo from "../images/Logo";
+import GridLogo from "../images/GridLogo";
 import Button from "./Button";
 import Social from "./Social/Social";
 
@@ -11,10 +10,6 @@ const Container = styled.footer`
   max-width: var(--content-width);
   margin: 0 auto;
   text-align: center;
-  > div svg {
-    margin: 0.5rem auto;
-    width: 8rem;
-  }
 `;
 
 const Footer = () => {
@@ -31,11 +26,9 @@ const Footer = () => {
         <Button large>Join us!</Button>
       </a>
       <Social />
-      <Grid />
+      <GridLogo />
       <div>
         <p className="copyright">
-          <Logo className="logo" />
-          <br />
           &copy; 2022
           <br />
           General inquiries
