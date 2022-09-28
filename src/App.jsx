@@ -14,6 +14,7 @@ import Event from "./Pages/Event";
 import Events from "./Pages/Events";
 import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
+import Page from "./Pages/Page";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import useThemeStore from "./Stores/ThemeStore";
@@ -120,6 +121,15 @@ function App() {
               element={
                 <PageWrapper>
                   <Show />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/page/:uid"
+              element={
+                <PageWrapper>
+                  <Page />
                 </PageWrapper>
               }
             />

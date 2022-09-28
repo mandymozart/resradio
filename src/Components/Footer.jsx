@@ -30,6 +30,10 @@ const Footer = () => {
       <a href="https://t.me/resradio" target="_blank" rel="noreferrer">
         <Button large>Join us!</Button>
       </a>
+      {' '}
+      <Link to={"page/donate"}>
+        <Button large>Donate!</Button>
+      </Link>
       <Social />
       <Grid />
       <div>

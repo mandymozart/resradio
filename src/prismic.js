@@ -27,5 +27,9 @@ export const client = prismic.createClient(endpoint, {
       type: 'broadcasts',
       path: '/broadcast/:uid',
     },
+    {
+      type: 'page',
+      path: '/page/:uid',
+    },
   ],
 })
