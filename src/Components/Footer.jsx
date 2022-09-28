@@ -15,7 +15,7 @@ const Container = styled.footer`
 const Footer = () => {
   return (
     <Container>
-      <h3>WANT TO JOIN?</h3>
+      <h3>WANT TO PART TAKE?</h3>
       <p>
         Res.Radio is a non-commercial community webradio based in Vienna to
         strengthen and display subcultural genres. From its founding in 2019,
@@ -25,6 +25,10 @@ const Footer = () => {
       <a href="https://t.me/resradio" target="_blank" rel="noreferrer">
         <Button large>Join us!</Button>
       </a>
+      {' '}
+      <Link to={"page/donate"}>
+        <Button large>Donate!</Button>
+      </Link>
       <Social />
       <GridLogo />
       <div>

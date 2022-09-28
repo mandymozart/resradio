@@ -169,6 +169,9 @@ const Navigation = () => {
             <li>
               <a onClick={() => goToLink("/about")}>About</a>
             </li>
+            <li>
+              <a onClick={() => goToLink("/page/donate")}>Donate!</a>
+            </li>
           </ul>
         </FadeIn>
         {nightMode && (
