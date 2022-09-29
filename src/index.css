@@ -4,8 +4,8 @@
 
   /* Day */
   --color-day: #011707;
-  --second-day: #00ff3c;
-  --background-day: rgb(255,255,255,0.7);
+  --second-day: #000000;
+  --background-day: #00ff3c;
 
   /* Night */
   --color-night: #f2fefd;
@@ -100,12 +100,12 @@ p {
   margin-bottom: 3rem;
 }
 .glassomorphism {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 255, 60, 0.9);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .glassomorphism {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 255, 60, 0.7);
     backdrop-filter: blur(6px);
   }
 }

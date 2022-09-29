@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import useMounted from "react-use-mounted";
 import shape1 from "../images/shapes/shape-1.svg";
 import shape11 from "../images/shapes/shape-11.svg";
 import shape12 from "../images/shapes/shape-12.svg";
@@ -62,8 +64,11 @@ const shapes = [
 ];
 
 const RandomShape = () => {
-  return (
-    <Shapes shape={Math.floor(Math.random() * shapes.length)}/>
-  );
+  const mounted = useMounted();
+  const [randomNumber, setRandomNumber] = useState();
+  useEffect(() => {
+    if (mounted) setRandomNumber(Math.floor(Math.random() * shapes.length));
+  }, [useMounted]);
+  return <Shapes shape={randomNumber} />;
 };
 export default RandomShape;
