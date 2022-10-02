@@ -3,15 +3,15 @@
   --header-width: min(100%, 72rem);
 
   /* Day */
-  --color-day: #011707;
-  --second-day: #000000;
-  --background-day: #00ff3c;
+  --color-day: #f2fefd;
+  --second-day: #FAFF00;
+  --background-day: #0047FF;
 
   /* Night */
   --color-night: #f2fefd;
-  --second-night: #00ff3c;
+  --second-night: #FAFF00;
   /* --second-night: rgb(255, 0, 98); */
-  --background-night: rgb(1, 0, 9);
+  --background-night: #0047FF;
 
   --color: var(--color-day);
   --second: var(--second-day);
@@ -100,12 +100,12 @@ p {
   margin-bottom: 3rem;
 }
 .glassomorphism {
-  background: rgba(0, 255, 60, 0.9);
+  background: rgba(0, 71, 255, 0.9);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .glassomorphism {
-    background: rgba(0, 255, 60, 0.7);
+    background: rgba(0, 71, 255, 0.7);
     backdrop-filter: blur(6px);
   }
 }

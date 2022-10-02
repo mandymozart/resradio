@@ -1,21 +1,20 @@
 import styled from "@emotion/styled";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import React, { useEffect, useState } from "react";
 import { BrowserView } from "react-device-detect";
 import useThemeStore from "../../Stores/ThemeStore";
 
-const getRandomNumber = (min, max) => {
+export const getRandomNumber = (min, max) => {
   return Math.random() * (max - min) + min;
 };
 
-const OFFSET = 200; // pixel offset of images from border
-const DEATHZONE = 512; // pixel in center to not enter for images
-const DRIFT = 8;
+export const OFFSET = 200; // pixel offset of images from border
+export const DEATHZONE = 512; // pixel in center to not enter for images
+export const DRIFT = 8;
 
 const placeholderImage =
   "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
 
-const floatingPointRange = (value, max) => (value * 2) / max - 1;
+export const floatingPointRange = (value, max) => (value * 2) / max - 1;
 
 const Image = styled.img(
   ({ pos, scale, opacity, shift, blur, scroll, windowWidth, windowHeight }) => `
@@ -40,49 +39,36 @@ const Image = styled.img(
 `
 );
 
+export const documentHeight = () =>
+  Math.max(
+    document.documentElement.clientHeight,
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.offsetHeight
+  );
+
+export const getRandomHorizontalPosition = () => {
+  const windowWidth = window.innerWidth;
+  const left = getRandomNumber(
+    OFFSET / 2,
+    windowWidth / 2 - DEATHZONE / 2 - OFFSET / 2
+  );
+  const right = getRandomNumber(
+    windowWidth / 2 + DEATHZONE / 2,
+    windowWidth - OFFSET / 2
+  );
+  return Math.random() < 0.5 ? left : right;
+};
 const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
   const keyword = useThemeStore((store) => store.keyword);
   const mousePosition = useThemeStore((store) => store.mousePosition);
   const [gif, setGif] = useState();
   const [pos, setPos] = useState({ top: 0, left: 0 });
 
-  const windowHeight = window.innerHeight;
-  const windowWidth = window.innerWidth;
-
-  const getRandomHorizontalPosition = () => {
-    const left = getRandomNumber(
-      OFFSET / 2,
-      windowWidth / 2 - DEATHZONE / 2 - OFFSET / 2
-    );
-    const right = getRandomNumber(
-      windowWidth / 2 + DEATHZONE / 2,
-      windowWidth - OFFSET / 2
-    );
-    return Math.random() < 0.5 ? left : right;
-  };
-
-  const [scrollFloatingPoint, setScrollFloatingPoint] = useState(-1);
-
-  const documentHeight = () =>
-    Math.max(
-      document.documentElement.clientHeight,
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight
-    );
-
-  useScrollPosition(
-    ({ prevPos, currPos }) => {
-      const value = floatingPointRange(currPos, documentHeight());
-      setScrollFloatingPoint(value ? value : -1);
-    },
-    [scrollFloatingPoint]
-  );
-
   const setNewPosition = () => {
     setPos({
-      top: getRandomNumber(50, windowHeight - OFFSET),
+      top: getRandomNumber(50, window.innerHeight - OFFSET),
       left: getRandomHorizontalPosition(),
     });
   };
@@ -106,10 +92,10 @@ const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
         scale={gif ? scale : 0}
         pos={pos}
         shift={{ x: mousePosition.x, y: mousePosition.y }}
-        scroll={scrollFloatingPoint}
+        scroll={-1}
         blur={blur}
-        windowWidth={windowWidth}
-        windowHeight={windowHeight}
+        windowWidth={window.innerWidth}
+        windowHeight={window.innerHeight}
         opacity={gif ? opacity : 0}
         alt="WHY WHY WHY"
       />

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect } from "react";
+import { MobileView } from "react-device-detect";
 import FadeIn from "../Animations/FadeIn";
 import Announcement from "../Components/Announcement/Announcement";
 import BroadcastSlice from "../Components/Broadcasts/BroadcastSlice";
@@ -42,9 +43,11 @@ const LandingPage = () => {
               {/* <Social /> */}
             </Hero>
           </FadeIn>
-          <FadeIn>
-            <Announcement />
-          </FadeIn>
+          <MobileView>
+            <FadeIn>
+              <Announcement />
+            </FadeIn>
+          </MobileView>
           {document[0].data.body?.map((slice, index) => {
             if ((slice.type = "featured_broadcasts"))
               return <BroadcastSlice key={index} slice={slice} />;

@@ -1,12 +1,15 @@
 import useMouse from "@react-hook/mouse-position";
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { BrowserView } from "react-device-detect";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FloatingAnnouncement from "./Components/Announcement/FloatingAnnouncement";
 import Footer from "./Components/Footer";
 import Navigation from "./Components/Navigation/Navigation";
 import NotFound from "./Components/NotFound";
 import RandomImage from "./Components/RandomImages/RandomImage";
 import ScrollToTop from "./Components/ScrollToTop";
+import Symbols from "./Components/Symbols";
 import AboutPage from "./Pages/About";
 import Broadcast from "./Pages/Broadcast";
 import Broadcasts from "./Pages/Broadcasts";
@@ -144,6 +147,15 @@ function App() {
             />
             <Route
               exact
+              path="/symbols"
+              element={
+                <PageWrapper>
+                  <Symbols />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
               path="/impressum"
               element={
                 <PageWrapper>
@@ -158,6 +170,9 @@ function App() {
         <Navigation />
         <RandomImage scale={1.1} />
         {/* <RandomImage scale={1.15}/> */}
+        <BrowserView>
+        <FloatingAnnouncement/>
+        </BrowserView>
         <Footer />
         {/* <Chat /> */}
       </BrowserRouter>
