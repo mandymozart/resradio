@@ -28,7 +28,7 @@ const Shapes = ({ shape }) => {
           d="M53.0697 38.62C53.0697 39.92 75.4397 41.2 75.3097 42.47C75.1797 43.73 74.9897 44.98 74.7397 46.21C74.4897 47.44 74.1797 48.64 73.8097 49.82C73.4397 51 52.0597 52.15 51.8697 53.28C51.6797 54.41 71.5397 55.5 70.9597 56.57C70.3797 57.64 69.7497 58.67 69.0697 59.67C68.3897 60.67 67.6697 61.64 66.8997 62.57C66.1297 63.5 48.9497 64.39 48.5997 65.24C48.2497 66.09 62.7197 66.9 61.7897 67.67C60.8597 68.44 59.8897 69.16 58.8897 69.84C57.8897 70.52 56.8497 71.15 55.7797 71.72C54.7097 72.3 44.2097 72.83 43.7497 73.3C43.2897 73.77 50.1997 74.2 49.0197 74.57C47.8397 74.94 46.6397 75.25 45.4097 75.5C44.1797 75.75 42.9397 75.94 41.6697 76.07C40.3997 76.2 38.3397 76.26 37.8197 76.26C37.2997 76.26 35.2297 76.19 33.9697 76.07C32.6997 75.94 31.4597 75.75 30.2297 75.5C28.9997 75.25 27.7997 74.94 26.6197 74.57C25.4397 74.2 32.3497 73.78 31.8897 73.3C31.4297 72.82 20.9297 72.29 19.8597 71.72C18.7897 71.14 17.7597 70.51 16.7497 69.84C15.7497 69.16 14.7797 68.44 13.8497 67.67C12.9197 66.9 27.3897 66.09 27.0397 65.24C26.6997 64.39 9.50967 63.5 8.73967 62.57C7.96967 61.64 7.24967 60.67 6.56967 59.67C5.88967 58.67 5.25966 57.63 4.67966 56.57C4.09966 55.5 23.9597 54.41 23.7697 53.28C23.5797 52.15 2.18967 51 1.82967 49.82C1.45967 48.64 1.14967 47.44 0.899666 46.21C0.649666 44.99 0.459666 43.74 0.329666 42.47C0.199666 41.21 22.5697 39.92 22.5697 38.62C22.5697 37.32 0.199666 36.04 0.329666 34.77C0.459666 33.51 0.649666 32.26 0.899666 31.03C1.14967 29.81 1.45967 28.6 1.82967 27.42C2.19967 26.24 23.5797 25.09 23.7697 23.96C23.9597 22.83 4.09966 21.74 4.67966 20.67C5.25966 19.6 5.88967 18.57 6.56967 17.57C7.24967 16.57 7.96967 15.6 8.73967 14.67C9.50967 13.74 26.6897 12.85 27.0397 12C27.3797 11.15 12.9197 10.34 13.8497 9.56998C14.7797 8.79998 15.7497 8.07998 16.7497 7.39998C17.7497 6.71998 18.7897 6.08998 19.8597 5.51998C20.9297 4.93998 31.4297 4.40998 31.8897 3.93998C32.3497 3.45998 25.4397 3.03998 26.6197 2.66998C27.7997 2.29998 28.9997 1.98998 30.2297 1.73998C31.4597 1.48998 32.6997 1.29998 33.9697 1.16998C35.2397 1.03998 37.2997 0.97998 37.8197 0.97998C38.3397 0.97998 40.4097 1.04998 41.6697 1.16998C42.9397 1.29998 44.1797 1.48998 45.4097 1.73998C46.6397 1.98998 47.8397 2.29998 49.0197 2.66998C50.1997 3.03998 43.2897 3.45998 43.7497 3.93998C44.2097 4.41998 54.7097 4.94998 55.7797 5.51998C56.8497 6.09998 57.8797 6.72998 58.8897 7.39998C59.8897 8.07998 60.8597 8.79998 61.7897 9.56998C62.7197 10.34 48.2497 11.15 48.5997 12C48.9397 12.85 66.1297 13.74 66.8997 14.67C67.6697 15.6 68.3897 16.57 69.0697 17.57C69.7497 18.57 70.3797 19.61 70.9597 20.67C71.5397 21.74 51.6797 22.83 51.8697 23.96C52.0597 25.09 73.4497 26.24 73.8097 27.42C74.1697 28.6 74.4897 29.8 74.7397 31.03C74.9897 32.25 75.1797 33.5 75.3097 34.77C75.4397 36.04 53.0697 37.32 53.0697 38.62Z"
           stroke="currentColor"
           strokeWidth="0.5"
-          strokemitterlimit="10"
+          strokemitterlimit="10" fill="currentColor"
         />
       )}
       {shape === 3 && (
@@ -362,37 +362,37 @@ const Shapes = ({ shape }) => {
           <path
             d="M28.06 6.48C29.86 3.23 31.95 1.37 34.18 1.37C40.89 1.37 46.33 18.17 46.33 38.89C46.33 59.61 40.89 76.41 34.18 76.41C27.47 76.41 22.03 59.61 22.03 38.89C22.03 29.34 23.18 20.63 25.09 14.01"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M63.79 47.47C66.94 51.63 68.14 55.26 66.75 57.65C63.39 63.45 46.09 59.75 28.11 49.39C10.13 39.03 -1.74001 25.93 1.61999 20.13C4.97999 14.33 22.28 18.03 40.26 28.39C47.47 32.54 53.69 37.14 58.35 41.52"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M10.88 60.29C6.24002 60.7 2.91001 59.87 1.62001 57.65C-1.73999 51.85 10.12 38.75 28.11 28.39C46.1 18.03 63.4 14.33 66.75 20.13C70.11 25.93 58.25 39.03 40.26 49.39C32.67 53.76 25.19 56.95 18.84 58.74"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M34.19 44.45C37.2662 44.45 39.76 41.9607 39.76 38.89C39.76 35.8193 37.2662 33.33 34.19 33.33C31.1138 33.33 28.62 35.8193 28.62 38.89C28.62 41.9607 31.1138 44.45 34.19 44.45Z"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M26.37 14.21C28.6123 14.21 30.43 12.3967 30.43 10.16C30.43 7.92324 28.6123 6.10999 26.37 6.10999C24.1277 6.10999 22.31 7.92324 22.31 10.16C22.31 12.3967 24.1277 14.21 26.37 14.21Z"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M14.9 63.73C17.1423 63.73 18.96 61.9167 18.96 59.68C18.96 57.4432 17.1423 55.63 14.9 55.63C12.6577 55.63 10.84 57.4432 10.84 59.68C10.84 61.9167 12.6577 63.73 14.9 63.73Z"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M61.16 48.5C63.4023 48.5 65.22 46.6868 65.22 44.45C65.22 42.2132 63.4023 40.4 61.16 40.4C58.9177 40.4 57.1 42.2132 57.1 44.45C57.1 46.6868 58.9177 48.5 61.16 48.5Z"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
         </>
       )}
@@ -427,37 +427,37 @@ const Shapes = ({ shape }) => {
             d="M35.7001 44.72L24.5201 25.4L19.61 33.89L0.810059 66.38H23.16L35.7001 44.72Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M6.23004 63.26L24.5201 31.64L32.0901 44.72L21.36 63.26H6.23004Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M39.7601 42.38H62.1201L57.2101 33.89L38.41 1.39999L27.23 20.72L39.7601 42.38Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M41.5701 39.25L30.8401 20.71L38.41 7.64001L56.7001 39.25H41.5701Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M39.7601 47.06L28.5801 66.38H38.41H76.0101L64.8301 47.06H39.7601Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M34.0001 63.26L41.5701 50.18H63.0301L70.5901 63.26H34.0001Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
         </>
       )}
@@ -709,265 +709,265 @@ const Shapes = ({ shape }) => {
             d="M24.77 73.08C24.62 73.01 24.48 72.96 24.34 72.9C24.17 72.83 24 72.75 23.85 72.69C23.41 72.49 22.92 72.27 22.43 72.02C22.11 71.86 21.78 71.71 21.47 71.55C21.29 71.46 21.11 71.37 20.93 71.28"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M29.71 74.64C28.2 74.26 27.05 73.89 26.4 73.68C25.93 73.52 25.37 73.32 24.83 73.11"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M33.58 75.35C32.13 75.15 30.84 74.89 29.74 74.63"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M52.56 72.94C51.51 73.36 50.18 73.85 48.87 74.2C48.79 74.22 48.72 74.24 48.65 74.27C47.96 74.45 46.73 74.78 45.09 75.07C44.18 75.24 43.13 75.39 41.98 75.49C40.76 75.61 39.41 75.68 37.97 75.66C37.79 75.66 37.61 75.65 37.42 75.65C36.32 75.62 35.17 75.54 33.97 75.39C33.86 75.38 33.75 75.36 33.63 75.35"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M69.54 59.14C68.94 60.01 68.31 60.88 67.76 61.61C67.13 62.44 66.16 63.44 65.46 64.21C64.91 64.81 64.12 65.56 63.5 66.1C62.63 66.86 61.42 67.81 60.5 68.51C59.79 69.07 58.79 69.73 58 70.18C57.68 70.37 57.32 70.57 56.95 70.78C56.82 70.86 56.69 70.93 56.56 70.99C55.75 71.44 54.91 71.87 54.21 72.21C53.83 72.4 53.27 72.65 52.6 72.91"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M75.93 39.35C75.89 40.21 75.85 41.26 75.76 42.08C75.66 43.06 75.5 44.37 75.29 45.34C74.63 48.25 74.44 49.12 73.61 51.33C72.46 54.43 71.1 56.72 70.94 56.96C70.92 57 70.9 57.04 70.86 57.08C70.49 57.69 70.04 58.39 69.58 59.07"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M75.95 37.45C75.97 38.01 75.97 38.56 75.95 39.04C75.95 39.07 75.95 39.1 75.95 39.13C75.94 39.2 75.94 39.26 75.93 39.34"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M75.91 36.78C75.92 36.99 75.93 37.2 75.94 37.42"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M61.7 8.98001C62.51 9.59001 63.38 10.34 64.38 11.29C66.35 13.18 67.72 14.88 68.35 15.73C68.8 16.32 69.27 16.97 69.76 17.72C70.14 18.28 70.52 18.89 70.93 19.6C71.15 19.97 71.37 20.36 71.59 20.77C72.42 22.3 73.29 24.45 73.91 26.07C74.57 27.8 75.62 31.87 75.85 35.31C75.87 35.75 75.91 36.24 75.93 36.74"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M52 3.44C52.2 3.52 52.4 3.61 52.62 3.69C53.37 3.99 54.21 4.36001 55.06 4.79001C55.23 4.87001 55.38 4.96001 55.54 5.04001C55.91 5.23001 56.27 5.42 56.62 5.62C57.89 6.31 58.97 6.98 59.88 7.63C60.42 8.02 61 8.42999 61.62 8.92999"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M47.36 1.98001C48.6 2.27001 49.7 2.61001 50.58 2.92001C50.96 3.05001 51.43 3.22001 51.97 3.42001"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M43.35 1.23001C44.76 1.42001 46.11 1.68 47.32 1.97"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M28.31 2.35C28.72 2.23 29.17 2.09999 29.65 1.98999C30.43 1.79999 31.18 1.63999 31.91 1.51999C33.01 1.30999 34.03 1.17 34.99 1.1C36.52 0.940003 37.87 0.91 39.02 0.94C39.21 0.94 39.39 0.94 39.57 0.94C39.86 0.95 40.14 0.959998 40.4 0.969998C41.39 1.01 42.37 1.10001 43.32 1.23001"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M20.5 5.54001C21.6 4.90001 23.11 4.18001 24.28 3.73001C24.36 3.70001 24.44 3.66 24.53 3.63C25.59 3.23 26.71 2.8 28.25 2.37"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M1.05002 37.27C1.09002 35.43 1.23002 34.43 1.58002 31.94C1.58002 31.91 1.97001 29.27 3.14001 25.95C3.45001 25.03 3.95002 23.83 4.35002 22.94C4.70002 22.15 5.25002 21.14 5.63002 20.37C5.64002 20.36 5.81001 20.01 6.15001 19.43C6.24001 19.28 6.34002 19.13 6.44002 18.96C6.61002 18.69 6.80001 18.38 7.03001 18.04C7.11001 17.91 7.20001 17.78 7.29001 17.64C8.21001 16.25 9.54001 14.49 11.26 12.65C13.16 10.63 14.62 9.5 16.16 8.31C17.47 7.29 18.79 6.50999 20.18 5.70999C20.26 5.67999 20.35 5.61999 20.43 5.57999C20.45 5.56999 20.47 5.55999 20.5 5.54999"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M1.05001 39.2C1.04001 38.86 1.04001 38.54 1.04001 38.24C1.04001 37.97 1.04001 37.71 1.05001 37.48C1.05001 37.41 1.05001 37.35 1.05001 37.28"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M1.08 39.81C1.07 39.62 1.07 39.42 1.06 39.23"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M6.07003 57.03C5.41003 55.89 5.04003 55.14 5.02003 55.09C4.62003 54.23 4.07003 53.08 3.71003 52.2C3.39003 51.4 3.00003 50.29 2.74003 49.46C2.25003 47.94 1.75002 45.86 1.52002 44.28C1.35002 43.11 1.20003 41.68 1.12003 40.31"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M15.29 67.62C14.1 66.7 13.08 65.84 12.1 64.81C10.05 62.65 9.57003 62.15 8.17003 60.24C7.82003 59.76 7.50004 59.29 7.21004 58.85C6.77004 58.18 6.39003 57.58 6.09003 57.04"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M38.43 74.19C38.39 74.2 38.33 74.2 38.28 74.21"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M38.28 74.21C38.26 74.21 38.22 74.21 38.2 74.21"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M38.19 74.21C38.12 74.23 38.04 74.23 37.98 74.24"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M37.98 74.24C37.96 74.24 37.92 74.25 37.9 74.24"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M37.9 74.24C37.75 74.26 37.61 74.28 37.46 74.3"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M37.45 74.3C37.34 74.31 37.24 74.32 37.13 74.33"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M37.13 74.33C37.05 74.34 36.97 74.35 36.89 74.34"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M36.89 74.35C36.83 74.37 36.78 74.37 36.72 74.37"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M36.72 74.37C35.61 74.47 34.5 74.49 33.43 74.47"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M33.4 74.47C31.9 74.44 30.43 74.28 29.01 74.02"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M28.99 74.02C28.68 73.96 28.37 73.91 28.07 73.84"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M28.08 73.84C27.62 73.75 27.17 73.64 26.72 73.53"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M26.64 73.51C25.18 73.12 23.78 72.63 22.43 72.02"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M22.43 72.02C22.11 71.87 21.79 71.72 21.47 71.56"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M21.47 71.56C21.29 71.47 21.11 71.38 20.93 71.28"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M20.93 71.28C20.9 71.27 20.85 71.25 20.81 71.22C20.7 71.14 20.57 71.09 20.46 71.03C20.44 71.02 20.4 71.01 20.38 70.99"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M20.38 70.99C20.26 70.93 20.14 70.87 20.02 70.8C19 70.2 17.64 69.4 16.7 68.69C16.24 68.34 15.81 68.02 15.4 67.71"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M47.28 73.79C47.25 73.82 47.21 73.85 47.19 73.87"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M50.4 70.08C50.3 70.24 50.21 70.39 50.11 70.55"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M50.92 69.16C50.79 69.43 50.64 69.67 50.49 69.92"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M52.52 65.44C52.5 65.52 52.48 65.59 52.44 65.66"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M53.5 62.18C53.4 62.57 53.3 62.96 53.19 63.34"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M54.38 57.75C54.23 58.74 54.06 59.71 53.85 60.62C53.76 61.06 53.66 61.48 53.56 61.91"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M54.78 54.55C54.74 55.03 54.68 55.49 54.62 55.96"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M54.92 52.92C54.91 53.19 54.89 53.46 54.86 53.72"
             stroke="currentColor"
             strokeWidth="0.25"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M55.03 51.33C55 51.81 54.97 52.29 54.93 52.76"
@@ -4709,90 +4709,97 @@ const Shapes = ({ shape }) => {
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M24.15 82.26C43.79 63.69 63.43 63.69 83.07 82.26"
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M29.97 72.88C45.73 60.5 61.49 60.5 77.25 72.88"
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M33.46 63.5C46.89 57.31 60.33 57.31 73.76 63.5"
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M34.62 54.12C47.28 54.12 59.94 54.12 72.6 54.12"
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M33.46 44.74C46.89 50.93 60.33 50.93 73.76 44.74"
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M29.97 35.36C45.73 47.74 61.49 47.74 77.25 35.36"
             stroke="currentColor"
             strokeWidth="0.5"
             strokemitterlimit="10"
+            fill="currentColor"
           />
           <path
             d="M24.15 25.98C43.79 44.55 63.43 44.55 83.07 25.98"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor" 
           />
           <path
             d="M81.81 24.73C63.2 44.32 63.2 63.92 81.81 83.51"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M72.41 30.53C60 46.25 60 61.98 72.41 77.7"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M63.01 34.01C56.81 47.41 56.81 60.82 63.01 74.22"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M53.61 35.18C53.61 47.81 53.61 60.44 53.61 73.07"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M44.21 34.01C50.41 47.41 50.41 60.82 44.21 74.22"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M34.81 30.53C47.22 46.25 47.22 61.98 34.81 77.7"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M25.41 24.73C44.02 44.32 44.02 63.92 25.41 83.51"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
         </>
       )}
@@ -4802,91 +4809,91 @@ const Shapes = ({ shape }) => {
             d="M53.72 107.16C83.085 107.16 106.89 83.4132 106.89 54.12C106.89 24.8268 83.085 1.07999 53.72 1.07999C24.355 1.07999 0.549988 24.8268 0.549988 54.12C0.549988 83.4132 24.355 107.16 53.72 107.16Z"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.45 82.3C63.1 85.27 63.24 60.4 91.28 81.93"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.59 73.03C72.76 83.23 55.87 41.38 91.17 72.4"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.61 63.79C73.86 82.95 46.76 30.9 91.03 63.01"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.54 54.54C68.98 81.84 38.48 26.4 90.91 53.71"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.41 45.23C60.68 77.34 33.58 25.29 90.83 44.45"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.28 35.83C51.57 66.85 34.69 25 90.86 35.2"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M16.17 26.31C44.21 47.84 44.35 22.97 91 25.94"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M81.6 16.65C60.02 44.63 84.95 44.77 81.97 91.31"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M72.05 16.76C40.95 51.97 82.91 35.13 72.68 91.16"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M62.63 16.9C30.45 61.07 82.62 34.03 63.41 91.15"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M53.31 17.02C25.94 69.34 81.51 38.9 54.14 91.22"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M44.03 17.09C24.83 74.21 76.99 47.17 44.81 91.34"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M34.76 17.07C24.53 73.1 66.49 56.26 35.39 91.47"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M25.47 16.93C22.49 63.47 47.42 63.61 25.84 91.59"
             stroke="currentColor"
             strokeWidth="0.5"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
         </>
       )}
@@ -5010,31 +5017,31 @@ const Shapes = ({ shape }) => {
             d="M77.16 1.04999H1.81V76.3H77.16V1.04999Z"
             stroke="currentColor"
             strokeWidth="2"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M18.63 17.85L1.81 8.58002V1.04999H9.35L18.63 17.85Z"
             stroke="currentColor"
             strokeWidth="2"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M77.16 8.58002L60.34 17.85L69.63 1.04999H77.16V8.58002Z"
             stroke="currentColor"
             strokeWidth="2"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M9.35 76.3H1.81V68.78L18.63 59.5L9.35 76.3Z"
             stroke="currentColor"
             strokeWidth="2"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M77.16 76.3H69.63L60.34 59.5L77.16 68.78V76.3Z"
             stroke="currentColor"
             strokeWidth="2"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M49.23 35.97H34.77L52.86 8.58002L27.59 37.03L23.72 41.39H29.74H44.2L26.11 68.78L51.38 40.33L55.25 35.97H49.23Z"
@@ -5054,25 +5061,25 @@ const Shapes = ({ shape }) => {
             d="M13.51 1.69001L31.67 6.57001C32.71 6.85001 33.48 7.71998 33.62 8.78998L35.91 25.83C36.26 28.4 33.09 29.9 31.32 28L10.87 6.08002C9.04 4.12002 10.92 1.00001 13.51 1.69001Z"
             stroke="currentColor"
             strokeWidth="1.7"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M11.69 17.4L18.55 31.28C18.8 31.78 18.62 32.38 18.14 32.67L2.03 42.28C0.959999 42.92 1.67 44.56 2.87 44.22L30.24 36.51C31.01 36.29 31.27 35.34 30.73 34.76L13.42 16.2C12.59 15.31 11.14 16.3 11.69 17.4Z"
             stroke="currentColor"
             strokeWidth="1.7"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M64.86 1.69001L46.7 6.57001C45.66 6.85001 44.89 7.71998 44.75 8.78998L42.46 25.83C42.11 28.4 45.28 29.9 47.05 28L67.5 6.08002C69.33 4.12002 67.45 1.00001 64.86 1.69001Z"
             stroke="currentColor"
             strokeWidth="1.7"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
           <path
             d="M66.68 17.4L59.82 31.28C59.57 31.78 59.75 32.38 60.23 32.67L76.34 42.28C77.41 42.92 76.7 44.56 75.5 44.22L48.13 36.51C47.36 36.29 47.1 35.34 47.64 34.76L64.95 16.2C65.78 15.31 67.22 16.3 66.68 17.4Z"
             stroke="currentColor"
             strokeWidth="1.7"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
           />
         </>
       )}
@@ -5385,7 +5392,7 @@ const Shapes = ({ shape }) => {
           <path
             d="M37.72 43.42C40.5256 43.42 42.8 41.1501 42.8 38.35C42.8 35.5499 40.5256 33.28 37.72 33.28C34.9144 33.28 32.64 35.5499 32.64 38.35C32.64 41.1501 34.9144 43.42 37.72 43.42Z"
             stroke="currentColor"
-            strokemitterlimit="10"
+            strokemitterlimit="10" fill="currentColor"
             stroke-linecap="round"
           />
         </>
