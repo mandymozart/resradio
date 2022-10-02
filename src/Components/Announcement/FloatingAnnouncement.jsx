@@ -128,7 +128,7 @@ const FloatingAnnouncement = () => {
         windowWidth={window.innerWidth}
         windowHeight={window.innerHeight}
       >
-        <Shapes shape={shapes[randomNumber]} />
+        <Shapes shape={randomNumber} />
         <div onClick={handleClick}>{randomNumber} - {documents.results[0].data.text}</div>
         <span className="close" onClick={() => setIsVisible(false)}>
           

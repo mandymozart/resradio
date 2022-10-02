@@ -181,14 +181,14 @@ const Navigation = () => {
                 :root {
                   --color: #f2fefd;
                   /* --second: rgb(255, 0, 98); */
-                  --second: #88ff00;
-                  --background: rgba(1, 0, 9);
+                  --second: #FAFF00;
+                  --background: #00288F;
                 }
                 .glassomorphism {
-                  background: rgba(1, 0, 9, 0.9);
+                  background: rgba(0, 40, 143, 0.9);
                 }
                 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-                  background: rgba(1, 0, 9, 0.2);
+                  background: rgba(0, 40, 143, 0.2);
                 }
               `}
             />
