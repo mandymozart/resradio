@@ -5,13 +5,13 @@
   /* Day */
   --color-day: #f2fefd;
   --second-day: #FAFF00;
-  --background-day: #0047FF;
+  --background-day: rgb(66, 154, 235);
 
   /* Night */
   --color-night: #f2fefd;
   --second-night: #FAFF00;
   /* --second-night: rgb(255, 0, 98); */
-  --background-night: #0047FF;
+  --background-night: rgb(0, 28, 99);
 
   --color: var(--color-day);
   --second: var(--second-day);
@@ -62,6 +62,9 @@ a {
 a:hover {
   color: var(--second);
   text-decoration: underline;
+  text-decoration: var(--second) wavy underline;
+    /* text-decoration-skip-ink: none; */
+  text-decoration-thickness: 2px;
   text-decoration-color: var(--color);
 }
 
@@ -100,12 +103,13 @@ p {
   margin-bottom: 3rem;
 }
 .glassomorphism {
-  background: rgba(0, 71, 255, 0.9);
+  
+  background: rgb(66, 154, 235, 0.9);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .glassomorphism {
-    background: rgba(0, 71, 255, 0.7);
+    background: rgb(66, 154, 235, 0.7);
     backdrop-filter: blur(6px);
   }
 }

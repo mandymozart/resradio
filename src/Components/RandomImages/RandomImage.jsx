@@ -63,6 +63,7 @@ export const getRandomHorizontalPosition = () => {
 const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
   const keyword = useThemeStore((store) => store.keyword);
   const mousePosition = useThemeStore((store) => store.mousePosition);
+  const [isVisible, setIsVisible] = useState(true);
   const [gif, setGif] = useState();
   const [pos, setPos] = useState({ top: 0, left: 0 });
 
@@ -72,19 +73,19 @@ const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
       left: getRandomHorizontalPosition(),
     });
   };
-
+  
   useEffect(() => {
     fetch(
       `https://api.giphy.com/v1/gifs/random?rating=g&api_key=wWRjLNS6tiCZt1fiyaMz9VrRwHsfIUNB&tag=${keyword}`
-    )
+      )
       .then((response) => response.json())
       .then((data) => {
         setGif(data.data.images.fixed_height_downsampled.url);
       })
       .catch((error) => console.warn("giphy api exceeded rate limit"));
-    setNewPosition();
-  }, [setGif, keyword]);
-
+      setNewPosition();
+    }, [setGif, keyword]);
+  if(!isVisible) return <></>;
   return (
     <BrowserView>
       <Image
@@ -94,6 +95,7 @@ const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
         shift={{ x: mousePosition.x, y: mousePosition.y }}
         scroll={-1}
         blur={blur}
+        onClick={()=>setIsVisible(false)}
         windowWidth={window.innerWidth}
         windowHeight={window.innerHeight}
         opacity={gif ? opacity : 0}
