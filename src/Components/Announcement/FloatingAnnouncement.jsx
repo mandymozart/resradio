@@ -35,7 +35,7 @@ const Container = styled.div(
 
   cursor: pointer;
   border: 1px solid var(--second);
-  border-radius: 0.2rem;
+  border-radius: 0.1rem;
   padding: 1.5rem;
   background: var(--background);
   display: flex;

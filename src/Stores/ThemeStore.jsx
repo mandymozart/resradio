@@ -12,6 +12,10 @@ const useThemeStore = create(
       setNightMode: (value)=> set((state) => {
         state.nightMode = value;
       }),
+      showGifs: true,
+      setShowGifs: (value)=> set((state) => {
+        state.showGifs = value;
+      }),
       setMousePosition: (pos) => {
         return set((state) => {
           state.mousePosition = pos;

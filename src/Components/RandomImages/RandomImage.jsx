@@ -63,7 +63,8 @@ export const getRandomHorizontalPosition = () => {
 const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
   const keyword = useThemeStore((store) => store.keyword);
   const mousePosition = useThemeStore((store) => store.mousePosition);
-  const [isVisible, setIsVisible] = useState(true);
+  const showGifs = useThemeStore((store) => store.showGifs);
+  const setShowGifs = useThemeStore((store) => store.setShowGifs);
   const [gif, setGif] = useState();
   const [pos, setPos] = useState({ top: 0, left: 0 });
 
@@ -85,7 +86,7 @@ const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
       .catch((error) => console.warn("giphy api exceeded rate limit"));
       setNewPosition();
     }, [setGif, keyword]);
-  if(!isVisible) return <></>;
+  if(!showGifs) return <></>;
   return (
     <BrowserView>
       <Image
@@ -95,7 +96,7 @@ const RandomImage = ({ scale = 1, opacity = 1, blur = 1 }) => {
         shift={{ x: mousePosition.x, y: mousePosition.y }}
         scroll={-1}
         blur={blur}
-        onClick={()=>setIsVisible(false)}
+        onClick={()=>setShowGifs(false)}
         windowWidth={window.innerWidth}
         windowHeight={window.innerHeight}
         opacity={gif ? opacity : 0}

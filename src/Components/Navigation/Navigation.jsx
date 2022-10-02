@@ -113,8 +113,10 @@ const Navigation = () => {
 
   const nightMode = useThemeStore((store) => store.nightMode);
   const setNightMode = useThemeStore((store) => store.setNightMode);
+  const showGifs = useThemeStore((store) => store.showGifs);
+  const setShowGifs = useThemeStore((store) => store.setShowGifs);
 
-  const toggleOpen = (value) => {
+  const toggleGifs = (value) => {
     setIsOpen(value);
   };
 
@@ -148,11 +150,6 @@ const Navigation = () => {
             </li>
           </ul>
         </nav>
-        {/* <Hamburger
-          toggled={isOpen}
-          toggle={toggleOpen}
-          color={"var(--color)"}
-        /> */}
       </header>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <FadeIn>
@@ -171,6 +168,9 @@ const Navigation = () => {
             </li>
             <li>
               <a onClick={() => goToLink("/page/donate")}>Donate!</a>
+            </li>
+            <li>
+              <a onClick={() => setShowGifs(!showGifs)}>Gifs {showGifs ? "off" : "on"}</a>
             </li>
           </ul>
         </FadeIn>
