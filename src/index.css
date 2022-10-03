@@ -6,15 +6,31 @@
   --color-day: #f2fefd;
   --second-day: #FAFF00;
   --background-day: rgb(66, 154, 235);
+  --background-night-translucent: rgb(66, 154, 235, 0.9);;
+  --background-night-blured: rgb(66, 154, 235, 0.7);
 
   /* Night */
   --color-night: #f2fefd;
   --second-night: #FAFF00;
   --background-night: rgb(0, 28, 99);
+  --background-night-translucent: rgb(0, 28, 99, 0.9);;
+  --background-night-blured: rgb(0, 28, 99, 0.7);
 
   --color: var(--color-night);
   --second: var(--second-night);
   --background: var(--background-night);
+  --background-translucent: var(--background-night-translucent);
+  --background-blured: var(--background-night-blured);
+}
+.glassomorphism {
+  background: var(--background-translucent);
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .glassomorphism {
+    background: var(--background-blured);
+    backdrop-filter: blur(6px);
+  }
 }
 
 @font-face {
@@ -100,17 +116,6 @@ code {
 }
 p {
   margin-bottom: 3rem;
-}
-.glassomorphism {
-  
-  background: rgb(66, 154, 235, 0.9);
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .glassomorphism {
-    background: rgb(66, 154, 235, 0.7);
-    backdrop-filter: blur(6px);
-  }
 }
 .rotate {
   transform: rotateY(45deg);
