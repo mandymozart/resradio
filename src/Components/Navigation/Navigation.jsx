@@ -1,9 +1,7 @@
-import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { BrowserView } from "react-device-detect";
-import { BsMoon, BsSunFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
 import Logo from "../../images/Logo";
@@ -112,8 +110,8 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const nightMode = useThemeStore((store) => store.nightMode);
-  const setNightMode = useThemeStore((store) => store.setNightMode);
+  // const nightMode = useThemeStore((store) => store.nightMode);
+  // const setNightMode = useThemeStore((store) => store.setNightMode);
   const showGifs = useThemeStore((store) => store.showGifs);
   const setShowGifs = useThemeStore((store) => store.setShowGifs);
 
@@ -131,11 +129,11 @@ const Navigation = () => {
         <AudioPlayer />
         <nav>
           <ul>
-            <li>
+            {/* <li>
               <a onClick={() => setNightMode(!nightMode)}>
                 {nightMode ? <BsSunFill /> : <BsMoon />}
               </a>
-            </li>
+            </li> */}
             <li>
               <Button
                 type="button"
@@ -175,13 +173,12 @@ const Navigation = () => {
             </BrowserView>
           </ul>
         </FadeIn>
-        {nightMode && (
+        {/* nightMode && (
           <>
             <Global
               styles={css`
                 :root {
                   --color: #f2fefd;
-                  /* --second: rgb(255, 0, 98); */
                   --second: #faff00;
                   --background: rgb(0, 28, 99);
                 }
@@ -195,7 +192,7 @@ const Navigation = () => {
               `}
             />
           </>
-        )}
+              )*/}
       </nav>
     </Container>
   );
