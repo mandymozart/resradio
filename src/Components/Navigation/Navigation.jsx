@@ -2,6 +2,7 @@ import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 import React, { useState } from "react";
+import { BrowserView } from "react-device-detect";
 import { BsMoon, BsSunFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import FadeIn from "../../Animations/FadeIn";
@@ -116,10 +117,6 @@ const Navigation = () => {
   const showGifs = useThemeStore((store) => store.showGifs);
   const setShowGifs = useThemeStore((store) => store.setShowGifs);
 
-  const toggleGifs = (value) => {
-    setIsOpen(value);
-  };
-
   const goToLink = (link) => {
     setIsOpen(false);
     navigate(link);
@@ -136,7 +133,7 @@ const Navigation = () => {
           <ul>
             <li>
               <a onClick={() => setNightMode(!nightMode)}>
-                {nightMode ? <BsSunFill /> : <BsMoon/>}
+                {nightMode ? <BsSunFill /> : <BsMoon />}
               </a>
             </li>
             <li>
@@ -169,9 +166,13 @@ const Navigation = () => {
             <li>
               <a onClick={() => goToLink("/page/donate")}>Donate!</a>
             </li>
-            <li>
-              <a onClick={() => setShowGifs(!showGifs)}>Gifs {showGifs ? "off" : "on"}</a>
-            </li>
+            <BrowserView>
+              <li>
+                <a onClick={() => setShowGifs(!showGifs)}>
+                  Gifs {showGifs ? "off" : "on"}
+                </a>
+              </li>
+            </BrowserView>
           </ul>
         </FadeIn>
         {nightMode && (
@@ -181,13 +182,14 @@ const Navigation = () => {
                 :root {
                   --color: #f2fefd;
                   /* --second: rgb(255, 0, 98); */
-                  --second: #FAFF00;
+                  --second: #faff00;
                   --background: rgb(0, 28, 99);
                 }
                 .glassomorphism {
-                  background: rgb(0, 28, 99,0.9);
+                  background: rgb(0, 28, 99, 0.9);
                 }
-                @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+                @supports (-webkit-backdrop-filter: none) or
+                  (backdrop-filter: none) {
                   background: rgba(0, 40, 143, 0.2);
                 }
               `}
