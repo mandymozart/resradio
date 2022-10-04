@@ -14,12 +14,12 @@ import {
 } from "../RandomImages/RandomImage";
 
 // WIDTH
-const WIDTH = 500;
+const WIDTH = 550;
 const HEIGHT = 200;
 const Container = styled.div(
   ({ pos, shift, windowWidth, windowHeight }) => `
   position: fixed;
-  top: 50px;
+  top: 150px;
   width: ${WIDTH}px;
   transform-origin: center - ${WIDTH / 2}px;
   transition: all 0.5s cubic-bezier(1,0,0,1);
