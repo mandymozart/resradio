@@ -14,7 +14,7 @@ import {
 } from "../RandomImages/RandomImage";
 
 // WIDTH
-const WIDTH = 550;
+const WIDTH = 500;
 const HEIGHT = 200;
 const Container = styled.div(
   ({ pos, shift, windowWidth, windowHeight }) => `
