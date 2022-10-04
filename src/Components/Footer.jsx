@@ -15,7 +15,7 @@ const Container = styled.footer`
 const Footer = () => {
   return (
     <Container>
-      <h3>WANT TO PART TAKE?</h3>
+      <h3>WANT TO TAKE PART?</h3>
       <p>
         Res.Radio is a non-commercial community webradio based in Vienna to
         strengthen and display subcultural genres. From its founding in 2019,
