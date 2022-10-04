@@ -16,11 +16,11 @@
   --background-night-translucent: rgb(0, 28, 99, 0.9);;
   --background-night-blured: rgb(0, 28, 99, 0.7);
 
-  --color: var(--color-night);
-  --second: var(--second-night);
-  --background: var(--background-night);
-  --background-translucent: var(--background-night-translucent);
-  --background-blured: var(--background-night-blured);
+  --color: var(--color-day);
+  --second: var(--second-day);
+  --background: var(--background-day);
+  --background-translucent: var(--background-day-translucent);
+  --background-blured: var(--background-day-blured);
 }
 .glassomorphism {
   background: var(--background-translucent);
@@ -99,7 +99,7 @@ h6 {
 }
 h1,
 h2 {
-  font-size: 3.2rem;
+  font-size: 2.2rem;
   text-transform: uppercase;
 }
 b,
