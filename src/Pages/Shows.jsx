@@ -16,7 +16,7 @@ const Shows = () => {
         <h2>Meet our show hosts</h2>
       </FadeIn>
       <FadeIn>
-        <p>We are an open call radio. Hosts can apply with a program here.</p>
+        <p>We are an open call radio. Hosts can apply with a program <a href="mailto:program@res.radio">here</a>.</p>
       </FadeIn>
       <Divider />
       <ShowList />
