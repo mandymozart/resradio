@@ -7,9 +7,7 @@ import useMounted from "react-use-mounted";
 import Shapes from "../../images/shapes/Shapes";
 import useThemeStore from "../../Stores/ThemeStore";
 import {
-  DRIFT,
-  floatingPointRange,
-  getRandomHorizontalPosition,
+  DRIFT, floatingPointRange,
   getRandomNumber
 } from "../RandomImages/RandomImage";
 
@@ -83,7 +81,7 @@ const FloatingAnnouncement = () => {
   const setNewPosition = () => {
     setPos({
       top: getRandomNumber(50, window.innerHeight - HEIGHT),
-      left: getRandomHorizontalPosition(),
+      left: getRandomNumber(WIDTH / 2, window.innerWidth - WIDTH / 2),
     });
   };
 
@@ -99,7 +97,7 @@ const FloatingAnnouncement = () => {
       }
     }
     return;
-  }
+  };
 
   useEffect(() => {
     setNewPosition();
@@ -108,15 +106,15 @@ const FloatingAnnouncement = () => {
   const mounted = useMounted();
   const [randomNumber, setRandomNumber] = useState(1);
   useEffect(() => {
-    if (mounted){
-      setRandomNumber(shapes[Math.floor(Math.random() * shapes.length-1)]);
+    if (mounted) {
+      setRandomNumber(shapes[Math.floor(Math.random() * shapes.length - 1)]);
       console.log(randomNumber);
     }
   }, [mounted]);
 
   if (documents?.results_size !== 1) return <></>;
   if (!documents.results[0].data.isactive) return <></>;
-  if(!isVisible) return <></>
+  if (!isVisible) return <></>;
   if (state === "loaded")
     return (
       <Container
@@ -131,7 +129,6 @@ const FloatingAnnouncement = () => {
         <Shapes shape={randomNumber} />
         <div onClick={handleClick}>{documents.results[0].data.text}</div>
         <span className="close" onClick={() => setIsVisible(false)}>
-          
           <svg
             width="2rem"
             height="2rem"

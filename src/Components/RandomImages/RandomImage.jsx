@@ -48,7 +48,7 @@ export const documentHeight = () =>
     document.documentElement.offsetHeight
   );
 
-export const getRandomHorizontalPosition = () => {
+  const getRandomHorizontalPosition = () => {
   const windowWidth = window.innerWidth;
   const left = getRandomNumber(
     OFFSET / 2,
