@@ -7,9 +7,11 @@ export const ItemContainer = styled.div`
   font-size: 1rem;
   line-height: 1.1rem;
   margin-bottom: 2rem;
-  gap: 3rem;
-  @media only screen and (max-width: 600px) {
-    gap: 1rem;
+  @supports (gap: 1rem) and (display: flex) {
+    gap: 3rem;
+    @media only screen and (max-width: 600px) {
+      gap: 1rem;
+    }
   }
 
   .image {
@@ -23,6 +25,12 @@ export const ItemContainer = styled.div`
   }
   .meta {
     flex: 1;
+    @supports not (gap: 1rem) {
+      padding-left: 3rem;
+      @media only screen and (max-width: 600px) {
+        padding-left: 1rem;
+      }
+    }
     h4 {
       font-size: 1.1rem;
       line-height: 1.2;
