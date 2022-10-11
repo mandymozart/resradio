@@ -89,11 +89,10 @@ const FloatingAnnouncement = () => {
     if (documents.results[0].data.link.link_type === "Document")
       navigate(documents.results[0].data.link.url);
     if (documents.results[0].data.link.link_type === "Web") {
-      console.log(documents.results[0].data.isactive);
       if ((documents.results[0].data.link.target = "_blank")) {
         window.open(documents.results[0].data.link.url, "_blank");
       } else {
-        window.location = documents.results[0].data.link.url;
+        window.open(documents.results[0].data.link.url, "_self");
       }
     }
     return;
