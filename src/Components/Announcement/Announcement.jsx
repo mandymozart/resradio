@@ -33,11 +33,32 @@ const Announcement = () => {
   const navigate = useNavigate();
   const [isHovered, setHovered] = useState(false);
 
+  const handleClick = () => {
+    if (documents.results[0].data.link.link_type === "Document")
+      navigate(documents.results[0].data.link.url);
+    if (documents.results[0].data.link.link_type === "Web") {
+      if ((documents.results[0].data.link.target = "_blank")) {
+        window.location.replace(
+          documents.results[0].data.link.url,
+          "_blank",
+          "noopener=true"
+        );
+      } else {
+        window.location.replace(
+          documents.results[0].data.link.url,
+          "_self",
+          "noopener=true"
+        );
+      }
+    }
+    return;
+  };
+
   if (documents?.results_size !== 1) return <></>;
   if (state === "loaded")
     return (
       <Container
-        onClick={() => navigate(documents.results[0].data.link.url)}
+        onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className={clsx({ invert: isHovered })}
