@@ -10,10 +10,11 @@ import Logo from "../../images/Logo";
 import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Button from "../Button";
+import BroadcastInfo from "./../AudioPlayer/BroadcastInfo";
 
 const Container = styled.div`
   position: fixed;
-  top: 0;
+  top: 1rem;
   width: 100%;
   pointer-events: none;
   line-height: 4rem;
@@ -104,6 +105,7 @@ const Container = styled.div`
       opacity: 1;
       pointer-events: visible;
       transform: translateY(0);
+      overflow: auto;
     }
   }
 `;
@@ -124,6 +126,7 @@ const Navigation = () => {
 
   return (
     <Container>
+            <BroadcastInfo />
       <header className="glassomorphism">
         <a onClick={() => goToLink("/")}>
           <Logo />

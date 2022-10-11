@@ -11,7 +11,6 @@ import {
 import config from "../../config";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import Loader from "../Loader";
-import BroadcastInfo from "./BroadcastInfo";
 
 const Container = styled.div`
   display: flex;
@@ -130,7 +129,6 @@ const AudioPlayer = () => {
           <>{isPlaying ? <BsPause /> : <BsPlay />}</>
         )}
       </PlayButton>
-      <BroadcastInfo />
     </Container>
   );
 };

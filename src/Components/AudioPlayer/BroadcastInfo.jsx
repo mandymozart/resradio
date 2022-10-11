@@ -12,14 +12,15 @@ dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
-  margin-left: 1rem;
   line-height: 1rem;
   text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* background: var(--color); */
   .info {
-    width: 300px;
-    @media only screen and (max-width: 600px) {
-      width: 90px;
-    }
+    /* a { color: var(--background); } */
     white-space: nowrap;
     overflow: hidden;
     /* > div {
@@ -78,26 +79,25 @@ const BroadcastInfo = () => {
 
   return (
     <Container>
-      {/* {broadcasts && (
-        <>
-          <Marquee>
-            {broadcasts.map((broadcast) => (
-              <>
-                <PrismicLink field={broadcast}>
-                  {dayjs(broadcast.data.begin).format("HH:mm")} -{" "}
-                  {dayjs(broadcast.data.end).format("HH:mm")}:{" "}
-                  {broadcast.data.title} by{" "}
-                  {broadcast.data.hostedby.slug}
-                </PrismicLink>
-              </>
-            ))}
-          </Marquee>
-        </>
-      )} */}
       {currentBroadcast ? (
-        <div className="info">
+        <div className="info glassomorphism" style={{"width":window.innerWidth + "px"}}>
           <Marquee>
             <PrismicLink field={currentBroadcast.data.hostedby}>
+              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
+              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
+              {currentBroadcast.data.hostedby.uid}{" "}
+              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
+              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
+              {currentBroadcast.data.hostedby.uid}{" "}
+              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
+              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
+              {currentBroadcast.data.hostedby.uid}{" "}
+              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
+              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
+              {currentBroadcast.data.hostedby.uid}{" "}
+              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
+              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
+              {currentBroadcast.data.hostedby.uid}{" "}
               {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
               {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
               {currentBroadcast.data.hostedby.uid}
