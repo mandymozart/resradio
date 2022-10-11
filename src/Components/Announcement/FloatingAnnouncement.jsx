@@ -7,7 +7,8 @@ import useMounted from "react-use-mounted";
 import Shapes from "../../images/shapes/Shapes";
 import useThemeStore from "../../Stores/ThemeStore";
 import {
-  DRIFT, floatingPointRange,
+  DRIFT,
+  floatingPointRange,
   getRandomNumber
 } from "../RandomImages/RandomImage";
 
@@ -90,9 +91,17 @@ const FloatingAnnouncement = () => {
       navigate(documents.results[0].data.link.url);
     if (documents.results[0].data.link.link_type === "Web") {
       if ((documents.results[0].data.link.target = "_blank")) {
-        window.open(documents.results[0].data.link.url, "_blank");
+        document.open(
+          documents.results[0].data.link.url,
+          "_blank",
+          "noopener=true"
+        );
       } else {
-        window.open(documents.results[0].data.link.url, "_self");
+        document.open(
+          documents.results[0].data.link.url,
+          "_self",
+          "noopener=true"
+        );
       }
     }
     return;
