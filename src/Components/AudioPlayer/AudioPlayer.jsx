@@ -79,9 +79,13 @@ const AudioPlayer = () => {
     audioPlayer.current.volume = e.target.value;
   };
 
-  const onPlaying = () => {
+  const onPlaying = (e) => {
     // TODO: visualisation
   };
+
+  const handleEnded = () => {
+    // TODO: set next track in playlist
+  }
 
   const onCanPlay = () => {
     setIsLoading(false);
@@ -95,6 +99,7 @@ const AudioPlayer = () => {
         volume={volume}
         onTimeUpdate={onPlaying}
         onCanPlay={onCanPlay}
+        onEnded={handleEnded}
         src={config.STREAM_URL}
       />
       {isDesktop && (
