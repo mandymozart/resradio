@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 
 const Container = div``;
 
-export const FilterForm = () => {
+export const FilterInfo = () => {
     return (
         <Container>
             <img src={"https://placehold.it/400x400"} alt="Untitled" />

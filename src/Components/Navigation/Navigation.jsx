@@ -12,10 +12,11 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Button from "../Button";
 import BroadcastInfo from "./../AudioPlayer/BroadcastInfo";
 import FilterPlayer from "../Filter/FilterPlayer";
+import { FilterForm } from "../Filter/FilterInfo";
 
 const Container = styled.div`
   position: fixed;
-  top: 1rem;
+  top: 0;
   width: 100%;
   pointer-events: none;
   line-height: 4rem;
@@ -114,6 +115,9 @@ const Container = styled.div`
 const StyledPlayers = styled.div`
   display: flex;
   gap: 1rem;
+  > div {
+    flex: 1;
+  }
 
 `
 
