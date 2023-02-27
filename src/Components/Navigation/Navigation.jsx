@@ -31,14 +31,15 @@ const Container = styled.div`
   header {
     z-index: 1000;
     display: grid;
-    grid-template-columns: 6rem auto auto;
+    grid-template-columns: 6rem auto;
     align-items: center;
-    > a {
+    > button {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-left: 1rem;
       cursor: pointer;
+      background: transparent;
     }
     > nav {
       text-align: right;
@@ -159,11 +160,11 @@ const Navigation = () => {
             </li>
           </ul>
         </nav>
-        <StyledPlayers>
-          <AudioPlayer />
-          <FilterPlayer />
-        </StyledPlayers>
       </header>
+      <StyledPlayers>
+        <AudioPlayer />
+        <FilterPlayer />
+      </StyledPlayers>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <FadeIn>
           <ul>

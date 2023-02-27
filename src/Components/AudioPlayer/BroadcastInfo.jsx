@@ -23,6 +23,9 @@ const Container = styled.div`
       display: inline-flex; */
     text-transform: capitalize;
     /* } */
+    img {
+      width: 4rem;
+    }
   }
 `;
 
@@ -84,7 +87,11 @@ const BroadcastInfo = () => {
           </PrismicLink>
         </div>
       ) : (
-        <>{notFound ? "" : "..."}</>
+        <>
+          <img src={"https://placehold.it/400x400"} alt="Untitled" />
+          Show: Untitled<br />
+          Host: Unknown - Link<br />
+        </>
       )}
     </Container>
   );

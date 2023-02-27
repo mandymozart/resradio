@@ -168,7 +168,7 @@ function App() {
           </Routes>
         </ScrollToTop>
         <Navigation />
-        <RandomImage scale={1.1} />
+        {/* <RandomImage scale={1.1} /> */}
         {/* <RandomImage scale={1.15}/> */}
         <BrowserView>
         <FloatingAnnouncement/>
