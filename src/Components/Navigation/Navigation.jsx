@@ -16,6 +16,7 @@ import FilterPlayer from "../Filter/FilterPlayer";
 const Container = styled.div`
   position: fixed;
   top: 0;
+  z-index: 1000;
   width: 100%;
   pointer-events: none;
   line-height: 4rem;

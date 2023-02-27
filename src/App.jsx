@@ -62,6 +62,7 @@ function App() {
         <RandomImage scale={0.9} />
         {/* <RandomImage /> */}
         {/* <RandomImage /> */}
+       <Navigation />
         <ScrollToTop>
           <Routes>
             <Route
@@ -167,7 +168,6 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ScrollToTop>
-        <Navigation />
         {/* <RandomImage scale={1.1} /> */}
         {/* <RandomImage scale={1.15}/> */}
         <BrowserView>
