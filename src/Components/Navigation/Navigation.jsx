@@ -11,6 +11,7 @@ import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Button from "../Button";
 import BroadcastInfo from "./../AudioPlayer/BroadcastInfo";
+import FilterPlayer from "../Filter/FilterPlayer";
 
 const Container = styled.div`
   position: fixed;
@@ -110,7 +111,7 @@ const Container = styled.div`
   }
 `;
 
-const StyledPlayers = div`
+const StyledPlayers = styled.div`
   display: flex;
   gap: 1rem;
 
