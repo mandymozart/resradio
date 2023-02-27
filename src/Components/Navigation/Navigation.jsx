@@ -12,7 +12,6 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Button from "../Button";
 import BroadcastInfo from "./../AudioPlayer/BroadcastInfo";
 import FilterPlayer from "../Filter/FilterPlayer";
-import { FilterForm } from "../Filter/FilterInfo";
 
 const Container = styled.div`
   position: fixed;
@@ -139,15 +138,15 @@ const Navigation = () => {
     <Container>
       <BroadcastInfo />
       <header className="glassomorphism">
-        <a onClick={() => goToLink("/")}>
+        <button onClick={() => goToLink("/")}>
           <Logo />
-        </a>
+        </button>
         <nav>
           <ul>
             <li>
-              <a onClick={() => setNightMode(!nightMode)}>
+              <button onClick={() => setNightMode(!nightMode)}>
                 {nightMode ? <BsSunFill /> : <BsMoon />}
-              </a>
+              </button>
             </li>
             <li>
               <Button
@@ -169,25 +168,25 @@ const Navigation = () => {
         <FadeIn>
           <ul>
             <li>
-              <a onClick={() => goToLink("/broadcasts")}>Broadcasts</a>
+              <button onClick={() => goToLink("/broadcasts")}>Broadcasts</button>
             </li>
             <li>
-              <a onClick={() => goToLink("/shows")}>Shows</a>
+              <button onClick={() => goToLink("/shows")}>Shows</button>
             </li>
             <li>
-              <a onClick={() => goToLink("/events")}>Schedule</a>
+              <button onClick={() => goToLink("/events")}>Schedule</button>
             </li>
             <li>
-              <a onClick={() => goToLink("/about")}>About</a>
+              <button onClick={() => goToLink("/about")}>About</button>
             </li>
             <li>
-              <a onClick={() => goToLink("/page/donate")}>Donate!</a>
+              <button onClick={() => goToLink("/page/donate")}>Donate!</button>
             </li>
             <BrowserView>
               <li>
-                <a onClick={() => setShowGifs(!showGifs)}>
+                <button onClick={() => setShowGifs(!showGifs)}>
                   Gifs {showGifs ? "off" : "on"}
-                </a>
+                </button>
               </li>
             </BrowserView>
           </ul>

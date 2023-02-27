@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 
-const Container = div``;
+const Container = styled.div``;
 
 export const FilterInfo = () => {
     return (
@@ -13,7 +13,7 @@ export const FilterInfo = () => {
     )
 }
 
-const StyledButton = button``
+const StyledButton = styled.button``
 
 const SettingsButton = () => {
     return (
