@@ -14,10 +14,6 @@ dayjs.extend(utc);
 const Container = styled.div`
   line-height: 1rem;
   text-align: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
   /* background: var(--color); */
   .info {
     /* a { color: var(--background); } */
@@ -80,29 +76,12 @@ const BroadcastInfo = () => {
   return (
     <Container>
       {currentBroadcast ? (
-        <div className="info glassomorphism" style={{"width":window.innerWidth + "px"}}>
-          <Marquee>
-            <PrismicLink field={currentBroadcast.data.hostedby}>
-              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-              {currentBroadcast.data.hostedby.uid}{" "}
-              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-              {currentBroadcast.data.hostedby.uid}{" "}
-              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-              {currentBroadcast.data.hostedby.uid}{" "}
-              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-              {currentBroadcast.data.hostedby.uid}{" "}
-              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-              {currentBroadcast.data.hostedby.uid}{" "}
-              {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-              {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-              {currentBroadcast.data.hostedby.uid}
-            </PrismicLink>
-          </Marquee>
+        <div className="info glassomorphism" style={{ "width": window.innerWidth + "px" }}>
+          <PrismicLink field={currentBroadcast.data.hostedby}>
+            {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
+            {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
+            {currentBroadcast.data.hostedby.uid}{" "}
+          </PrismicLink>
         </div>
       ) : (
         <>{notFound ? "" : "..."}</>

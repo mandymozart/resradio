@@ -110,6 +110,12 @@ const Container = styled.div`
   }
 `;
 
+const StyledPlayers = div`
+  display: flex;
+  gap: 1rem;
+
+`
+
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -126,12 +132,11 @@ const Navigation = () => {
 
   return (
     <Container>
-            <BroadcastInfo />
+      <BroadcastInfo />
       <header className="glassomorphism">
         <a onClick={() => goToLink("/")}>
           <Logo />
         </a>
-        <AudioPlayer />
         <nav>
           <ul>
             <li>
@@ -150,6 +155,10 @@ const Navigation = () => {
             </li>
           </ul>
         </nav>
+        <StyledPlayers>
+          <AudioPlayer />
+          <FilterPlayer />
+        </StyledPlayers>
       </header>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <FadeIn>

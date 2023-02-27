@@ -11,7 +11,6 @@ import {
 import config from "../../config";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import Loader from "../Loader";
-import BroadcastInfo from "./BroadcastInfo";
 
 const Container = styled.div`
   display: flex;
@@ -52,7 +51,7 @@ const VolumeSlider = styled.div`
   }
 `;
 
-const AudioPlayer = () => {
+const FilterPlayer = () => {
   const [volume, setVolume] = useState(0.5);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const volumeSlider = useRef();
@@ -81,7 +80,7 @@ const AudioPlayer = () => {
   };
 
   const onPlaying = () => {
-    // TODO: visualisation
+    // TODO: remember last played position
   };
 
   const onCanPlay = () => {
@@ -130,9 +129,8 @@ const AudioPlayer = () => {
           <>{isPlaying ? <BsPause /> : <BsPlay />}</>
         )}
       </PlayButton>
-      <BroadcastInfo/>
     </Container>
   );
 };
 
-export default AudioPlayer;
+export default FilterPlayer;
