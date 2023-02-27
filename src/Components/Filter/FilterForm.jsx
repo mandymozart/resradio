@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import Select from 'react-select';
 import filterOptions, { genreOptions, moodOptions, tempoOptions } from "./filterOptions"
 
-const Container = div``;
+const Container = styled.div``;
 
 export const FilterForm = () => {
     return (
