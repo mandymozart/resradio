@@ -24,14 +24,8 @@ const Container = styled.div`
   box-sizing: border-box;
   background: var(--background);
   /* overflow: hidden; */
-  header,
-  > nav {
-    max-width: 100%;
-    margin: 0 auto;
-    pointer-events: visible;
-  }
-  header {
-    z-index: 1000;
+  header
+  {
     display: grid;
     grid-template-columns: 6rem auto;
     align-items: center;
@@ -61,7 +55,7 @@ const Container = styled.div`
           margin: 0;
           margin-left: 0.5rem;
           text-align: center;
-          > a {
+          > button {
             padding-left: 1rem;
             cursor: pointer;
             img {
@@ -81,7 +75,6 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
     box-sizing: border-box;
     gap: 0.5rem;
     padding: 1rem;

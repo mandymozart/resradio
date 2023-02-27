@@ -14,9 +14,10 @@ import Loader from "../Loader";
 import BroadcastInfo from "./BroadcastInfo";
 
 const Container = styled.div`
-  display: flex;
-  margin-left: 1rem;
-  align-items: center;
+  > div {
+    display: flex;
+    align-items: center;
+  }
 `;
 const ControlButton = styled.button`
   color: var(--color);
