@@ -18,7 +18,6 @@ const Container = styled.div`
   top: 0;
   z-index: 1000;
   width: 100%;
-  line-height: 4rem;
   background: transparent;
   box-sizing: border-box;
   background: var(--background);
@@ -35,7 +34,6 @@ const Container = styled.div`
       margin: 0;
       margin-left: 1rem;
       border: 0;
-      color: var(--color);
       padding: 0;
       cursor: pointer;
       background: transparent;
