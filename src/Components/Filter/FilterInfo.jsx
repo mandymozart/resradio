@@ -6,10 +6,9 @@ const Container = styled.div`
 img {width: 4rem;}`;
 
 export const FilterInfo = () => {
-    const [isVisible, setIsVisble] = useState();
+    const [isVisible, setIsVisble] = useState(true);
     return (
         <Container>
-            <SettingsButton onClick={() => setIsVisble(!isVisible)} />
             {!isVisible ? (<>
                 <img src={"https://placehold.it/400x400"} alt="Untitled" />
                 Show: Untitled<br />
@@ -17,6 +16,7 @@ export const FilterInfo = () => {
             </>) : (
                 <FilterForm />
             )}
+            <SettingsButton onClick={() => setIsVisble(!isVisible)} />
         </Container>
     )
 }
