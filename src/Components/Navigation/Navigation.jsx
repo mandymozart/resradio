@@ -18,7 +18,6 @@ const Container = styled.div`
   top: 0;
   z-index: 1000;
   width: 100%;
-  pointer-events: none;
   line-height: 4rem;
   background: transparent;
   box-sizing: border-box;
