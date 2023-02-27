@@ -23,9 +23,9 @@ const Container = styled.div`
       display: inline-flex; */
     text-transform: capitalize;
     /* } */
-    img {
-      width: 4rem;
-    }
+  }
+  img {
+    width: 4rem;
   }
 `;
 

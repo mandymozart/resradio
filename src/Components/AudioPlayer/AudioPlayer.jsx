@@ -95,6 +95,7 @@ const AudioPlayer = () => {
 
   return (
     <Container>
+      <header>
       <audio
         ref={audioPlayer}
         volume={volume}
@@ -135,6 +136,7 @@ const AudioPlayer = () => {
           <>{isPlaying ? <BsPause /> : <BsPlay />}</>
         )}
       </PlayButton>
+      </header>
       <BroadcastInfo/>
     </Container>
   );

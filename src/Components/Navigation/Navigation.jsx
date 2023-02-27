@@ -21,6 +21,7 @@ const Container = styled.div`
   line-height: 4rem;
   background: transparent;
   box-sizing: border-box;
+  background: var(--background);
   /* overflow: hidden; */
   header,
   > nav {
@@ -37,7 +38,11 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: 0;
       margin-left: 1rem;
+      border: 0;
+      color: var(--color);
+      padding: 0;
       cursor: pointer;
       background: transparent;
     }
@@ -71,11 +76,11 @@ const Container = styled.div`
   }
   > nav {
     z-index: 1000;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    height: calc(100vh - 4rem);
     box-sizing: border-box;
     gap: 0.5rem;
     padding: 1rem;
@@ -92,13 +97,13 @@ const Container = styled.div`
         padding: 0;
         margin: 0;
         text-align: center;
-        a {
+        button {
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2rem;
           cursor: pointer;
+          border: none;
           text-transform: uppercase;
         }
       }
@@ -137,7 +142,6 @@ const Navigation = () => {
 
   return (
     <Container>
-      <BroadcastInfo />
       <header className="glassomorphism">
         <button onClick={() => goToLink("/")}>
           <Logo />
@@ -165,7 +169,7 @@ const Navigation = () => {
         <AudioPlayer />
         <FilterPlayer />
       </StyledPlayers>
-      <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
+      <nav className={clsx({ isOpen: isOpen })}>
         <FadeIn>
           <ul>
             <li>
