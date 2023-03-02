@@ -3,7 +3,6 @@ import { usePrismicDocumentsByType } from "@prismicio/react";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RandomShape from "../RandomShape";
 
 const Container = styled.div`
   cursor: pointer;
@@ -63,7 +62,6 @@ const Announcement = () => {
         onMouseLeave={() => setHovered(false)}
         className={clsx({ invert: isHovered })}
       >
-        <RandomShape />
         <div>{documents.results[0].data.text}</div>
       </Container>
     );

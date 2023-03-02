@@ -10,7 +10,6 @@ import Logo from "../../images/Logo";
 import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Button from "../Button";
-import BroadcastInfo from "./../AudioPlayer/BroadcastInfo";
 import FilterPlayer from "../Filter/FilterPlayer";
 
 const Container = styled.div`
@@ -170,7 +169,7 @@ const Navigation = () => {
               <button onClick={() => goToLink("/shows")}>Shows</button>
             </li>
             <li>
-              <button onClick={() => goToLink("/events")}>Schedule</button>
+              <button onClick={() => goToLink("/schedule")}>Schedule</button>
             </li>
             <li>
               <button onClick={() => goToLink("/about")}>About</button>

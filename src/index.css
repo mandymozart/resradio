@@ -1,6 +1,5 @@
 :root {
-  --content-width: min(100%, 32rem);
-  --header-width: min(100%, 72rem);
+  --content-width: 100%;
 
   /* Day */
   --color-day: #f2fefd;
@@ -21,16 +20,6 @@
   --background: var(--background-day);
   --background-translucent: var(--background-day-translucent);
   --background-blured: var(--background-day-blured);
-}
-.glassomorphism {
-  background: var(--background-translucent);
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .glassomorphism {
-    background: var(--background-blured);
-    backdrop-filter: blur(6px);
-  }
 }
 
 @font-face {
@@ -53,7 +42,6 @@
   src: url("Fonts/Scope-LightCondensed.woff2") format("woff2"),
     url("Fonts/Scope-LightCondensed.woff") format("woff");
 }
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600&display=swap");
 
 html {
   font-size: 16px;
