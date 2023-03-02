@@ -34,5 +34,17 @@
     "name": "Shows",
     "repeatable": true,
     "value": "shows.json"
+  },
+  {
+    "id": "tag",
+    "name": "Tag",
+    "repeatable": true,
+    "value": "tag.json"
+  },
+  {
+    "id": "category",
+    "name": "Category",
+    "repeatable": true,
+    "value": "category.json"
   }
 ]
