@@ -10,7 +10,7 @@ import {
   DRIFT,
   floatingPointRange,
   getRandomNumber
-} from "../RandomImages/RandomImage";
+} from "../RandomShape";
 
 // WIDTH
 const WIDTH = 500;
