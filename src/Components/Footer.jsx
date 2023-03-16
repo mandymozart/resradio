@@ -1,50 +1,79 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
-import GridLogo from "../images/GridLogo";
-import Button from "./Button";
-import Social from "./Social/Social";
 
 const Container = styled.footer`
-  padding: 1rem;
   max-width: var(--content-width);
-  margin: 0 auto;
-  text-align: center;
+  border-top: 2px solid var(--color);
+  section {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+  }
+  nav {
+    border-top: 2px solid var(--color);
+    padding: .5rem 2rem;
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 2rem;
+      margin:0;
+      list-style-type: none;
+      padding:0;
+      a {
+        font-family: var(--font-bold);
+      }
+    }
+  }
 `;
 
 const Footer = () => {
   return (
     <Container>
-      <h3>WANT TO TAKE PART?</h3>
-      <p>
-        Res.Radio is a non-commercial community webradio based in Vienna to
-        strengthen and display subcultural genres. From its founding in 2019,
-        the radio grew into a multicultural community/platform featuring artists
-        with many different backgrounds.
-      </p>
-      <a href="https://t.me/resradio" target="_blank" rel="noreferrer">
-        <Button large>Join us!</Button>
-      </a>
-      {' '}
-      <Link to={"page/donate"}>
-        <Button large>Donate!</Button>
-      </Link>
-      <Social />
-      <GridLogo />
-      <div>
-        <p className="copyright">
-          &copy; 2022
-          <br />
-          General inquiries
-          <br />
-          <a href="mailto:resradio.vienna@gmail.com">
+      <section>
+        <div>
+          <h3>ABOUT Res.Radio</h3>
+          <p>
+            We are res.radio community radio Vienna.</p>
+          <p>
+            Res.Radio is a non-commercial community webradio based in Vienna to strengthen
+            and display subcultural genres. From its founding in 2019, the radio grew into
+            a multicultural community/platform featuring artists with many different backgrounds.
+            Within this platform people connect, exchange ideas and create content around
+            music across all genres and talks, which addresses topics like contemporary
+            culture, social injustice and other phenomena. Res.Radio is a space of diverse
+            artistic freedom and is made from people for people.
+          </p>
+          <p>
+            Support via donation:<br />
+            Vienna Community Webradio<br />
+            AT63 2011 1841 2411 3300<br />
+            GIBAATWWXXX</p>
+        </div>
+        <div></div>
+        <div>
+          <h3>Contact us</h3>
+          <p><a href="mailto:resradio.vienna@gmail.com">
             resradio.vienna@gmail.com
-          </a>
-        </p>
-        <p>
-          <Link to={"impressum"}>Impressum</Link>
-        </p>
-      </div>
+          </a></p>
+          <p>
+            Instagram<br />
+            Telegram<br />
+          </p>
+
+        </div>
+      </section>
+      <nav>
+        <ul>
+          <li>
+            <Link to={"impressum"}>Impressum</Link>
+          </li>
+          <li>
+            <Link to={"impressum"}>General Inquiries</Link>
+          </li>
+        </ul>
+      </nav>
     </Container>
   );
 };

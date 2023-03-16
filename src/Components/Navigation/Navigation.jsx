@@ -11,6 +11,7 @@ import useThemeStore from "../../Stores/ThemeStore";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Button from "../Button";
 import FilterPlayer from "../Filter/FilterPlayer";
+import Social from "../Social/Social";
 
 const Container = styled.div`
   position: fixed;
@@ -143,6 +144,7 @@ const Navigation = () => {
                 {nightMode ? <BsSunFill /> : <BsMoon />}
               </button>
             </li>
+            <Social />
             <li>
               <Button
                 type="button"
