@@ -6,6 +6,7 @@ import FadeIn from "../Animations/FadeIn";
 import Announcement from "../Components/Announcement/Announcement";
 import BroadcastSlice from "../Components/Broadcasts/BroadcastSlice";
 import Divider from "../Components/Divider";
+import Footer from "../Components/Footer";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
@@ -55,6 +56,7 @@ const LandingPage = () => {
           })}
           <Divider />
         </Layout>
+        <Footer/>
       </>
     );
   return <>error</>;

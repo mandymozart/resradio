@@ -4,8 +4,7 @@ import { useEffect, useRef } from "react";
 import { BrowserView } from "react-device-detect";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FloatingAnnouncement from "./Components/Announcement/FloatingAnnouncement";
-import Footer from "./Components/Footer";
-import Navigation from "./Components/Navigation/Navigation";
+import Header from "./Components/Header";
 import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import AboutPage from "./Pages/About";
@@ -38,7 +37,7 @@ function App() {
   return (
     <MousePositionProvider>
       <BrowserRouter>
-       <Navigation />
+       <Header />
         <ScrollToTop>
           <Routes>
             <Route
@@ -138,7 +137,6 @@ function App() {
         <BrowserView>
           <FloatingAnnouncement/>
         </BrowserView>
-        <Footer />
       </BrowserRouter>
     </MousePositionProvider>
   );
