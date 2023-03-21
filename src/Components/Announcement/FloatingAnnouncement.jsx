@@ -4,13 +4,17 @@ import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useMounted from "react-use-mounted";
-import Shapes from "../../images/shapes/Shapes";
 import useThemeStore from "../../Stores/ThemeStore";
-import {
-  DRIFT,
-  floatingPointRange,
-  getRandomNumber
-} from "../RandomImages/RandomImage";
+
+const getRandomNumber = (min, max) => {
+  return Math.random() * (max - min) + min;
+};
+
+const OFFSET = 200; // pixel offset of images from border
+const DEATHZONE = 512; // pixel in center to not enter for images
+const DRIFT = 8;
+
+const floatingPointRange = (value, max) => (value * 2) / max - 1;
 
 // WIDTH
 const WIDTH = 500;
@@ -134,7 +138,6 @@ const FloatingAnnouncement = () => {
         windowWidth={window.innerWidth}
         windowHeight={window.innerHeight}
       >
-        <Shapes shape={randomNumber} />
         <div onClick={handleClick}>{documents.results[0].data.text}</div>
         <span className="close" onClick={() => setIsVisible(false)}>
           <svg

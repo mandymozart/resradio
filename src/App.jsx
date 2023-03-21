@@ -4,12 +4,9 @@ import { useEffect, useRef } from "react";
 import { BrowserView } from "react-device-detect";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FloatingAnnouncement from "./Components/Announcement/FloatingAnnouncement";
-import Footer from "./Components/Footer";
-import Navigation from "./Components/Navigation/Navigation";
+import Header from "./Components/Header";
 import NotFound from "./Components/NotFound";
-import RandomImage from "./Components/RandomImages/RandomImage";
 import ScrollToTop from "./Components/ScrollToTop";
-import Symbols from "./Components/Symbols";
 import AboutPage from "./Pages/About";
 import Broadcast from "./Pages/Broadcast";
 import Broadcasts from "./Pages/Broadcasts";
@@ -22,24 +19,6 @@ import RotationPage from "./Pages/Rotation";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import useThemeStore from "./Stores/ThemeStore";
-
-const scrollToPosition = (top = 0) => {
-  try {
-    /**
-     * Latest API
-     */
-    window.scroll({
-      top: top,
-      left: 0,
-      behavior: "smooth",
-    });
-  } catch (_) {
-    /**
-     * Fallback
-     */
-    window.scrollTo(0, top);
-  }
-};
 
 const MousePositionProvider = ({ children }) => {
   const setMousePosition = useThemeStore((store) => store.setMousePosition);
@@ -59,11 +38,7 @@ function App() {
   return (
     <MousePositionProvider>
       <BrowserRouter>
-        {/* <RandomBackground /> */}
-        <RandomImage scale={0.9} />
-        {/* <RandomImage /> */}
-        {/* <RandomImage /> */}
-       <Navigation />
+       <Header />
         <ScrollToTop>
           <Routes>
             <Route
@@ -95,7 +70,7 @@ function App() {
             />
             <Route
               exact
-              path="/events"
+              path="/schedule"
               element={
                 <PageWrapper>
                   <Events />
@@ -149,15 +124,6 @@ function App() {
             />
             <Route
               exact
-              path="/symbols"
-              element={
-                <PageWrapper>
-                  <Symbols />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
               path="/impressum"
               element={
                 <PageWrapper>
@@ -178,13 +144,9 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ScrollToTop>
-        {/* <RandomImage scale={1.1} /> */}
-        {/* <RandomImage scale={1.15}/> */}
         <BrowserView>
-        <FloatingAnnouncement/>
+          <FloatingAnnouncement/>
         </BrowserView>
-        <Footer />
-        {/* <Chat /> */}
       </BrowserRouter>
     </MousePositionProvider>
   );

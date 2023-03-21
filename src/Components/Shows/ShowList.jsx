@@ -27,6 +27,11 @@ const Container = styled.div`
   label {
     font-size: 2rem;
   }
+  .list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
 `;
 
 const ShowList = () => {
@@ -69,15 +74,17 @@ const ShowList = () => {
         }{" "}
         of {shows?.length} shows match your criteria!
       </p>
-      {shows
-        ?.filter(
-          (show) =>
-            show.data.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
-            -1
-        )
-        .map((show) => (
-          <ShowItem key={show.id} show={show} />
-        ))}
+      <div className="list">
+        {shows
+          ?.filter(
+            (show) =>
+              show.data.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
+              -1
+          )
+          .map((show) => (
+            <ShowItem key={show.id} show={show} />
+          ))}
+      </div>
     </Container>
   );
 };

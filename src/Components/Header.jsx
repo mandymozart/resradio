@@ -2,18 +2,16 @@ import { css, Global } from "@emotion/react";
 import styled from "@emotion/styled";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { BrowserView } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
 import { BsMoon, BsSunFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import FadeIn from "../../Animations/FadeIn";
-import Logo from "../../images/Logo";
-import useThemeStore from "../../Stores/ThemeStore";
-import AudioPlayer from "../AudioPlayer/AudioPlayer";
-import Button from "../Button";
-import FilterPlayer from "../Filter/FilterPlayer";
-import Social from "../Social/Social";
+import { Link, useNavigate } from "react-router-dom";
+import FadeIn from "./../Animations/FadeIn";
+import Logo from "./../images/Logo";
+import useThemeStore from "./../Stores/ThemeStore";
+import Button from "./Button";
+import Social from "./Social/Social";
 
-const Container = styled.div`
+const Container = styled.header`
   position: fixed;
   top: 0;
   z-index: 1000;
@@ -108,23 +106,13 @@ const Container = styled.div`
   }
 `;
 
-const StyledPlayers = styled.div`
-  display: flex;
-  gap: 1rem;
-  > div {
-    flex: 1;
-  }
 
-`
-
-const Navigation = () => {
+const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const nightMode = useThemeStore((store) => store.nightMode);
   const setNightMode = useThemeStore((store) => store.setNightMode);
-  const showGifs = useThemeStore((store) => store.showGifs);
-  const setShowGifs = useThemeStore((store) => store.setShowGifs);
 
   const goToLink = (link) => {
     setIsOpen(false);
@@ -133,40 +121,33 @@ const Navigation = () => {
 
   return (
     <Container>
-      <header className="glassomorphism">
         <button onClick={() => goToLink("/")}>
           <Logo />
         </button>
+        <BrowserView>
         <nav>
           <ul>
-            <li>
-              <button onClick={() => setNightMode(!nightMode)}>
-                {nightMode ? <BsSunFill /> : <BsMoon />}
-              </button>
-            </li>
-            <Social />
-            <li>
-              <Button
+            <li><Link to="shows">Shows</Link></li>
+            <li><Link to="schedule">Schedule</Link></li>
+            <li>CHAT <Social /></li>
+          </ul>
+        </nav>
+        </BrowserView>
+        <MobileView>
+          <nav>
+          <Button
                 type="button"
                 active={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
               >
                 MENU
               </Button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <StyledPlayers>
-        <AudioPlayer />
-        <FilterPlayer />
-      </StyledPlayers>
+          </nav>
+        </MobileView>
+      {/* Mobile Menu */}
       <nav className={clsx({ isOpen: isOpen })}>
         <FadeIn>
           <ul>
-            <li>
-              <button onClick={() => goToLink("/broadcasts")}>Broadcasts</button>
-            </li>
             <li>
               <button onClick={() => goToLink("/shows")}>Shows</button>
             </li>
@@ -174,18 +155,10 @@ const Navigation = () => {
               <button onClick={() => goToLink("/schedule")}>Schedule</button>
             </li>
             <li>
-              <button onClick={() => goToLink("/about")}>About</button>
+              <button onClick={() => setNightMode(!nightMode)}>
+                {nightMode ? <BsSunFill /> : <BsMoon />}
+              </button>
             </li>
-            <li>
-              <button onClick={() => goToLink("/page/donate")}>Donate!</button>
-            </li>
-            <BrowserView>
-              <li>
-                <button onClick={() => setShowGifs(!showGifs)}>
-                  Gifs {showGifs ? "off" : "on"}
-                </button>
-              </li>
-            </BrowserView>
           </ul>
         </FadeIn>
         {nightMode && (
@@ -197,13 +170,6 @@ const Navigation = () => {
                   --second: var(--second-night);
                   --background: var(--background-night);
                 }
-                .glassomorphism {
-                  background: var(--background-night-translucent);
-                }
-                @supports (-webkit-backdrop-filter: none) or
-                  (backdrop-filter: none) {
-                  background: var(---background-night-blurred);
-                }
               `}
             />
           </>
@@ -213,4 +179,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default Header;
