@@ -1,6 +1,7 @@
 import produce from "immer";
 import create from "zustand";
 import { persist } from "zustand/middleware";
+import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 const useThemeStore = create(
   persist(
@@ -25,3 +26,7 @@ const useThemeStore = create(
 );
 
 export default useThemeStore;
+
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('ThemeStore', useThemeStore);
+}

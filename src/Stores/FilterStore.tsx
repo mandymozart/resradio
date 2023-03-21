@@ -2,6 +2,7 @@ import produce from "immer";
 import create, { GetState, SetState } from "zustand";
 import { persist, StoreApiWithPersist } from "zustand/middleware";
 import { BroadcastRefernce, Filter, ShowReference } from "../api/filter";
+import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 interface FilterState {
   genres: string[];
@@ -52,3 +53,7 @@ const useFilterStore = create<FilterState>(
 );
 
 export default useFilterStore;
+
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('FilterStore', useFilterStore);
+}
