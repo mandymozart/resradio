@@ -18,6 +18,7 @@ import Events from "./Pages/Events";
 import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
+import RotationPage from "./Pages/Rotation";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import useThemeStore from "./Stores/ThemeStore";
@@ -161,6 +162,15 @@ function App() {
               element={
                 <PageWrapper>
                   <ImpressumPage />
+                </PageWrapper>
+              }
+            />
+            <Route
+              exact
+              path="/rotation"
+              element={
+                <PageWrapper>
+                  <RotationPage />
                 </PageWrapper>
               }
             />

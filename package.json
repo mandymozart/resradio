@@ -19,6 +19,8 @@
     "dayjs": "^1.10.7",
     "framer-motion": "^6.0.0",
     "hamburger-react": "^2.4.1",
+    "ably": "^1.2.29",
+    "dotenv": "^16.0.1",
     "immer": "^9.0.12",
     "react": "^17.0.2",
     "react-device-detect": "^2.1.2",
