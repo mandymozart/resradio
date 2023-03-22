@@ -1,41 +1,44 @@
+import styled from "@emotion/styled";
 import { PrismicLink } from "@prismicio/react";
-import clsx from "clsx";
 import dayjs from "dayjs";
-import React, { useState } from "react";
-import FadeIn from "../../Animations/FadeIn";
-import { ItemContainer } from "../ItemContainer";
-import TeaserImage from "../TeaserImage/TeaserImage";
-
+import React from "react";
+import ThumbnailImage from "../TeaserImage/ThumbnailImage";
+const Container = styled.div`
+padding: 2rem;
+border-right: 2px solid var(--color);
+border-bottom: 2px solid var(--color);
+h4 {
+  text-transform: initial;
+}
+&:nth-of-type(4n){
+  border-right: none;
+  /* padding: 1rem 2rem 1rem 1rem; */
+}
+&:nth-of-type(4n + 1){
+  border-left: none;
+  /* padding: 1rem 1rem 1rem 2rem; */
+}
+`
 const BroadcastItem = ({ broadcast }) => {
-  const [isHovered, setHovered] = useState(false);
 
   return (
-    <FadeIn>
-      <ItemContainer
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <PrismicLink
-          field={broadcast}
-          className={clsx("image", { rotate: isHovered })}
-        >
-          <TeaserImage image={broadcast.data.image} />
+    <Container>
+      <ThumbnailImage image={broadcast.data.image.thumbnail ? broadcast.data.image.thumbnail : broadcast.data.image} />
+      <div className="meta">
+        <PrismicLink field={broadcast}>
+          <h4>{broadcast.data.title}</h4>
         </PrismicLink>
-        <div className="meta">
-          <PrismicLink field={broadcast}>
-            <h4>{broadcast.data.title}</h4>
-          </PrismicLink>
 
-          <PrismicLink field={broadcast.data.hostedby}>
-            {broadcast.data.hostedby.title}
-          </PrismicLink>
+        <PrismicLink field={broadcast.data.hostedby}>
+          {broadcast.data.hostedby.title}
+        </PrismicLink>
 
-          <p>
-            {dayjs(broadcast.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}
-          </p>
-        </div>
-      </ItemContainer>
-    </FadeIn>
+        <p>
+          {dayjs(broadcast.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}
+        </p>
+      </div>
+
+    </Container>
   );
 };
 export default BroadcastItem;

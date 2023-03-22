@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { usePrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect, useState } from "react";
 import { shuffle } from "../../utils";
+import { FilterForm } from "../Filter/FilterForm";
+import useFilterStore from "./../../Stores/FilterStore";
 import ShowItem from "./ShowItem";
 
 const Container = styled.div`
@@ -30,11 +32,11 @@ const Container = styled.div`
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
   }
 `;
 
 const ShowList = () => {
+  const { moods, tempos, genres } = useFilterStore();
   const [documents] = usePrismicDocumentsByType("shows", {
     pageSize: 200,
   });
@@ -60,6 +62,7 @@ const ShowList = () => {
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
+        <FilterForm />
       </label>
 
       <p>

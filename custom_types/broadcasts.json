@@ -1,81 +1,91 @@
 {
-  "Main" : {
-    "uid" : {
-      "type" : "UID",
-      "config" : {
-        "label" : "slug"
+  "Main": {
+    "uid": {
+      "type": "UID",
+      "config": {
+        "label": "slug"
       }
     },
-    "title" : {
-      "type" : "Text",
-      "config" : {
-        "label" : "title"
+    "title": {
+      "type": "Text",
+      "config": {
+        "label": "title"
       }
     },
-    "hostedby" : {
-      "type" : "Link",
-      "config" : {
-        "select" : "document",
-        "customtypes" : [ "shows" ],
-        "label" : "hostedBy"
+    "hostedby": {
+      "type": "Link",
+      "config": {
+        "select": "document",
+        "customtypes": [
+          "shows"
+        ],
+        "label": "hostedBy"
       }
     },
-    "description" : {
-      "type" : "Text",
-      "config" : {
-        "label" : "description"
+    "description": {
+      "type": "Text",
+      "config": {
+        "label": "description"
       }
     },
-    "begin" : {
-      "type" : "Timestamp",
-      "config" : {
-        "label" : "begin"
+    "begin": {
+      "type": "Timestamp",
+      "config": {
+        "label": "begin"
       }
     },
-    "end" : {
-      "type" : "Timestamp",
-      "config" : {
-        "label" : "end"
+    "end": {
+      "type": "Timestamp",
+      "config": {
+        "label": "end"
       }
     },
-    "soundcloud" : {
-      "type" : "Embed",
-      "config" : {
-        "label" : "soundcloud",
-        "placeholder" : "After the broadcast aired, drop the soundcloud link here"
+    "soundcloud": {
+      "type": "Embed",
+      "config": {
+        "label": "soundcloud",
+        "placeholder": "After the broadcast aired, drop the soundcloud link here"
       }
     },
-    "keyword" : {
-      "type" : "Text",
-      "config" : {
-        "label" : "keyword",
-        "placeholder" : "Type a meaningfull term here. We will load a random giphy."
+    "keyword": {
+      "type": "Text",
+      "config": {
+        "label": "keyword",
+        "placeholder": "Type a meaningfull term here. We will load a random giphy."
       }
     },
-    "image" : {
-      "type" : "Image",
-      "config" : {
-        "constraint" : {
-          "width" : 1080,
-          "height" : 1080
+    "image": {
+      "type": "Image",
+      "config": {
+        "constraint": {
+          "width": 1080,
+          "height": 1080
         },
-        "thumbnails" : [ {
-          "name" : "2x",
-          "width" : 2160,
-          "height" : 2160
-        }, {
-          "name" : "thumbnail",
-          "width" : 320,
-          "height" : 320
-        } ],
-        "label" : "image"
+        "thumbnails": [
+          {
+            "name": "2x",
+            "width": 2160,
+            "height": 2160
+          },
+          {
+            "name": "thumbnail",
+            "width": 440,
+            "height": 440
+          },
+          {
+            "name": "hero",
+            "width": 1920,
+            "height": 840
+          }
+        ],
+        "label": "image"
       }
     },
-    "audio" : {
-      "type" : "Link",
-      "config" : {
-        "select" : "media",
-        "label" : "audio"
+    "audio": {
+      "type": "Link",
+      "config": {
+        "select": "media",
+        "label": "audio"
       }
     }
   }

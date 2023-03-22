@@ -7,7 +7,7 @@ import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
-import TeaserImage from "../Components/TeaserImage/TeaserImage";
+import ThumbnailImage from "../Components/TeaserImage/ThumbnailImage";
 import useThemeStore from "../Stores/ThemeStore";
 
 const Container = styled.div``;
@@ -39,7 +39,7 @@ const Page = () => {
           {document[0].data.image && (
             <FadeIn>
               <Header>
-                <TeaserImage image={document[0].data.image} />
+                <ThumbnailImage image={document[0].data.image} />
               </Header>
             </FadeIn>
           )}

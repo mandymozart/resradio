@@ -1,35 +1,19 @@
 import styled from "@emotion/styled";
 import * as prismic from "@prismicio/client";
-import { PrismicLink } from "@prismicio/react";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
-import Marquee from "react-double-marquee";
+import { client } from "../../prismic";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { client } from "./../../prismic";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
-  line-height: 1rem;
-  text-align: center;
-  /* background: var(--color); */
-  .info {
-    /* a { color: var(--background); } */
-    white-space: nowrap;
-    overflow: hidden;
-    /* > div {
-      display: inline-flex; */
-    text-transform: capitalize;
-    /* } */
-  }
-  img {
-    width: 4rem;
-  }
+ flex: 1;
 `;
 
-const BroadcastInfo = () => {
+const StreamShortInfo = () => {
   const { broadcasts, setBroadcasts, currentBroadcast, setCurrentBroadcast } =
     useBroadcastStore();
 
@@ -51,6 +35,9 @@ const BroadcastInfo = () => {
               parseInt(dayjs().format("D"))
             ),
           ],
+
+        }, {
+          fetchLinks: "hostedby.title",
         })
         .then((data) => {
           let current = undefined;
@@ -78,23 +65,17 @@ const BroadcastInfo = () => {
 
   return (
     <Container>
-      {currentBroadcast ? (
-        <div className="info glassomorphism" style={{ "width": window.innerWidth + "px" }}>
-          <PrismicLink field={currentBroadcast.data.hostedby}>
-            {dayjs(currentBroadcast.data.begin).format("HH:mm")} -{" "}
-            {dayjs(currentBroadcast.data.end).format("HH:mm")}:{" "}
-            {currentBroadcast.data.hostedby.uid}{" "}
-          </PrismicLink>
-        </div>
+      {currentBroadcast ? (<>
+        {isLive(currentBroadcast.data.begin, currentBroadcast.data.end) && "Live"}
+        {currentBroadcast.data.hostedby.uid} &mdash; {currentBroadcast.data.title}
+      </>
       ) : (
         <>
-          <img src={"https://placehold.it/400x400"} alt="Untitled" />
-          Show: Untitled<br />
-          Host: Unknown - Link<br />
+          Heavy Rotation from our archive
         </>
       )}
     </Container>
   );
 };
 
-export default BroadcastInfo;
+export default StreamShortInfo;

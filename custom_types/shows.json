@@ -1,51 +1,68 @@
 {
-    "Main" : {
-      "uid" : {
-        "type" : "UID",
-        "config" : {
-          "label" : "slug"
-        }
-      },
-      "title" : {
-        "type" : "Text",
-        "config" : {
-          "label" : "title",
-          "placeholder" : "My awesome show"
-        }
-      },
-      "description" : {
-        "type" : "Text",
-        "config" : {
-          "label" : "description"
-        }
-      },
-      "soundcloud" : {
-        "type" : "Embed",
-        "config" : {
-          "label" : "soundcloud"
-        }
-      },
-      "keyword" : {
-        "type" : "Text",
-        "config" : {
-          "label" : "keyword",
-          "placeholder" : "Write a meaning full term here. We will load a random giphy."
-        }
-      },
-      "image" : {
-        "type" : "Image",
-        "config" : {
-          "constraint" : {
-            "width" : 1080,
-            "height" : 1080
+  "Main": {
+    "uid": {
+      "type": "UID",
+      "config": {
+        "label": "slug"
+      }
+    },
+    "title": {
+      "type": "Text",
+      "config": {
+        "label": "title",
+        "placeholder": "My awesome show"
+      }
+    },
+    "description": {
+      "type": "Text",
+      "config": {
+        "label": "description"
+      }
+    },
+    "soundcloud": {
+      "type": "Embed",
+      "config": {
+        "label": "soundcloud"
+      }
+    },
+    "keyword": {
+      "type": "Text",
+      "config": {
+        "label": "keyword",
+        "placeholder": "Write a meaning full term here. We will load a random giphy."
+      }
+    },
+    "tags": {
+      "type": "Link",
+      "config": {
+        "select": "document",
+        "customtypes": [
+          "tag"
+        ],
+        "label": "tags"
+      }
+    },
+    "image": {
+      "type": "Image",
+      "config": {
+        "constraint": {
+          "width": 1080,
+          "height": 1080
+        },
+        "thumbnails": [
+          {
+            "name": "2x",
+            "width": 2160,
+            "height": 2160
           },
-          "thumbnails" : [ {
-            "name" : "2x",
-            "width" : 2160,
-            "height" : 2160
-          } ],
-          "label" : "image"
-        }
+          {
+            "name": "hero",
+            "width": 1920,
+            "height": 840
+          }
+        ],
+        "label": "image"
       }
     }
   }
+}

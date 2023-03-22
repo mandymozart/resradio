@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 
-const Container = styled.p`
+const Container = styled.div`
 text-align: center;
-font-size: 2rem;
+font-size: 1.5rem;
 `;
 
 const Social = () => {

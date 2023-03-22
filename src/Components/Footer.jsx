@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 
 const Container = styled.footer`
   max-width: var(--content-width);
-  border-top: 2px solid var(--color);
   section {
     padding: 2rem;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
+    > div:first-of-type {
+      grid-column: span 2;
+    }
   }
   nav {
     border-top: 2px solid var(--color);

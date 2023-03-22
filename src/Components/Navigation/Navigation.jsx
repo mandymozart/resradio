@@ -116,7 +116,7 @@ const StyledPlayers = styled.div`
   }
 
 `
-
+/* deprecated */
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();

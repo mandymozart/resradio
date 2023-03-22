@@ -1,38 +1,48 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
-import ThumbnailImage from "../TeaserImage/ThumbnailImage";
+import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
 const Container = styled.div`
-padding: 2rem;
 border-right: 2px solid var(--color);
 border-bottom: 2px solid var(--color);
 h4 {
   text-transform: initial;
 }
-&:nth-of-type(4n){
+.meta {
+  padding: 0 0rem 0 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+&:nth-of-type(2n){
   border-right: none;
+  padding-left: 1rem;
+  .meta {
+    padding: 0 2rem 0 0rem;
+  }
   /* padding: 1rem 2rem 1rem 1rem; */
 }
-&:nth-of-type(4n + 1){
+&:nth-of-type(2n + 1){
   border-left: none;
+  padding-right: 1rem;
   /* padding: 1rem 1rem 1rem 2rem; */
 }
   
 `
 
-const ShowItem = ({ show }) => {
+const RecentShowItem = ({ show }) => {
   return (
     <Container>
       <Link to={show.url}>
-        <ThumbnailImage image={show.data.image.thumbnail ? show.data.image.thumbnail : show.data.image} />
+        <ThumbnailPanoramaImage image={show.data.image.thumbnailPanorama ? show.data.image.thumbnailPanorama : show.data.image} />
       </Link>
       <div className="meta">
         <Link key={show.id} to={show.url}>
           <h4>{show.data.title}</h4>
         </Link>
+        <div>05.01.2023</div>
       </div>
     </Container>
   );
 };
-export default ShowItem;
+export default RecentShowItem;

@@ -1,84 +1,37 @@
 import styled from "@emotion/styled";
-import React, { useRef, useState } from "react";
-import { isDesktop } from "react-device-detect";
-import {
-  BsPause,
-  BsPlay,
-  BsVolumeDown,
-  BsVolumeMute,
-  BsVolumeUp
-} from "react-icons/bs";
+import React, { useRef } from "react";
 import config from "../../config";
+import Arrow from "../../images/Arrow";
+import Pause from "../../images/Pause";
+import Play from "../../images/Play";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
+import { PlayButton } from "../AudioPlayer/AudioPlayer";
 import Loader from "../Loader";
-import { FilterInfo } from "./FilterInfo";
+import { FilterShortInfo } from "./FilterShortInfo";
 
 const Container = styled.div`
-  > div {
+  > header {
+    margin-left: 1rem;
     display: flex;
     align-items: center;
   }
 `;
-const ControlButton = styled.button`
-  color: var(--color);
-  border: 0;
-  border-radius: 0.25rem;
-  height: 3rem;
-  padding: 0 2rem;
-  cursor: pointer;
-  font-weight: bold;
-  line-height: 0.75rem;
-  &:hover {
-    color: var(--second);
-  }
-`;
-const PlayButton = styled(ControlButton)`
-  position: relative;
-  padding: 0;
-  padding: 0;
-  background: transparent;
-  font-size: 1.5rem;
-`;
-const VolumeButton = styled(PlayButton)``;
 
-const VolumeSlider = styled.div`
-  position: absolute;
-  top: 3rem;
-  input {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
-    width: 1rem;
-    height: 6rem;
-    padding: 0 0.25rem;
-  }
-`;
-
-const FilterPlayer = () => {
-  const [volume, setVolume] = useState(0.5);
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
-  const volumeSlider = useRef();
+const FilterPlayer = ({ isCollapsed, setIsCollapsed }) => {
   const audioPlayer = useRef();
   // const source = useRef();
   // const [track, setTrack] = useState(config.STREAM_URL);
-  const { isPlaying, setIsPlaying, isLoading, setIsLoading } =
+  const { isPlayingBroadcast, setIsPlayingBroadcast, isLoadingBroadcast, setIsLoadingBroadcast, volume, setVolume } =
     useAudioPlayerStore();
 
   const togglePlay = () => {
-    if (isPlaying) {
+    if (isPlayingBroadcast) {
       audioPlayer.current.pause();
-      setIsPlaying(false)
+      setIsPlayingBroadcast(false)
     } else {
-      // setTrack(config.STREAM_URL);
-      setIsPlaying(true)
+      setIsPlayingBroadcast(true)
       audioPlayer.current.play();
     }
-  };
-  const toggleVolumeSlider = () => {
-    setShowVolumeSlider(!showVolumeSlider);
-  };
-  const changeVolume = (e) => {
-    setVolume(e.target.value);
-    audioPlayer.current.volume = e.target.value;
   };
 
   const onPlaying = () => {
@@ -86,54 +39,33 @@ const FilterPlayer = () => {
   };
 
   const onCanPlay = () => {
-    setIsLoading(false);
+    setIsLoadingBroadcast(false);
     audioPlayer.current.volume = volume;
   };
 
   return (
     <Container>
-        <header>
-      <audio
-        ref={audioPlayer}
-        volume={volume}
-        onTimeUpdate={onPlaying}
-        onCanPlay={onCanPlay}
-        src={config.STREAM_URL}
-      />
-      {isDesktop && (
-        <>
-          <VolumeButton onClick={toggleVolumeSlider}>
-            {volume <= 0 && <BsVolumeMute />}
-            {volume > 0 && volume < 0.6 && <BsVolumeDown />}
-            {volume >= 0.6 && <BsVolumeUp />}
-          </VolumeButton>
+      <header>
+        <audio
+          ref={audioPlayer}
+          volume={volume}
+          onTimeUpdate={onPlaying}
+          onCanPlay={onCanPlay}
+          src={config.STREAM_URL}
+        />
 
-          {showVolumeSlider && (
-            <VolumeSlider>
-              <input
-                orient="vertical"
-                type="range"
-                max="1"
-                min="0"
-                value={volume}
-                step="0.01"
-                ref={volumeSlider}
-                onChange={changeVolume}
-              />
-            </VolumeSlider>
+        <PlayButton onClick={togglePlay}>
+          {isLoadingBroadcast ? (
+            <Loader size={15} />
+          ) : (
+            <>{isPlayingBroadcast ? <Play /> : <Pause />}</>
           )}
-        </>
-      )}
-
-      <PlayButton onClick={togglePlay}>
-        {isLoading ? (
-          <Loader size={15} />
-        ) : (
-          <>{isPlaying ? <BsPause /> : <BsPlay />}</>
-        )}
-      </PlayButton>
+        </PlayButton>
+        <FilterShortInfo />
+        <button onClick={() => setIsCollapsed(!isCollapsed)}>
+          <Arrow flipped={!isCollapsed} />
+        </button>
       </header>
-      <FilterInfo/>
     </Container>
   );
 };

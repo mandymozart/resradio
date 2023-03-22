@@ -5,12 +5,14 @@ import { MobileView } from "react-device-detect";
 import FadeIn from "../Animations/FadeIn";
 import Announcement from "../Components/Announcement/Announcement";
 import BroadcastSlice from "../Components/Broadcasts/BroadcastSlice";
-import Divider from "../Components/Divider";
 import Footer from "../Components/Footer";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
+import RecentShowList from "../Components/Shows/RecentShowList";
 import useThemeStore from "../Stores/ThemeStore";
+import Broadcasts from "./Broadcasts";
+import Events from "./Events";
 
 const Hero = styled.section`
   text-align: center;
@@ -32,16 +34,8 @@ const LandingPage = () => {
       <>
         <Layout>
           <FadeIn>
-            <Hero image={document[0].data.image}>
-              <h2>{document[0].data.welcome_message}</h2>
-              {/* <a
-                href="mailto:program.resradio@gmail.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button large>Join us</Button>
-              </a> */}
-              {/* <Social /> */}
+            <Hero>
+              <img src={document[0].data.image} />
             </Hero>
           </FadeIn>
           <MobileView>
@@ -54,9 +48,11 @@ const LandingPage = () => {
               return <BroadcastSlice key={index} slice={slice} />;
             else return <></>;
           })}
-          <Divider />
+          <Events />
+          <RecentShowList />
+          <Broadcasts />
         </Layout>
-        <Footer/>
+        <Footer />
       </>
     );
   return <>error</>;

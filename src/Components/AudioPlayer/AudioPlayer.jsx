@@ -1,67 +1,40 @@
 import styled from "@emotion/styled";
-import React, { useRef, useState } from "react";
-import { isDesktop } from "react-device-detect";
-import {
-  BsPause,
-  BsPlay,
-  BsVolumeDown,
-  BsVolumeMute,
-  BsVolumeUp
-} from "react-icons/bs";
+import React, { useEffect, useRef } from "react";
 import config from "../../config";
+import useIsMounted from "../../Hooks/isMounted";
+import Arrow from "../../images/Arrow";
+import Pause from "../../images/Pause";
+import Play from "../../images/Play";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import Loader from "../Loader";
-import BroadcastInfo from "./BroadcastInfo";
+import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
-  > div {
+  > header {
+    margin-right: 1rem;
     display: flex;
     align-items: center;
   }
 `;
-const ControlButton = styled.button`
-  color: var(--color);
-  border: 0;
-  border-radius: 0.25rem;
+export const ControlButton = styled.button`
+&&& {
   height: 3rem;
-  padding: 0 2rem;
-  cursor: pointer;
-  font-weight: bold;
-  line-height: 0.75rem;
-  &:hover {
-    color: var(--second);
-  }
-`;
-const PlayButton = styled(ControlButton)`
-  position: relative;
-  padding: 0;
-  padding: 0;
-  background: transparent;
-  font-size: 1.5rem;
-`;
-const VolumeButton = styled(PlayButton)``;
+  padding-right: 1rem;
+}`;
+export const PlayButton = styled(ControlButton)`
 
-const VolumeSlider = styled.div`
-  position: absolute;
-  top: 3rem;
-  input {
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
-    width: 1rem;
-    height: 6rem;
-    padding: 0 0.25rem;
-  }
 `;
 
-const AudioPlayer = () => {
-  const [volume, setVolume] = useState(0.5);
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
-  const volumeSlider = useRef();
-  const audioPlayer = useRef();
+const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
+
+  const isMounted = useIsMounted();
+
   // const source = useRef();
   // const [track, setTrack] = useState(config.STREAM_URL);
-  const { isPlaying, setIsPlaying, isLoading, setIsLoading } =
+  const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume, setVolume } =
     useAudioPlayerStore();
+
+  let audioPlayer = useRef();
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -73,20 +46,15 @@ const AudioPlayer = () => {
       audioPlayer.current.play();
     }
   };
-  const toggleVolumeSlider = () => {
-    setShowVolumeSlider(!showVolumeSlider);
-  };
-  const changeVolume = (e) => {
-    setVolume(e.target.value);
-    audioPlayer.current.volume = e.target.value;
-  };
+
 
   const onPlaying = (e) => {
-    // TODO: visualisation
+    // TODO: update progress in control bar
   };
 
   const handleEnded = () => {
     // TODO: set next track in playlist
+    console.warn('Audio Stream ended.')
   }
 
   const onCanPlay = () => {
@@ -94,51 +62,42 @@ const AudioPlayer = () => {
     audioPlayer.current.volume = volume;
   };
 
+  const handleVolumeChange = (e) => {
+    // setVolume(e.value)
+    audioPlayer.current.volume = e.value;
+  }
+
+
+  useEffect(() => {
+    if (isMounted) window.addEventListener('volumeChanged', handleVolumeChange)
+  }, [isMounted])
+
+
+
   return (
     <Container>
       <header>
-      <audio
-        ref={audioPlayer}
-        volume={volume}
-        onTimeUpdate={onPlaying}
-        onCanPlay={onCanPlay}
-        onEnded={handleEnded}
-        src={config.STREAM_URL}
-      />
-      {isDesktop && (
-        <>
-          <VolumeButton onClick={toggleVolumeSlider}>
-            {volume <= 0 && <BsVolumeMute />}
-            {volume > 0 && volume < 0.6 && <BsVolumeDown />}
-            {volume >= 0.6 && <BsVolumeUp />}
-          </VolumeButton>
+        <audio
+          ref={audioPlayer}
+          volume={volume}
+          onTimeUpdate={onPlaying}
+          onCanPlay={onCanPlay}
+          onEnded={handleEnded}
+          src={config.STREAM_URL}
+        />
 
-          {showVolumeSlider && (
-            <VolumeSlider>
-              <input
-                orient="vertical"
-                type="range"
-                max="1"
-                min="0"
-                value={volume}
-                step="0.01"
-                ref={volumeSlider}
-                onChange={changeVolume}
-              />
-            </VolumeSlider>
+        <PlayButton onClick={togglePlay}>
+          {isLoading ? (
+            <Loader size={15} />
+          ) : (
+            <>{isPlaying ? <Pause /> : <Play />}</>
           )}
-        </>
-      )}
-
-      <PlayButton onClick={togglePlay}>
-        {isLoading ? (
-          <Loader size={15} />
-        ) : (
-          <>{isPlaying ? <BsPause /> : <BsPlay />}</>
-        )}
-      </PlayButton>
+        </PlayButton>
+        <StreamShortInfo />
+        <button onClick={() => setIsCollapsed(!isCollapsed)}>
+          <Arrow flipped={!isCollapsed} />
+        </button>
       </header>
-      <BroadcastInfo/>
     </Container>
   );
 };

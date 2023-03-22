@@ -8,7 +8,7 @@ import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
-import TeaserImage from "../Components/TeaserImage/TeaserImage";
+import ThumbnailImage from "../Components/TeaserImage/ThumbnailImage";
 import Timeslots from "../Components/Timeslots/Timeslots";
 import useThemeStore from "../Stores/ThemeStore";
 
@@ -24,7 +24,7 @@ const Description = styled.section``;
 const Event = () => {
   const { uid } = useParams();
   const setKeyword = useThemeStore((store) => store.setKeyword);
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events", 
+  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("events",
     [uid],
     {
       fetchLinks: "relatedshow.title",
@@ -43,7 +43,7 @@ const Event = () => {
         <Container>
           <FadeIn>
             <Header>
-              <TeaserImage image={document[0].data.image} />
+              <ThumbnailImage image={document[0].data.image} />
             </Header>
           </FadeIn>
           <FadeIn>

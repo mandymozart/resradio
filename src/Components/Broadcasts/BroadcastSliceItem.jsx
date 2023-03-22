@@ -1,14 +1,30 @@
+import styled from "@emotion/styled";
 import { PrismicLink, usePrismicDocumentByUID } from "@prismicio/react";
-import clsx from "clsx";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
-import FadeIn from "../../Animations/FadeIn";
-import { ItemContainer } from "../ItemContainer";
+import React, { useEffect } from "react";
 import Loader from "../Loader";
-import TeaserImage from "../TeaserImage/TeaserImage";
+import HeroImage from "../TeaserImage/HeroImage";
+
+const Container = styled.div`
+
+img {
+  border-bottom: 2px solid var(--color);
+}
+  h4 {
+    margin: 1rem 0;
+    padding: 0 2rem;
+  }
+  p {
+    font-size: 1rem;
+    margin: 0;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding: 0 2rem;
+  }
+  border-bottom: 2px solid var(--color);
+`
 
 const BroadcastSliceItem = ({ uid }) => {
-  const [isHovered, setHovered] = useState(false);
   const [document, { state, error }] = usePrismicDocumentByUID(
     "broadcasts",
     uid,
@@ -17,38 +33,26 @@ const BroadcastSliceItem = ({ uid }) => {
     }
   );
   useEffect(() => {
-    // console.log(document, uid);
+    console.log(document, uid);
   }, [document]);
   if (state === "loading") return <Loader />;
   else if (state === "failed") return <></>;
   else if (state === "loaded")
     return (
-      <FadeIn>
-        <ItemContainer
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
-          <PrismicLink
-            field={document}
-            className={clsx("image", { rotate: isHovered })}
-          >
-            <TeaserImage image={document.data.image} />
-          </PrismicLink>
-          <div className="meta">
+      <Container>
+        <HeroImage image={document.data.image.hero ? document.data.image.hero : document.data.image} />
+        <div className="meta">
+          <h4>
             <PrismicLink field={document}>
-              <h4>{document.data.title}</h4>
+              {document.data.hostedby.data.title} - {document.data.title}
             </PrismicLink>
-            by{" "}
-            <PrismicLink field={document.data.hostedby}>
-              {document.data.hostedby.data.title}
-            </PrismicLink>
-            <p>
-              {dayjs(document.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}
-              &mdash; {dayjs(document.data.end).format("HH:mm")}
-            </p>
-          </div>
-        </ItemContainer>
-      </FadeIn>
+          </h4>
+          <p>
+            {dayjs(document.data.begin).format("MMM DD.MM.YYYY")}<br />
+            {dayjs(document.data.begin).format("HH:mm")}&mdash;{dayjs(document.data.end).format("HH:mm")}
+          </p>
+        </div>
+      </Container>
     );
   return <></>;
 };

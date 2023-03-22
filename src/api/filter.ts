@@ -2,9 +2,8 @@ export const filter: Filter = {
   genres: [],
   moods: [],
   tempos: [],
-  variance: 5, // 0-9 (0 tight, 9 go wild)
   history: [],
-  hosts: [],
+  shows: [],
   currentBroadcast: null,
 };
 
@@ -12,16 +11,15 @@ export type Filter = {
   genres: string[];
   moods: string[];
   tempos: number[];
-  variance: number;
   history: BroadcastRefernce[];
-  hosts: ShowReference[];
+  shows: ShowReference[];
   currentBroadcast: BroadcastRefernce | null;
 };
 
 export type BroadcastRefernce = {
   prismicId: string;
   title: string;
-  host: ShowReference;
+  show: ShowReference;
   alias: string;
   score: number; // 0-9 (0 didn't like it, 9 loved it)
 };

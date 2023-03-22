@@ -7,8 +7,7 @@ import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
-import Tags from "../Components/Tags";
-import TeaserImage from "../Components/TeaserImage/TeaserImage";
+import HeroImage from "../Components/TeaserImage/HeroImage";
 import useThemeStore from "../Stores/ThemeStore";
 
 const Container = styled.div``;
@@ -58,7 +57,7 @@ const Show = () => {
         <Container>
           <Header>
             <FadeIn>
-              <TeaserImage image={document[0].data.image} />
+              <HeroImage image={document[0].data.image.hero} />
             </FadeIn>
             {document[0].data?.soundcloud.html && (
               <FadeIn>
@@ -70,11 +69,6 @@ const Show = () => {
               </FadeIn>
             )}
           </Header>
-          <FadeIn>
-            <Meta>
-              <Tags tags={document[0].data.tags} />
-            </Meta>
-          </FadeIn>
           <Description>
             <FadeIn>
               <h3>{document[0].data.title}</h3>

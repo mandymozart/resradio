@@ -3,10 +3,17 @@
   src: url("Fonts/Scope-BoldExpanded.woff2") format("woff2"),
     url("Fonts/Scope-BoldExpanded.woff") format("woff");
 }
+
 @font-face {
   font-family: "Scope-LightExpanded";
   src: url("Fonts/Scope-LightExpanded.woff2") format("woff2"),
     url("Fonts/Scope-LightExpanded.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Scope-MediumExpanded";
+  src: url("Fonts/Scope-MediumExpanded.woff2") format("woff2"),
+    url("Fonts/Scope-MediumExpanded.woff") format("woff");
 }
 
 :root {
@@ -22,18 +29,21 @@
   --second-night: var(--second-day);
   --background-night: var(--color-day);
 
-  --color:  var(--color-day);
+  --color: var(--color-day);
   --second: var(--second-day);
   --background: var(--background-day);
   --yellow: #FFFD39;
   --grey: #F8F8F8;
 
   --font-light: "Scope-LightExpanded", "Courir", -apple-system,
-  BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-  "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --font-bold: "Scope-BoldExpanded", "Courir", -apple-system, BlinkMacSystemFont,
-  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-  "Droid Sans", "Helvetica Neue", sans-serif;
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-medium: "Scope-MediumExpanded", "Courir", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
 
@@ -41,21 +51,24 @@
 html {
   font-size: 16px;
 }
+
 body {
   margin: 0;
   font-family: var(--font-light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.5rem;
-  line-height: 1.1875; 
+  line-height: 1.1875;
   color: var(--color);
   background: var(--background);
 }
+
 a {
   color: var(--color);
   text-decoration: none;
   text-transform: uppercase;
 }
+
 a:hover {
   color: var(--second);
 }
@@ -71,12 +84,40 @@ h6 {
   font-size: 2rem;
   text-transform: uppercase;
 }
-* > h1:first-child { margin-top: 0; margin-bottom: 4rem;}
-* > h2:first-child { margin-top: 0; margin-bottom: 4rem;}
-* > h3:first-child { margin-top: 0; margin-bottom: 4rem;}
-* > h4:first-child { margin-top: 0; }
-* > h5:first-child { margin-top: 0;}
-* > h6:first-child { margin-top: 0;}
+
+h4,
+h5,
+h6 {
+  font-size: 1.5rem;
+}
+
+*>h1:first-child {
+  margin-top: 0;
+  margin-bottom: 4rem;
+}
+
+*>h2:first-child {
+  margin-top: 0;
+  margin-bottom: 4rem;
+}
+
+*>h3:first-child {
+  margin-top: 0;
+  margin-bottom: 4rem;
+}
+
+*>h4:first-child {
+  margin-top: 0;
+}
+
+*>h5:first-child {
+  margin-top: 0;
+}
+
+*>h6:first-child {
+  margin-top: 0;
+}
+
 b,
 strong {
   font-family: "Scope-BoldExpanded", "Courir", -apple-system, BlinkMacSystemFont,
@@ -89,17 +130,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 p {
   margin-bottom: 2rem;
 }
+
 .rotate {
   transform: rotateY(45deg);
   animation: rotateAnimation 3s linear infinite;
 }
+
 @keyframes rotateAnimation {
   from {
     transform: rotateY(0deg);
   }
+
   to {
     transform: rotateY(359deg);
   }

@@ -1,10 +1,29 @@
+import styled from "@emotion/styled";
 import React, { useEffect } from "react";
-import FadeIn from "../Animations/FadeIn";
-import Button from "../Components/Button";
-import Divider from "../Components/Divider";
 import EventList from "../Components/Events/EventList";
-import Layout from "../Components/Layout";
 import useThemeStore from "../Stores/ThemeStore";
+
+const Container = styled.section`
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+gap: 2rem;
+padding: 2rem;
+border-bottom: 2px solid var(--color);
+h2 {
+  margin-bottom: 5rem;
+}
+> div {
+  background: var(--yellow);
+  padding: 2rem;
+  font-size: 2rem;
+  color: var(--second);
+  font-family: var(--font-medium);
+  grid-column: span 2;
+  a {
+    color: var(--second);
+  }
+}
+`
 
 const Events = () => {
   const setKeyword = useThemeStore((store) => store.setKeyword);
@@ -12,20 +31,12 @@ const Events = () => {
     setKeyword("show");
   }, [setKeyword]);
   return (
-    <Layout>
-      <FadeIn>
+    <Container>
+      <div>
         <h2>Schedule</h2>
-      </FadeIn>
-      <FadeIn>
-        <p>Our programme is carefully selected and community driven.</p>
-        <a href={"mailto:program.resradio@gmail.com"} target="_blank">
-          <Button>Apply with your own show</Button>
-        </a>
-      </FadeIn>
-      <Divider />
-      <EventList />
-      <Divider />
-    </Layout>
+        <EventList />
+      </div>
+    </Container>
   );
 };
 

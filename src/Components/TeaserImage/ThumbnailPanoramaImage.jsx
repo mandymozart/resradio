@@ -3,11 +3,9 @@ import React from "react";
 
 const Image = styled.img`
   width: 100%;
-  filter: blur(0);
-  transition: filter 1s cubic-bezier(1,0,0,1);
 `;
 
-const TeaserImage = ({image, ...props }) => {
+const ThumbnailPanoramaImage = ({ image, ...props }) => {
   return (
     <Image
       src={image.url}
@@ -17,4 +15,4 @@ const TeaserImage = ({image, ...props }) => {
   );
 };
 
-export default TeaserImage;
+export default ThumbnailPanoramaImage;
