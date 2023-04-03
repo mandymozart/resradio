@@ -3,8 +3,8 @@ import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FadeIn from "../Animations/FadeIn";
+import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
-import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import ThumbnailImage from "../Components/TeaserImage/ThumbnailImage";
@@ -34,7 +34,7 @@ const Page = () => {
   else if (state === "failed") return <NotFound />;
   else if (state === "loaded" && document[0])
     return (
-      <Layout>
+      <HeaderOffset>
         <Container>
           {document[0].data.image && (
             <FadeIn>
@@ -52,7 +52,7 @@ const Page = () => {
             </FadeIn>
           </Description>
         </Container>
-      </Layout>
+      </HeaderOffset>
     );
   else return <NotFound />;
 };

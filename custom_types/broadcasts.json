@@ -40,18 +40,25 @@
         "label": "end"
       }
     },
+    "length": {
+      "type": "Number",
+      "config": {
+        "label": "length",
+        "placeholder": "exact length of show in minutes (defaults are 60, 120), make sure uploads are full minutes"
+      }
+    },
     "soundcloud": {
       "type": "Embed",
       "config": {
         "label": "soundcloud",
-        "placeholder": "After the broadcast aired, drop the soundcloud link here"
+        "placeholder": "deprecated, stop using"
       }
     },
     "keyword": {
       "type": "Text",
       "config": {
         "label": "keyword",
-        "placeholder": "Type a meaningfull term here. We will load a random giphy."
+        "placeholder": "meaningful keyword, we will use AI to generate a random artwork"
       }
     },
     "image": {
@@ -86,6 +93,25 @@
       "config": {
         "select": "media",
         "label": "audio"
+      }
+    },
+    "tags": {
+      "type": "Group",
+      "config": {
+        "fields": {
+          "tag": {
+            "type": "Link",
+            "config": {
+              "select": "document",
+              "customtypes": [
+                "tag"
+              ],
+              "label": "tag",
+              "placeholder": "genre, mood, tempo"
+            }
+          }
+        },
+        "label": "tags"
       }
     }
   }

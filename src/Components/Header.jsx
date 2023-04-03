@@ -31,7 +31,10 @@ const Container = styled.header`
   }
   nav.primary{
     display: grid;
-    padding: 2rem 2rem 1rem 2rem;
+    line-height: 1rem;
+    height: 6rem;
+    box-sizing: border-box;
+    padding: 0 2rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
     align-items: center;
@@ -53,7 +56,9 @@ const Container = styled.header`
 
 const Topbar = styled.div`
   display: grid;
+  box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
+  height: 3rem;
   padding: 0 2rem 0 2rem;
   gap: 0;
   border-bottom: 2px solid var(--color);
@@ -97,7 +102,7 @@ const Header = () => {
             </>
           )}
           {isMobile && (
-            <nav>
+            <>
               <Button
                 type="button"
                 active={isOpen}
@@ -105,7 +110,7 @@ const Header = () => {
               >
                 MENU
               </Button>
-            </nav>
+            </>
           )}
         </nav>
         <Topbar>

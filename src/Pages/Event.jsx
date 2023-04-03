@@ -3,8 +3,8 @@ import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import FadeIn from "../Animations/FadeIn";
+import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
-import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
@@ -39,7 +39,7 @@ const Event = () => {
   else if (state === "failed") return <NotFound />;
   else if (state === "loaded" && document[0])
     return (
-      <Layout>
+      <HeaderOffset>
         <Container>
           <FadeIn>
             <Header>
@@ -63,7 +63,7 @@ const Event = () => {
             <Timeslots key={`timeslot${index}`} timeslots={timeslots} />
           ))}
         </Container>
-      </Layout>
+      </HeaderOffset>
     );
   else return <NotFound />;
 };

@@ -1,3 +1,4 @@
+// import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import * as prismic from '@prismicio/client'
 
 // Fill in your repository name
@@ -33,3 +34,12 @@ export const client = prismic.createClient(endpoint, {
     },
   ],
 })
+
+// export const graphQlclient = new ApolloClient({
+//   link: new HttpLink({
+//     uri: prismic.getGraphQLEndpoint(repositoryName),
+//     fetch: client.graphqlFetch,
+//     useGETForQueries: true,
+//   }),
+//   cache: new InMemoryCache(),
+// })

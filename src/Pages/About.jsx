@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import About from "../Components/About/About";
 import Divider from "../Components/Divider";
-import Layout from "../Components/Layout";
+import HeaderOffset from "../Components/HeaderOffset";
 import useThemeStore from "../Stores/ThemeStore";
 
 const AboutPage = () => {
@@ -10,10 +10,10 @@ const AboutPage = () => {
     setKeyword("community");
   }, [setKeyword]);
   return (
-    <Layout>
+    <HeaderOffset>
       <About />
       <Divider />
-    </Layout>
+    </HeaderOffset>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Layout from "../Components/Layout";
+import HeaderOffset from "../Components/HeaderOffset";
 import ViennaStruggleLogo from "../images/ViennaStruggleLogo";
 import useThemeStore from "../Stores/ThemeStore";
 
@@ -9,7 +9,7 @@ const ImpressumPage = () => {
     setKeyword("impress");
   }, [setKeyword]);
   return (
-    <Layout>
+    <HeaderOffset>
       <h3>This page is made possible with contributions by:</h3>
       <h4>Concept &amp; Operations</h4>
       <ul>
@@ -29,7 +29,7 @@ const ImpressumPage = () => {
       <ul>
         <li>Jonas Pelzer (Scope Typeface)</li>
       </ul>
-    </Layout>
+    </HeaderOffset>
   );
 };
 

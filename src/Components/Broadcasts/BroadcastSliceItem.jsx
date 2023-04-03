@@ -37,7 +37,7 @@ const BroadcastSliceItem = ({ uid }) => {
   }, [document]);
   if (state === "loading") return <Loader />;
   else if (state === "failed") return <></>;
-  else if (state === "loaded")
+  else if (state === "loaded" && document)
     return (
       <Container>
         <HeroImage image={document.data.image.hero ? document.data.image.hero : document.data.image} />

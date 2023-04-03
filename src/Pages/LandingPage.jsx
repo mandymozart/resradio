@@ -6,7 +6,7 @@ import FadeIn from "../Animations/FadeIn";
 import Announcement from "../Components/Announcement/Announcement";
 import BroadcastSlice from "../Components/Broadcasts/BroadcastSlice";
 import Footer from "../Components/Footer";
-import Layout from "../Components/Layout";
+import HeaderOffset from "../Components/HeaderOffset";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import RecentShowList from "../Components/Shows/RecentShowList";
@@ -32,7 +32,7 @@ const LandingPage = () => {
   else if (state === "loaded" && document[0])
     return (
       <>
-        <Layout>
+        <HeaderOffset>
           <FadeIn>
             <Hero>
               <img src={document[0].data.image} />
@@ -51,7 +51,7 @@ const LandingPage = () => {
           <Events />
           <RecentShowList />
           <Broadcasts />
-        </Layout>
+        </HeaderOffset>
         <Footer />
       </>
     );
