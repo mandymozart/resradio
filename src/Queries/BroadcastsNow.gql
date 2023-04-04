@@ -1,0 +1,16 @@
+query BroadcastNowQuery($nowish: DateTime!) {
+  allBroadcastss(where: {begin_after: $nowish}) {
+    edges {
+      node {
+        title
+        begin
+        end
+        hostedby {
+          ... on Shows {
+            title
+          }
+        }
+      }
+    }
+  }
+}

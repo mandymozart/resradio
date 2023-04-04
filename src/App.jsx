@@ -15,7 +15,6 @@ import Events from "./Pages/Events";
 import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
-import RotationPage from "./Pages/Rotation";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import useThemeStore from "./Stores/ThemeStore";
@@ -38,7 +37,7 @@ function App() {
   return (
     <MousePositionProvider>
       <BrowserRouter>
-       <Header />
+        <Header />
         <ScrollToTop>
           <Routes>
             <Route
@@ -131,21 +130,11 @@ function App() {
                 </PageWrapper>
               }
             />
-            <Route
-              exact
-              path="/rotation"
-              element={
-                <PageWrapper>
-                  <RotationPage />
-                </PageWrapper>
-              }
-            />
-
             <Route path="*" element={<NotFound />} />
           </Routes>
         </ScrollToTop>
         <BrowserView>
-          <FloatingAnnouncement/>
+          <FloatingAnnouncement />
         </BrowserView>
       </BrowserRouter>
     </MousePositionProvider>

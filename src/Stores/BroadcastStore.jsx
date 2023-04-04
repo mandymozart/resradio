@@ -9,15 +9,10 @@ const useBroadcastStore = create(
       set(() => ({
         currentBroadcast: broadcast,
       })),
-    broadcasts: [],
-    setBroadcasts: (broadcasts) =>
+    nextBroadcast: undefined,
+    setNextBroadcast: (broadcast) =>
       set(() => ({
-        broadcasts: broadcasts,
-      })),
-    tags: [],
-    setTags: (tags) =>
-      set(() => ({
-        tags: tags,
+        nextBroadcast: broadcast,
       })),
   }))
 );
