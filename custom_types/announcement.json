@@ -1,25 +1,18 @@
 {
-    "Main" : {
-      "text" : {
-        "type" : "Text",
-        "config" : {
-          "label" : "text"
-        }
-      },
-      "targetcontent" : {
-        "type" : "Link",
-        "config" : {
-          "select" : "document",
-          "customtypes" : [ "shows", "events" ],
-          "label" : "targetContent"
-        }
-      },
-      "isactive" : {
-        "type" : "Boolean",
-        "config" : {
-          "default_value" : true,
-          "label" : "isActive"
-        }
+  "Main": {
+    "text": {
+      "type": "Text",
+      "config": {
+        "label": "text"
+      }
+    },
+    "link": {
+      "type": "Link",
+      "config": {
+        "allowTargetBlank": true,
+        "label": "link",
+        "select": null
       }
     }
   }
+}

@@ -1,72 +1,78 @@
+import { useChannel, usePresence } from "@ably-labs/react-hooks";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
-import { loader } from 'graphql.macro';
-import React, { useEffect } from "react";
-import { client } from "../../prismic";
+import gql from "graphql-tag";
+import React, { useState } from "react";
+import Dot from "../../images/Dot";
+import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
  flex: 1;
+ span {
+  font-family: var(--font-bold);
+  flex: 1;
+  svg {
+    color: var(--second);
+  }
+ }
+ justify-content: center;
+ align-items: center;
 `;
 
-const query = loader("./../../Queries/BroadcastsNow.gql")
+const getBroadcastsInRangeQuery = gql`
+${GetBroadcastsInRangeQuery}
+${BroadcastFragment}
+${BroadcastTagsFragement}
+`
 
+console.log(getBroadcastsInRangeQuery)
 
 const StreamShortInfo = () => {
-  const { setNextBroadcast, currentBroadcast, setCurrentBroadcast } =
-    useBroadcastStore();
+  const { loading, error, data } = useQuery(
+    getBroadcastsInRangeQuery,
+    {
+      variables:
+      {
+        endAfter: dayjs().format(),
+        beginBefore: dayjs().format(),
+      },
+      pollInterval: 60 * 1000
+    });
+  const { currentBroadcast, setCurrentBroadcast, setNextBroadcast } = useBroadcastStore();
 
-  const isLive = (begin, end) => {
-    return dayjs().isBetween(dayjs(begin), dayjs(end));
-    // return true;
-  };
+  // ably websocket
+  const [rotationInfo, setRotationInfo] = useState();
+  const [channel] = useChannel("rotation", (message) => {
+    setRotationInfo(message)
+    console.log(message);
+  });
+  const [presenceData] = usePresence("rotation", "listener");
 
-  // Fetch the Prismic initial Prismic content on page load
-  useEffect(() => {
-    console.log(query)
-    const fetchPrismicContent = async () => {
-      client
-        .query({ query: query, variables: { nowish: dayjs().subtract(1, 'hour') }, fetchPolicy: 'no-cache' })
-        .then((data) => {
-          let current = undefined;
-          let next = undefined;
-          if (data.results_size > 0) {
-            // set all
-            current = data.results.find((b) =>
-              isLive(b.data.begin, b.data.end)
-            );
-            next = data.results.find((b) =>
-              dayjs().isBefore(b.data.begin)
-            );
 
-            // is Now ?
-          } else {
-            console.log("no broadcasts fetched");
-          }
-          console.log(current, next)
-          setCurrentBroadcast(current);
-          setNextBroadcast(next);
-
-        });
-    };
-    fetchPrismicContent();
-    const intervalId = setInterval(() => fetchPrismicContent(), 60 * 1000);
-    return () => clearInterval(intervalId);
-  }, [setCurrentBroadcast, setNextBroadcast, currentBroadcast]);
-
+  if (loading) return <Container>...</Container>;
+  if (error) return <>Error : {error.message}</>;
+  if (data.allBroadcastss.edges > 0)
+    setCurrentBroadcast(data.allBroadcastss.edges[0].node)
+  if (data.allBroadcastss.edges[1]) setNextBroadcast(data.allBroadcastss.edges[1].node);
   return (
     <Container>
-      {currentBroadcast ? (<>
-        {isLive(currentBroadcast.data.begin, currentBroadcast.data.end) && "Live"}
-        {currentBroadcast.data.hostedby.uid} &mdash; {currentBroadcast.data.title}
-      </>
+      {currentBroadcast ? (
+        <>
+          <span>Now<Dot /></span> {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
+        </>
       ) : (
         <>
-          Heavy Rotation from our archive
+          {rotationInfo ? (
+            <>
+              {dayjs(rotationInfo.data.begin).format("ddd, HH:mm")} - {dayjs(rotationInfo.data.end).format("HH:mm")} {rotationInfo.data.hostedby} &mdash; {rotationInfo.data.title}
+            </>
+          ) : (<>Radio Offline</>)}
         </>
       )}
     </Container>

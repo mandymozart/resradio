@@ -1,11 +1,11 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { usePrismicDocumentsByType } from "@prismicio/react";
-import React, { useEffect, useState } from "react";
-import { shuffle } from "../../utils";
+import React, { useState } from "react";
+import { GetShowsQuery } from "../../Queries/shows";
 import { FilterForm } from "../Filter/FilterForm";
+import PageLoader from "../PageLoader";
 import useFilterStore from "./../../Stores/FilterStore";
 import ShowItem from "./ShowItem";
-
 const Container = styled.div`
   input {
     background: transparent;
@@ -29,6 +29,10 @@ const Container = styled.div`
   label {
     font-size: 2rem;
   }
+  form {
+    border-bottom: 2px solid var(--color);
+    padding: 0 2rem;
+  }
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -37,23 +41,37 @@ const Container = styled.div`
 
 const ShowList = () => {
   const { moods, tempos, genres } = useFilterStore();
-  const [documents] = usePrismicDocumentsByType("shows", {
-    pageSize: 200,
-  });
-  const [shows, setShows] = useState();
+
+  const { loading, error, data } = useQuery(GetShowsQuery);
+
   const [q, setQ] = useState("");
 
-  useEffect(() => {
-    if (documents) {
-      setShows(shuffle(documents.results));
-    }
-  }, [shows, documents]);
-  if (!documents && !shows) return <></>;
+  if (loading) return <PageLoader />;
+  if (error) return <>Error : {error.message}</>;
+  const shows = data.allShowss.edges
+  console.log(shows?.filter(
+    (show) =>
+      show.node.title
+        .toString()
+        .toLowerCase()
+        .indexOf(q.toLowerCase()) > -1
+  )?.length)
   return (
     <Container>
-      <label htmlFor="search-form">
-        {/* <span className="sr-only">Search</span>&nbsp; */}
-        <input
+      <form>
+        {
+          shows?.filter(
+            (show) =>
+              show.node.title
+                .toString()
+                .toLowerCase()
+                .indexOf(q.toLowerCase()) > -1
+          )?.length
+        }{" "}
+        of {data.allShowss.totalCount} shows match your criteria!
+        <label htmlFor="search-form">
+          {/* <span className="sr-only">Search</span>&nbsp; */}
+          {/* <input
           type="search"
           name="search-form"
           id="search-form"
@@ -61,31 +79,19 @@ const ShowList = () => {
           placeholder="Search for ..."
           value={q}
           onChange={(e) => setQ(e.target.value)}
-        />
-        <FilterForm />
-      </label>
-
-      <p>
-        {
-          shows?.filter(
-            (show) =>
-              show.data.title
-                .toString()
-                .toLowerCase()
-                .indexOf(q.toLowerCase()) > -1
-          )?.length
-        }{" "}
-        of {shows?.length} shows match your criteria!
-      </p>
+        /> */}
+          <FilterForm />
+        </label>
+      </form>
       <div className="list">
         {shows
           ?.filter(
             (show) =>
-              show.data.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
+              show.node.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
               -1
           )
           .map((show) => (
-            <ShowItem key={show.id} show={show} />
+            <ShowItem key={show.node._meta.id} show={show} />
           ))}
       </div>
     </Container>

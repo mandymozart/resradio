@@ -1,14 +1,13 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import FadeIn from "../Animations/FadeIn";
 import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
-import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import useThemeStore from "../Stores/ThemeStore";
+import { GetShowQuery } from "../Queries/shows";
 
 const Container = styled.div``;
 const Header = styled.header`
@@ -42,45 +41,32 @@ const Description = styled.section`
 
 const Show = () => {
   const { uid } = useParams();
-  const setKeyword = useThemeStore((store) => store.setKeyword);
+  const { loading, error, data } = useQuery(GetShowQuery, { variables: { uid: uid } });
 
-  const [document, { state }] = useAllPrismicDocumentsByUIDs("shows", [uid]);
-  useEffect(() => {
-    if (document) setKeyword(document[0].data.keyword);
-  }, [setKeyword]);
-
-  if (state === "loading") return <PageLoader />;
-  else if (state === "failed") return <NotFound />;
-  else if (state === "loaded" && document[0])
-    return (
-      <HeaderOffset>
-        <Container>
-          <Header>
-            <FadeIn>
-              <HeroImage image={document[0].data.image.hero} />
-            </FadeIn>
-            {document[0].data?.soundcloud.html && (
-              <FadeIn>
-                <SoundcloudPlayer
-                  dangerouslySetInnerHTML={{
-                    __html: document[0].data.soundcloud.html,
-                  }}
-                />
-              </FadeIn>
-            )}
-          </Header>
-          <Description>
-            <FadeIn>
-              <h3>{document[0].data.title}</h3>
-            </FadeIn>
-            <FadeIn>
-              <KeyFieldParagraph text={document[0].data.description} />
-            </FadeIn>
-          </Description>
-        </Container>
-      </HeaderOffset>
-    );
-  return <NotFound />;
+  if (loading) return <PageLoader />;
+  if (error) return <>Error : {error.message}</>;
+  if (data.allShowss.edges <= 0) return <></>
+  console.log(data);
+  const show = data.allShowss.edges[0].node;
+  return (
+    <HeaderOffset>
+      <Container>
+        <Header>
+          <FadeIn>
+            <HeroImage image={show.image.hero} />
+          </FadeIn>
+        </Header>
+        <Description>
+          <FadeIn>
+            <h3>{show.title}</h3>
+          </FadeIn>
+          <FadeIn>
+            <KeyFieldParagraph text={show.description} />
+          </FadeIn>
+        </Description>
+      </Container>
+    </HeaderOffset>
+  );
 };
 
 export default Show;

@@ -24,12 +24,12 @@ h4 {
 const ShowItem = ({ show }) => {
   return (
     <Container>
-      <Link to={show.url}>
-        <ThumbnailImage image={show.data.image.thumbnail ? show.data.image.thumbnail : show.data.image} />
+      <Link to={`${show.node._meta.uid} `}>
+        <ThumbnailImage image={show.node.image.thumbnail ? show.node.image.thumbnail : show.node.image} />
       </Link>
       <div className="meta">
-        <Link key={show.id} to={show.url}>
-          <h4>{show.data.title}</h4>
+        <Link to={`${show.node._meta.uid} `}>
+          <h4>{show.node.title}</h4>
         </Link>
       </div>
     </Container>

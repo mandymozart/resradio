@@ -1,0 +1,19 @@
+{
+  "Main" : {
+    "broadcast" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "document",
+        "customtypes" : [ "broadcasts" ],
+        "label" : "broadcast"
+      }
+    },
+    "description" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "description",
+        "placeholder" : "Why did you decide to feature this broadcast"
+      }
+    }
+  }
+}

@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
-import FilterPlayer from "./Filter/FilterPlayer";
 import MobileMenu from "./MobileMenu";
 import SlideOut from "./SlideOut";
 import Social from "./Social/Social";
@@ -55,16 +54,10 @@ const Container = styled.header`
 `;
 
 const Topbar = styled.div`
-  display: grid;
   box-sizing: border-box;
-  grid-template-columns: 1fr 1fr;
   height: 3rem;
   padding: 0 2rem 0 2rem;
-  gap: 0;
   border-bottom: 2px solid var(--color);
-  > div:first-of-type {
-    border-right: 2px solid var(--color);
-  }
 `
 
 const ChatButton = styled.button`
@@ -115,7 +108,7 @@ const Header = () => {
         </nav>
         <Topbar>
           <AudioPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-          <FilterPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+          {/* <FilterPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> */}
         </Topbar>
 
       </Container>
