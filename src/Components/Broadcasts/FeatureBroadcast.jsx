@@ -17,6 +17,9 @@ img {
 h4 {
   margin: 1rem 0;
   padding: 0 2rem;
+  a{
+    text-transform: initial;
+  }
 }
 p {
   font-size: 1rem;
@@ -60,7 +63,7 @@ const FeatureBroadcast = () => {
       <div className="meta">
         <p>
           {dayjs(broadcast.begin).format("MMM DD.MM.YYYY")}<br />
-          {dayjs(broadcast.begin).format("HH:mm")}&mdash;{dayjs(broadcast.end).format("HH:mm")}
+          {dayjs(broadcast.begin).format("h:mm")}&mdash;{dayjs(broadcast.end).format("h:mm A")}
         </p>
         <div className="tags">
           <Tags tags={broadcast.tags} />

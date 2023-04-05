@@ -1,14 +1,18 @@
 import styled from "@emotion/styled";
-import { PrismicLink } from "@prismicio/react";
 import dayjs from "dayjs";
 import React from "react";
+import { Link } from "react-router-dom";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 2rem;
 border-right: 2px solid var(--color);
 border-bottom: 2px solid var(--color);
+a {
+  text-transform: initial;
+}
 h4 {
   text-transform: initial;
+  margin: 0;
 }
 &:nth-of-type(4n){
   border-right: none;
@@ -18,24 +22,30 @@ h4 {
   border-left: none;
   /* padding: 1rem 1rem 1rem 2rem; */
 }
+.date {
+  span {
+    text-transform: uppercase;
+  }
+}
 `
 const BroadcastItem = ({ broadcast }) => {
 
   return (
     <Container>
-      <ThumbnailImage image={broadcast.data.image.thumbnail ? broadcast.data.image.thumbnail : broadcast.data.image} />
+      <ThumbnailImage image={broadcast.node.image.thumbnail} />
       <div className="meta">
-        <PrismicLink field={broadcast}>
-          <h4>{broadcast.data.title}</h4>
-        </PrismicLink>
-
-        <PrismicLink field={broadcast.data.hostedby}>
-          {broadcast.data.hostedby.title}
-        </PrismicLink>
-
-        <p>
-          {dayjs(broadcast.data.begin).format("ddd, MMM D, YYYY HH:mm")}{" "}
-        </p>
+        <Link to={`broadcasts/${broadcast.node._meta.uid}`}>
+          <h4>
+            {broadcast.node.hostedby.title}
+          </h4>
+          {broadcast.node.title}
+        </Link>
+        <div className="date">
+          <span>
+            {dayjs(broadcast.node.begin).format("ddd")}
+          </span>{" "}
+          {dayjs(broadcast.node.begin).format("DD.MM.YYYY")}
+        </div>
       </div>
 
     </Container>

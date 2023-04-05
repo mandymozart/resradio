@@ -11,7 +11,7 @@ const Tags = ({ tags }) => {
   if (tags?.length < 1) return <></>;
   return (
     <Container>
-      {tags.map((tag, index) => {
+      {tags?.map((tag, index) => {
         if (!tag?.tag) return <span key={"tag" + index}></span>
         return (
           <span key={"tag" + index}>

@@ -6,10 +6,10 @@ import { GetShowsQuery, ShowFragment, ShowTagsFragment } from "../../Queries/sho
 import PageLoader from "../PageLoader";
 import ShowItem from "./ShowItem";
 
-const getShowsQuery = gql`
-${GetShowsQuery}
-${ShowFragment}
-${ShowTagsFragment}
+export const getShowsQuery = gql`
+  ${GetShowsQuery}
+  ${ShowFragment}
+  ${ShowTagsFragment}
 `
 
 const Container = styled.div`

@@ -83,13 +83,4 @@ export const GetShowQuery = gql`
       ...showTagsFragment
     }
   }
-  
-  fragment showTagsFragment on Tag {
-    name
-    category {
-      ... on Category {
-        name
-      }
-    }
-  }
   `

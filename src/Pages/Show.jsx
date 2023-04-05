@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import gql from "graphql-tag";
 import React from "react";
 import { useParams } from "react-router-dom";
 import HeaderOffset from "../Components/HeaderOffset";
@@ -8,7 +9,7 @@ import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
 import BigArrow from "../images/BigArrow";
-import { GetShowQuery } from "../Queries/shows";
+import { GetShowQuery, ShowTagsFragment } from "../Queries/shows";
 
 const Container = styled.div``;
 const Header = styled.header`
@@ -78,9 +79,14 @@ button {
 }
 `;
 
+const getShowQuery = gql`
+${GetShowQuery}
+${ShowTagsFragment}
+`;
+
 const Show = () => {
   const { uid } = useParams();
-  const { loading, error, data } = useQuery(GetShowQuery, { variables: { uid: uid } });
+  const { loading, error, data } = useQuery(getShowQuery, { variables: { uid: uid } });
 
   const loadMore = () => {
     console.log("not implemented")

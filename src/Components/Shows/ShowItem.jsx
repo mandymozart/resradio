@@ -27,7 +27,7 @@ const ShowItem = ({ show }) => {
   return (
     <Container>
       <Link to={`${show.node._meta.uid} `}>
-        <ThumbnailImage image={show.node.image.thumbnail ? show.node.image.thumbnail : show.node.image} />
+        <ThumbnailImage image={show.node.image.thumbnail} />
       </Link>
       <div className="meta">
         <Link to={`${show.node._meta.uid} `}>

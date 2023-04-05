@@ -35,6 +35,9 @@ const Container = styled.section`
         grid-column: span 3;
     a {
         color: var(--second);
+        &:hover {
+            color: var(--color);
+        }
     }
     }
     p {

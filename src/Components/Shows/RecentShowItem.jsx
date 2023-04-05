@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
@@ -8,6 +9,8 @@ border-right: 2px solid var(--color);
 border-bottom: 2px solid var(--color);
 h4 {
   text-transform: initial;
+  margin: 0;
+  font-size: 1.25rem;
 }
 .meta {
   padding: 0 0rem 0 2rem;
@@ -31,16 +34,17 @@ h4 {
 `
 
 const RecentShowItem = ({ show }) => {
+  const linkTo = `shows/${show.node._meta.uid}`;
   return (
     <Container>
-      <Link to={show.url}>
-        <ThumbnailPanoramaImage image={show.data.image.thumbnailPanorama ? show.data.image.thumbnailPanorama : show.data.image} />
+      <Link to={linkTo}>
+        <ThumbnailPanoramaImage image={show.node.image.thumbnailPanorama} />
       </Link>
       <div className="meta">
-        <Link key={show.id} to={show.url}>
-          <h4>{show.data.title}</h4>
+        <Link to={linkTo}>
+          <h4>{show.node.title}</h4>
         </Link>
-        <div>05.01.2023</div>
+        <div>{dayjs(show.node.begin).format("DD.MM.YYYY")}</div>
       </div>
     </Container>
   );

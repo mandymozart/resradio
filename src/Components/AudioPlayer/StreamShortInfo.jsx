@@ -25,7 +25,7 @@ const Container = styled.div`
  align-items: center;
 `;
 
-const getBroadcastsInRangeQuery = gql`
+export const getBroadcastsInRangeQuery = gql`
 ${GetBroadcastsInRangeQuery}
 ${BroadcastFragment}
 ${BroadcastTagsFragement}

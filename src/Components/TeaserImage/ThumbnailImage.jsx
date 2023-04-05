@@ -3,16 +3,7 @@ import placeholderThumbnail from "../../images/placeholder-thumbnail.png";
 import Image from "./Image";
 
 const ThumbnailImage = ({ image, ...props }) => {
-  return (<>
-    {image ? (
-      <Image
-        src={image.url}
-        alt={image.alt}
-        {...props}
-      />
-    ) : (<Image src={placeholderThumbnail} alt="loading ..." />)}
-  </>
-  );
+  return (<Image src={image?.url} placeholderUrl={placeholderThumbnail} alt={image?.alt} {...props} />);
 };
 
 export default ThumbnailImage;

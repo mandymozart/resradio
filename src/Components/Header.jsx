@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import { Link, useNavigate } from "react-router-dom";
+import Search from "../images/Search";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
@@ -64,6 +65,9 @@ const ChatButton = styled.button`
   font-size: 1.5rem;
   font-family: var(--font-copy);
   text-transform: uppercase;
+  `
+
+const SearchButton = styled.button`
 `
 
 const Header = () => {
@@ -85,9 +89,10 @@ const Header = () => {
           </button>
           {isBrowser && (
             <>
-              <Link to="shows">Shows</Link>
+              <Link to="explore">Explore</Link>
               <Link to="schedule">Schedule</Link>
               <div className="tools">
+                <SearchButton><Search /></SearchButton>
                 <ChatButton>Chat</ChatButton>
                 <VolumeButton />
                 <Social />

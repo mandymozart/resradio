@@ -4,11 +4,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import RecentShowItem from "./RecentShowItem";
-import { getShowsQuery } from "./ShowList";
 
+import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
+import { getBroadcastsInRangeQuery } from "../AudioPlayer/StreamShortInfo";
+import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.div`
   h3 {
@@ -29,13 +30,13 @@ const Container = styled.div`
   }
 `;
 
-const RecentShowsSectionLoader = () => {
+const RecentBroadcastsSectionLoader = () => {
   return (
     <>loading section ...</>
   )
 }
 
-const ExploreShowsButtonContainer = styled.button`
+const ExploreButtonContainer = styled.button`
   border: none;
   background: var(--grey);
   display: flex;
@@ -45,34 +46,38 @@ const ExploreShowsButtonContainer = styled.button`
   font-size: 2rem;
 `
 
-const ExploreShowsButton = () => {
-  return (<ExploreShowsButtonContainer>
+const ExploreButton = () => {
+  return (<ExploreButtonContainer>
     Explore
-  </ExploreShowsButtonContainer>)
+  </ExploreButtonContainer>)
 }
 
-const RecentShowList = () => {
-  const { loading, error, data } = useQuery(getShowsQuery, { variables: { itemsPerPage: 10 } })
+const RecentBroadcastList = () => {
+  const { loading, error, data } = useQuery(getBroadcastsInRangeQuery, {
+    variables: {
+      endAfter: dayjs().subtract(14, 'days').format(),
+      beginBefore: dayjs().subtract(7, 'days').format(),
+      itemsPerPage: 10
+    }
+  })
   const navigate = useNavigate()
 
-  if (loading) return <RecentShowsSectionLoader />;
+  if (loading) return <RecentBroadcastsSectionLoader />;
   if (error) return <>Error : {error.message}</>;
-  const shows = data.allShowss.edges
+  const broadcasts = data.allBroadcastss.edges
   return (
     <Container>
-      <h3><span>Shows</span><span></span></h3>
-      <Swiper navigate={true} modules={[Navigation]} slidesPerView={2} className="list">
-        {shows.map(show => (<SwiperSlide>
-          <RecentShowItem show={show} />
+      <h3><span>Recent Broadcasts</span><span></span></h3>
+      <Swiper navigate={true} modules={[Navigation]} slidesPerView={4} className="list">
+        {broadcasts.map(broadcast => (<SwiperSlide>
+          <BroadcastItem broadcast={broadcast} />
         </SwiperSlide>
         ))}
         <SwiperSlide>
-          <ExploreShowsButton onClick={() => navigate('explore')} />
+          <ExploreButton onClick={() => navigate('explore')} />
         </SwiperSlide>
       </Swiper>
-      <div className="list">
-      </div>
     </Container>
   );
 };
-export default RecentShowList;
+export default RecentBroadcastList;
