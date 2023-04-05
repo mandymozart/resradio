@@ -91,7 +91,6 @@ const Schedule = ({ from }) => {
                     <img src={palm} alt="vacation" />
                 </p>)}
                 {broadcasts?.map((broadcast) => {
-                    console.log(dayjs(broadcast.node.begin).format('ddd, DD.MM.YYYY'), broadcast.node.title,)
                     return (<>
                         {getWeekdayHeadline(broadcast.node.begin)}
                         <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />

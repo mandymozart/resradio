@@ -13,8 +13,8 @@ import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import AboutPage from "./Pages/About";
 import BroadcastPage from "./Pages/Broadcast";
-import Broadcasts from "./Pages/Broadcasts";
 import Event from "./Pages/Event";
+import Explore from "./Pages/Explore";
 import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
@@ -48,9 +48,9 @@ root.render(
                 />
                 <Route
                   exact
-                  path="/broadcasts"
+                  path="/explore"
                   element={
-                    <Broadcasts />
+                    <Explore />
                   }
                 />
                 <Route

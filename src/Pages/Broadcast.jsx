@@ -67,14 +67,14 @@ const BroadcastPagePlayer = styled.div`
   }
 `
 
-const broadcastQuery = gql`
+export const getBroadcastQuery = gql`
 ${GetBroadcastQuery}
 ${BroadcastFragment}
 ${BroadcastTagsFragement}
 `
 const BroadcastPage = () => {
   const { uid } = useParams();
-  const { loading, error, data } = useQuery(broadcastQuery, { variables: { uid: uid } });
+  const { loading, error, data } = useQuery(getBroadcastQuery, { variables: { uid: uid } });
 
   const playBroadcast = () => {
     //

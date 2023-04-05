@@ -7,6 +7,8 @@ const Container = styled.div`
 padding: 2rem;
 border-right: 2px solid var(--color);
 border-bottom: 2px solid var(--color);
+height: 100%;
+    box-sizing: border-box;
 a {
   text-transform: initial;
 }
@@ -34,7 +36,7 @@ const BroadcastItem = ({ broadcast }) => {
     <Container>
       <ThumbnailImage image={broadcast.node.image.thumbnail} />
       <div className="meta">
-        <Link to={`broadcasts/${broadcast.node._meta.uid}`}>
+        <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>
           <h4>
             {broadcast.node.hostedby.title}
           </h4>

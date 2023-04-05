@@ -1,13 +1,11 @@
 import styled from "@emotion/styled";
-import { PrismicLink } from "@prismicio/react";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import useFilterStore from "../Stores/FilterStore";
 import ThumbnailImage from "./TeaserImage/ThumbnailImage";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
@@ -78,21 +76,7 @@ a {
 `
 const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
 
-  const { currentBroadcast } = useBroadcastStore()
-  const { currentBroadcast: currentFilteredShow } = useFilterStore()
-
-  const navigate = useNavigate();
-
-  const goToLink = (link) => {
-    setIsCollapsed(false);
-    navigate(link);
-  };
-
-  const isLive = (begin, end) => {
-    return dayjs().isBetween(dayjs(begin), dayjs(end));
-    // return true;
-  };
-
+  const { currentBroadcast, nextBroadcast } = useBroadcastStore();
 
   return (<Container>
     <div className={clsx({ isCollapsed })}>
@@ -102,24 +86,24 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
           <>
 
             <div className="image">
-              <ThumbnailImage image={currentBroadcast.data.image} />
+              <ThumbnailImage image={currentBroadcast.node.image} />
             </div>
             <div className="meta">
               <div className="date">
-                {dayjs(currentBroadcast.data.begin).format("ddd dd:MM:YYYY")}<br />
-                {dayjs(currentBroadcast.data.begin).format("HH:mm")}&mdash;{dayjs(currentBroadcast.data.end).format("HH:mm")}
+                {dayjs(currentBroadcast.node.begin).format("ddd dd:MM:YYYY")}<br />
+                {dayjs(currentBroadcast.node.begin).format("h:mm")}&mdash;{dayjs(currentBroadcast.node.end).format("h:mm A")}
               </div>
               <h4>
-                {currentBroadcast.data.hostedby.uid}{" "}
-                <span>{currentBroadcast.data.title}</span>
+                {currentBroadcast.node.hostedby._meta.uid}{" "}
+                <span>{currentBroadcast.node.title}</span>
               </h4>
               <p className="description">
-                {currentBroadcast.data.description}
+                {currentBroadcast.node.description}
               </p>
 
-              <PrismicLink field={currentBroadcast.data.hostedby}>
+              <Link to={currentBroadcast.node.hostedby}>
                 Read more
-              </PrismicLink>
+              </Link>
             </div>
           </>) : <><div className="image">
             <img src="https://placehold.it/440x440" alt="" />
@@ -144,53 +128,11 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
         }
       </div>
       <div className="side currentFilter">
-        {currentFilteredShow ? (
-          <>
-            <div className="image">
-              <ThumbnailImage image={currentFilteredShow.data.image} />
-            </div>
-            <div className="meta">
-              <div className="date">
-                {dayjs(currentFilteredShow.data.begin).format("ddd dd:MM:YYYY")}<br />
-                {dayjs(currentFilteredShow.data.begin).format("HH:mm")}&mdash;{dayjs(currentFilteredShow.data.end).format("HH:mm")}
-              </div>
-              <h4>
-                {currentFilteredShow.data.hostedby.uid}<br />
-                <span>{currentFilteredShow.data.title}</span>
-              </h4>
-              <p className="description">
-                {currentFilteredShow.data.description}
-              </p>
-
-              <PrismicLink field={currentFilteredShow.data.hostedby}>
-                Read more
-              </PrismicLink>
-            </div>
-          </>) : <><div className="image">
-            <img src="https://placehold.it/440x440" alt="" />
-          </div>
-          <div className="meta">
-            <div className="date">
-              Thu, 00.00.0000<br />
-              00:00&mdash;00:00
-            </div>
-            <h4>
-              Show<br />
-              <span>Title</span>
-            </h4>
-            <p className="description">
-              Lorem Ipsum
-            </p>
-
-            <Link to="/">
-              Read more
-            </Link>
-          </div></>
-        }
+        empty
       </div>
       <footer>
         <div>
-          <span>&gt;NEXT</span> Next Show - Title
+          <span>&gt;NEXT</span> {nextBroadcast?.node.hostedby.title} - {nextBroadcast?.node.title}
         </div>
         <div>
           <Link to={"/schedule"}>Show Schedule</Link>

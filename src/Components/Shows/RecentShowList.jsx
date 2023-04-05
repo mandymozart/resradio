@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RecentShowItem from "./RecentShowItem";
@@ -9,6 +9,7 @@ import { getShowsQuery } from "./ShowList";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { ExploreButton } from "../Broadcasts/RecentBroadcastList";
 
 const Container = styled.div`
   h3 {
@@ -35,25 +36,8 @@ const RecentShowsSectionLoader = () => {
   )
 }
 
-const ExploreShowsButtonContainer = styled.button`
-  border: none;
-  background: var(--grey);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-bold);
-  font-size: 2rem;
-`
-
-const ExploreShowsButton = () => {
-  return (<ExploreShowsButtonContainer>
-    Explore
-  </ExploreShowsButtonContainer>)
-}
-
 const RecentShowList = () => {
   const { loading, error, data } = useQuery(getShowsQuery, { variables: { itemsPerPage: 10 } })
-  const navigate = useNavigate()
 
   if (loading) return <RecentShowsSectionLoader />;
   if (error) return <>Error : {error.message}</>;
@@ -67,11 +51,11 @@ const RecentShowList = () => {
         </SwiperSlide>
         ))}
         <SwiperSlide>
-          <ExploreShowsButton onClick={() => navigate('explore')} />
+          <Link to={'explore'}>
+            <ExploreButton />
+          </Link>
         </SwiperSlide>
       </Swiper>
-      <div className="list">
-      </div>
     </Container>
   );
 };

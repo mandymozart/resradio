@@ -5,31 +5,24 @@ import { Link } from "react-router-dom";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
 const Container = styled.div`
+box-sizing: border-box;
 border-right: 2px solid var(--color);
 border-bottom: 2px solid var(--color);
+height: 100%;
+box-sizing: border-box;
 h4 {
   text-transform: initial;
   margin: 0;
   font-size: 1.25rem;
 }
 .meta {
-  padding: 0 0rem 0 2rem;
+  padding: 0 2rem 0 2rem;
   display: flex;
   justify-content: space-between;
+  font-size: 1.25rem;
+  padding-bottom: 3rem;
 }
-&:nth-of-type(2n){
-  border-right: none;
-  padding-left: 1rem;
-  .meta {
-    padding: 0 2rem 0 0rem;
-  }
-  /* padding: 1rem 2rem 1rem 1rem; */
-}
-&:nth-of-type(2n + 1){
-  border-left: none;
-  padding-right: 1rem;
-  /* padding: 1rem 1rem 1rem 2rem; */
-}
+padding: 0 0rem;
   
 `
 
