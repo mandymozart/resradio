@@ -393,7 +393,7 @@ export const Listeners = () => {
   const [presenceData] = usePresence("rotation", "host");
   const members = presenceData.map((msg, index) => <li key={index}>{msg.clientId}: {msg.data}</li>);
   return (<ListenersContainer>
-    <h6>Active visitors ({presenceData.length})</h6>
+    <h6>Active visitors ({presenceData.filter(m => m.data !== "listener").length})</h6>
     {members}
     <h6>Listener ({presenceData.filter(m => m.data !== "listener").length})</h6>
     {presenceData.filter(m => m.data === "listener").map(msg => <li>${msg.clientId}</li>)}
