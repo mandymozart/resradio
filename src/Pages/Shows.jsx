@@ -6,8 +6,16 @@ import ShowList from "../Components/Shows/ShowList";
 
 const Container = styled.div`
   h2 {
-    padding: 2rem 2rem 1rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0;
+    span {
+      border-right: 2px solid var(--color);
+      padding: 1rem 2rem;
+      &:last-of-type {
+        border: none;
+      }
+    }
   }
 `
 
@@ -16,7 +24,7 @@ const Shows = () => {
     <Container>
 
       <HeaderOffset>
-        <h2>Shows</h2>
+        <h2><span>Shows</span><span></span><span></span><span></span></h2>
         <ShowList />
         <Footer />
       </HeaderOffset>

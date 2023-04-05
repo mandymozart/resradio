@@ -1,18 +1,21 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import React, { useEffect } from "react";
+import dayjs from "dayjs";
+import { gql } from "graphql-tag";
+import React from "react";
 import { useParams } from "react-router-dom";
-import FadeIn from "../Animations/FadeIn";
 import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
-import ThumbnailImage from "../Components/TeaserImage/ThumbnailImage";
-import useThemeStore from "../Stores/ThemeStore";
-import { SoundcloudPlayer } from "./Show";
+import HeroImage from "../Components/TeaserImage/HeroImage";
+import PlayBig from "../images/PlayBig";
+import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastQuery } from "../Queries/broadcasts";
 
-const Container = styled.div``;
+const Container = styled.div`
+padding-bottom: 2rem;
+`;
 const Header = styled.header`
   text-align: center;
 `;
@@ -21,55 +24,98 @@ const Meta = styled.div`
 `;
 
 const Description = styled.section`
+  font-size: 1.5em;
+  padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 2rem;
 `;
-const Broadcast = () => {
-  const { uid } = useParams();
-  const setKeyword = useThemeStore((store) => store.setKeyword);
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("broadcasts", [
-    uid,
-  ]);
 
-  useEffect(() => {
-    if (document) setKeyword(document[0].data.keyword);
-  }, [setKeyword]);
-  console.log(state)
-  if (state === "loading") return <PageLoader />;
-  else if (state === "failed") return <NotFound />;
-  else if (state === "loaded" && document[0])
-    return (
-      <HeaderOffset>
-        <Container>
-          <FadeIn>
-            <Header>
-              <ThumbnailImage image={document[0].data.image} />
-            </Header>
-          </FadeIn>
-          <FadeIn>
-            <Meta>
-              <Tags tags={document[0].data?.tags} />
-            </Meta>
-          </FadeIn>
-          <Description>
-            <FadeIn>
-              <h3>{document[0].data?.title}</h3>
-            </FadeIn>
-            {document[0].data?.soundcloud.html && (
-              <FadeIn>
-                <SoundcloudPlayer
-                  dangerouslySetInnerHTML={{
-                    __html: document[0].data.soundcloud.html,
-                  }}
-                />
-              </FadeIn>
-            )}
-            <FadeIn>
-              <KeyFieldParagraph text={document[0].data.description} />
-            </FadeIn>
-          </Description>
-        </Container>
-      </HeaderOffset>
-    );
-  else return <NotFound />;
+const BroadcastPagePlayer = styled.div`
+  display: grid;
+  grid-template-columns: 10fr 2fr;
+  align-items: center; 
+  gap: 2rem;
+  height: 6rem;
+  padding: 0 2rem;
+  h3 {
+    font-size: 1.5rem;
+    font-family: var(--font-bold);
+    margin-bottom: 0; 
+    text-transform: none;
+  }
+  font-size: 1.5rem;
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+    &:hover{
+      color: var(--second);
+    }
+  }
+  .left {
+    display: flex;
+    align-items: center; 
+  }
+  .info {
+    padding-left: 2rem;
+  }
+  .date {
+    text-align: right;
+  }
+`
+
+const broadcastQuery = gql`
+${GetBroadcastQuery}
+${BroadcastFragment}
+${BroadcastTagsFragement}
+`
+const BroadcastPage = () => {
+  const { uid } = useParams();
+  const { loading, error, data } = useQuery(broadcastQuery, { variables: { uid: uid } });
+
+  const playBroadcast = () => {
+    //
+  }
+
+  if (loading) return <PageLoader />;
+  if (error) return <NotFound error={error.message} />;
+  if (data?.allBroadcastss.edges <= 0) return <NotFound error={"Broadcast does not exist"} />
+  const broadcast = data.allBroadcastss.edges[0].node;
+  console.log(broadcast)
+  return (
+    <HeaderOffset>
+      <Container>
+        <Header>
+          <HeroImage image={broadcast.image.hero ? broadcast.image.hero : broadcast.image} />
+        </Header>
+        <BroadcastPagePlayer broadcast={broadcast}>
+          <div className="left">
+            <button onClick={() => playBroadcast()}>
+              <PlayBig />
+            </button>
+            <div className="info">
+              <h3>{broadcast.hostedby.title}</h3>
+              <div>{broadcast.title}</div>
+            </div>
+          </div>
+          <div className="date">
+            {dayjs(broadcast.begin).format("DD.MM.YYYY")}<br />
+            {dayjs(broadcast.begin).format("h")}&mdash;{dayjs(broadcast.end).format("h A")}
+          </div>
+        </BroadcastPagePlayer>
+
+        <Description>
+          <KeyFieldParagraph text={broadcast.description} />
+          <Meta>
+            <Tags tags={broadcast?.tags} />
+          </Meta>
+        </Description>
+      </Container>
+    </HeaderOffset>
+  );
 };
 
-export default Broadcast;
+export default BroadcastPage;

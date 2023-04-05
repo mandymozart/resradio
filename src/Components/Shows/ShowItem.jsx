@@ -9,6 +9,8 @@ border-right: 2px solid var(--color);
 border-bottom: 2px solid var(--color);
 h4 {
   text-transform: initial;
+  margin: 0;
+  font-size: 1.25rem;
 }
 &:nth-of-type(4n){
   border-right: none;

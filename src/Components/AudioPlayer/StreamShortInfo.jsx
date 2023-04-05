@@ -31,8 +31,6 @@ ${BroadcastFragment}
 ${BroadcastTagsFragement}
 `
 
-console.log(getBroadcastsInRangeQuery)
-
 const StreamShortInfo = () => {
   const { loading, error, data } = useQuery(
     getBroadcastsInRangeQuery,
@@ -48,12 +46,10 @@ const StreamShortInfo = () => {
 
   // ably websocket
   const [rotationInfo, setRotationInfo] = useState();
-  const [channel] = useChannel("rotation", (message) => {
+  useChannel("rotation", (message) => {
     setRotationInfo(message)
-    console.log(message);
   });
-  const [presenceData] = usePresence("rotation", "listener");
-
+  usePresence("rotation", "listener");
 
   if (loading) return <Container>...</Container>;
   if (error) return <>Error : {error.message}</>;

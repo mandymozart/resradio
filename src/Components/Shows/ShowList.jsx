@@ -1,11 +1,17 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { gql } from "graphql-tag";
 import React, { useState } from "react";
-import { GetShowsQuery } from "../../Queries/shows";
-import { FilterForm } from "../Filter/FilterForm";
+import { GetShowsQuery, ShowFragment, ShowTagsFragment } from "../../Queries/shows";
 import PageLoader from "../PageLoader";
-import useFilterStore from "./../../Stores/FilterStore";
 import ShowItem from "./ShowItem";
+
+const getShowsQuery = gql`
+${GetShowsQuery}
+${ShowFragment}
+${ShowTagsFragment}
+`
+
 const Container = styled.div`
   input {
     background: transparent;
@@ -36,29 +42,20 @@ const Container = styled.div`
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+
   }
 `;
 
 const ShowList = () => {
-  const { moods, tempos, genres } = useFilterStore();
-
-  const { loading, error, data } = useQuery(GetShowsQuery);
-
+  const { loading, error, data } = useQuery(getShowsQuery);
   const [q, setQ] = useState("");
 
   if (loading) return <PageLoader />;
   if (error) return <>Error : {error.message}</>;
   const shows = data.allShowss.edges
-  console.log(shows?.filter(
-    (show) =>
-      show.node.title
-        .toString()
-        .toLowerCase()
-        .indexOf(q.toLowerCase()) > -1
-  )?.length)
   return (
     <Container>
-      <form>
+      {/* <form>
         {
           shows?.filter(
             (show) =>
@@ -70,8 +67,8 @@ const ShowList = () => {
         }{" "}
         of {data.allShowss.totalCount} shows match your criteria!
         <label htmlFor="search-form">
-          {/* <span className="sr-only">Search</span>&nbsp; */}
-          {/* <input
+         <span className="sr-only">Search</span>&nbsp; 
+           <input
           type="search"
           name="search-form"
           id="search-form"
@@ -79,10 +76,10 @@ const ShowList = () => {
           placeholder="Search for ..."
           value={q}
           onChange={(e) => setQ(e.target.value)}
-        /> */}
-          <FilterForm />
+        /> 
+          <FilterForm /> 
         </label>
-      </form>
+      </form> */}
       <div className="list">
         {shows
           ?.filter(

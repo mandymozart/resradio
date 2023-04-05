@@ -12,13 +12,13 @@ import MousePositionProvider from "./Components/MousePositionProvider";
 import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import AboutPage from "./Pages/About";
-import Broadcast from "./Pages/Broadcast";
+import BroadcastPage from "./Pages/Broadcast";
 import Broadcasts from "./Pages/Broadcasts";
 import Event from "./Pages/Event";
-import Events from "./Pages/Events";
 import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
+import SchedulePage from "./Pages/Schedule";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import { client } from "./prismic";
@@ -57,14 +57,19 @@ root.render(
                   exact
                   path="/broadcasts/:uid"
                   element={
-                    <Broadcast />
+                    <BroadcastPage />
                   }
                 />
                 <Route
-                  exact
                   path="/schedule"
                   element={
-                    <Events />
+                    <SchedulePage />
+                  }
+                />
+                <Route
+                  path="/schedule/:from"
+                  element={
+                    <SchedulePage />
                   }
                 />
                 <Route

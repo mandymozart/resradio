@@ -18,9 +18,19 @@ export const GetBroadcastsQuery = gql`
   }
   `
 
-export const GetBroadcastQuery = gql`
-  query GetBroadcast($id:String!) {
+export const GetBroadcastByIdQuery = gql`
+  query GetBroadcastById($id:String!) {
     allBroadcastss (id:$id) {
+      edges {
+        node {
+          ...broadcast
+        }
+      }
+    }
+  }`
+export const GetBroadcastQuery = gql`
+  query GetBroadcast($uid:String!) {
+    allBroadcastss (uid:$uid) {
       edges {
         node {
           ...broadcast
@@ -69,6 +79,10 @@ export const BroadcastFragment = gql`
     hostedby {
       ... on Shows {
         title
+        _meta {
+          uid
+          id
+        }
       }
     }
     description
@@ -92,9 +106,24 @@ export const BroadcastFragment = gql`
   `
 
 export const BroadcastTagsFragement = gql`
-  fragment broadcastTags on BroadcastsTags {
-    tag {
-      _linkType
+fragment broadcastTags on BroadcastsTags {
+  tag {
+    _linkType
+    ... on Tag {
+      name
+      _meta {
+        id
+      }
+      category {
+        ... on Category {
+          name
+          _meta {
+            id
+          }
+        }
+      }
     }
   }
+}
+
   `

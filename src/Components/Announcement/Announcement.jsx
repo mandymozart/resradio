@@ -62,7 +62,6 @@ const Announcement = () => {
   if (loading) return <PageLoader />;
   if (error) return <>Error : {error.message}</>;
   if (data.allAnnouncements.edges.length <= 0) return <></>
-  console.log(data.allAnnouncements.edges)
   const announcement = data.allAnnouncements.edges[0].node;
   return (
     <Container

@@ -33,12 +33,20 @@
       }
     },
     "tags": {
-      "type": "Link",
+      "type": "Group",
       "config": {
-        "select": "document",
-        "customtypes": [
-          "tag"
-        ],
+        "fields": {
+          "tag": {
+            "type": "Link",
+            "config": {
+              "select": "document",
+              "customtypes": [
+                "tag"
+              ],
+              "label": "tag"
+            }
+          }
+        },
         "label": "tags"
       }
     },
@@ -59,6 +67,16 @@
             "name": "hero",
             "width": 1920,
             "height": 840
+          },
+          {
+            "name": "thumbnail",
+            "width": 440,
+            "height": 440
+          },
+          {
+            "name": "thumbnailPanorama",
+            "width": 944,
+            "height": 440
           }
         ],
         "label": "image"

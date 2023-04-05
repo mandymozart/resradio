@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 
 export const GetShowsQuery = gql`
-query GetShows($cursor: String, $itemsPerPage: Int = 100, $tag: String) {
-    allShowss(sortBy: meta_firstPublicationDate_DESC, after: $cursor, first: $itemsPerPage, where: {tags: $tag}) {
+query GetShows($cursor: String, $itemsPerPage: Int = 100) {
+    allShowss(sortBy: meta_firstPublicationDate_DESC, after: $cursor, first: $itemsPerPage) {
       pageInfo {
         hasPreviousPage
         startCursor
@@ -17,8 +17,10 @@ query GetShows($cursor: String, $itemsPerPage: Int = 100, $tag: String) {
       }
     }
   }
-  
-  fragment showFragment on Shows {
+`
+
+export const ShowFragment = gql`
+fragment showFragment on Shows {
     _meta {
       uid
       id
@@ -32,18 +34,29 @@ query GetShows($cursor: String, $itemsPerPage: Int = 100, $tag: String) {
       ...showTagsFragment
     }
   }
-  
-  fragment showTagsFragment on Tag {
-    name
-    category {
-      ... on Category {
+`
+
+export const ShowTagsFragment = gql`
+fragment showTagsFragment on ShowsTags {
+    tag {
+      _linkType
+      ... on Tag {
         name
+        _meta {
+          id
+        }
+        category {
+          ... on Category {
+            name
+            _meta {
+              id
+            }
+          }
+        }
       }
     }
   }
-  
-  `
-
+`
 export const GetShowQuery = gql`
 
   query GetShow($uid: String!) {

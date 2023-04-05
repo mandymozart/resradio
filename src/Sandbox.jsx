@@ -5,16 +5,10 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useParams } from 'react-router-dom';
-import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastsQuery } from './Queries/broadcasts';
+import { BroadcastFragment, BroadcastTagsFragement } from './Queries/broadcasts';
 import { GetPlaylistQuery, GetPlaylistsQuery, PlaylistBriefFragment, PlaylistFragment, PlaylistTagsFragement } from './Queries/playlists';
 dayjs.extend(localizedFormat);
 
-
-const broadcastsQuery = gql`
-${GetBroadcastsQuery}
-${BroadcastFragment}
-${BroadcastTagsFragement}
-`
 const playlistsQuery = gql`
 ${GetPlaylistsQuery}
 ${PlaylistBriefFragment}
@@ -169,7 +163,6 @@ export const Player = () => {
   const [rotationInfo, setRotationInfo] = useState();
   const [channel] = useChannel("rotation", (message) => {
     setRotationInfo(message)
-    console.log(message);
   });
 
   const currentPercentage = audioRef.current
@@ -230,7 +223,6 @@ export const Player = () => {
   }
 
   const updateBroadcast = (broadcast, index) => {
-    console.log(broadcast, index)
     if (broadcast) {
       setSource(broadcast.audio.url);
       getLengthOfMp3(broadcast.audio.url);
@@ -249,7 +241,6 @@ export const Player = () => {
 
   // only once
   const loadBroadcast = (broadcast) => {
-    console.log(broadcast, source)
     if (broadcast) {
       getLengthOfMp3(broadcast.audio.url);
       setSource(broadcast.audio.url);
@@ -265,7 +256,6 @@ export const Player = () => {
   useEffect(() => {
     // init Player
     if (data) {
-      console.log(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio))
       setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio))
       loadBroadcast(data.allPlaylists.edges[0].node.broadcasts[0].broadcast)
     }
@@ -279,13 +269,10 @@ export const Player = () => {
 
   const handleEnded = () => {
     // TODO: set next track in playlist
-    console.warn('Audio Stream ended.')
     if (currentIndex + 1 < broadcasts.length - 1) {
-      console.log(broadcasts[currentIndex + 1].broadcast, 'Next stream', currentIndex + 1, broadcasts.length)
       updateBroadcast(broadcasts[currentIndex + 1].broadcast, currentIndex + 1)
     }
     else {
-      console.log(broadcasts[0].broadcast, 'Next stream', 0, broadcasts.length)
       updateBroadcast(broadcasts[0].broadcast, 0)
     }
   }
@@ -304,14 +291,6 @@ export const Player = () => {
   const onCanPlay = () => {
     // TODO: maybe don't need
   };
-
-  const logHistory = () => {
-    const history = channel.history((err, result) => {
-      result.items.forEach((msg) => {
-        console.log('' + msg.id + ' - ' + msg.data.uid, msg.data);
-      });
-    });
-  }
 
   useEffect(() => {
     // Pause and clean up on unmount
@@ -359,10 +338,6 @@ export const Player = () => {
       <div className='list'>
         <h6>Cue</h6>
         {broadcasts.map((item, index) => {
-          // // TODO: wtf kommt hier ein Shows element mit durch, bzw. ein leeres {} object
-          // // KICK OUT ALL WITHOUT MP3
-          // if (!item?.broadcast?.audio?.url) return <></>
-          // else
           return (
             <div key={index} onClick={() => updateBroadcast(item?.broadcast, index)} className={item.broadcast._meta.id === current._meta.id ? "broadcast current" : "broadcast"}>
               <div>{index}</div> <div>{item.broadcast.hostedby.title} &mdash; {item.broadcast.title}</div>
@@ -372,7 +347,7 @@ export const Player = () => {
         )}
       </div>
       <div className="status">
-        <h6>Status <button onClick={() => logHistory()}>Log history to console</button></h6>
+        <h6>Status</h6>
         {rotationInfo ? (
           <>
             {dayjs(rotationInfo.data.begin).format("ddd, HH:mm")} - {dayjs(rotationInfo.data.end).format("HH:mm")} {rotationInfo.data.hostedby} &mdash; {rotationInfo.data.title}
@@ -395,7 +370,7 @@ export const Listeners = () => {
   return (<ListenersContainer>
     <h6>Active visitors ({presenceData.filter(m => m.data !== "listener").length})</h6>
     {members}
-    <h6>Listener ({presenceData.filter(m => m.data !== "listener").length})</h6>
+    <h6>Listener ({presenceData.filter(m => m.data === "listener").length})</h6>
     {presenceData.filter(m => m.data === "listener").map(msg => <li>${msg.clientId}</li>)}
   </ListenersContainer>)
 }

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../Animations/FadeIn";
 import useThemeStore from "../Stores/ThemeStore";
-import icon from "./../images/middle-finger.png";
+import icon from "./../images/cat.png";
 
 const Container = styled.section`
   display: flex;

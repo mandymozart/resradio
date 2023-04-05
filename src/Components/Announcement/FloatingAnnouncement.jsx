@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useMounted from "react-use-mounted";
 import { GetAnnouncement } from "../../Queries/announcement";
 import useThemeStore from "../../Stores/ThemeStore";
 import PageLoader from "../PageLoader";
@@ -69,10 +68,6 @@ const Container = styled.div(
 `
 );
 
-const shapes = [
-  1, 2, 3, 4, 5, 6, 9, 16, 18, 19, 22, 24, 25, 28, 30, 45, 44, 58, 59, 60, 61,
-];
-
 const FloatingAnnouncement = () => {
   const { loading, error, data } = useQuery(GetAnnouncement);
 
@@ -117,15 +112,6 @@ const FloatingAnnouncement = () => {
   useEffect(() => {
     setNewPosition();
   }, [keyword]);
-
-  const mounted = useMounted();
-  const [randomNumber, setRandomNumber] = useState(1);
-  useEffect(() => {
-    if (mounted) {
-      setRandomNumber(shapes[Math.floor(Math.random() * shapes.length - 1)]);
-      console.log(randomNumber);
-    }
-  }, [mounted]);
 
   if (loading) return <PageLoader />;
   if (error) return <>Error : {error.message}</>;

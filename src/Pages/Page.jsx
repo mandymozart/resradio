@@ -19,7 +19,10 @@ const Meta = styled.div`
 `;
 
 const Description = styled.section``;
+
+/* TODO: deprecated will break */
 const Page = () => {
+  console.warn("deprecated, use graphql")
   const { uid } = useParams();
   const setKeyword = useThemeStore((store) => store.setKeyword);
   const [document, { state, error }] = useAllPrismicDocumentsByUIDs("page", [

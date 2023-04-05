@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React from "react";
 import EventList from "../Components/Events/EventList";
-import useThemeStore from "../Stores/ThemeStore";
 
 const Container = styled.section`
 display: grid;
@@ -26,10 +25,7 @@ h2 {
 `
 
 const Events = () => {
-  const setKeyword = useThemeStore((store) => store.setKeyword);
-  useEffect(() => {
-    setKeyword("show");
-  }, [setKeyword]);
+
   return (
     <Container>
       <div>
