@@ -5,13 +5,14 @@ import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
 import { BroadcastFragment, BroadcastTagsFragement, GetFeatureBroadcastQuery } from "../../Queries/broadcasts";
-import PageLoader from "../PageLoader";
+import KeyFieldParagraph from "../KeyFieldParagraph";
+import SectionLoader from "../SectionLoader";
 import Tags from "../Tags";
 import HeroImage from "../TeaserImage/HeroImage";
 
 const Container = styled.div`
 border-bottom: 2px solid var(--color);
-img {
+.image {
   border-bottom: 2px solid var(--color);
 }
 h4 {
@@ -37,6 +38,48 @@ p {
   flex: 1;
   padding-right: 2rem;
 }
+.image {
+    overflow: hidden;
+    position: relative;
+    .overlay {
+      position: absolute;
+      width: calc(50% - 5rem);
+      padding: 2rem;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--color);
+      opacity: 0;
+      transition: all .2s ease;
+      .description {
+        text-overflow:ellipsis " ...";
+        overflow:hidden;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 15;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        text-transform: initial;
+      color: var(--background);
+      }
+      .tags {
+        margin-top: 0.5rem;
+        text-align: left;
+      }
+    }
+    img {
+      transition: all .2s ease;
+      vertical-align: middle;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    img {
+      /* filter: blur(10px); */
+      transform: scale(1.06);
+    }
+    .image .overlay {
+      opacity: 1;
+    }
+  }
 `
 
 const getFeatureBroadcastQuery = gql`
@@ -48,13 +91,23 @@ ${BroadcastTagsFragement}
 const FeatureBroadcast = () => {
   const { loading, error, data } = useQuery(getFeatureBroadcastQuery);
 
-  if (loading) return <PageLoader />;
+  if (loading) return <SectionLoader />;
   if (error) return <>Error : {error.message}</>;
   if (data.allFeaturebroadcasts.edges <= 0) return <></>
   const broadcast = data.allFeaturebroadcasts.edges[0].node.broadcast;
   return (
     <Container>
-      <HeroImage image={broadcast.image.hero} />
+      <Link to={`/broadcasts/${broadcast._meta.uid}`}>
+
+        <div className="image">
+          <HeroImage image={broadcast.image.hero} />
+          <div className="overlay">
+            <div className="description">
+              <KeyFieldParagraph text={broadcast.description} />
+            </div>
+          </div>
+        </div>
+      </Link>
       <h4>
         <Link to={`/broadcasts/${broadcast._meta.uid}`}>
           {broadcast.hostedby.title} &mdash; {broadcast.title}

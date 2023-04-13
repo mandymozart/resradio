@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { gql } from "graphql-tag";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import PlayBig from "../images/PlayBig";
 import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastQuery } from "../Queries/broadcasts";
+import PlayBig from "../images/PlayBig";
 
 const Container = styled.div`
 padding-bottom: 2rem;
@@ -97,7 +97,9 @@ const BroadcastPage = () => {
               <PlayBig />
             </button>
             <div className="info">
-              <h3>{broadcast.hostedby.title}</h3>
+              <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
+                <h3>{broadcast.hostedby.title}</h3>
+              </Link>
               <div>{broadcast.title}</div>
             </div>
           </div>

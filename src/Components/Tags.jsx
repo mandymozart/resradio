@@ -7,10 +7,10 @@ font-size: 1rem;
 text-align: right;
 `;
 
-const Tags = ({ tags }) => {
+const Tags = ({ tags, className }) => {
   if (tags?.length < 1) return <></>;
   return (
-    <Container>
+    <Container className={className}>
       {tags?.map((tag, index) => {
         if (!tag?.tag) return <span key={"tag" + index}></span>
         return (

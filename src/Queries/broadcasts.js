@@ -18,6 +18,45 @@ export const GetBroadcastsQuery = gql`
   }
   `
 
+export const GetBroadcastByTagQuery = gql`
+  query GetBroadcastsByTagQuery($id: String!) {
+    allBroadcastss(where: {tags: {tag: $id}}) {
+      edges {
+        node {
+          title
+          tags {
+            tag {
+              ... on Tag {
+                name
+                _meta {
+                  type
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }`
+
+export const GetBroadcastByShowQuery = gql`
+query GetBroadcastsByShowQuery($id: String!) {
+  allBroadcastss(where: {hostedby: $id}) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      node {
+        ...broadcast
+      }
+    }
+  }
+}`
+
 export const GetBroadcastByIdQuery = gql`
   query GetBroadcastById($id:String!) {
     allBroadcastss (id:$id) {
@@ -28,6 +67,7 @@ export const GetBroadcastByIdQuery = gql`
       }
     }
   }`
+
 export const GetBroadcastQuery = gql`
   query GetBroadcast($uid:String!) {
     allBroadcastss (uid:$uid) {

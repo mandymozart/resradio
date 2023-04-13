@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import gql from "graphql-tag";
 import React from "react";
 import { useParams } from "react-router-dom";
+import ShowBroadcastList from "../Components/Broadcasts/ShowBroadcastList";
 import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import BigArrow from "../images/BigArrow";
 import { GetShowQuery, ShowTagsFragment } from "../Queries/shows";
 
 const Container = styled.div``;
@@ -50,35 +50,6 @@ const Description = styled.section`
   padding-bottom: 1rem;
 `;
 
-const ShowBroadcasts = styled.section`
-padding: 2rem 2rem;
-h3 {
-  font-size: 1.5rem;
-  font-family: var(--font-bold);
-  margin-bottom: 1rem; 
-  text-transform: none;
-}
-button {
-  background: none;
-  border: none;
-
-  width: 100%;
-  padding: 2rem;
-  margin: 0;
-  text-align: center;
-  cursor: pointer;
-  div {
-    text-transform: uppercase;
-    font-size: 1rem;
-    font-family: var(--font-light);
-    margin-bottom: 1rem;
-  }
-  &:hover {
-    color: var(--second);
-  }
-}
-`;
-
 const getShowQuery = gql`
 ${GetShowQuery}
 ${ShowTagsFragment}
@@ -87,10 +58,6 @@ ${ShowTagsFragment}
 const Show = () => {
   const { uid } = useParams();
   const { loading, error, data } = useQuery(getShowQuery, { variables: { uid: uid } });
-
-  const loadMore = () => {
-    console.log("not implemented")
-  }
 
   if (loading) return <PageLoader />;
   if (error) return <NotFound error={error.message} />;
@@ -107,15 +74,7 @@ const Show = () => {
           <h3>{show.title}</h3>
           <KeyFieldParagraph className="text" text={show.description} />
         </Description>
-        <ShowBroadcasts>
-          <h4>Recent Broadcasts</h4>
-          <div className="list">
-            ...
-          </div>
-          <button onClick={() => loadMore()}><div>load more</div>
-            <BigArrow />
-          </button>
-        </ShowBroadcasts>
+        <ShowBroadcastList id={show._meta.id} />
       </Container>
     </HeaderOffset>
   );

@@ -6,8 +6,9 @@ import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
-import palm from "../../images/palm.png";
 import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
+import palm from "../../images/palm.png";
+import SectionLoader from "../SectionLoader";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
@@ -79,7 +80,7 @@ const Schedule = ({ from }) => {
 
     }
 
-    if (loading) return <Container>...</Container>;
+    if (loading) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;
     const broadcasts = data.allBroadcastss.edges
     return (

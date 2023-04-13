@@ -9,53 +9,85 @@ import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
 import { getBroadcastsInRangeQuery } from "../AudioPlayer/StreamShortInfo";
+import SectionLoader from "../SectionLoader";
+import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.div`
+  border-bottom: 2px solid var(--color);
   h3 {
-    padding: 0 1rem 0 2rem;
+    padding: 1rem 1rem .5rem 2rem;
     margin: 0 !important;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    span:first-of-type {
-      border-right: 2px solid var(--color);
-      padding: 1rem 0 .5rem 0;
-    }
-    
+    gap: 1rem;  
   }
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
+  .swiper-button-next {
+    right: 2rem;
+    left: auto;
+  }
+  .swiper-button-prev {
+    left: 2rem;
+    right: auto;
+  }
+  
+  .swiper-button-next, .swiper-button-prev {
+    position: absolute;
+    top: calc(50% - 6rem);
+    width: 4rem;
+    height: 6rem;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    background-color: var(--grey);
+    align-items: center;
+    justify-content: center;
+    color: var(--color);
+    &.swiper-button-disabled {
+      display: none;
+    }
+}
 `;
 
 const RecentBroadcastsSectionLoader = () => {
   return (
-    <>loading section ...</>
+    <SectionLoader />
   )
 }
 
 const ExploreButtonContainer = styled.button`
   border: none;
-  background: var(--grey);
+  padding: 0 2rem;
   display: flex;
-  align-items: center;
+  background: transparent;
   justify-content: center;
   font-family: var(--font-bold);
   font-size: 2rem;
   width:100%;
-  border-bottom: 2px solid var(--color);
   cursor: pointer;
-  height: 100%;
+  position: relative;
+  span {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+  }
   &:hover {
     color: var(--second);
   }
 `
 
-export const ExploreButton = () => {
+const ExploreButton = () => {
   return (<ExploreButtonContainer>
-    Explore
+    <div>
+      <ThumbnailImage />
+      <span>
+        Explore
+      </span>
+    </div>
   </ExploreButtonContainer>)
 }
 
@@ -73,9 +105,9 @@ const RecentBroadcastList = () => {
   const broadcasts = data.allBroadcastss.edges
   return (
     <Container>
-      <h3><span>Recent Broadcasts</span><span></span></h3>
-      <Swiper navigate={true} modules={[Navigation]} slidesPerView={4} className="list">
-        {broadcasts.map(broadcast => (<SwiperSlide>
+      <h3>Recent Broadcasts</h3>
+      <Swiper navigation modules={[Navigation]} slidesPerView={4} className="list">
+        {broadcasts.map((broadcast, index) => (<SwiperSlide key={"recentBroadcastSlider" + index}>
           <BroadcastItem broadcast={broadcast} />
         </SwiperSlide>
         ))}

@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { configureAbly } from "@ably-labs/react-hooks";
 import { ApolloProvider } from "@apollo/client";
 import { nanoid } from "nanoid";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import App from "./App";
 import MousePositionProvider from "./Components/MousePositionProvider";
 import NotFound from "./Components/NotFound";
@@ -21,8 +21,8 @@ import Page from "./Pages/Page";
 import SchedulePage from "./Pages/Schedule";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
-import { client } from "./prismic";
 import Sandbox, { Player, Playlists } from "./Sandbox";
+import { client } from "./prismic";
 
 const container = document.getElementById('root');
 const root = createRoot(container);

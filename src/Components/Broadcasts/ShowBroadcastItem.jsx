@@ -6,7 +6,9 @@ import PlayBig from "../../images/PlayBig";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
-height: 100%;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+gap: 2rem;
     box-sizing: border-box;
 a {
   text-transform: initial;
@@ -46,7 +48,7 @@ h4 {
   }
 }
 `
-const BroadcastItem = ({ broadcast }) => {
+const ShowBroadcastItem = ({ broadcast }) => {
 
   return (
     <Container>
@@ -57,9 +59,8 @@ const BroadcastItem = ({ broadcast }) => {
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>
           <h4>
-            {broadcast.node.hostedby.title}
+            {broadcast.node.title}
           </h4>
-          {broadcast.node.title}
         </Link>
         <div className="date">
           <span>
@@ -72,4 +73,4 @@ const BroadcastItem = ({ broadcast }) => {
     </Container>
   );
 };
-export default BroadcastItem;
+export default ShowBroadcastItem;

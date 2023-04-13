@@ -1,12 +1,12 @@
 import React from "react";
-import placeholderHero from "../../images/placeholder-hero.png";
+import placeholder from "../../images/placeholder-panorama-thumbnail.png";
 import Image from "./Image";
 
 const ThumbnailPanoramaImage = ({ image, ...props }) => {
   return (<Image
     src={image?.url}
     alt={image?.alt}
-    placeholderUrl={placeholderHero}
+    placeholderUrl={placeholder}
     {...props}
   />);
 };
