@@ -8,9 +8,9 @@ const Tags = ({ tags }) => {
   if (!tags) return <></>;
   return (
     <Container>
-      {tags.map((tag) => (
-        <span key={tag}>
-          <Tag>{tag}</Tag>{" "}
+      {tags.map((tag, index) => (
+        <span key={"tag" + index}>
+          <Tag>{tag.name}</Tag>{" "}
         </span>
       ))}
     </Container>
