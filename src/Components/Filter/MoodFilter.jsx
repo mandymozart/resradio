@@ -1,11 +1,15 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Accordion } from "../Accordion/Accordion";
-import AccordionItem from "../Accordion/AcordionItem";
-import { MoodFilter } from "./MoodFilter";
+import Select from 'react-select';
+import { GetTagsQuery } from "../../Queries/tags";
+import SectionLoader from "../SectionLoader";
 
 const Container = styled.div`
+width: calc(50% - 6rem);
+grid-template-columns: 1fr 1fr 1fr 1fr;
+gap: 2rem;
 padding: 2rem 2rem;
-/* background: var(--second); */
+background: var(--second);
 text-transform: uppercase;
 color: var(--background);
 label {
@@ -99,25 +103,26 @@ margin-bottom: 2rem;
 }
 `;
 
-const categorys = {
-    mood: "ZBmvZBYAAC8AXkGa", tempo: "ZBmvlRYAADMAXkID", genre: "ZBmvrxYAAC0AXkI3"
-}
-const FilterForm = () => {
+export const MoodFilter = ({ id }) => {
+    const { loading, error, data } = useQuery(GetTagsQuery, { variables: { categoryId: id } })
+
+    if (loading) return <SectionLoader />;
+    if (error) return <>Error : {error.message}</>;
+    const tagOptions = data.allTags.edges.map((tag) => {
+        console.log(tag)
+        return { value: tag.node._meta.id, label: tag.node.name }
+    })
     return (
         <Container>
-            <Accordion>
-                <AccordionItem title="Mood">
-                    <MoodFilter id={categorys.mood} />
-                </AccordionItem>
-                <AccordionItem title="Genre">
-                    <MoodFilter id={categorys.genre} />
-                </AccordionItem>
-                <AccordionItem title="Tempo">
-                    <MoodFilter id={categorys.tempo} />
-                </AccordionItem>
-            </Accordion>
+            <label>
+                <Select isMulti
+                    options={tagOptions}
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                />
+
+            </label>
         </Container>
     )
 }
 
-export default FilterForm;
