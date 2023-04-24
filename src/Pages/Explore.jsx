@@ -1,23 +1,36 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect } from "react";
 import FilterForm from "../Components/Filter/FilterForm";
-import Footer from "../Components/Footer";
+import FilterResults from "../Components/Filter/FilterResults";
 import HeaderOffset from "../Components/HeaderOffset";
+import useFilterStore from "../Stores/FilterStore";
 
 const Container = styled.section`
 h2 {
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
+}
+p.lead {
+  width: 50%;
+  padding: 0 2rem;
+  font-size: 1.5rem;
 }
 `
 
 const Explore = () => {
+  const { genres, moods, tempos } = useFilterStore();
 
+  useEffect(() => {
+
+  }, [genres, moods, tempos])
   return (
     <HeaderOffset>
       <Container>
         <h2>Explore</h2>
+        <p className="lead">
+          Please select your filters to explore our shows and broadcasts.
+        </p>
         <FilterForm />
-        <Footer />
+        <FilterResults />
       </Container>
     </HeaderOffset>
   );

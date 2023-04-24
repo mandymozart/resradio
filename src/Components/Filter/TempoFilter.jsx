@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Select from 'react-select';
 import { GetTagsQuery } from "../../Queries/tags";
+import useFilterStore from "../../Stores/FilterStore";
 import SectionLoader from "../SectionLoader";
 
 const Container = styled.div`
@@ -103,8 +104,14 @@ margin-bottom: 2rem;
 }
 `;
 
-export const GenreFilter = ({ id }) => {
+export const TempoFilter = ({ id }) => {
     const { loading, error, data } = useQuery(GetTagsQuery, { variables: { categoryId: id } })
+
+    const { tempos, setTempos } = useFilterStore();
+
+    function handleSelect(data) {
+        setTempos(data);
+    }
 
     if (loading) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;
@@ -116,10 +123,12 @@ export const GenreFilter = ({ id }) => {
         <Container>
             <label>
                 <span>
-                    Genre:
+                    Tempo:
                 </span>
                 <Select isMulti
                     options={tagOptions}
+                    value={tempos}
+                    onChange={handleSelect}
                     className="react-select-container"
                     classNamePrefix="react-select"
                 />

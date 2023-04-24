@@ -19,6 +19,7 @@ query GetTags($categoryId: String!) {
               id
             }
             name
+            description
             category {
               ... on Category {
                 _meta {

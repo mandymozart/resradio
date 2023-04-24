@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
-import { Accordion } from "../Accordion/Accordion";
+import Accordion from "../Accordion/Accordion";
 import AccordionItem from "../Accordion/AcordionItem";
-import { MoodFilter } from "./MoodFilter";
+import FilterSummary from "./FilterSummary";
+import { GenreFilter } from "./GenreFilter";
+import MoodFilter from "./MoodFilter";
+import { TempoFilter } from "./TempoFilter";
 
 const Container = styled.div`
-padding: 2rem 2rem;
 /* background: var(--second); */
 text-transform: uppercase;
 color: var(--background);
@@ -103,19 +105,22 @@ const categorys = {
     mood: "ZBmvZBYAAC8AXkGa", tempo: "ZBmvlRYAADMAXkID", genre: "ZBmvrxYAAC0AXkI3"
 }
 const FilterForm = () => {
+
+
     return (
         <Container>
-            <Accordion>
-                <AccordionItem title="Mood">
+            <Accordion onItemClick={console.log}>
+                <AccordionItem label="Mood" index="1">
                     <MoodFilter id={categorys.mood} />
                 </AccordionItem>
-                <AccordionItem title="Genre">
-                    <MoodFilter id={categorys.genre} />
+                <AccordionItem label="Genre" index="2">
+                    <GenreFilter id={categorys.genre} />
                 </AccordionItem>
-                <AccordionItem title="Tempo">
-                    <MoodFilter id={categorys.tempo} />
+                <AccordionItem label="Tempo" index="3">
+                    <TempoFilter id={categorys.tempo} />
                 </AccordionItem>
             </Accordion>
+            <FilterSummary />
         </Container>
     )
 }

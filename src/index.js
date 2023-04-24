@@ -19,6 +19,7 @@ import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
 import SchedulePage from "./Pages/Schedule";
+import SearchResults from "./Pages/SearchResults";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Sandbox, { Player, Playlists } from "./Sandbox";
@@ -77,6 +78,13 @@ root.render(
                   path="/event/:uid"
                   element={
                     <Event />
+                  }
+                />
+                <Route
+                  exact
+                  path="/search"
+                  element={
+                    <SearchResults />
                   }
                 />
                 <Route

@@ -21,19 +21,16 @@ export const GetBroadcastsQuery = gql`
 export const GetBroadcastByTagQuery = gql`
   query GetBroadcastsByTagQuery($id: String!) {
     allBroadcastss(where: {tags: {tag: $id}}) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
       edges {
         node {
-          title
-          tags {
-            tag {
-              ... on Tag {
-                name
-                _meta {
-                  type
-                }
-              }
-            }
-          }
+          ...broadcast
         }
       }
     }
@@ -103,6 +100,24 @@ query GetBroadcastsInRange($endAfter:DateTime!, $beginBefore:DateTime) {
     edges {
       node {
         ...broadcast
+      }
+    }
+  }
+}`
+
+export const SearchBroadcastsQuery = gql`
+query SearchBroadcastsQuery($q:String!) {
+  allShowss (fulltext: $q, first: 100) {
+    pageInfo {
+      endCursor
+      startCursor
+      hasNextPage
+      hasPreviousPage
+    }
+    totalCount
+    edges {
+      node {
+        ... broadcast
       }
     }
   }

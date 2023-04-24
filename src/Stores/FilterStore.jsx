@@ -3,30 +3,35 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
+const initialState = {
+  genres: [],
+  tempos: [],
+  moods: [],
+}
+
 const useFilterStore = create(
   persist(
     produce((set, get) => ({
-      genres: [],
+      ...initialState,
       setGenres: (genres) => set((state) => (state.genres = genres)),
-      tempos: [],
+      addGenre: (genre) => set(state => ({
+        genres: { ...state.genres, genre },
+      })),
+      removeGenre: (id) => set(state => ({
+        genres: state.genres.filter(genre => genre.value !== id)
+      })),
       setTempos: (tempos) => set((state) => (state.tempos = tempos)),
-      moods: [],
+      removeTempo: (id) => set(state => ({
+        tempos: state.tempos.filter(tempo => tempo.value === id)
+      })),
       setMoods: (moods) => set((state) => (state.moods = moods)),
-      history: [],
-      currentBroadcast: null,
-      setCurrentBroadcast: (broadcast) =>
-        set((state) => (state.currentBroadcast = broadcast)),
-      addBroadcast: (broadcast) => {
-        set((state) => ({
-          history: [...state.history, broadcast],
-        }));
-      },
-      shows: [],
-      addShow: (show) => {
-        set((state) => ({
-          shows: [...state.shows, show],
-        }));
-      },
+      removeMood: (id) => set(state => ({
+        moods: state.moods.filter(mood => mood.value !== id)
+      })),
+      addGenre: (mood) => set(state => ({
+        mood: { ...state.moods, mood },
+      })),
+      reset: () => set(initialState)
     })),
     { name: "filter-store" }
   )

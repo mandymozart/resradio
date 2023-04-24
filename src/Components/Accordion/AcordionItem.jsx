@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Arrow from "../../images/Arrow";
 
 const Container = styled.li`
-    border-bottom: 1px solid var(--color);
+    border-bottom: 2px solid var(--color);
+    padding: 0 2rem;
 
   
   > button {
@@ -26,51 +27,41 @@ const Container = styled.li`
     font-size: 20px;
   }
   
-  .answer {
-    color: var(--background);
-  }
-  
   /* activate toggle */
+  
   &.active  {
       > button {
-        
+        color: var(--second);
       }
-      .answer_wrapper {
+      .content {
+        height: auto;
         overflow: visible;
       }
   } 
-  .answer_wrapper {
+  .content {
     height: 0;
     overflow: hidden;
     transition: height ease 0.2s;
   }
   `
 
-const AccordionItem = ({ title, children }) => {
+const AccordionItem = ({ label, isCollapsed, handleClick, children }) => {
 
-    const [clicked, setClicked] = useState(false);
     const contentEl = useRef();
 
-    const handleToggle = () => {
-        setClicked((prev) => !prev);
-    };
-
     return (
-        <Container className={`accordion_item ${clicked ? "active" : ""}`}>
-            <button onClick={handleToggle}>
-                {title}
-                <Arrow flipped={!clicked} />
+        <Container className={isCollapsed ? "isCollapsed" : "active"}>
+            <button onClick={handleClick}>
+                {label}
+                <Arrow flipped={isCollapsed} />
             </button>
             <div
                 ref={contentEl}
-                className="answer_wrapper"
-                style={
-                    clicked
-                        ? { height: contentEl.current.scrollHeight }
-                        : { height: "0px" }
-                }
-            >
-                <div className="answer">{children}</div>
+                className="content"
+                aria-expanded={isCollapsed}
+            ><div>
+                    {children}
+                </div>
             </div>
         </Container>
     );

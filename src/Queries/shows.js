@@ -19,6 +19,25 @@ query GetShows($cursor: String, $itemsPerPage: Int = 100) {
   }
 `
 
+export const SearchShowsQuery = gql`
+query SearchShowsQuery($q:String!) {
+  allShowss (fulltext: $q, first: 100) {
+    pageInfo {
+      endCursor
+      startCursor
+      hasNextPage
+      hasPreviousPage
+    }
+    totalCount
+    edges {
+      node {
+        ... showFragment
+      }
+    }
+  }
+}
+`
+
 export const ShowFragment = gql`
 fragment showFragment on Shows {
     _meta {
