@@ -27,7 +27,7 @@ const Explore = () => {
       <Container>
         <h2>Explore</h2>
         <p className="lead">
-          Please select your filters to explore our shows and broadcasts.
+          Please select your filters to explore our broadcasts.
         </p>
         <FilterForm />
         <FilterResults />

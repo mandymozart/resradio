@@ -14,7 +14,8 @@ const Container = styled.div`
   border-bottom: 2px solid var(--color);
   h3 {
     padding: 1rem 1rem .5rem 2rem;
-    margin: 0 !important;
+    margin: 0;
+    margin-bottom: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;  
@@ -58,8 +59,6 @@ const FilterBroadcastList = () => {
   if (!data?.allBroadcastss.totalCount) return <></>
   return (
     <Container>
-      <h3>Broadcasts ({data?.allBroadcastss.totalCount})</h3>
-
       <div className="list">
         {data?.allBroadcastss?.edges?.map((broadcast) =>
           <BroadcastItem broadcast={broadcast} />

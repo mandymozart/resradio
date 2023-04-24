@@ -24,7 +24,7 @@ const Meta = styled.div`
 `;
 
 const Description = styled.section`
-  font-size: 1.5em;
+  font-size: 1.5rem;
   padding: 2rem 2rem;
   display: grid;
   grid-template-columns: 2fr 2fr;

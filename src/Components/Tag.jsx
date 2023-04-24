@@ -6,7 +6,7 @@ export const Tag = styled.span`
   background-color: var(--color);
   padding: 0 1rem;
   display: inline-block;
-  font-family: var(--font-bold);
+  font-family: var(--font-light);
   text-transform: uppercase;
   line-height: 2rem;
   margin-right: 0;

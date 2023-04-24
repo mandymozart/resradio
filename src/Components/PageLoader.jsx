@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import Loader from "../Components/Loader";
+import SectionLoader from "./SectionLoader";
 
 const Container = styled.div`
   height: calc(100vh - 7rem);
@@ -12,7 +12,7 @@ const Container = styled.div`
 const PageLoader = () => {
   return (
     <Container>
-      <Loader />
+      <SectionLoader />
     </Container>
   );
 };

@@ -4,7 +4,6 @@ import Cross from "../../images/Cross";
 import Tag from "../Tag";
 
 const Container = styled.div`
-border-bottom: 2px solid var(--color);
 flex:1;
 min-height: 4rem;
 position: relative;
