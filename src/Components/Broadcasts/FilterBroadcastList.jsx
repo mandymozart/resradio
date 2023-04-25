@@ -54,11 +54,17 @@ const FilterBroadcastList = () => {
   if (!isDirty()) return <></>
   return (
     <Container>
-      <div className="list">
-        {data?.allBroadcastss?.edges?.map((broadcast) =>
-          <BroadcastItem broadcast={broadcast} />
-        )}
-      </div>
+
+      {data?.allBroadcastss.totalCount === 0 ? (
+        <>No match. You are quite the picky one!</>
+      ) : (<>
+        <div className="list">
+          {data?.allBroadcastss?.edges?.map((broadcast) =>
+            <BroadcastItem broadcast={broadcast} />
+          )}
+        </div>
+      </>
+      )}
     </Container>
   );
 };

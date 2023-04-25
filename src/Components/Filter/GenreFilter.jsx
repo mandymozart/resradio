@@ -5,6 +5,7 @@ import SectionLoader from "../SectionLoader";
 import Genre from "./Genre";
 
 const Container = styled.div`
+margin-bottom: 1.5rem;
 `;
 
 export const GenreFilter = () => {
