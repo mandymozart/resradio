@@ -2,15 +2,25 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import { Link, useNavigate } from "react-router-dom";
-import Search from "../images/Search";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
 import MobileMenu from "./MobileMenu";
+import SearchBar from "./Search/SearchBar";
 import SlideOut from "./SlideOut";
 import Social from "./Social/Social";
 import VolumeButton from "./VolumeButton";
 
+export const HeaderButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  &:hover {
+    color: var(--second);
+  }
+`
 const Container = styled.header`
   position: fixed;
   top: 0;
@@ -19,16 +29,7 @@ const Container = styled.header`
   background: transparent;
   box-sizing: border-box;
   background: var(--background);
-  button {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    &:hover {
-      color: var(--second);
-    }
-  }
+
   nav.primary{
     display: grid;
     line-height: 1rem;
@@ -61,14 +62,12 @@ const Topbar = styled.div`
   border-bottom: 2px solid var(--color);
 `
 
-const ChatButton = styled.button`
+const ChatButton = styled(HeaderButton)`
   font-size: 1.5rem;
   font-family: var(--font-copy);
   text-transform: uppercase;
   `
 
-const SearchButton = styled.button`
-`
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,15 +83,15 @@ const Header = () => {
     <>
       <Container>
         <nav className="primary">
-          <button className={"logo"} onClick={() => goToLink("/")}>
+          <HeaderButton className={"logo"} onClick={() => goToLink("/")}>
             <Logo />
-          </button>
+          </HeaderButton>
           {isBrowser && (
             <>
               <Link to="explore">Explore</Link>
               <Link to="schedule">Schedule</Link>
               <div className="tools">
-                <SearchButton><Search /></SearchButton>
+                <SearchBar />
                 <ChatButton>Chat</ChatButton>
                 <VolumeButton />
                 <Social />

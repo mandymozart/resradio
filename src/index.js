@@ -82,7 +82,7 @@ root.render(
                 />
                 <Route
                   exact
-                  path="/search"
+                  path="/search/*"
                   element={
                     <SearchResults />
                   }

@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BroadcastFragment, BroadcastTagsFragement, GetFeatureBroadcastQuery } from "../../Queries/broadcasts";
+import { BroadcastFragment, BroadcastTagsFragment, GetFeatureBroadcastQuery } from "../../Queries/broadcasts";
 import KeyFieldParagraph from "../KeyFieldParagraph";
 import SectionLoader from "../SectionLoader";
 import Tags from "../Tags";
@@ -85,7 +85,7 @@ p {
 const getFeatureBroadcastQuery = gql`
 ${GetFeatureBroadcastQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragement}
+${BroadcastTagsFragment}
 `
 
 const FeatureBroadcast = () => {

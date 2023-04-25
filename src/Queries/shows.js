@@ -43,63 +43,25 @@ fragment showFragment on Shows {
     _meta {
       uid
       id
+      tags
       firstPublicationDate
     }
     title
     description
     keyword
     image
-    tags {
-      ...showTagsFragment
-    }
-  }
-`
-
-export const ShowTagsFragment = gql`
-fragment showTagsFragment on ShowsTags {
-    tag {
-      _linkType
-      ... on Tag {
-        name
-        _meta {
-          id
-        }
-        category {
-          ... on Category {
-            name
-            _meta {
-              id
-            }
-          }
-        }
-      }
-    }
   }
 `
 export const GetShowQuery = gql`
-
-  query GetShow($uid: String!) {
-    allShowss(uid:$uid) {
-      edges {
-        node {
-          ...showFragment
-        }
-      }
-    }
-  }
-  
-  fragment showFragment on Shows {
-    _meta {
-      uid
-      id
-      firstPublicationDate
-    }
+query GetShow($uid: String!) {
+  shows (uid:$uid, lang:"en-eu") {
     title
     description
-    keyword
     image
-    tags {
-      ...showTagsFragment
+    _meta {
+      id
+      tags
     }
   }
-  `
+}
+`

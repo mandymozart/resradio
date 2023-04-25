@@ -2,14 +2,13 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { gql } from "graphql-tag";
 import React, { useState } from "react";
-import { GetShowsQuery, ShowFragment, ShowTagsFragment } from "../../Queries/shows";
+import { GetShowsQuery, ShowFragment } from "../../Queries/shows";
 import PageLoader from "../PageLoader";
 import ShowItem from "./ShowItem";
 
 export const getShowsQuery = gql`
   ${GetShowsQuery}
   ${ShowFragment}
-  ${ShowTagsFragment}
 `
 
 const Container = styled.div`

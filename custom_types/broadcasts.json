@@ -47,6 +47,22 @@
         "placeholder": "exact length of show in minutes (defaults are 60, 120), make sure uploads are full minutes"
       }
     },
+    "bpm": {
+      "type": "Number",
+      "config": {
+        "label": "BPM"
+      }
+    },
+    "mood": {
+      "type": "Link",
+      "config": {
+        "select": "document",
+        "customtypes": [
+          "mood"
+        ],
+        "label": "mood"
+      }
+    },
     "soundcloud": {
       "type": "Embed",
       "config": {

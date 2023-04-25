@@ -1,40 +1,41 @@
 import produce from "immer";
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from "zustand";
-import { persist } from "zustand/middleware";
 
-const initialState = {
+export const initialState = {
   genres: [],
-  tempos: [],
-  moods: [],
+  slowest: 30,
+  fastest: 270,
+  selectedMood: null,
 }
 
 const useFilterStore = create(
-  persist(
-    produce((set, get) => ({
-      ...initialState,
-      setGenres: (genres) => set((state) => (state.genres = genres)),
-      addGenre: (genre) => set(state => ({
-        genres: { ...state.genres, genre },
-      })),
-      removeGenre: (id) => set(state => ({
-        genres: state.genres.filter(genre => genre.value !== id)
-      })),
-      setTempos: (tempos) => set((state) => (state.tempos = tempos)),
-      removeTempo: (id) => set(state => ({
-        tempos: state.tempos.filter(tempo => tempo.value === id)
-      })),
-      setMoods: (moods) => set((state) => (state.moods = moods)),
-      removeMood: (id) => set(state => ({
-        moods: state.moods.filter(mood => mood.value !== id)
-      })),
-      addGenre: (mood) => set(state => ({
-        mood: { ...state.moods, mood },
-      })),
-      reset: () => set(initialState)
+
+  produce((set, get) => ({
+    ...initialState,
+    addGenre: (genre) => set(state => {
+      return ({
+        genres: [...state.genres, genre],
+      })
+    }),
+    removeGenre: (genre) => set(state => ({
+      genres: state.genres.filter(g => g !== genre)
     })),
-    { name: "filter-store" }
-  )
+    setSlowest: (bpm) => set((state) => (state.slowest = bpm)),
+    setFastest: (bpm) => set((state) => (state.fastest = bpm)),
+    clearMood: () => set({ selectedMood: null }),
+    setMood: (mood) => set({ selectedMood: mood }),
+    isDirty: () => {
+      if (get().selectedMood !== null) return true;
+      if (get().genres.length > 0) return true;
+      if (get().slowest !== initialState.slowest) return true;
+      if (get().fastest !== initialState.fastest) return true;
+      return false;
+    },
+    reset: () => set(initialState)
+  })),
+  { name: "filter-store" }
+
 );
 
 export default useFilterStore;

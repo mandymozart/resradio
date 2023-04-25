@@ -6,7 +6,7 @@ import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
+import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import palm from "../../images/palm.png";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(isBetween);
@@ -15,7 +15,7 @@ dayjs.extend(utc);
 const getBroadcastsInRangeQuery = gql`
 ${GetBroadcastsInRangeQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragement}
+${BroadcastTagsFragment}
 `
 
 const Container = styled.section`

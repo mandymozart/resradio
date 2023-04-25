@@ -10,7 +10,7 @@ import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastQuery } from "../Queries/broadcasts";
+import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../Queries/broadcasts";
 import PlayBig from "../images/PlayBig";
 
 const Container = styled.div`
@@ -70,7 +70,7 @@ const BroadcastPagePlayer = styled.div`
 export const getBroadcastQuery = gql`
 ${GetBroadcastQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragement}
+${BroadcastTagsFragment}
 `
 const BroadcastPage = () => {
   const { uid } = useParams();

@@ -1,12 +1,34 @@
 import gql from 'graphql-tag';
 
 /* Query broadcasts with a 1 day buffer in case a show crosses into the new day */
+/** General Purpose Query */
 export const GetBroadcastsQuery = gql`
-  query GetBroadcasts {
-    allBroadcastss(sortBy: meta_firstPublicationDate_ASC) {
+  query GetBroadcasts (
+      $sortBy: SortBroadcastsy, 
+      $tags: [String!], 
+      $moodId: String, 
+      $bpm_range: [Float!],
+      $endAfter:DateTime, 
+      $beginBefore:DateTime,
+      $first: Int,
+      $q: String,
+    ) {
+    allBroadcastss( 
+        sortBy: $sortBy, 
+        tags_in: $tags, 
+        fulltext: $q, 
+        first: $first,
+        where: { 
+          end_after: $endAfter, 
+          begin_before: $beginBefore,
+          mood: $moodId, 
+          bpm_range: $bpm_range
+        }) {
       pageInfo {
         hasNextPage
         endCursor
+        hasPreviousPage
+        startCursor
       }
       totalCount
       edges {
@@ -18,24 +40,7 @@ export const GetBroadcastsQuery = gql`
   }
   `
 
-export const GetBroadcastByTagQuery = gql`
-  query GetBroadcastsByTagQuery($id: String!) {
-    allBroadcastss(where: {tags: {tag: $id}}) {
-      totalCount
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        node {
-          ...broadcast
-        }
-      }
-    }
-  }`
-
+/** refactor with general purpose query */
 export const GetBroadcastByShowQuery = gql`
 query GetBroadcastsByShowQuery($id: String!) {
   allBroadcastss(where: {hostedby: $id}) {
@@ -54,6 +59,7 @@ query GetBroadcastsByShowQuery($id: String!) {
   }
 }`
 
+/** refactor to return only single  */
 export const GetBroadcastByIdQuery = gql`
   query GetBroadcastById($id:String!) {
     allBroadcastss (id:$id) {
@@ -65,6 +71,7 @@ export const GetBroadcastByIdQuery = gql`
     }
   }`
 
+/** refactor to only return single ,and merge with byIdQuery */
 export const GetBroadcastQuery = gql`
   query GetBroadcast($uid:String!) {
     allBroadcastss (uid:$uid) {
@@ -89,6 +96,7 @@ query GetFeatureBroadcast {
   }
 }`
 
+/** remove soon */
 export const GetBroadcastsInRangeQuery = gql`
 query GetBroadcastsInRange($endAfter:DateTime!, $beginBefore:DateTime) {
   allBroadcastss(sortBy: begin_ASC, where: { end_after: $endAfter, begin_before: $beginBefore }) {
@@ -104,6 +112,26 @@ query GetBroadcastsInRange($endAfter:DateTime!, $beginBefore:DateTime) {
     }
   }
 }`
+
+/** remove soon */
+export const GetBroadcastsByTagsMoodBPM = gql`
+query GetBroadcastsByTagsMoodBPM($tags: [String!], $moodId: String, $bpm_range: [Float!]) {
+  allBroadcastss(tags_in: $tags, where: {mood: $moodId, bpm_range: $bpm_range}) {
+    edges {
+      node {
+        title
+        _meta {
+          tags
+          uid
+          id
+        }
+      }
+    }
+  }
+}
+
+`
+
 
 export const SearchBroadcastsQuery = gql`
 query SearchBroadcastsQuery($q:String!) {
@@ -160,7 +188,7 @@ export const BroadcastFragment = gql`
   }
   `
 
-export const BroadcastTagsFragement = gql`
+export const BroadcastTagsFragment = gql`
 fragment broadcastTags on BroadcastsTags {
   tag {
     _linkType
@@ -182,3 +210,9 @@ fragment broadcastTags on BroadcastsTags {
 }
 
   `
+
+export const getBroadcastsQuery = gql`
+  ${GetBroadcastsQuery}
+  ${BroadcastFragment}
+  ${BroadcastTagsFragment}
+`

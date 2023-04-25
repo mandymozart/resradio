@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
+import useFilterStore from "../../Stores/FilterStore";
+import ClearSmall from "../../images/ClearSmall";
 
 const Container = styled.div`
 padding: 2rem;
@@ -7,6 +9,7 @@ border: 2px solid var(--color);
 text-align: center;
 color: var(--color);
 text-transform: initial;
+position: relative;
 &.selected {
     color: var(--background);
     border-color: var(--color);
@@ -29,13 +32,31 @@ p {
     margin: 0;
     font-family: var(--font-light);
 }
+svg {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
 `
 
-const Mood = ({ mood, selected }) => {
-    console.log(mood)
-    return (<Container className={selected ? "selected" : ""}>
-        <h4>{mood.name}</h4>
-        <p>{mood.description}</p>
+const Mood = ({ mood }) => {
+    const { selectedMood, setMood, clearMood } = useFilterStore();
+
+    function toggle(mood) {
+        console.log(selectedMood, mood)
+        if (selectedMood?._meta.id !== mood._meta.id) {
+            setMood(mood);
+        } else {
+            clearMood()
+        }
+    }
+
+    return (<Container
+        className={selectedMood?._meta.id === mood?._meta.id ? "selected" : ""}
+        onClick={() => toggle(mood)}>
+        <h4>{mood?.name}</h4>
+        <p>{mood?.description}</p>
+        {selectedMood?._meta.id === mood?._meta.id ? <ClearSmall /> : <></>}
     </Container>)
 }
 

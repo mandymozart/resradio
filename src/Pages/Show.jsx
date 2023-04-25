@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import gql from "graphql-tag";
 import React from "react";
 import { useParams } from "react-router-dom";
 import ShowBroadcastList from "../Components/Broadcasts/ShowBroadcastList";
@@ -9,7 +8,7 @@ import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import { GetShowQuery, ShowTagsFragment } from "../Queries/shows";
+import { GetShowQuery } from "../Queries/shows";
 
 const Container = styled.div``;
 const Header = styled.header`
@@ -50,20 +49,15 @@ const Description = styled.section`
   padding-bottom: 1rem;
 `;
 
-const getShowQuery = gql`
-${GetShowQuery}
-${ShowTagsFragment}
-`;
-
 const Show = () => {
   const { uid } = useParams();
-  const { loading, error, data } = useQuery(getShowQuery, { variables: { uid: uid } });
+  const { loading, error, data } = useQuery(GetShowQuery, { variables: { uid: uid } });
 
   if (loading) return <PageLoader />;
   if (error) return <NotFound error={error.message} />;
-  if (data.allShowss.edges <= 0) return <></>
+  if (!data.shows) return <></>
   console.log(data);
-  const show = data.allShowss.edges[0].node;
+  const show = data.shows;
   return (
     <HeaderOffset>
       <Container>

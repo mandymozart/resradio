@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 import AccordionItem from "./AcordionItem";
 
 const Container = styled.ul`
   list-style: none;
-  margin: 0;padding: 0;
+  margin: 0;
+  padding: 0;
 `
 const Accordion = ({ defaultIndex, onItemClick, children }) => {
 
-  const [bindIndex, setBindIndex] = React.useState(defaultIndex);
+  const [bindIndex, setBindIndex] = useState(defaultIndex);
 
   const changeItem = itemIndex => {
     if (typeof onItemClick === 'function') onItemClick(itemIndex);

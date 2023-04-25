@@ -1,14 +1,38 @@
 import styled from "@emotion/styled";
-import useFilterStore from "../../Stores/FilterStore";
-import Cross from "../../images/Cross";
-import Tag from "../Tag";
+import useFilterStore, { initialState } from "../../Stores/FilterStore";
+import ClearSmall from "../../images/ClearSmall";
+import Genre from "./Genre";
 
 const Container = styled.div`
 flex:1;
 min-height: 4rem;
 position: relative;
+color: var(--color);
 .list {
   padding: 2rem;
+}
+.tag {
+  color: var(--background);
+  font-size: 1rem;
+  background-color: var(--color);
+  padding: 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-light);
+  text-transform: uppercase;
+  line-height: 2rem;
+  margin-right: 0;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  margin-right: .5rem;
+  &:hover {
+    background-color: var(--second);
+  }
+  &.selected {
+    background-color: var(--second);
+  }
 }
 button {
   background: transparent;
@@ -16,40 +40,47 @@ button {
   color: var(--color);
   border: 0;
   font-family: var(--font-light);
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
 }
 `;
 
 const FilterSummary = () => {
-  const { moods, removeMood, tempos, removeTempo, genres, removeGenre, reset } = useFilterStore();
+  const { genres, selectedMood, clearMood, slowest, setSlowest, fastest, setFastest, reset, isDirty } = useFilterStore();
+
+  // const isDirty = () => {
+  //   if (selectedMood !== null) return true;
+  //   if (genres.length > 0) return true;
+  //   if (slowest !== initialState.slowest) return true;
+  //   if (fastest !== initialState.fastest) return true;
+  //   return false;
+  // }
+  console.log(isDirty())
   return (
     <Container>
       <div className="list">
-        {moods.map((tag, index) => {
-          return (
-            <span key={"tag" + index} onClick={() => removeMood(tag.value)}>
-              <Tag>{tag.label}<Cross /></Tag>{" "}
+        {selectedMood ? <span className="tag tag--mood" onClick={() => clearMood()}>
+          <span>
+            {selectedMood.name}
+          </span>
+          <ClearSmall />
+        </span> : <></>}
+        {genres?.map(genre =>
+          <Genre key={genre}
+            genre={genre}
+          />
+        )}
+        {(slowest !== initialState.slowest || fastest !== initialState.fastest) && (
+          <span className="tag tag--tempo" onClick={() => { setSlowest(initialState.slowest); setFastest(initialState.fastest) }}>
+            <span>
+
+              {slowest}&mdash;{fastest} BPM
             </span>
-          )
-        })}
-        {genres.map((tag, index) => {
-          return (
-            <span key={"tag" + index} onClick={() => removeGenre(tag.value)}>
-              <Tag>{tag.label} <Cross /></Tag>{" "}
-            </span>
-          )
-        })}
-        {tempos.map((tag, index) => {
-          return (
-            <span key={"tag" + index} onClick={() => removeTempo(tag.value)} >
-              <Tag>{tag.label} <Cross /></Tag>{" "}
-            </span>
-          )
-        })}
+            <ClearSmall />
+          </span>
+        )}
+        {isDirty() ? (
+          <button onClick={() => reset()}>Reset</button>
+        ) : <>Select filters to dive into our broadcast archive!</>}
       </div>
-      {/* <button onClick={() => reset()}>Reset</button> */}
     </Container>
   )
 }

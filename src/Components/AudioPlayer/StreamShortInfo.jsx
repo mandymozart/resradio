@@ -6,7 +6,7 @@ import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React, { useState } from "react";
-import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
+import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import Dot from "../../images/Dot";
 dayjs.extend(isBetween);
@@ -28,7 +28,7 @@ const Container = styled.div`
 export const getBroadcastsInRangeQuery = gql`
 ${GetBroadcastsInRangeQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragement}
+${BroadcastTagsFragment}
 `
 
 const StreamShortInfo = () => {

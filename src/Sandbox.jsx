@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useParams } from 'react-router-dom';
-import { BroadcastFragment, BroadcastTagsFragement } from './Queries/broadcasts';
+import { BroadcastFragment, BroadcastTagsFragment } from './Queries/broadcasts';
 import { GetPlaylistQuery, GetPlaylistsQuery, PlaylistBriefFragment, PlaylistFragment, PlaylistTagsFragement } from './Queries/playlists';
 dayjs.extend(localizedFormat);
 
@@ -19,7 +19,7 @@ const playlistQuery = gql`
 ${GetPlaylistQuery}
 ${PlaylistFragment}
 ${BroadcastFragment}
-${BroadcastTagsFragement}
+${BroadcastTagsFragment}
 ${PlaylistTagsFragement}
 `
 

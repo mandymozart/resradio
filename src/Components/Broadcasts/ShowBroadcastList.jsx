@@ -5,7 +5,7 @@ import React from "react";
 import { gql } from "graphql-tag";
 import "swiper/css";
 import "swiper/css/navigation";
-import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastByShowQuery } from "../../Queries/broadcasts";
+import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastByShowQuery } from "../../Queries/broadcasts";
 import BigArrow from "../../images/BigArrow";
 import SectionLoader from "../SectionLoader";
 import ShowBroadcastItem from "./ShowBroadcastItem";
@@ -14,7 +14,7 @@ import ShowBroadcastItem from "./ShowBroadcastItem";
 export const getBroadcastsByShowQuery = gql`
 ${GetBroadcastByShowQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragement}
+${BroadcastTagsFragment}
 `
 
 

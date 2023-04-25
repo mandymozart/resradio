@@ -136,6 +136,33 @@ p {
   margin-bottom: 2rem;
 }
 
+button {
+  font-family: var(--font-medium);
+  font-size: 1.25rem;
+  background: none;
+  border: none;
+}
+button:hover {
+  color: var(--second);
+}
+
+input {
+        border:none;
+        outline: none;
+        font-family: var(--font-medium);
+        font-size: 1.25rem;
+        background: none;
+        line-height: 2rem;
+        padding: 0 .5rem;}
+input:hover {
+    color: var(--second);
+}
+input:focus, input:focus-visible {
+    border:none;
+    outline: none;
+}
+
+
 .rotate {
   transform: rotateY(45deg);
   animation: rotateAnimation 3s linear infinite;

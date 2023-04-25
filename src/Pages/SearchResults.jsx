@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import HeaderOffset from "../Components/HeaderOffset";
-import SearchShowList from "../Components/Shows/SearchShowList";
+import SearchDocumentsList from "../Components/Search/SearchDocumentsList";
 
 const Container = styled.section`
 h2 {
@@ -15,7 +15,7 @@ const SearchResults = () => {
     <HeaderOffset>
       <Container>
         <h2>Search</h2>
-        <SearchShowList />
+        <SearchDocumentsList />
       </Container>
     </HeaderOffset>
   );

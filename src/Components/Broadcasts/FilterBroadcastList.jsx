@@ -1,17 +1,16 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { gql } from "graphql-tag";
 import React, { useEffect } from "react";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import { BroadcastFragment, BroadcastTagsFragement, GetBroadcastByTagQuery } from "../../Queries/broadcasts";
+import useDebounce from "../../Hooks/useDebounce.";
+import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import useFilterStore from "../../Stores/FilterStore";
 import SectionLoader from "../SectionLoader";
 import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.div`
-  border-bottom: 2px solid var(--color);
   h3 {
     padding: 1rem 1rem .5rem 2rem;
     margin: 0;
@@ -27,36 +26,32 @@ const Container = styled.div`
 `;
 
 
-
-export const getBroadcastByTagQuery = gql`
-${GetBroadcastByTagQuery}
-${BroadcastFragment}
-${BroadcastTagsFragement}
-`
-
 const FilterBroadcastList = () => {
-  const [getData, { loading, error, data }] = useLazyQuery(getBroadcastByTagQuery);
-  const { moods, genres, tempos } = useFilterStore();
+  const { selectedMood, genres, slowest, fastest, isDirty } = useFilterStore();
+  const [getData, { loading, error, data }] = useLazyQuery(
+    getBroadcastsQuery, {
+    variables: {
+      sortBy: 'begin_ASC',
+      first: 10,
+      tags: genres,
+      mood: selectedMood,
+      bpm_range: [slowest, fastest]
+    }
+  });
 
-  /** Hack for demo */
-  const getFirstTag = () => {
-    if (moods.length > 0) return moods[0].value
-    if (genres.length > 0) return genres[0].value
-    if (tempos.length > 0) return tempos[0].value
-    return null
-  }
+  const debouncedRequest = useDebounce(() => {
+    if (isDirty()) {
+      getData()
+    }
+  });
 
   useEffect(() => {
-    if (getFirstTag() !== null)
-      getData({
-        variables: { id: getFirstTag() }
-      })
-  }, [moods, genres, tempos]);
+    const unsub = useFilterStore.subscribe(debouncedRequest)
+  }, [])
 
   if (loading) return <SectionLoader />;
-  if (error) return <>Error : {error.message}</>;
-  console.log(data?.allBroadcastss.totalCount < 1)
-  if (!data?.allBroadcastss.totalCount) return <></>
+  if (error) return <Container>Error : {error.message}</Container>;
+  if (!isDirty()) return <></>
   return (
     <Container>
       <div className="list">
