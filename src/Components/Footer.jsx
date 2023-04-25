@@ -52,6 +52,7 @@ const Footer = () => {
             Vienna Community Webradio<br />
             AT63 2011 1841 2411 3300<br />
             GIBAATWWXXX</p>
+          <Link to="/donate">Why it matters? Read more</Link>
         </div>
         <div></div>
         <div>

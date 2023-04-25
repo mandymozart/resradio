@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
+import DonationBar from "./Donation/DonationBar";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./Search/SearchBar";
 import SlideOut from "./SlideOut";
@@ -114,8 +115,9 @@ const Header = () => {
           <AudioPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
           {/* <FilterPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> */}
         </Topbar>
-
+        <DonationBar />
       </Container>
+
       <SlideOut isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
     </>

@@ -13,6 +13,7 @@ import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import AboutPage from "./Pages/About";
 import BroadcastPage from "./Pages/Broadcast";
+import DonatePage from "./Pages/Donate";
 import Event from "./Pages/Event";
 import Explore from "./Pages/Explore";
 import ImpressumPage from "./Pages/Impressum";
@@ -106,6 +107,13 @@ root.render(
                   path="/page/:uid"
                   element={
                     <Page />
+                  }
+                />
+                <Route
+                  exact
+                  path="/donate"
+                  element={
+                    <DonatePage />
                   }
                 />
                 <Route

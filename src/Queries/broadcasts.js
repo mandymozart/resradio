@@ -87,7 +87,6 @@ query GetFeatureBroadcast {
   allFeaturebroadcasts {
     edges {
       node {
-        description
       	broadcast {
           ...broadcast
         }

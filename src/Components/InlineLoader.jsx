@@ -4,7 +4,7 @@ import React from "react";
 import { SyncLoader } from "react-spinners";
 
 const Container = styled.div`
-  line-height: 2rem;
+  line-height: 6rem;
   display: inline-flex;
   align-items: center;
   padding: 0 2rem;
@@ -18,11 +18,11 @@ const override = css`
 `;
 
 const InlineLoader = ({ message }) => {
-    return (
-        <Container>
-            <SyncLoader css={override} size={2} /> {message}
-        </Container>
-    );
+  return (
+    <Container>
+      <SyncLoader css={override} size={4} /> {message}
+    </Container>
+  );
 };
 
 export default InlineLoader;

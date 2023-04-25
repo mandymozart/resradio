@@ -8,7 +8,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import palm from "../../images/palm.png";
-import { trimZeros } from "../../utils";
+import { DATE_FORMAT, trimZeros } from "../../utils";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
@@ -67,7 +67,7 @@ const Schedule = ({ from }) => {
     let day = "";
     let count = 0;
     const getWeekdayHeadline = (begin) => {
-        const d = dayjs(begin).format('ddd, D.M.YYYY');
+        const d = dayjs(begin).format('ddd, ' + DATE_FORMAT);
         count++;
         if (day !== d && count === 1) {
             day = d;
@@ -104,8 +104,7 @@ const Schedule = ({ from }) => {
 };
 
 const ScheduleBroadcastContainer = styled.div`
-    grid-template-columns: 1fr 2fr;
-    display: grid;
+    
     a {
         text-transform: initial;
     }
