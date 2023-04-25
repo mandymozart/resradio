@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
 import { BroadcastFragment, BroadcastTagsFragment, GetFeatureBroadcastQuery } from "../../Queries/broadcasts";
-import KeyFieldParagraph from "../KeyFieldParagraph";
+import { trimZeros } from "../../utils";
 import SectionLoader from "../SectionLoader";
 import Tags from "../Tags";
 import HeroImage from "../TeaserImage/HeroImage";
@@ -41,30 +41,6 @@ p {
 .image {
     overflow: hidden;
     position: relative;
-    .overlay {
-      position: absolute;
-      width: calc(50% - 5rem);
-      padding: 2rem;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--color);
-      opacity: 0;
-      transition: all .2s ease;
-      .description {
-        text-overflow:ellipsis " ...";
-        overflow:hidden;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 15;
-        -webkit-box-orient: vertical;
-        white-space: normal;
-        text-transform: initial;
-      color: var(--background);
-      }
-      .tags {
-        margin-top: 0.5rem;
-        text-align: left;
-      }
-    }
     img {
       transition: all .2s ease;
       vertical-align: middle;
@@ -101,11 +77,6 @@ const FeatureBroadcast = () => {
 
         <div className="image">
           <HeroImage image={broadcast.image.hero} />
-          <div className="overlay">
-            <div className="description">
-              <KeyFieldParagraph text={broadcast.description} />
-            </div>
-          </div>
         </div>
       </Link>
       <h4>
@@ -115,8 +86,9 @@ const FeatureBroadcast = () => {
       </h4>
       <div className="meta">
         <p>
-          {dayjs(broadcast.begin).format("MMM DD.MM.YYYY")}<br />
-          {dayjs(broadcast.begin).format("h:mm")}&mdash;{dayjs(broadcast.end).format("h:mm A")}
+          {dayjs(broadcast.begin).format("MMM D.M.YYYY")}<br />
+          {trimZeros(
+            dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
         </p>
         <div className="tags">
           <Tags tags={broadcast.tags} />

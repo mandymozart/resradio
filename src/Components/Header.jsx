@@ -91,10 +91,10 @@ const Header = () => {
               <Link to="explore">Explore</Link>
               <Link to="schedule">Schedule</Link>
               <div className="tools">
-                <SearchBar />
                 <ChatButton>Chat</ChatButton>
                 <VolumeButton />
                 <Social />
+                <SearchBar />
               </div>
             </>
           )}

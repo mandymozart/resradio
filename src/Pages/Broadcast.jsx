@@ -11,7 +11,10 @@ import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
 import HeroImage from "../Components/TeaserImage/HeroImage";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../Queries/broadcasts";
+import useBroadcastStore from "../Stores/BroadcastStore";
+import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
+import { DATE_FORMAT, trimZeros } from "../utils";
 
 const Container = styled.div`
 padding-bottom: 2rem;
@@ -37,7 +40,7 @@ const BroadcastPagePlayer = styled.div`
   align-items: center; 
   gap: 2rem;
   height: 6rem;
-  padding: 0 2rem;
+  padding: 0 2rem 0 0;
   h3 {
     font-size: 1.5rem;
     font-family: var(--font-bold);
@@ -49,6 +52,7 @@ const BroadcastPagePlayer = styled.div`
     background: none;
     border: none;
     padding: 0;
+    width: 6rem;
     cursor: pointer;
     margin: 0;
     &:hover{
@@ -60,7 +64,6 @@ const BroadcastPagePlayer = styled.div`
     align-items: center; 
   }
   .info {
-    padding-left: 2rem;
   }
   .date {
     text-align: right;
@@ -75,27 +78,38 @@ ${BroadcastTagsFragment}
 const BroadcastPage = () => {
   const { uid } = useParams();
   const { loading, error, data } = useQuery(getBroadcastQuery, { variables: { uid: uid } });
+  const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
+  const play = (uid) => {
+    setPlaying(uid)
+    setIsPlaying(true);
+  }
+  const pause = () => {
+    setIsPlaying(false);
 
-  const playBroadcast = () => {
-    //
   }
 
   if (loading) return <PageLoader />;
   if (error) return <NotFound error={error.message} />;
   if (data?.allBroadcastss.edges <= 0) return <NotFound error={"Broadcast does not exist"} />
   const broadcast = data.allBroadcastss.edges[0].node;
-  console.log(broadcast)
+
   return (
     <HeaderOffset>
       <Container>
         <Header>
           <HeroImage image={broadcast.image.hero ? broadcast.image.hero : broadcast.image} />
         </Header>
-        <BroadcastPagePlayer broadcast={broadcast}>
+        <BroadcastPagePlayer>
           <div className="left">
-            <button onClick={() => playBroadcast()}>
-              <PlayBig />
-            </button>
+            {isPlaying && playing === broadcast._meta.uid ? (
+              <button onClick={() => pause()}>
+                <PauseBig />
+              </button>
+            ) : (
+              <button onClick={() => play(broadcast._meta.uid)}>
+                <PlayBig />
+              </button>
+            )}
             <div className="info">
               <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
                 <h3>{broadcast.hostedby.title}</h3>
@@ -104,8 +118,8 @@ const BroadcastPage = () => {
             </div>
           </div>
           <div className="date">
-            {dayjs(broadcast.begin).format("DD.MM.YYYY")}<br />
-            {dayjs(broadcast.begin).format("h")}&mdash;{dayjs(broadcast.end).format("h A")}
+            {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
+            {trimZeros(dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
           </div>
         </BroadcastPagePlayer>
 

@@ -4,26 +4,38 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GetAnnouncement } from "../../Queries/announcement";
-import PageLoader from "../PageLoader";
+import Grid from "../../images/Grid";
+import SectionLoader from "../SectionLoader";
 
 const Container = styled.div`
   cursor: pointer;
   padding: 1.5rem;
-  background: var(--grey);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  div {
+  position: relative;
+  margin-top: 8rem;
+  .overlay {
     font-size: 1.5rem;
     font-family: var(--font-bold);
     color: var(--second);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem;
   }
-  &.invert {
-    background: var(--second);
+  &.hover {
+    color: var(--second);
     h3,
     div,
     svg {
-      color: var(--background);
+      color: var(--second);
     }
   }
 `;
@@ -59,7 +71,7 @@ const Announcement = () => {
     return;
   };
 
-  if (loading) return <PageLoader />;
+  if (loading) return <SectionLoader />;
   if (error) return <>Error : {error.message}</>;
   if (data.allAnnouncements.edges.length <= 0) return <></>
   const announcement = data.allAnnouncements.edges[0].node;
@@ -68,9 +80,10 @@ const Announcement = () => {
       onClick={handleClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={clsx({ invert: isHovered })}
+      className={clsx({ hover: isHovered })}
     >
-      <div>{announcement.text}</div>
+      <Grid />
+      <div className="overlay">{announcement.text}</div>
     </Container>
   );
 };

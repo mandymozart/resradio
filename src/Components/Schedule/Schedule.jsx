@@ -8,6 +8,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import palm from "../../images/palm.png";
+import { trimZeros } from "../../utils";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
@@ -19,21 +20,19 @@ ${BroadcastTagsFragment}
 `
 
 const Container = styled.section`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
+    
     padding: 2rem;
     border-bottom: 2px solid var(--color);
-    h2 {
-        margin-bottom: 5rem;
+    h3 {
+        margin-bottom: 0;
     }
-    > div {
-        background: var(--yellow);
-        padding: 2rem;
-        font-size: 2rem;
-        color: var(--second);
-        font-family: var(--font-medium);
-        grid-column: span 3;
+
+    .list {
+        margin-top: 4rem;
+        display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+    
     a {
         color: var(--second);
         &:hover {
@@ -42,7 +41,7 @@ const Container = styled.section`
     }
     }
     p {
-        display: flex;
+        display: flex;margin: 0;
     }
     h4 {
         font-family: var(--font-medium);
@@ -68,7 +67,7 @@ const Schedule = ({ from }) => {
     let day = "";
     let count = 0;
     const getWeekdayHeadline = (begin) => {
-        const d = dayjs(begin).format('ddd, DD.MM.YYYY');
+        const d = dayjs(begin).format('ddd, D.M.YYYY');
         count++;
         if (day !== d && count === 1) {
             day = d;
@@ -85,12 +84,14 @@ const Schedule = ({ from }) => {
     const broadcasts = data.allBroadcastss.edges
     return (
         <Container>
-            <div>
-                <h3>Schedule</h3>
-                {broadcasts.length < 1 && (<p>
-                    No upcoming shows scheduled. It's possible, that we might be on vacation.
-                    <img src={palm} alt="vacation" />
-                </p>)}
+
+            <h3>Schedule</h3>
+            <p>our weekly updated schedule</p>
+            {broadcasts.length < 1 && (<p>
+                No upcoming shows scheduled. It's possible, that we might be on vacation.
+                <img src={palm} alt="vacation" />
+            </p>)}
+            <div className="list">
                 {broadcasts?.map((broadcast) => {
                     return (<>
                         {getWeekdayHeadline(broadcast.node.begin)}
@@ -114,7 +115,7 @@ const ScheduleBroadcast = ({ broadcast }) => {
     return (
         <ScheduleBroadcastContainer>
             <div>
-                {dayjs(broadcast.begin).format("h:mm")}&mdash;{dayjs(broadcast.end).format("h:mm A")}
+                {trimZeros(dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
             </div>
             <Link to={`../broadcasts/${broadcast._meta.uid}`}>{broadcast.hostedby.title} - {broadcast.title}</Link>
         </ScheduleBroadcastContainer>

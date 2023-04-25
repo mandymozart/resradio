@@ -2,7 +2,10 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
+import useBroadcastStore from "../../Stores/BroadcastStore";
+import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
+import { DATE_FORMAT } from "../../utils";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
@@ -47,12 +50,28 @@ h4 {
 }
 `
 const BroadcastItem = ({ broadcast }) => {
+  const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
+  const play = (uid) => {
+    setPlaying(uid)
+    setIsPlaying(true);
+  }
+  const pause = () => {
+    setIsPlaying(false);
 
+  }
   return (
     <Container>
-      <div className="image">
+      <div className="image" onClick={() => play(broadcast.node._meta.uid)}>
         <ThumbnailImage image={broadcast.node.image.thumbnail} />
-        <PlayBig />
+        {isPlaying && playing === broadcast.node._meta.uid ? (
+          <button onClick={() => pause()}>
+            <PauseBig />
+          </button>
+        ) : (
+          <button onClick={() => play(broadcast.node._meta.uid)}>
+            <PlayBig />
+          </button>
+        )}
       </div>
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>
@@ -65,7 +84,7 @@ const BroadcastItem = ({ broadcast }) => {
           <span>
             {dayjs(broadcast.node.begin).format("ddd")}
           </span>{" "}
-          {dayjs(broadcast.node.begin).format("DD.MM.YYYY")}
+          {dayjs(broadcast.node.begin).format(DATE_FORMAT)}
         </div>
       </div>
 

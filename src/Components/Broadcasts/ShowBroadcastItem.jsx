@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 import PlayBig from "../../images/PlayBig";
+import { DATE_FORMAT } from "../../utils";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
@@ -66,7 +67,7 @@ const ShowBroadcastItem = ({ broadcast }) => {
           <span>
             {dayjs(broadcast.node.begin).format("ddd")}
           </span>{" "}
-          {dayjs(broadcast.node.begin).format("DD.MM.YYYY")}
+          {dayjs(broadcast.node.begin).format(DATE_FORMAT)}
         </div>
       </div>
 

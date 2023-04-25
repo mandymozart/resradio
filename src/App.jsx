@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { BrowserView } from "react-device-detect";
 import { Outlet } from "react-router-dom";
-import FloatingAnnouncement from "./Components/Announcement/FloatingAnnouncement";
+import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
 import Header from "./Components/Header";
 
 function App() {
@@ -11,9 +10,7 @@ function App() {
       <PageWrapper>
         <Outlet />
       </PageWrapper>
-      <BrowserView>
-        <FloatingAnnouncement />
-      </BrowserView>
+      <BroadcastPlayer />
     </>
   );
 }

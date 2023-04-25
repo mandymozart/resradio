@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
+import { DATE_FORMAT } from "../../utils";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
 const Container = styled.div`
@@ -47,7 +48,7 @@ const RecentShowItem = ({ show }) => {
         <Link to={linkTo}>
           <h4>{show.node.title}</h4>
         </Link>
-        <div>{dayjs(show.node.begin).format("DD.MM.YYYY")}</div>
+        <div>{dayjs(show.node.begin).format(DATE_FORMAT)}</div>
       </div>
     </Container>
   );

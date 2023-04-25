@@ -22,17 +22,36 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-`;
-
-const RecentShowsSectionLoader = () => {
-  return (
-    <Container>loading recent shows ...</Container>
-  )
+  .swiper-button-next {
+    right: 2rem;
+    left: auto;
+  }
+  .swiper-button-prev {
+    left: 2rem;
+    right: auto;
+  }
+  
+  .swiper-button-next, .swiper-button-prev {
+    position: absolute;
+    top: calc(50% - 6rem);
+    width: 4rem;
+    height: 6rem;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    background-color: var(--grey);
+    align-items: center;
+    justify-content: center;
+    color: var(--color);
+    &.swiper-button-disabled {
+      display: none;
+    }
 }
+`;
 
 const AllShowsButtonContainer = styled.button`
   border: none;
-  padding: 0 2rem;
+  padding: 0;
   display: flex;
   background: transparent;
   justify-content: center;

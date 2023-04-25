@@ -77,12 +77,12 @@ a {
 const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
 
   const { currentBroadcast, nextBroadcast } = useBroadcastStore();
-
+  console.log(currentBroadcast)
   return (<Container>
     <div className={clsx({ isCollapsed })}>
       <div className="side currentBroadcast">
 
-        {currentBroadcast ? (
+        {currentBroadcast !== undefined ? (
           <>
 
             <div className="image">
