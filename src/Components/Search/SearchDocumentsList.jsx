@@ -35,7 +35,7 @@ const SearchDocumentsList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   console.log(searchParams.get("q"));
 
-  const { loading, error, data } = useQuery(searchDocumentsQuery, { variables: { q: "vienna" } })
+  const { loading, error, data } = useQuery(searchDocumentsQuery, { variables: { q: searchParams.get("q") } })
 
   if (loading) return <SectionLoader />;
   if (error) return <Container>Error : {error.message}</Container>;
