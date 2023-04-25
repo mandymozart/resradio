@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
-padding: 2rem;
+padding: 1rem 0;
 border-bottom: 2px solid var(--color);
 h4 {
   text-transform: initial;
@@ -17,7 +17,7 @@ const SearchShowItem = ({ show }) => {
   return (
     <Container>
       <div className="meta">
-        <Link to={`${show._meta.uid} `}>
+        <Link to={`/shows/${show._meta.uid} `}>
           <h4>{show.title}</h4>
         </Link>
       </div>

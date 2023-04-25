@@ -5,6 +5,10 @@ import ClearSmall from "../../images/ClearSmall"
 import Search from "../../images/Search"
 
 const Container = styled.div`
+  svg {
+    height: 2rem;
+    width: 2rem;;
+  }
 form {
     position: absolute;
     left: 75vw;

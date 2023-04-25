@@ -1,11 +1,15 @@
 import styled from '@emotion/styled'
 import React, { useRef, useState } from 'react'
 import { isDesktop } from 'react-device-detect'
-import Volume from '../images/Volume'
 import useAudioPlayerStore from '../Stores/AudioPlayerStore'
+import Volume from '../images/Volume'
 
 const Container = styled.div`
     position: relative;
+    svg {
+    height: 2rem;
+    width: 2rem;;
+  }
 `
 
 const VolumeSlider = styled.div`
@@ -18,6 +22,7 @@ top: 5rem;
     height: 6rem;
     padding: 0 0.25rem;
   }
+
 `;
 
 const VolumeButton = () => {
