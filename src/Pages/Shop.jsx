@@ -5,8 +5,19 @@ import cherries from "../images/product-cherries.png"
 import hearts from "../images/product-hearts.png"
 
 const Container = styled.div`
+padding: 2rem;
     .list {
-
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 2rem;
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+    input {
+        border: 1px solid var(--color);
     }
 `
 
@@ -37,7 +48,7 @@ const ShopPage = () => {
                             <div className="item item--motive">
                                 <label>
                                     <input type="radio" name="motive" value="hearts-purple"
-                                        checked />
+                                    />
                                     <img src={hearts} alt="Hearts" />
                                     Hearts Purple (35,00 EUR)</label>
                             </div>
@@ -51,7 +62,7 @@ const ShopPage = () => {
                             <div className="item item--motive">
                                 <label>
                                     <input type="radio" name="motive" value="hearts-blue"
-                                        checked />
+                                    />
                                     <img src={hearts} alt="Hearts" />
                                     Hearts Blue (35,00 EUR)</label>
                             </div>
