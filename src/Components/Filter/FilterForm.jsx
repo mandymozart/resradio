@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
-import Accordion from "../Accordion/Accordion";
-import AccordionItem from "../Accordion/AcordionItem";
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import TempoRangeSlider from "../RangeSlider/TempoRangeSlider";
 import FilterSummary from "./FilterSummary";
 import GenreFilter from "./GenreFilter";
@@ -13,14 +12,14 @@ margin-bottom: 2rem;
 const FilterForm = () => {
     return (
         <Container>
-            <Accordion onItemClick={console.log("itemClicked")}>
-                <AccordionItem label="Mood" index="1">
+            <Accordion>
+                <AccordionItem header="Mood">
                     <MoodFilter />
                 </AccordionItem>
-                <AccordionItem label="Genre" index="2">
+                <AccordionItem header="Genre">
                     <GenreFilter />
                 </AccordionItem>
-                <AccordionItem label="Tempo" index="3">
+                <AccordionItem header="Tempo">
                     <TempoRangeSlider />
                 </AccordionItem>
             </Accordion>

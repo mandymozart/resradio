@@ -1869,6 +1869,13 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@szhsin/react-accordion@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@szhsin/react-accordion/-/react-accordion-1.2.0.tgz#8e52c765bb8830f80e71a53ed39c396b50610068"
+  integrity sha512-aCw3BblvOGzV8Oz7ono6828omWhDB20eyuhtUwdvI/9aIx50L1+v84ynrUUsbdRkUCqmHJ+djN4d8UATG6f4Fg==
+  dependencies:
+    react-transition-state "^2.1.0"
+
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-4.0.6.tgz#b4a914bb62e7c272d4e5989fe4440f812ab1d807"
@@ -7356,6 +7363,11 @@ react-transition-group@^4.3.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-transition-state@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-transition-state/-/react-transition-state-2.1.0.tgz#e9f33e850b76a98ecf732d93e585fe60568ec19a"
+  integrity sha512-b8ldw2pbZk++XM43vcD4ETaFWlzTsjpUX33CmT8BBPPFYlQ2R50wxcY4ZeJ1TesJYziYZ9/rNPFnyA9tR0iKDw==
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
