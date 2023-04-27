@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../../Hooks/useDebounce.";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../../Queries/broadcasts";
+import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import ClearSmall from "../../images/ClearSmall";
 import PauseBig from "../../images/PauseBig";
@@ -77,6 +78,7 @@ ${BroadcastFragment}
 ${BroadcastTagsFragment}
 `
 const BroadcastPlayer = () => {
+    const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
     const { playing, setPlaying, isPlaying, setIsPlaying } = useBroadcastStore()
 
     const [getData, { loading, error, data }] = useLazyQuery(
@@ -88,7 +90,7 @@ const BroadcastPlayer = () => {
 
     const debouncedRequest = useDebounce(() => {
         console.log("got request")
-        if (playing !== undefined)
+        if (playing !== null)
             getData()
     });
 
@@ -99,6 +101,7 @@ const BroadcastPlayer = () => {
 
     const play = () => {
         setIsPlaying(true)
+        setStreamIsPlaying(false)
     }
     const pause = () => {
         setIsPlaying(false)
@@ -106,7 +109,7 @@ const BroadcastPlayer = () => {
 
     const close = () => {
         pause()
-        setPlaying(undefined)
+        setPlaying(null)
     }
 
     if (loading) return <Container><InlineLoader /></Container>

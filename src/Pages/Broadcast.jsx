@@ -11,6 +11,7 @@ import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
 import HeroImage from "../Components/TeaserImage/HeroImage";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../Queries/broadcasts";
+import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
@@ -78,9 +79,11 @@ ${BroadcastTagsFragment}
 const BroadcastPage = () => {
   const { uid } = useParams();
   const { loading, error, data } = useQuery(getBroadcastQuery, { variables: { uid: uid } });
+  const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
   const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
   const play = (uid) => {
     setPlaying(uid)
+    setStreamIsPlaying(false)
     setIsPlaying(true);
   }
   const pause = () => {

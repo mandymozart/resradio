@@ -1,15 +1,19 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useRef } from "react";
-import config from "../../config";
 import useIsMounted from "../../Hooks/isMounted";
+import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
+import useBroadcastStore from "../../Stores/BroadcastStore";
+import config from "../../config";
 import Arrow from "../../images/Arrow";
 import Pause from "../../images/Pause";
 import Play from "../../images/Play";
-import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import Loader from "../Loader";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
+button {
+  cursor: pointer;
+}
   > header {
     margin-right: 1rem;
     display: flex;
@@ -19,6 +23,7 @@ const Container = styled.div`
 `;
 export const ControlButton = styled.button`
 &&& {
+
   height: 3rem;
   padding-right: 1rem;
 }`;
@@ -34,6 +39,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
   // const [track, setTrack] = useState(config.STREAM_URL);
   const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume, setVolume } =
     useAudioPlayerStore();
+  const { isPlaying: broadcastIsPlaying, setIsPlaying: setBroadcastIsPlaying } = useBroadcastStore()
 
   let audioPlayer = useRef();
 
@@ -44,6 +50,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
     } else {
       // setTrack(config.STREAM_URL);
       setIsPlaying(true)
+      setBroadcastIsPlaying(false);
       audioPlayer.current.play();
     }
   };

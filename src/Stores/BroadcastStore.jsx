@@ -6,7 +6,7 @@ const useBroadcastStore = create(
   produce((set) => ({
     isPlaying: false,
     setIsPlaying: (value) => set(() => ({ isPlaying: value })),
-    playing: undefined,
+    playing: null,
     setPlaying: (uid) =>
       set(() => ({
         playing: uid,

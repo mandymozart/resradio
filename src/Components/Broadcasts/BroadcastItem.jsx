@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
+import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
@@ -51,8 +52,10 @@ h4 {
 `
 const BroadcastItem = ({ broadcast }) => {
   const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
+  const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
   const play = (uid) => {
     setPlaying(uid)
+    setStreamIsPlaying(false)
     setIsPlaying(true);
   }
   const pause = () => {

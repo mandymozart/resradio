@@ -100,27 +100,23 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
 
   const debouncedRequest = useDebounce(() => {
     if (uid) {
-      console.log(uid)
       getData()
     }
   });
   useEffect(() => {
-    console.log(currentBroadcast, uid, data)
     debouncedRequest()
   }, [uid])
 
   useEffect(() => {
-    console.log("receivedUpodate", data)
     if (data?.broadcasts)
       setBroadcast(data.broadcasts)
   }, [data])
 
   useEffect(() => {
-    console.log(currentBroadcast, nextBroadcast)
     setBroadcast(currentBroadcast)
   }, [currentBroadcast, nextBroadcast])
 
-  console.log(currentBroadcast, uid, data)
+  console.log(isCollapsed)
   return (<Container>
     <div className={clsx({ isCollapsed })}>
       <div className="top">
