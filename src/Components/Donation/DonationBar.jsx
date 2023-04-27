@@ -10,10 +10,12 @@ padding: 2rem;
 font-size: 1.5rem;
 font-family: var(--font-light);
 display: flex;
+gap:2rem;
 justify-content: space-between;
 button {
     border: 1px solid var(--background);
-    height: 2rem;
+    line-height: 2rem;
+    word-break: keep-all;
     padding: 0 1rem;
     cursor: pointer;
     &.primary {
@@ -36,7 +38,7 @@ const DonationBar = () => {
             <div>
                 DONATE if you wanna support our community web radio and help us keep the airwaves alive!
             </div>
-            <Link to="donate">
+            <Link to="/page/donate">
                 <button className="primary">Click to donate</button>
             </Link>
             <button className="secondary" onClick={() => setVisible(false)}>Okay, next time! <ClearSmall /></button>

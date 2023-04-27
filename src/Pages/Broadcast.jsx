@@ -90,9 +90,8 @@ const BroadcastPage = () => {
 
   if (loading) return <PageLoader />;
   if (error) return <NotFound error={error.message} />;
-  if (data?.allBroadcastss.edges <= 0) return <NotFound error={"Broadcast does not exist"} />
-  const broadcast = data.allBroadcastss.edges[0].node;
-
+  if (!data?.broadcasts) return <NotFound error={"Broadcast does not exist"} />
+  const broadcast = data.broadcasts;
   return (
     <HeaderOffset>
       <Container>

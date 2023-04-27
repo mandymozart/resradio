@@ -9,6 +9,7 @@ const Container = styled.div`
   margin: 0 auto;
 `
 
+/** redundant */
 const DonatePage = () => {
   return (
     <Container>

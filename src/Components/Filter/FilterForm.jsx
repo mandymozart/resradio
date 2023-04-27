@@ -1,21 +1,19 @@
 import styled from "@emotion/styled";
 import Accordion from "../Accordion/Accordion";
 import AccordionItem from "../Accordion/AcordionItem";
+import TempoRangeSlider from "../RangeSlider/TempoRangeSlider";
 import FilterSummary from "./FilterSummary";
-import { GenreFilter } from "./GenreFilter";
+import GenreFilter from "./GenreFilter";
 import MoodFilter from "./MoodFilter";
-import { TempoFilter } from "./TempoFilter";
 
 const Container = styled.div`
 margin-bottom: 2rem;
 `;
 
 const FilterForm = () => {
-
-
     return (
         <Container>
-            <Accordion onItemClick={console.log}>
+            <Accordion onItemClick={console.log("itemClicked")}>
                 <AccordionItem label="Mood" index="1">
                     <MoodFilter />
                 </AccordionItem>
@@ -23,7 +21,7 @@ const FilterForm = () => {
                     <GenreFilter />
                 </AccordionItem>
                 <AccordionItem label="Tempo" index="3">
-                    <TempoFilter />
+                    <TempoRangeSlider />
                 </AccordionItem>
             </Accordion>
             <FilterSummary />

@@ -7,6 +7,7 @@ const Container = styled.div`
   padding: 2rem;
 `
 
+//** redundant */
 const ImpressumPage = () => {
   return (
     <Container>

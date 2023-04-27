@@ -8,7 +8,7 @@ const Container = styled.div`
 margin-bottom: 1.5rem;
 `;
 
-export const GenreFilter = () => {
+const GenreFilter = () => {
     const isMounted = useIsMounted()
     const fetcher = (...args) => fetch(...args).then(res => res.json());
     const { loading, error, data } = useSWR(isMounted ? "https://resradio.cdn.prismic.io/api/tags" : null, fetcher)
@@ -26,3 +26,4 @@ export const GenreFilter = () => {
     )
 }
 
+export default GenreFilter

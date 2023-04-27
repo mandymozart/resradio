@@ -7,6 +7,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { BroadcastFragment, BroadcastTagsFragment } from './Queries/broadcasts';
 import { GetPlaylistQuery, GetPlaylistsQuery, PlaylistBriefFragment, PlaylistFragment, PlaylistTagsFragement } from './Queries/playlists';
+import config from "./config";
+import PauseBig from "./images/PauseBig";
+import PlayBig from "./images/PlayBig";
 dayjs.extend(localizedFormat);
 
 const playlistsQuery = gql`
@@ -110,15 +113,19 @@ h4 { padding: 1rem 2rem; margin: 0;
 }
 
 .controls {
+  padding: 1rem 2rem;
   > div {
-    padding: 1rem 2rem;
     display: flex;
     gap: 1rem;
     
   }
   input {
-    width: calc(100% - 4rem);
-    margin: 0 2rem;
+    width: 100%;
+  }
+  button {
+    cursor: pointer;
+    height: 4rem;
+    width: 4rem;
   }
   border-bottom: 2px solid var(--color); 
 }
@@ -150,18 +157,19 @@ export const Player = () => {
   const { loading, error, data } = useQuery(playlistQuery, { variables: { uid: uid } });
   const audioRef = useRef();
   const [current, setCurrent] = useState();
+  const [next, setNext] = useState();
   const [source, setSource] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState();
   const [currentTime, setCurrentTime] = useState();
-  const [currentIndex, setCurrentIndex] = useState(0);
+
   const [broadcasts, setBroadcasts] = useState();
   const [trackProgress, setTrackProgress] = useState(0);
   const intervalRef = useRef();
 
   // ably websocket
   const [rotationInfo, setRotationInfo] = useState();
-  const [channel] = useChannel("rotation", (message) => {
+  const [channel] = useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
     setRotationInfo(message)
   });
 
@@ -217,17 +225,48 @@ export const Player = () => {
     request.send()
   }
 
-  // send notification to RadioApp/ShortInfo
-  const sendRotationMessage = (broadcast) => {
-    channel.publish("rotation", { begin: dayjs().toISOString(), end: dayjs().add(parseInt(duration), 'seconds'), title: broadcast.title, hostedby: broadcast.hostedby.title, uid: broadcast._meta.uid });
+  const getIndex = (broadcast) => {
+    const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
+    console.log(index, "get index")
+    return index
   }
 
-  const updateBroadcast = (broadcast, index) => {
+  // send notification to RadioApp/ShortInfo
+  const sendRotationMessage = () => {
+    channel.publish(config.ABLY_ROTATION_CHANNEL,
+      {
+        current:
+        {
+          begin: dayjs().toISOString(),
+          end: dayjs().add(parseInt(duration), 'seconds'),
+          title: current.title,
+          hostedby: current.hostedby.title,
+          // TODO: remove anything but UID (depends on shortinfo)
+          uid: current._meta.uid
+        }, next:
+        {
+          title: next.title,
+          hostedby: next.hostedby.title,
+          // TODO: remove anything but UID (depends on short info update)
+          uid: next._meta.uid
+        }
+      });
+  }
+
+  /**
+   * 
+   * @param {number} index *optional
+   */
+  const updateBroadcast = (index) => {
+    console.log(index, "update")
+    const broadcast = index !== undefined ? broadcasts[index].broadcast : getNextBroadcast(getIndex(current))
+    console.log("setting current", broadcast, index)
     if (broadcast) {
       setSource(broadcast.audio.url);
       getLengthOfMp3(broadcast.audio.url);
-      setCurrent(broadcast)
-      setCurrentIndex(index)
+      setCurrent(broadcast);
+      setIsPlaying(true);
+      setNext(getNextBroadcast(getIndex(broadcast)))
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.load();
@@ -249,7 +288,7 @@ export const Player = () => {
         audioRef.current.load();
       }
       setCurrent(broadcast)
-      sendRotationMessage(broadcast)
+      setNext(getNextBroadcast(getIndex(broadcast)))
     }
   }
 
@@ -257,9 +296,13 @@ export const Player = () => {
     // init Player
     if (data) {
       setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio))
-      loadBroadcast(data.allPlaylists.edges[0].node.broadcasts[0].broadcast)
     }
   }, [data])
+
+  useEffect(() => {
+    if (broadcasts)
+      loadBroadcast(data.allPlaylists.edges[0].node.broadcasts[0].broadcast)
+  }, [broadcasts])
 
 
   const onPlaying = (e) => {
@@ -267,14 +310,19 @@ export const Player = () => {
     setCurrentTime(parseInt(e.target.currentTime));
   };
 
-  const handleEnded = () => {
-    // TODO: set next track in playlist
-    if (currentIndex + 1 < broadcasts.length - 1) {
-      updateBroadcast(broadcasts[currentIndex + 1].broadcast, currentIndex + 1)
+  const getNextBroadcast = (index) => {
+    console.log(index, index + 1, broadcasts.length)
+    if (index + 1 < broadcasts.length) {
+      return broadcasts[index + 1].broadcast
     }
     else {
-      updateBroadcast(broadcasts[0].broadcast, 0)
+      return broadcasts[0].broadcast
     }
+  }
+
+  const handleEnded = () => {
+    // TODO: set next track in playlist
+    updateBroadcast()
   }
 
   const handlePlay = () => {
@@ -300,7 +348,7 @@ export const Player = () => {
     };
   }, []);
 
-  if (loading || !broadcasts) return <>Loading...</>;
+  if (loading || !broadcasts || !current || !next) return <>Loading...</>;
   if (error) return <>Error : {error.message}</>;
   const playlist = data.allPlaylists.edges[0].node;
   return (
@@ -309,8 +357,8 @@ export const Player = () => {
       <div className='controls'>
         <div>
           {isPlaying ?
-            <button onClick={() => handlePause()}>Pause</button> :
-            <button onClick={() => handlePlay()}>Play</button>}
+            <button onClick={() => handlePause()}><PauseBig /></button> :
+            <button onClick={() => handlePlay()}><PlayBig /></button>}
           <audio ref={audioRef}
             onTimeUpdate={onPlaying}
             onCanPlay={onCanPlay}
@@ -337,10 +385,14 @@ export const Player = () => {
       </div>
       <div className='list'>
         <h6>Cue</h6>
-        {broadcasts.map((item, index) => {
+        {broadcasts.map((node, index) => {
           return (
-            <div key={index} onClick={() => updateBroadcast(item?.broadcast, index)} className={item.broadcast._meta.id === current._meta.id ? "broadcast current" : "broadcast"}>
-              <div>{index}</div> <div>{item.broadcast.hostedby.title} &mdash; {item.broadcast.title}</div>
+            <div key={index}
+              onClick={() => updateBroadcast(index)}
+              className={node.broadcast._meta.id
+                ===
+                current._meta.id ? "broadcast current" : "broadcast"}>
+              <div>{index}</div> <div>{node.broadcast.hostedby.title} &mdash; {node.broadcast.title}</div>
             </div>
           )
         }

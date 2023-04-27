@@ -71,17 +71,13 @@ export const GetBroadcastByIdQuery = gql`
     }
   }`
 
-/** refactor to only return single ,and merge with byIdQuery */
 export const GetBroadcastQuery = gql`
-  query GetBroadcast($uid:String!) {
-    allBroadcastss (uid:$uid) {
-      edges {
-        node {
-          ...broadcast
-        }
-      }
-    }
-  }`
+  query GetBroadcastQuery($uid:String!) {
+  broadcasts(uid:$uid, lang: "en-eu") {
+    ...broadcast
+  }
+}`
+
 export const GetFeatureBroadcastQuery = gql`
 query GetFeatureBroadcast {
   allFeaturebroadcasts {
@@ -152,33 +148,31 @@ query SearchBroadcastsQuery($q:String!) {
 
 export const BroadcastFragment = gql`
   fragment broadcast on Broadcasts {
-    _meta {
-      uid
-      id
-      firstPublicationDate
-    }
     title
-    hostedby {
-      ... on Shows {
-        title
-        _meta {
-          uid
-          id
-        }
-      }
-    }
     description
+    _meta {
+      id
+      uid
+    }
     begin
     end
+    bpm
     length
-    keyword
     image
     audio {
       ... on _FileLink {
         name
         url
         size
-        _linkType
+      }
+    }
+    hostedby {
+      ... on Shows {
+        title
+        _meta {
+          id
+          uid
+        }
       }
     }
     tags {
@@ -195,12 +189,14 @@ fragment broadcastTags on BroadcastsTags {
       name
       _meta {
         id
+        uid
       }
       category {
         ... on Category {
           name
           _meta {
             id
+            uid
           }
         }
       }

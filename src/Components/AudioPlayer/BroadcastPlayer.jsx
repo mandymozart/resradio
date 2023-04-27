@@ -112,7 +112,7 @@ const BroadcastPlayer = () => {
     if (loading) return <Container><InlineLoader /></Container>
     if (error) return <Container><InlineLoader /></Container>
     if (!playing) return <></>
-    const broadcast = data?.allBroadcastss?.edges[0]?.node
+    const broadcast = data?.broadcasts
     if (broadcast)
         return (
             <Container>

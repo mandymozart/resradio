@@ -8,7 +8,7 @@ const Container = styled.ul`
   padding: 0;
 `
 const Accordion = ({ defaultIndex, onItemClick, children }) => {
-
+  console.log("accordion loaded")
   const [bindIndex, setBindIndex] = useState(defaultIndex);
 
   const changeItem = itemIndex => {
@@ -17,15 +17,18 @@ const Accordion = ({ defaultIndex, onItemClick, children }) => {
   };
   const items = children.filter(item => item.type.name === 'AccordionItem');
   return (<Container>
-    {items.map(({ props }) => (
-      <AccordionItem
-        key={`accordion-item-${props.index}`}
-        isCollapsed={bindIndex !== props.index}
-        label={props.label}
-        handleClick={() => changeItem(props.index)}
-        children={props.children}
-      />
-    ))}
+    {items.map(({ props }) => {
+      console.log(props, "accordion map")
+      return (
+        <AccordionItem
+          key={`accordion-item-${props.index}`}
+          isCollapsed={bindIndex !== props.index}
+          label={props.label}
+          handleClick={() => changeItem(props.index)}
+          children={props.children}
+        />
+      )
+    })}
   </Container>)
 }
 

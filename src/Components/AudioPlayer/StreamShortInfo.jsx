@@ -8,11 +8,16 @@ import gql from "graphql-tag";
 import React, { useState } from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
+import config from "../../config";
 import Dot from "../../images/Dot";
+import { trimZeros } from "../../utils";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
+.now {
+  color: var(--second);
+}
  flex: 1;
  span {
   font-family: var(--font-bold);
@@ -46,10 +51,10 @@ const StreamShortInfo = () => {
 
   // ably websocket
   const [rotationInfo, setRotationInfo] = useState();
-  useChannel("rotation", (message) => {
+  useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
     setRotationInfo(message)
   });
-  usePresence("rotation", "listener");
+  usePresence(config.ABLY_ROTATION_CHANNEL, "listener");
 
   if (loading) return <Container>...</Container>;
   if (error) return <>Error : {error.message}</>;
@@ -60,13 +65,13 @@ const StreamShortInfo = () => {
     <Container>
       {currentBroadcast ? (
         <>
-          <span>Now<Dot /></span> {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
+          <span className="now">Now<Dot /></span> {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
         </>
       ) : (
         <>
           {rotationInfo ? (
             <>
-              {dayjs(rotationInfo.data.begin).format("ddd, HH:mm")} - {dayjs(rotationInfo.data.end).format("HH:mm")} {rotationInfo.data.hostedby} &mdash; {rotationInfo.data.title}
+              {trimZeros(dayjs(rotationInfo.data.current.begin))}&mdash;{trimZeros(dayjs(rotationInfo.data.current.end))} {dayjs(rotationInfo.data.current.end).format("A")} {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
             </>
           ) : (<>Radio Offline</>)}
         </>

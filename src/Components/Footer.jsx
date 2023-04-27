@@ -52,7 +52,7 @@ const Footer = () => {
             Vienna Community Webradio<br />
             AT63 2011 1841 2411 3300<br />
             GIBAATWWXXX</p>
-          <Link to="/donate">Why it matters? Read more</Link>
+          <Link to="/page/donate">Why it matters? Read more</Link>
         </div>
         <div></div>
         <div>
@@ -70,10 +70,10 @@ const Footer = () => {
       <nav>
         <ul>
           <li>
-            <Link to={"impressum"}>Impressum</Link>
+            <Link to={"/page/impressum"}>Impressum</Link>
           </li>
           <li>
-            <Link to={"impressum"}>General Inquiries</Link>
+            <Link to={"/page/impressum"}>General Inquiries</Link>
           </li>
         </ul>
       </nav>
