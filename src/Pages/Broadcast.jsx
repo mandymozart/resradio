@@ -15,6 +15,7 @@ import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
+import Scheduled from "../images/Schedule";
 import { DATE_FORMAT, trimZeros } from "../utils";
 
 const Container = styled.div`
@@ -103,13 +104,20 @@ const BroadcastPage = () => {
         </Header>
         <BroadcastPagePlayer>
           <div className="left">
-            {isPlaying && playing === broadcast._meta.uid ? (
-              <button onClick={() => pause()}>
-                <PauseBig />
-              </button>
+            {broadcast.audio ? (<>
+              {isPlaying && playing === broadcast._meta.uid ? (
+                <button onClick={() => pause()}>
+                  <PauseBig />
+                </button>
+              ) : (
+                <button onClick={() => play(broadcast._meta.uid)}>
+                  <PlayBig />
+                </button>
+              )}
+            </>
             ) : (
-              <button onClick={() => play(broadcast._meta.uid)}>
-                <PlayBig />
+              <button disabled>
+                <Scheduled />
               </button>
             )}
             <div className="info">

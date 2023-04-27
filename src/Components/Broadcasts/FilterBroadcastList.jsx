@@ -59,8 +59,9 @@ const FilterBroadcastList = () => {
         <>No match. You are quite the picky one!</>
       ) : (<>
         <div className="list">
-          {data?.allBroadcastss?.edges?.map((broadcast) =>
-            <BroadcastItem broadcast={broadcast} />
+          {data?.allBroadcastss?.edges?.map((broadcast, index) => <div key={"broadcast" + index}>
+
+            <BroadcastItem broadcast={broadcast} /></div>
           )}
         </div>
       </>

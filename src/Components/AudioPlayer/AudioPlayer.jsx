@@ -5,9 +5,8 @@ import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import config from "../../config";
 import Arrow from "../../images/Arrow";
-import Pause from "../../images/Pause";
-import Play from "../../images/Play";
-import Loader from "../Loader";
+import PauseBig from "../../images/PauseBig";
+import PlayBig from "../../images/PlayBig";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
@@ -28,7 +27,10 @@ export const ControlButton = styled.button`
   padding-right: 1rem;
 }`;
 export const PlayButton = styled(ControlButton)`
-
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
 `;
 
 const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
@@ -43,22 +45,16 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
 
   let audioPlayer = useRef();
 
-  const togglePlay = () => {
-    if (isPlaying) {
-      audioPlayer.current.pause();
-      setIsPlaying(false)
-    } else {
-      // setTrack(config.STREAM_URL);
-      setIsPlaying(true)
-      setBroadcastIsPlaying(false);
-      audioPlayer.current.play();
-    }
-  };
+  const play = () => {
+    setIsPlaying(true)
+    setBroadcastIsPlaying(false)
+    audioPlayer.current.play();
+  }
 
-
-  const onPlaying = (e) => {
-    // TODO: update progress in control bar
-  };
+  const pause = () => {
+    setIsPlaying(false);
+    audioPlayer.current.pause();
+  }
 
   const handleEnded = () => {
     // TODO: set next track in playlist
@@ -80,7 +76,12 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
     if (isMounted) window.addEventListener('volumeChanged', handleVolumeChange)
   }, [isMounted])
 
-
+  useEffect(() => {
+    if (!isPlaying) {
+      pause()
+    }
+  }
+    , [isPlaying])
 
   return (
     <Container>
@@ -88,19 +89,20 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
         <audio
           ref={audioPlayer}
           volume={volume}
-          onTimeUpdate={onPlaying}
           onCanPlay={onCanPlay}
           onEnded={handleEnded}
           src={config.STREAM_URL}
         />
 
-        <PlayButton onClick={togglePlay}>
-          {isLoading ? (
-            <Loader size={15} />
-          ) : (
-            <>{isPlaying ? <Pause /> : <Play />}</>
-          )}
-        </PlayButton>
+        {isPlaying ? (
+          <PlayButton onClick={() => pause()}>
+            <PauseBig />
+          </PlayButton>
+        ) : (
+          <PlayButton onClick={() => play()}>
+            <PlayBig />
+          </PlayButton>
+        )}
         <StreamShortInfo />
         <button onClick={() => setIsCollapsed(!isCollapsed)}>
           <Arrow flipped={!isCollapsed} />

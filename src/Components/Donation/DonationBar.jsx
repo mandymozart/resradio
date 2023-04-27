@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import useLocalStorage from "../../Hooks/useLocalStorage"
 import ClearSmall from "../../images/ClearSmall"
 
 const Container = styled.section`
@@ -31,8 +32,12 @@ button {
 
 const DonationBar = () => {
     const [visible, setVisible] = useState(true);
-
-    if (!visible) return <></>
+    const [hidden, setHidden] = useLocalStorage("donationBarHidden", "false");
+    useEffect(() => {
+        if (!visible && !hidden)
+            setHidden("true");
+    }, [hidden, setHidden])
+    if (!visible || hidden === "true") return <></>
     return (
         <Container>
             <div>
@@ -41,7 +46,7 @@ const DonationBar = () => {
             <Link to="/page/donate">
                 <button className="primary">Click to donate</button>
             </Link>
-            <button className="secondary" onClick={() => setVisible(false)}>Okay, next time! <ClearSmall /></button>
+            <button className="secondary" onClick={() => setHidden("true")}>Okay, next time! <ClearSmall /></button>
 
         </Container>
     )

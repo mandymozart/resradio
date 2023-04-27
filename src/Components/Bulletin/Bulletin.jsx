@@ -58,7 +58,7 @@ const Bulletins = () => {
 
     return (
         <Container>
-            {getList().map((item) => item.component)}
+            {getList().map((item, index) => <div key={'bulletin' + index}>{item.component}</div>)}
         </Container>
     )
 }

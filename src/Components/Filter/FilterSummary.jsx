@@ -46,14 +46,6 @@ button {
 const FilterSummary = () => {
   const { genres, selectedMood, clearMood, slowest, setSlowest, fastest, setFastest, reset, isDirty } = useFilterStore();
 
-  // const isDirty = () => {
-  //   if (selectedMood !== null) return true;
-  //   if (genres.length > 0) return true;
-  //   if (slowest !== initialState.slowest) return true;
-  //   if (fastest !== initialState.fastest) return true;
-  //   return false;
-  // }
-  console.log(isDirty())
   return (
     <Container>
       <div className="list">

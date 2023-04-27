@@ -6,6 +6,7 @@ import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
+import Scheduled from "../../images/Schedule";
 import { DATE_FORMAT } from "../../utils";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
@@ -62,19 +63,30 @@ const BroadcastItem = ({ broadcast }) => {
     setIsPlaying(false);
 
   }
+  const handleClick = () => {
+    if (broadcast.node.audio) {
+      if (isPlaying && playing === broadcast.node._meta.uid) pause()
+      else play(broadcast.node._meta.uid)
+    }
+  }
   return (
     <Container>
-      <div className="image" onClick={() => play(broadcast.node._meta.uid)}>
+      <div className="image" onClick={() => handleClick()}>
         <ThumbnailImage image={broadcast.node.image.thumbnail} />
-        {isPlaying && playing === broadcast.node._meta.uid ? (
-          <button onClick={() => pause()}>
-            <PauseBig />
-          </button>
-        ) : (
-          <button onClick={() => play(broadcast.node._meta.uid)}>
-            <PlayBig />
-          </button>
-        )}
+        {broadcast.node.audio ? (
+          <>
+            {isPlaying && playing === broadcast.node._meta.uid ? (
+              <button>
+                <PauseBig />
+              </button>
+            ) : (
+              <button>
+                <PlayBig />
+              </button>
+            )}
+          </>
+        ) : (<button disabled><Scheduled /></button>)}
+
       </div>
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>

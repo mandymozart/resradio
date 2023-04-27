@@ -115,8 +115,6 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
   useEffect(() => {
     setBroadcast(currentBroadcast)
   }, [currentBroadcast, nextBroadcast])
-
-  console.log(isCollapsed)
   return (<Container>
     <div className={clsx({ isCollapsed })}>
       <div className="top">
@@ -148,7 +146,7 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
       </div>
       <footer>
         <div>
-          <span class="next">&gt;NEXT</span> {loading ? <InlineLoader /> : (<>
+          <span className="next">&gt;NEXT</span> {loading ? <InlineLoader /> : (<>
             {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
           </>)}
         </div>
