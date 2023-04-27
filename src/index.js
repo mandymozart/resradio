@@ -13,14 +13,13 @@ import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import AboutPage from "./Pages/About";
 import BroadcastPage from "./Pages/Broadcast";
-import DonatePage from "./Pages/Donate";
 import Event from "./Pages/Event";
 import Explore from "./Pages/Explore";
-import ImpressumPage from "./Pages/Impressum";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
 import SchedulePage from "./Pages/Schedule";
 import SearchResults from "./Pages/SearchResults";
+import ShopPage from "./Pages/Shop";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Sandbox, { Player, Playlists } from "./Sandbox";
@@ -111,13 +110,6 @@ root.render(
                 />
                 <Route
                   exact
-                  path="/donate"
-                  element={
-                    <DonatePage />
-                  }
-                />
-                <Route
-                  exact
                   path="/about"
                   element={
                     <AboutPage />
@@ -125,11 +117,12 @@ root.render(
                 />
                 <Route
                   exact
-                  path="/impressum"
+                  path="/shop"
                   element={
-                    <ImpressumPage />
+                    <ShopPage />
                   }
                 />
+
                 <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="studio" element={<Sandbox />}>

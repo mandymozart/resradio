@@ -39,6 +39,26 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <div id="root"></div>
+
+    <form name="shop" netlify netlify-honeypot="bot-field" hidden>
+      <input type="radio" name="motive" value="hearts-olive"/>
+      <input type="radio" name="motive" value="cherries-olive" />
+      <input type="radio" name="motive" value="hearts-purple" />
+      <input type="radio" name="motive" value="cherries-purple" />
+      <input type="radio" name="motive" value="hearts-blue"/>
+      <input type="radio" name="motive" value="cherries-blue" />      
+      <select name="size">
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+      </select>
+      <input type="text" name="name" />
+      <input type="text" name="steet" />
+      <input type="text" name="country" />
+      <input type="text" name="zip" />
+      <input type="text" name="city" />
+  </form>
     <script
       async
       defer
