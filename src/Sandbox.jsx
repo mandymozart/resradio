@@ -328,6 +328,7 @@ export const Player = () => {
   const handlePlay = () => {
     audioRef.current.play();
     setIsPlaying(true);
+    sendRotationMessage();
     startTimer();
   }
 
