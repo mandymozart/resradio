@@ -56,11 +56,10 @@ const StreamShortInfo = () => {
   });
   usePresence(config.ABLY_ROTATION_CHANNEL, "listener");
 
-  if (loading) return <Container>...</Container>;
   if (error) return <>Error : {error.message}</>;
-  if (data.allBroadcastss.edges > 0)
+  if (data?.allBroadcastss?.edges > 0)
     setCurrentBroadcast(data.allBroadcastss.edges[0].node)
-  if (data.allBroadcastss.edges[1]) setNextBroadcast(data.allBroadcastss.edges[1].node);
+  if (data?.allBroadcastss?.edges[1]) setNextBroadcast(data.allBroadcastss.edges[1].node);
   return (
     <Container>
       {currentBroadcast ? (

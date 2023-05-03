@@ -4,7 +4,6 @@ import React from "react";
 import { SyncLoader } from "react-spinners";
 
 const Container = styled.div`
-  line-height: 6rem;
   display: inline-flex;
   align-items: center;
   padding: 0 2rem;

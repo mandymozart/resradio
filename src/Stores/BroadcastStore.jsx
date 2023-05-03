@@ -6,11 +6,16 @@ const useBroadcastStore = create(
   produce((set) => ({
     isPlaying: false,
     setIsPlaying: (value) => set(() => ({ isPlaying: value })),
+    isLoading: false,
+    setIsLoading: (value) => set(() => ({ isLoading: value })),
+    error: false,
+    setError: (error) => set(() => ({ error: error })),
     playing: null,
     setPlaying: (uid) =>
       set(() => ({
         playing: uid,
       })),
+    /** current and next are for display in stream info */
     currentBroadcast: undefined,
     setCurrentBroadcast: (broadcast) =>
       set(() => ({

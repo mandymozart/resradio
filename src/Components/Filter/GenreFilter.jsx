@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import useSWR from "swr";
-import useIsMounted from "../../Hooks/isMounted";
 import SectionLoader from "../SectionLoader";
 import Genre from "./Genre";
 
@@ -9,9 +8,8 @@ margin-bottom: 1.5rem;
 `;
 
 const GenreFilter = () => {
-    const isMounted = useIsMounted()
     const fetcher = (...args) => fetch(...args).then(res => res.json());
-    const { loading, error, data } = useSWR(isMounted ? "https://resradio.cdn.prismic.io/api/tags" : null, fetcher)
+    const { loading, error, data } = useSWR("https://resradio.cdn.prismic.io/api/tags", fetcher)
 
     if (loading) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;

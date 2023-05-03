@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { gql } from "graphql-tag";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import useIsMounted from "../../Hooks/isMounted";
 import useDebounce from "../../Hooks/useDebounce.";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
@@ -10,7 +11,6 @@ import useBroadcastStore from "../../Stores/BroadcastStore";
 import ClearSmall from "../../images/ClearSmall";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import InlineLoader from "../InlineLoader";
 
 const Container = styled.div`
 position: fixed;
@@ -89,42 +89,58 @@ ${BroadcastTagsFragment}
 `
 const BroadcastPlayer = () => {
     const { setIsPlaying: setStreamIsPlaying, volume } = useAudioPlayerStore()
-    const { playing, setPlaying, isPlaying, setIsPlaying } = useBroadcastStore()
+    const isMounted = useIsMounted();
+    const { playing, isPlaying, setIsPlaying, isLoading, setIsLoading, error, setError } = useBroadcastStore()
     const [isVisible, setIsVisible] = useState(false);
     const [currentTime, setCurrentTime] = useState();
     const [source, setSource] = useState();
     const [duration, setDuration] = useState();
-    const [broadcasts, setBroadcasts] = useState();
     const [broadcast, setBroadcast] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
     const intervalRef = useRef();
     const audioRef = useRef();
 
-    const [getData, { loading, error, data }] = useLazyQuery(
+    const [getData] = useLazyQuery(
         getBroadcastQuery, {
         variables: {
             uid: playing
         },
+        onError: (res) => {
+            console.error("api error", res)
+            setBroadcast(res)
+        },
         onCompleted: (data) => {
             console.log(data)
+            setIsLoading(false);
             setBroadcast(data.broadcasts)
-            updateBroadcast(data.broadcasts)
-            setIsVisible(true);
+            // onUpdateBroadcast(data.broadcasts)
+
         }
     });
 
-    // TODO: figure out how to not restart if playing is set to 
-    // pause sets isPlaying to true, hence it retriggers loading
     const debouncedRequest = useDebounce(() => {
-        console.log("got request")
-        if (playing !== null)
-            getData()
+        if (isPlaying) {
+            if (playing === null) {
+                console.error("no broadcast uid found to play")
+                return
+            }
+            console.log("got request to play", playing, broadcast)
+            if (playing !== broadcast?._meta?.uid) {
+                getData()
+            } else {
+                console.log("broadcast did not change. resume playing")
+                audioRef.current.play();
+                setIsVisible(true);
+            }
+        } else {
+            if (audioRef.current)
+                pause();
+        }
     });
 
-    // useEffect(() => {
-    //     const unsub = useBroadcastStore.subscribe(debouncedRequest)
-    // }, [])
     useEffect(() => {
+        console.log("isPlaying change is fired", isPlaying)
+        setIsLoading(true);
         debouncedRequest()
     }, [isPlaying])
 
@@ -133,9 +149,11 @@ const BroadcastPlayer = () => {
         clearInterval(intervalRef.current);
 
         intervalRef.current = setInterval(() => {
-            if (audioRef.current.ended) {
-            } else {
-                setTrackProgress(audioRef.current.currentTime);
+            if (audioRef.current) {
+                if (audioRef.current.ended) {
+                } else {
+                    setTrackProgress(audioRef.current.currentTime);
+                }
             }
         }, [1000]);
     };
@@ -156,26 +174,31 @@ const BroadcastPlayer = () => {
         request.send()
     }
 
-    /**
-   * 
-   */
-    const updateBroadcast = (broadcast) => {
+    const resetAudioRef = () => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.load();
+            audioRef.current.play();
+            startTimer();
+            setTrackProgress(audioRef.current.currentTime);
+        }
+    }
+    /** Resetting source audio magic and tracking progress */
+    useEffect(() => {
+        resetAudioRef()
+    }, [source])
+
+    /** On Update Broadcast */
+    useEffect(() => {
         console.log("setting current", broadcast)
         if (broadcast) {
             setSource(broadcast.audio.url);
             getLengthOfMp3(broadcast.audio.url);
-            //   setNext(getNextBroadcast(getIndex(broadcast)))
-            setTimeout(() => {
-                if (audioRef.current) {
-                    audioRef.current.pause();
-                    audioRef.current.load();
-                    audioRef.current.play();
-                    startTimer();
-                    setTrackProgress(audioRef.current.currentTime);
-                }
-            }, 200)
+            setIsVisible(true);
+        } else {
+            console.warn("No broadcast loaded.")
         }
-    }
+    }, [broadcast])
 
     const handleEnded = () => {
         setIsPlaying(false);
@@ -205,9 +228,6 @@ const BroadcastPlayer = () => {
         pause();
         setIsVisible(false);
     }
-
-    if (loading) return <Container><InlineLoader /></Container>
-    if (error) return <Container><InlineLoader /></Container>
     if (broadcast)
         return (
             <Container>
@@ -221,7 +241,6 @@ const BroadcastPlayer = () => {
                 </audio>
                 <Controls className={isVisible ? "isVisible" : ""}>
                     <Player>
-
                         {isPlaying ? (<button onClick={() => pause()}>
                             <PauseBig />
                         </button>) : (
