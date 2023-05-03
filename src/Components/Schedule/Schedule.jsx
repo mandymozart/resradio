@@ -5,10 +5,10 @@ import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React from "react";
-import { Link } from "react-router-dom";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import palm from "../../images/palm.png";
-import { DATE_FORMAT, trimZeros } from "../../utils";
+import { DATE_FORMAT } from "../../utils";
+import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
@@ -18,6 +18,30 @@ ${GetBroadcastsInRangeQuery}
 ${BroadcastFragment}
 ${BroadcastTagsFragment}
 `
+
+const mapBroadcastsToDays = (broadcasts) => {
+    let days = [];
+    let day = "";
+    let count = 0;
+    broadcasts.forEach(function (b) {
+        const d = dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT);
+        count++;
+        if (day !== d && count === 1) {
+            day = d;
+            days.push({ date: d, broadcasts: [] })
+        } else {
+            count = 0;
+        }
+    })
+    return populateDays(days, broadcasts);
+}
+
+const populateDays = (days, broadcasts) => {
+    broadcasts.forEach(function (b) {
+        days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)).broadcasts.push(b)
+    })
+    return days
+}
 
 const Container = styled.section`
     
@@ -30,24 +54,21 @@ const Container = styled.section`
     .list {
         margin-top: 4rem;
         display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 0;
     
-    a {
-        color: var(--second);
-        &:hover {
-            color: var(--color);
-        }
-    }
     }
     p {
         display: flex;margin: 0;
     }
     h4 {
-        font-family: var(--font-medium);
-        font-size: 2rem;
-        margin: 3rem 0 0 0;
+        font-family: var(--font-light);
+        font-size: 1.5rem;
+        text-transform: uppercase;
         text-transform: initial;
+        line-height: 3rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--color);
     }`;
 
 const Schedule = ({ from }) => {
@@ -64,62 +85,30 @@ const Schedule = ({ from }) => {
             }
         });
 
-    let day = "";
-    let count = 0;
-    const getWeekdayHeadline = (begin) => {
-        const d = dayjs(begin).format('ddd, ' + DATE_FORMAT);
-        count++;
-        if (day !== d && count === 1) {
-            day = d;
-            return (<h4>{d}</h4>)
-        } else {
-            count = 0;
-            return (<></>);
-        }
 
-    }
 
     if (loading) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;
-    const broadcasts = data.allBroadcastss.edges
+    const days = mapBroadcastsToDays(data.allBroadcastss.edges)
     return (
         <Container>
 
             <h3>Schedule</h3>
             <p>our weekly updated schedule</p>
-            {broadcasts.length < 1 && (<p>
+            {days.length < 1 && (<p>
                 No upcoming shows scheduled. It's possible, that we might be on vacation.
                 <img src={palm} alt="vacation" />
             </p>)}
             <div className="list">
-                {broadcasts?.map((broadcast) => {
-                    return (<>
-                        {getWeekdayHeadline(broadcast.node.begin)}
-                        <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />
-                    </>)
+                {days?.map((day) => {
+                    return (<div className="list-day">
+                        <h4>{day.date}</h4>
+                        {day.broadcasts.map(broadcast => <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />)}
+                    </div>)
                 })}
             </div>
-        </Container>
+        </Container >
     );
 };
-
-const ScheduleBroadcastContainer = styled.div`
-    
-    a {
-        text-transform: initial;
-    }
-`;
-
-const ScheduleBroadcast = ({ broadcast }) => {
-    return (
-        <ScheduleBroadcastContainer>
-            <div>
-                {trimZeros(dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
-            </div>
-            <Link to={`../broadcasts/${broadcast._meta.uid}`}>{broadcast.hostedby.title} - {broadcast.title}</Link>
-        </ScheduleBroadcastContainer>
-    );
-};
-
 
 export default Schedule;
