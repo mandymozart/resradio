@@ -91,7 +91,7 @@ const FeatureBroadcast = () => {
             dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
         </p>
         <div className="tags">
-          <Tags tags={broadcast.tags} />
+          <Tags tags={broadcast._meta.tags} />
         </div>
       </div>
     </Container>

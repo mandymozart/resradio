@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { trimZeros } from "../../utils";
 
 const Container = styled.div`
+padding-right: 2rem;
     span {
         font-size: 1rem;
     }

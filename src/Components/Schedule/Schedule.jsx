@@ -94,7 +94,7 @@ const Schedule = ({ from }) => {
         <Container>
 
             <h3>Schedule</h3>
-            <p>our weekly updated schedule</p>
+            <p>our weekly updated schedule (UTC+2)</p>
             {days.length < 1 && (<p>
                 No upcoming shows scheduled. It's possible, that we might be on vacation.
                 <img src={palm} alt="vacation" />

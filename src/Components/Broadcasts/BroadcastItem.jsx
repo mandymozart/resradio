@@ -8,6 +8,7 @@ import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
 import Scheduled from "../../images/Schedule";
 import { DATE_FORMAT } from "../../utils";
+import Tags from "../Tags";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
@@ -18,7 +19,11 @@ a {
 }
 h4 {
   text-transform: initial;
+  font-size: 1.25rem;
   margin: 0;
+}
+.meta {
+  font-size: 1.25rem;
 }
 .date {
   span {
@@ -101,6 +106,7 @@ const BroadcastItem = ({ broadcast }) => {
           </span>{" "}
           {dayjs(broadcast.node.begin).format(DATE_FORMAT)}
         </div>
+        <Tags tags={broadcast.node._meta.tags} />
       </div>
 
     </Container>

@@ -134,9 +134,13 @@ const BroadcastPage = () => {
         </BroadcastPagePlayer>
 
         <Description>
-          <KeyFieldParagraph text={broadcast.description} />
+          {broadcast.description ? (
+            <KeyFieldParagraph text={broadcast.description} />
+          ) : (
+            <div></div>
+          )}
           <Meta>
-            <Tags tags={broadcast?.tags} />
+            <Tags tags={broadcast?._meta.tags} rtl />
           </Meta>
         </Description>
       </Container>

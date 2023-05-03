@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 import { DATE_FORMAT } from "../../utils";
+import Tags from "../Tags";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
 const Container = styled.div`
@@ -17,10 +18,9 @@ h4 {
 }
 .meta {
   padding: 0 2rem 0 2rem;
-  display: flex;
-  justify-content: space-between;
   font-size: 1.25rem;
   padding-bottom: 3rem;
+  line-height: 1.5rem;
 }
 
 .image {
@@ -40,7 +40,7 @@ const RecentShowItem = ({ show }) => {
             <div className="description">
               {show.node.description}
             </div>
-            <Tags className="tags" tags={show.node.tags} />
+            
           </div> */}
         </div>
       </Link>
@@ -49,6 +49,8 @@ const RecentShowItem = ({ show }) => {
           <h4>{show.node.title}</h4>
         </Link>
         <div>{dayjs(show.node.begin).format(DATE_FORMAT)}</div>
+
+        <Tags className="tags" tags={show.node._meta.tags} />
       </div>
     </Container>
   );
