@@ -151,6 +151,7 @@ export const BroadcastFragment = gql`
     title
     description
     _meta {
+      tags
       id
       uid
     }
@@ -173,6 +174,14 @@ export const BroadcastFragment = gql`
           id
           uid
         }
+      }
+    }
+    mood {
+      ... on Mood {
+        _meta {
+          id
+        }
+        name
       }
     }
     tags {

@@ -34,7 +34,7 @@ const FilterBroadcastList = () => {
       sortBy: 'begin_ASC',
       first: 10,
       tags: genres,
-      mood: selectedMood,
+      moodId: selectedMood?._meta.id,
       bpm_range: [slowest, fastest]
     }
   });
