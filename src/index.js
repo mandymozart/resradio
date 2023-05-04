@@ -26,7 +26,7 @@ import ShopPage from "./Pages/Shop";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Studio from "./Studio";
-import config from "./config";
+import config, { IDENTITY_URL } from "./config";
 import { client } from "./prismic";
 
 const container = document.getElementById('root');
@@ -37,7 +37,7 @@ configureAbly({ key: config.ABLY_KEY, clientId: nanoid() })
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IdentityContextProvider value={config.IDENTITY_URL}>
+      <IdentityContextProvider url={IDENTITY_URL}>
         <Router>
           <ScrollToTop>
             <Routes>
