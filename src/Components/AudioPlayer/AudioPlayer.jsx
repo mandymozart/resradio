@@ -39,7 +39,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
 
   // const source = useRef();
   // const [track, setTrack] = useState(config.STREAM_URL);
-  const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume, setVolume } =
+  const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume } =
     useAudioPlayerStore();
   const { isPlaying: broadcastIsPlaying, setIsPlaying: setBroadcastIsPlaying } = useBroadcastStore()
 
@@ -66,15 +66,10 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
     audioPlayer.current.volume = volume;
   };
 
-  const handleVolumeChange = (e) => {
-    // setVolume(e.value)
-    audioPlayer.current.volume = e.value;
-  }
-
-
   useEffect(() => {
-    if (isMounted) window.addEventListener('volumeChanged', handleVolumeChange)
-  }, [isMounted])
+    audioPlayer.current.volume = volume;
+  }, [volume])
+
 
   useEffect(() => {
     if (!isPlaying) {

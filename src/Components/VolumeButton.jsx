@@ -36,9 +36,7 @@ const VolumeButton = () => {
 
     const changeVolume = (e) => {
         // send volumen changed event to window, all players will listen to this.
-        // setVolume(volume)
-        const event = new CustomEvent('volumenChanged', { value: e.target.value });
-        window.dispatchEvent(event);
+        setVolume(parseFloat(e.target.value))
     };
 
     return (

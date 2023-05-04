@@ -139,6 +139,11 @@ const BroadcastPlayer = () => {
     });
 
     useEffect(() => {
+        if (audioRef.current)
+            audioRef.current.volume = volume;
+    }, [volume])
+
+    useEffect(() => {
         console.log("isPlaying change is fired", isPlaying)
         setIsLoading(true);
         debouncedRequest()
