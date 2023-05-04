@@ -2,7 +2,11 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
+import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
+import useBroadcastStore from "../../Stores/BroadcastStore";
+import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
+import Scheduled from "../../images/Schedule";
 import { DATE_FORMAT } from "../../utils";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
@@ -50,12 +54,40 @@ h4 {
 }
 `
 const ShowBroadcastItem = ({ broadcast }) => {
+  const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
+  const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
+  const play = (uid) => {
+    setPlaying(uid)
+    setStreamIsPlaying(false)
+    setIsPlaying(true);
+  }
+  const pause = () => {
+    setIsPlaying(false);
 
+  }
+  const handleClick = () => {
+    if (broadcast.node.audio) {
+      if (isPlaying && playing === broadcast.node._meta.uid) pause()
+      else play(broadcast.node._meta.uid)
+    }
+  }
   return (
     <Container>
-      <div className="image">
+      <div className="image" onClick={() => handleClick()}>
         <ThumbnailImage image={broadcast.node.image.thumbnail} />
-        <PlayBig />
+        {broadcast.node.audio ? (
+          <>
+            {isPlaying && playing === broadcast.node._meta.uid ? (
+              <button>
+                <PauseBig />
+              </button>
+            ) : (
+              <button>
+                <PlayBig />
+              </button>
+            )}
+          </>
+        ) : (<button disabled><Scheduled /></button>)}
       </div>
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>

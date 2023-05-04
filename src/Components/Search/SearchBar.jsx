@@ -11,9 +11,10 @@ const Container = styled.div`
   }
 form {
     position: absolute;
-    left: 75vw;
+    right: 2rem;
+    left: 2rem;
     top: 0;
-    width: 25vw;
+    width: 100%;
     height: 5.5rem;
     z-index: 100;
     
@@ -24,7 +25,7 @@ form {
     input {
         font-size: 1.5rem;
         font-family: var(--font-light);
-        width: 50vw;
+        width: 100%;
     }
     svg {
         width: 2rem;

@@ -25,6 +25,11 @@ const Container = styled.div`
   }
 `;
 
+const Message = styled.div`
+padding: 6rem 2rem;
+text-align: center;
+`;
+
 
 const FilterBroadcastList = () => {
   const { selectedMood, genres, slowest, fastest, isDirty } = useFilterStore();
@@ -50,13 +55,13 @@ const FilterBroadcastList = () => {
   }, [])
 
   if (loading) return <SectionLoader />;
-  if (error) return <Container>Error : {error.message}</Container>;
+  if (error) return <Container><Message>Error : {error.message}</Message></Container>;
   if (!isDirty()) return <></>
   return (
     <Container>
 
       {data?.allBroadcastss.totalCount === 0 ? (
-        <>No match. You are quite the picky one!</>
+        <Message>No match. You are quite the picky one!</Message>
       ) : (<>
         <div className="list">
           {data?.allBroadcastss?.edges?.map((broadcast, index) => <div key={"broadcast" + index}>

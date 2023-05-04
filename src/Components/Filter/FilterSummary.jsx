@@ -39,8 +39,14 @@ button {
   font-size: 1.25rem;
   color: var(--color);
   border: 0;
+  cursor: pointer;
   font-family: var(--font-light);
 }
+`;
+
+const Message = styled.div`
+padding: 6rem 2rem;
+text-align: center;
 `;
 
 const FilterSummary = () => {
@@ -71,7 +77,7 @@ const FilterSummary = () => {
         )}
         {isDirty() ? (
           <button onClick={() => reset()}>Reset</button>
-        ) : <>Select filters to dive into our broadcast archive!</>}
+        ) : <Message>Select filters to dive into our broadcast archive!</Message>}
       </div>
     </Container>
   )
