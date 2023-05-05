@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Pages/Broadcast";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import config from '../config';
+import config, { BREAKPOINT_MD } from '../config';
 import { DATE_FORMAT, trimZeros } from "../utils";
 import InlineLoader from "./InlineLoader";
 import ThumbnailPanoramaImage from "./TeaserImage/ThumbnailPanoramaImage";
@@ -64,8 +64,17 @@ img {
     border-bottom: 2px solid var(--color);
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      grid-template-columns: 2fr;
+      padding: 0;
+    }
     gap: 1rem;
     padding: 2rem 0;
+    .info {
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        padding: 0 2rem 1rem 2rem;
+      }
+    }
 
   }
   footer {
@@ -75,8 +84,22 @@ img {
     justify-content: space-between;
     border-bottom: 2px solid var(--color);
     padding: 0 2rem;
+    div:first-of-type {
+      white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
     .next {
       font-family: var(--font-medium);
+    }
+    a {
+      font-size: 1.25rem;
+    }
+    .show-more-prefix {
+      white-space: nowrap;
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        display: none;
+      }
     }
   }
 }
@@ -151,7 +174,7 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
           </>)}
         </div>
         <div>
-          <Link to={"/schedule"}>Show Schedule</Link>
+          <Link to={"/schedule"}><span className="show-more-prefix">Show </span>Schedule</Link>
         </div>
       </footer>
     </div>

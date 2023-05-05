@@ -15,6 +15,9 @@ dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
+white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 .now {
   color: var(--second);
 }
