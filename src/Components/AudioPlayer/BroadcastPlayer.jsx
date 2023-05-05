@@ -111,7 +111,7 @@ const BroadcastPlayer = () => {
     const [source, setSource] = useState();
     const [duration, setDuration] = useState();
     const [broadcast, setBroadcast] = useState();
-    const [displayTime, setDisplayTime] = useState();
+    const [negativeTime, setNegativeTime] = useState(true);
     const [trackProgress, setTrackProgress] = useState(0);
     const intervalRef = useRef();
     const audioRef = useRef();
@@ -269,7 +269,7 @@ const BroadcastPlayer = () => {
                                 <PlayBig />
                             </button>
                         )}
-                        <div className="time" onClick={() => setDisplayTime(!displayTime)}>{displayTime ? <>{secondsToMinutes(
+                        <div className="time" onClick={() => setNegativeTime(!negativeTime)}>{negativeTime ? <>{secondsToMinutes(
                             currentTime)}</> : <>-{secondsToMinutes(
                                 duration - currentTime)}</>}</div>
                         <div className="info">
