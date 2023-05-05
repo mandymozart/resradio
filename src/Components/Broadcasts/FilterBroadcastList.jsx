@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import useFilterStore from "../../Stores/FilterStore";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import SectionLoader from "../SectionLoader";
 import BroadcastItem from "./BroadcastItem";
 
@@ -15,13 +16,19 @@ const Container = styled.div`
     padding: 1rem 1rem .5rem 2rem;
     margin: 0;
     margin-bottom: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;  
   }
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media (max-width: ${BREAKPOINT_L}px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_MD}px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-template-columns: 1fr;
+    }
   }
 `;
 
