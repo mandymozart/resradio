@@ -9,11 +9,15 @@ import { getShowsQuery } from "./ShowList";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { BREAKPOINT_MD } from "../../config";
 import SectionLoader from "../SectionLoader";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
 const Container = styled.div`
   border-bottom: 2px solid var(--color);
+  @media (max-width: ${BREAKPOINT_MD}px) {
+  padding: 0 1rem;
+}
   h3 {
     padding: 1rem 1rem 0.5rem 2rem;
     margin: 0 !important;
@@ -90,7 +94,16 @@ const RecentShowsList = () => {
   return (
     <Container>
       <h3>Shows</h3>
-      <Swiper navigation modules={[Navigation]} slidesPerView={2} className="list">
+      <Swiper
+        navigation
+        modules={[Navigation]}
+        slidesPerView={1}
+        breakpoints={{
+          769: {
+            slidesPerView: 2,
+          },
+        }}
+        className="list">
         {shows.map((show, index) => (<SwiperSlide key={"showSlider" + index}>
           <RecentShowItem show={show} />
         </SwiperSlide>

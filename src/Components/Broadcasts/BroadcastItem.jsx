@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
+import { BREAKPOINT_MD } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
 import Scheduled from "../../images/Schedule";
@@ -12,8 +13,11 @@ import Tags from "../Tags";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
+@media (max-width: ${BREAKPOINT_MD}px) {
+  padding: 0 1rem 1rem 1rem;
+}
 height: 100%;
-    box-sizing: border-box;
+box-sizing: border-box;
 a {
   text-transform: initial;
 }

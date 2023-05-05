@@ -1,8 +1,8 @@
 const process = require("process");
 
-const sanityClient = require("@sanity/client");
+const { createClient } = require("@sanity/client");
 
-const client = sanityClient({
+const client = createClient({
     projectId: process.env.SANITY_PROJECT,
     dataset: process.env.SANITY_DATASET,
     token: process.env.SANITY_TOKEN,
@@ -10,58 +10,33 @@ const client = sanityClient({
     useCdn: false,
 });
 
-const handler = async (event, context) => {
+const handler = async (event) => {
 
-    const uId = context.clientContext.user.sub;
-    const uRoles = context.clientContext.user.app_metadata.roles;
+    const data = JSON.parse(event.body)
+    const { id, title, hostedBy } = data
 
     /* no user, no go */
-    if (!uId) {
-        console.log("No user!");
+    if (!id) {
+        console.log("No broadcast id!");
         return {
             statusCode: 401,
             body: JSON.stringify({
-                data: "no user",
+                data: "no broadcast id",
             }),
         };
     }
 
-    /* no basic role, no go */
-    if (uRoles[0] !== "basic") {
-        console.log("No basic role!");
-        return {
-            statusCode: 401,
-            body: JSON.stringify({
-                data: "no role assigned",
-            }),
-        };
-    }
-
-    let newNote = {
-        _type: "note",
+    let newBroadcast = {
+        _type: "broadcast",
         title: event.queryStringParameters.title,
-        content: event.queryStringParameters.content,
-        // TODO: image: image,
-        domain: event.queryStringParameters.domain,
-        preset: event.queryStringParameters.preset,
-        status: event.queryStringParameters.status,
-
-        belongsTo: {
-            _type: "reference",
-            _ref: uId,
-        },
+        hostedBy: event.queryStringParameters.hostedBy,
+        id: event.queryStringParameters.id
     };
 
-    /* TODO: Plan release date */
-    if (event.queryStringParameters.planRelease) {
-        newNote.dateFrom = event.queryStringParameters.dateFrom;
-        newNote.dateTo = event.queryStringParameters.dateTo;
-    }
-
-    console.log(newNote)
+    console.log(newBroadcast)
 
     try {
-        const result = await client.create(newNote).then((res) => {
+        const result = await client.create(newBroadcast).then((res) => {
             console.log("RESULT FROM SANITY: ", res);
         });
 

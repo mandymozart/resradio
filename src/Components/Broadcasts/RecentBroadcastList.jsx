@@ -106,7 +106,23 @@ const RecentBroadcastList = () => {
   return (
     <Container>
       <h3>Recent Broadcasts</h3>
-      <Swiper navigation modules={[Navigation]} slidesPerView={4} className="list">
+      <Swiper
+        navigation
+        modules={[Navigation]}
+        slidesPerView={1}
+        breakpoints={{
+          480: {
+            slidesPerView: 2,
+          },
+          769: {
+            slidesPerView: 3,
+          },
+          1279: {
+            slidesPerView: 4,
+          },
+        }}
+        className="list"
+      >
         {broadcasts.map((broadcast, index) => (<SwiperSlide key={"recentBroadcastSlider" + index}>
           <BroadcastItem broadcast={broadcast} />
         </SwiperSlide>

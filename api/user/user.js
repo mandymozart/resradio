@@ -1,8 +1,8 @@
 const process = require("process");
 
-const sanityClient = require("@sanity/client");
+const { createClient } = require("@sanity/client");
 
-const client = sanityClient({
+const client = createClient({
   projectId: process.env.SANITY_PROJECT,
   dataset: process.env.SANITY_DATASET,
   token: process.env.SANITY_TOKEN,
@@ -45,12 +45,12 @@ const handler = async (event, context) => {
   }
 
   try {
-    const query = `*[_id == "${id}"][0]{domain,email,fullName}`;
+    const query = `*[_id == "${id}"][0]{email,fullName}`;
 
     let user;
 
     await client.fetch(query).then((r) => {
-      user = { domain: r.domain, email: r.email, fullName: r.fullName };
+      user = { email: r.email, fullName: r.fullName };
     });
 
     return {
