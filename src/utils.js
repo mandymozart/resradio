@@ -44,3 +44,9 @@ export const trimZeros = (date) => {
     return time.substring(0, time.length - 3);
   else return time;
 }
+
+export const secondsToMinutes = (seconds) => {
+  let computeMinutes = Math.floor(seconds / 60);
+  let result = seconds % 60;
+  return computeMinutes.toString().padStart(2, '0') + ":" + result.toString().padStart(2, '0').substring(0, 2);
+}

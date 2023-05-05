@@ -8,9 +8,11 @@ import useDebounce from "../../Hooks/useDebounce.";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
+import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import ClearSmall from "../../images/ClearSmall";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
+import { secondsToMinutes } from "../../utils";
 
 const Container = styled.div`
 position: fixed;
@@ -35,10 +37,16 @@ const Player = styled.div`
     border: none;
     padding: 0;
     width: 6rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+            width: 4rem;
+        }
     cursor: pointer;
     margin: 0;
     svg {
         height: 3rem;
+        @media (max-width: ${BREAKPOINT_XS}px) {
+            height: 2rem;
+        }
     }
     &:hover{
       color: var(--second);
@@ -52,6 +60,10 @@ const Player = styled.div`
     flex: 1;
     font-size: 1rem;
   }
+  .time {
+    font-size: 1rem;
+    width: 4rem;
+    }
   .image {
     text-align: right;
     img {
@@ -68,6 +80,9 @@ position: fixed;
 right: 0;
 bottom: 0;
 width: 50vw;
+@media (max-width: ${BREAKPOINT_MD}px) {
+    width: 100vw;
+}
 height: 6rem;
 transform: translateY(10rem);
 background: var(--grey);
@@ -96,6 +111,7 @@ const BroadcastPlayer = () => {
     const [source, setSource] = useState();
     const [duration, setDuration] = useState();
     const [broadcast, setBroadcast] = useState();
+    const [displayTime, setDisplayTime] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
     const intervalRef = useRef();
     const audioRef = useRef();
@@ -253,7 +269,9 @@ const BroadcastPlayer = () => {
                                 <PlayBig />
                             </button>
                         )}
-                        <div>{currentTime}</div>
+                        <div className="time" onClick={() => setDisplayTime(!displayTime)}>{displayTime ? <>{secondsToMinutes(
+                            currentTime)}</> : <>-{secondsToMinutes(
+                                duration - currentTime)}</>}</div>
                         <div className="info">
                             <Link to={"../broadcasts/" + broadcast._meta.uid}>
                                 <h3>{broadcast.hostedby.title}</h3>
