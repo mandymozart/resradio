@@ -13,6 +13,7 @@ import HeroImage from "../Components/TeaserImage/HeroImage";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
+import { BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
 import Scheduled from "../images/Schedule";
@@ -26,6 +27,12 @@ const Header = styled.header`
 `;
 const Meta = styled.div`
   text-align: center;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    &&& > .rtl {
+      text-align: left;
+    }
+  }
+  
 `;
 
 const Description = styled.section`
@@ -33,15 +40,22 @@ const Description = styled.section`
   padding: 2rem 2rem;
   display: grid;
   grid-template-columns: 2fr 2fr;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
   gap: 2rem;
 `;
 
 const BroadcastPagePlayer = styled.div`
   display: grid;
   grid-template-columns: 10fr 2fr;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+      grid-template-columns: 1fr;
+  }
   align-items: center; 
   gap: 2rem;
-  height: 6rem;
+  min-height: 6rem;
   padding: 0 2rem 0 0;
   h3 {
     font-size: 1.5rem;
@@ -69,6 +83,10 @@ const BroadcastPagePlayer = styled.div`
   }
   .date {
     text-align: right;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      text-align: left;
+      padding: 0 2rem;
+    }
   }
 `
 
