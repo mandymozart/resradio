@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { isBrowser, isMobile } from "react-device-detect";
 import { Link, useNavigate } from "react-router-dom";
+import { BREAKPOINT_MD } from "../config";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
@@ -38,20 +39,40 @@ const Container = styled.header`
     box-sizing: border-box;
     padding: 0 2rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      grid-template-columns: 1fr 1fr;
+    }
     gap: 2rem;
     align-items: center;
     z-index: 1;
     justify-content: left;
     border-bottom: 2px solid var(--color);
   }
+
   .logo {
     text-align: left;
+  }
+  .link {
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      display: none;
+    }
+  }
+  .menu-button {
+    justify-content: flex-end;
+    border: none;
+    padding: 0;
+    @media (min-width: ${BREAKPOINT_MD - 1}px) {
+      display: none;
+    }
   }
   .tools {
     display: flex;
     justify-content: right;
     align-items: center;
     gap: 1rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      display: none;
+    }
   }
 
 `;
@@ -87,29 +108,22 @@ const Header = () => {
           <HeaderButton className={"logo"} onClick={() => goToLink("/")}>
             <Logo />
           </HeaderButton>
-          {isBrowser && (
-            <>
-              <Link to="explore">Explore</Link>
-              <Link to="schedule">Schedule</Link>
-              <div className="tools">
-                <ChatButton>Chat</ChatButton>
-                <VolumeButton />
-                <Social />
-                <SearchBar />
-              </div>
-            </>
-          )}
-          {isMobile && (
-            <>
-              <Button
-                type="button"
-                active={isOpen}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                MENU
-              </Button>
-            </>
-          )}
+          <Link to="explore" className="link">Explore</Link>
+          <Link to="schedule" className="link">Schedule</Link>
+          <div className="tools">
+            <ChatButton>Chat</ChatButton>
+            <VolumeButton />
+            <Social />
+            <SearchBar />
+          </div>
+          <Button
+            type="button"
+            className="menu-button"
+            active={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <Hamburger />
+          </Button>
         </nav>
         <Topbar>
           <AudioPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />

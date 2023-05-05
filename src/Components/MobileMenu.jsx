@@ -12,7 +12,11 @@ padding: 0;
 nav {
   z-index: 1000;
   position: fixed;
+  top: 6rem;
+  width: 100vw;
+  height: calc(100vh - 6rem);
   display: flex;
+  background-color: var(--background);
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -22,6 +26,20 @@ nav {
   opacity: 0;
   z-index: 1000;
   transform: translateY(100vh);
+  ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    line-height: 4rem;
+    button {
+      font-size: 2rem;
+    }
+  }
 
   &.isOpen {
     opacity: 1;
@@ -47,7 +65,7 @@ const MobileMenu = ({ isOpen, setIsOpen }) => {
       <FadeIn>
         <ul>
           <li>
-            <button onClick={() => goToLink("/shows")}>Shows</button>
+            <button onClick={() => goToLink("/explore")}>Explore</button>
           </li>
           <li>
             <button onClick={() => goToLink("/schedule")}>Schedule</button>
