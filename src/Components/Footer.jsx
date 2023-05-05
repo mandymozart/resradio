@@ -9,12 +9,6 @@ const Container = styled.footer`
     padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    /* @media (max-width: ${BREAKPOINT_MD}px) {
-        grid-template-columns: 1fr 1fr;
-      }
-      @media (max-width: ${BREAKPOINT_XS}px) {
-        grid-template-columns: 1fr;
-      } */
     gap: 2rem;
     > div:first-of-type {
       grid-column: span 2;

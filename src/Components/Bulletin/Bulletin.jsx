@@ -3,13 +3,23 @@ import styled from "@emotion/styled";
 import _ from "lodash";
 import React from "react";
 import { GetBulletinsQuery } from "../../Queries/bulletins";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import cherry from "../../images/cherry.png";
 import SectionLoader from "../SectionLoader";
 import Announcement from "./Announcement";
 
 const Container = styled.section`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media (max-width: ${BREAKPOINT_L}px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_MD}px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-template-columns: 1fr;
+    }
     gap: 2rem;
     align-items: center;
     justify-content: center;

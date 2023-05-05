@@ -6,6 +6,7 @@ import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import palm from "../../images/palm.png";
 import { DATE_FORMAT } from "../../utils";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
@@ -55,6 +56,15 @@ const Container = styled.section`
         margin-top: 4rem;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
+        @media (max-width: ${BREAKPOINT_L}px) {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        @media (max-width: ${BREAKPOINT_MD}px) {
+            grid-template-columns: 1fr 1fr;
+        }
+        @media (max-width: ${BREAKPOINT_XS}px) {
+            grid-template-columns: 1fr;
+        }
         gap: 0;
     
     }
@@ -68,6 +78,7 @@ const Container = styled.section`
         text-transform: initial;
         line-height: 3rem;
         margin-bottom: 1rem;
+        margin-top: 1rem;
         border-bottom: 2px solid var(--color);
     }`;
 
