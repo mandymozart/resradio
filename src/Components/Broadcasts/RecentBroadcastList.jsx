@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
+import { BREAKPOINT_MD } from "../../config";
 import { getBroadcastsInRangeQuery } from "../AudioPlayer/StreamShortInfo";
 import SectionLoader from "../SectionLoader";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
@@ -15,24 +16,29 @@ import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.div`
   border-bottom: 2px solid var(--color);
-  h3 {
-    padding: 1rem 1rem .5rem 2rem;
-    margin: 0 !important;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;  
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    padding: 1rem;
   }
-  .list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  h3 {
+    margin: 0 !important;
+    padding: 1rem 2rem .5rem 2rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      padding: 1rem 1rem 0 1rem;
+    }
   }
   .swiper-button-next {
     right: 2rem;
     left: auto;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      right: 1rem;
+    }
   }
   .swiper-button-prev {
     left: 2rem;
     right: auto;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      left: 1rem;
+    }
   }
   
   .swiper-button-next, .swiper-button-prev {

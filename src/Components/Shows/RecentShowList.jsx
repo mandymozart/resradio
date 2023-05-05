@@ -9,15 +9,11 @@ import { getShowsQuery } from "./ShowList";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import { BREAKPOINT_MD } from "../../config";
 import SectionLoader from "../SectionLoader";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
 const Container = styled.div`
   border-bottom: 2px solid var(--color);
-  @media (max-width: ${BREAKPOINT_MD}px) {
-  padding: 0 1rem;
-}
   h3 {
     padding: 1rem 1rem 0.5rem 2rem;
     margin: 0 !important;
