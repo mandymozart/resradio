@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Pages/Broadcast";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import config, { BREAKPOINT_MD } from '../config';
+import config, { BREAKPOINT_L, BREAKPOINT_MD } from '../config';
 import { DATE_FORMAT, trimZeros } from "../utils";
 import InlineLoader from "./InlineLoader";
 import ThumbnailPanoramaImage from "./TeaserImage/ThumbnailPanoramaImage";
@@ -64,6 +64,9 @@ img {
     border-bottom: 2px solid var(--color);
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
+    @media (max-width: ${BREAKPOINT_L}px) {
+      grid-template-columns: 2fr 2fr;
+    }
     @media (max-width: ${BREAKPOINT_MD}px) {
       grid-template-columns: 2fr;
       padding: 0;

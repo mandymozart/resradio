@@ -21,10 +21,7 @@ ${BroadcastTagsFragment}
 const Container = styled.div`
   h3 {
     padding: 1rem 1rem .5rem 2rem;
-    margin: 0 !important;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;  
+    margin: 0;
   }
   .list {
     

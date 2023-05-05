@@ -14,28 +14,6 @@ const Container = styled.div``;
 const Header = styled.header`
   text-align: center;
 `;
-const Meta = styled.div`
-  text-align: center;
-  padding: 1rem;
-`;
-
-export const SoundcloudPlayer = styled.div`
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin-top: 1rem;
-  padding-top: 56.25%;
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
 const Description = styled.section`
   font-size: 1rem;
   padding: 0 2rem;

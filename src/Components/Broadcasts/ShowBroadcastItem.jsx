@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
+import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
 import Scheduled from "../../images/Schedule";
@@ -13,6 +14,12 @@ const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
 display: grid;
 grid-template-columns: 1fr 1fr 1fr 1fr;
+@media (max-width: ${BREAKPOINT_MD}px) {
+      grid-template-columns: 1fr 1fr;
+    }
+@media (max-width: ${BREAKPOINT_XS}px) {
+      grid-template-columns: 1fr;
+    }
 gap: 2rem;
     box-sizing: border-box;
 a {
