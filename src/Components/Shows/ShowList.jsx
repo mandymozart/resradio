@@ -17,8 +17,9 @@ const Container = styled.div`
     border: 0;
     border-bottom: 2px solid var(--color);
     color: var(--color);
-    font-family: "Scope-LightExpanded";
-    font-size: 2rem;
+    font-family: var(--font-light);
+    font-size: 1rem;
+    padding: 0;
     outline: none;
     width: 100%;
     &:focus {
@@ -35,7 +36,6 @@ const Container = styled.div`
     font-size: 2rem;
   }
   form {
-    border-bottom: 2px solid var(--color);
     padding: 0 2rem;
   }
   .list {
@@ -54,8 +54,8 @@ const ShowList = () => {
   const shows = data.allShowss.edges
   return (
     <Container>
-      {/* <form>
-        {
+      <form>
+        {/* {
           shows?.filter(
             (show) =>
               show.node.title
@@ -64,21 +64,19 @@ const ShowList = () => {
                 .indexOf(q.toLowerCase()) > -1
           )?.length
         }{" "}
-        of {data.allShowss.totalCount} shows match your criteria!
+        of {shows.totalCount} shows match your criteria! */}
         <label htmlFor="search-form">
-         <span className="sr-only">Search</span>&nbsp; 
-           <input
-          type="search"
-          name="search-form"
-          id="search-form"
-          className="search-input"
-          placeholder="Search for ..."
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        /> 
-          <FilterForm /> 
+          <input
+            type="search"
+            name="search-form"
+            id="search-form"
+            className="search-input"
+            placeholder="Type to filter ... "
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
         </label>
-      </form> */}
+      </form>
       <div className="list">
         {shows
           ?.filter(
