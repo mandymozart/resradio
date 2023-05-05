@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
 import { BroadcastFragment, BroadcastTagsFragment, GetFeatureBroadcastQuery } from "../../Queries/broadcasts";
+import { BREAKPOINT_MD } from "../../config";
 import { trimZeros } from "../../utils";
 import SectionLoader from "../SectionLoader";
 import Tags from "../Tags";
@@ -26,17 +27,28 @@ p {
   font-size: 1rem;
   margin: 0;
   text-transform: uppercase;
-  margin-bottom: 1rem;
   padding: 0 2rem;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    margin-bottom: .5rem;
+  }
+
 }
 .meta {
   display: flex;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    display: block;
+  }
+  margin-bottom: 1rem;
   gap: 2rem;
 }
 .tags {
   text-align: right;
   flex: 1;
   padding-right: 2rem;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    text-align: left;
+    padding-left: 2rem;
+  }
 }
 .image {
     overflow: hidden;
