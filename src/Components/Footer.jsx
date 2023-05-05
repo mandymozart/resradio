@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 
 const Container = styled.footer`
   max-width: var(--content-width);
@@ -8,9 +9,21 @@ const Container = styled.footer`
     padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* @media (max-width: ${BREAKPOINT_MD}px) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-template-columns: 1fr;
+      } */
     gap: 2rem;
     > div:first-of-type {
       grid-column: span 2;
+      @media (max-width: ${BREAKPOINT_L}px) {
+        grid-column: span 3;
+      }
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        grid-column: span 4;
+      }
     }
   }
   nav {
@@ -19,6 +32,12 @@ const Container = styled.footer`
     ul {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        grid-template-columns: 1fr 1fr;
+      }
+      @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-template-columns: 1fr;
+      }
       gap: 2rem;
       margin:0;
       list-style-type: none;
@@ -58,7 +77,7 @@ const Footer = () => {
         <div>
           <h3>Contact us</h3>
           <p><a href="mailto:resradio.vienna@gmail.com">
-            resradio.vienna@gmail.com
+            E-Mail
           </a></p>
           <p>
             Instagram<br />
