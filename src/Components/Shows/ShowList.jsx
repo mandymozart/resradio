@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { gql } from "graphql-tag";
 import React, { useState } from "react";
 import { GetShowsQuery, ShowFragment } from "../../Queries/shows";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import PageLoader from "../PageLoader";
 import ShowItem from "./ShowItem";
 
@@ -41,6 +42,15 @@ const Container = styled.div`
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media (max-width: ${BREAKPOINT_L}px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_MD}px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-template-columns: 1fr;
+    }
 
   }
 `;
