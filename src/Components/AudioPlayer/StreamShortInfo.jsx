@@ -74,7 +74,7 @@ const StreamShortInfo = () => {
             <>
               {trimZeros(dayjs(rotationInfo.data.current.begin))}&mdash;{trimZeros(dayjs(rotationInfo.data.current.end))} {dayjs(rotationInfo.data.current.end).format("A")} {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
             </>
-          ) : (<>Radio Offline</>)}
+          ) : (<>No station info available</>)}
         </>
       )}
     </Container>
