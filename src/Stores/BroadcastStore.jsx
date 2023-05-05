@@ -3,9 +3,22 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 
 const useBroadcastStore = create(
-  produce((set) => ({
+  produce((set, get) => ({
     isPlaying: false,
     setIsPlaying: (value) => set(() => ({ isPlaying: value })),
+    rotationInfo: null,
+    setRotationInfo: (info) => set(() => ({ rotationInfo: info })),
+    isStreaming: () => {
+      if (get().currentBroadcast !== undefined) return true;
+      if (get().nextBroadcast !== undefined) return true;
+      if (get().rotationInfo !== null) return true;
+      return false;
+    },
+    isLive: () => {
+      if (get().currentBroadcast !== undefined) return true;
+      if (get().nextBroadcast !== undefined) return true;
+      return false;
+    },
     isLoading: false,
     setIsLoading: (value) => set(() => ({ isLoading: value })),
     error: false,

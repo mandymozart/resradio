@@ -21,17 +21,16 @@ function Studio() {
     <Container>
       <header>
         <h1>res.studio</h1>
+        Hello {isLoggedIn ? `Hello ${user?.email}, Log out here!` : 'Log In'}
+        {!isLoggedIn ? <><button onClick={logOut}>
+          Log out
+        </button></> : (<>Logged In</>)}
         <nav>
           <Link to="/studio/playlists">Playlists</Link>
         </nav>
       </header>
       <div>
-        <h1>
-          Hello {isLoggedIn ? `Hello ${user?.email}, Log out here!` : 'Log In'}
-        </h1>
-        {!isLoggedIn ? <><button onClick={logOut}>
-          Log out
-        </button></> : (<Outlet />)}
+        <Outlet />
       </div>
     </Container>
   );

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
-import React, { useState } from "react";
+import React from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import config from "../../config";
@@ -47,10 +47,9 @@ const StreamShortInfo = () => {
       },
       pollInterval: 60 * 1000
     });
-  const { currentBroadcast, setCurrentBroadcast, setNextBroadcast } = useBroadcastStore();
+  const { currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo, isLive } = useBroadcastStore();
 
   // ably websocket
-  const [rotationInfo, setRotationInfo] = useState();
   useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
     setRotationInfo(message)
   });
@@ -62,9 +61,12 @@ const StreamShortInfo = () => {
   if (data?.allBroadcastss?.edges[1]) setNextBroadcast(data.allBroadcastss.edges[1].node);
   return (
     <Container>
+      {isLive() && (
+        <span className="now">Now <Dot /></span>
+      )}
       {currentBroadcast ? (
         <>
-          <span className="now">Now<Dot /></span> {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
+          {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
         </>
       ) : (
         <>

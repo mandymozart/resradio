@@ -41,7 +41,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
   // const [track, setTrack] = useState(config.STREAM_URL);
   const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume } =
     useAudioPlayerStore();
-  const { isPlaying: broadcastIsPlaying, setIsPlaying: setBroadcastIsPlaying } = useBroadcastStore()
+  const { isPlaying: broadcastIsPlaying, setIsPlaying: setBroadcastIsPlaying, isStreaming } = useBroadcastStore()
 
   let audioPlayer = useRef();
 
@@ -77,7 +77,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
     }
   }
     , [isPlaying])
-
+  console.log(isStreaming())
   return (
     <Container>
       <header>
@@ -99,9 +99,11 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
           </PlayButton>
         )}
         <StreamShortInfo />
-        <button onClick={() => setIsCollapsed(!isCollapsed)}>
-          <Arrow flipped={!isCollapsed} />
-        </button>
+        {isStreaming() && (
+          <button onClick={() => setIsCollapsed(!isCollapsed)}>
+            <Arrow flipped={!isCollapsed} />
+          </button>
+        )}
       </header>
     </Container>
   );
