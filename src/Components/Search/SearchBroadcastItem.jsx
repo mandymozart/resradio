@@ -5,12 +5,12 @@ import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 
 const Container = styled.div`
 padding: 1rem 0;
-height: 6rem;
 border-bottom: 2px solid var(--color);
 h4 {
   text-transform: initial;
   margin: 0;
   font-size: 1.25rem;
+  font-family: var(--font-light);
 }
 display: flex;
 justify-content: space-between;
@@ -18,6 +18,7 @@ align-items: center;
 .image {
   width:4rem;
   height:4rem;
+    flex: 0 0 4rem;
 }
 `
 

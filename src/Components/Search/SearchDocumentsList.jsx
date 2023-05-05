@@ -14,7 +14,6 @@ import SearchBroadcastItem from "./SearchBroadcastItem";
 import SearchShowItem from "./SearchShowItem";
 
 const Container = styled.div`
-  border-bottom: 2px solid var(--color);
   h3 {
     padding: 1rem 1rem 0.5rem 2rem;
     margin: 0 !important;

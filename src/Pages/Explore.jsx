@@ -4,6 +4,7 @@ import FilterForm from "../Components/Filter/FilterForm";
 import FilterResults from "../Components/Filter/FilterResults";
 import HeaderOffset from "../Components/HeaderOffset";
 import useFilterStore from "../Stores/FilterStore";
+import { BREAKPOINT_MD } from "../config";
 
 const Container = styled.section`
 h2 {
@@ -11,6 +12,9 @@ h2 {
 }
 p.lead {
   width: 50%;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+      width: auto;
+  }
   padding: 0 2rem;
   font-size: 1.5rem;
 }

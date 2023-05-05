@@ -6,6 +6,9 @@ import Volume from '../images/Volume'
 
 const Container = styled.div`
     position: relative;
+    button { 
+        cursor: pointer;
+    }
     svg {
     height: 2rem;
     width: 2rem;;

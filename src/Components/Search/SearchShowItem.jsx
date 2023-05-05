@@ -8,6 +8,7 @@ border-bottom: 2px solid var(--color);
 h4 {
   text-transform: initial;
   margin: 0;
+  font-family: var(--font-light);
   font-size: 1.25rem;
 }
   
