@@ -3,14 +3,22 @@ import React from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import Slider from 'react-slider';
 import useFilterStore from '../../Stores/FilterStore';
+import { BREAKPOINT_MD, BREAKPOINT_XS } from '../../config';
 
 const Container = styled.div`
     width: 75%;
+
     display: flex;
     gap: 2rem;
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+        width: 100%;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      flex-direction:column;
+    }
     &.default {
         opacity: 0.5;
     }
