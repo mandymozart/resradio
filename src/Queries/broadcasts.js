@@ -10,14 +10,16 @@ export const GetBroadcastsQuery = gql`
       $bpm_range: [Float!],
       $endAfter:DateTime, 
       $beginBefore:DateTime,
-      $first: Int,
+      $itemsPerPage: Int,
+      $currentCursor: String,
       $q: String,
     ) {
     allBroadcastss( 
         sortBy: $sortBy, 
         tags_in: $tags, 
         fulltext: $q, 
-        first: $first,
+        after: $currentCursor,
+        first: $itemsPerPage,
         where: { 
           end_after: $endAfter, 
           begin_before: $beginBefore,
@@ -32,6 +34,7 @@ export const GetBroadcastsQuery = gql`
       }
       totalCount
       edges {
+        cursor
         node {
           ...broadcast
         }

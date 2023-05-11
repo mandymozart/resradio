@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 
 export const GetShowsQuery = gql`
-query GetShows($cursor: String, $itemsPerPage: Int = 100) {
-    allShowss(sortBy: meta_firstPublicationDate_DESC, after: $cursor, first: $itemsPerPage) {
+query GetShows($currentCursor: String, $q: String, $itemsPerPage: Int,) {
+    allShowss(sortBy: meta_firstPublicationDate_DESC, fulltext: $q, after: $currentCursor, first: $itemsPerPage) {
       pageInfo {
         hasPreviousPage
         startCursor
@@ -11,6 +11,7 @@ query GetShows($cursor: String, $itemsPerPage: Int = 100) {
       }
       totalCount
       edges {
+        cursor
         node {
           ...showFragment
         }
@@ -20,8 +21,8 @@ query GetShows($cursor: String, $itemsPerPage: Int = 100) {
 `
 
 export const SearchShowsQuery = gql`
-query SearchShowsQuery($q:String!) {
-  allShowss (fulltext: $q, first: 100) {
+query SearchShowsQuery($currentCursor: String, $itemsPerPage: Int, $q:String!) {
+  allShowss (after: $currentCursor, fulltext: $q, first: $itemsPerPage) {
     pageInfo {
       endCursor
       startCursor
@@ -30,6 +31,7 @@ query SearchShowsQuery($q:String!) {
     }
     totalCount
     edges {
+      cursor
       node {
         ... showFragment
       }

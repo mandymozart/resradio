@@ -9,6 +9,8 @@ export const BREAKPOINT_L = 1279;
 export const BREAKPOINT_MD = 769;
 export const BREAKPOINT_XS = 481;
 
+export const ITEMS_PER_PAGE = 8;
+
 export const IDENTITY_URL = "https://res-stage.netlify.com";
 
 export default config;

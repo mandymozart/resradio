@@ -9,6 +9,7 @@ import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import useFilterStore from "../../Stores/FilterStore";
 import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import SectionLoader from "../SectionLoader";
+import SystemMessage from "../SystemMessage";
 import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.div`
@@ -31,12 +32,6 @@ const Container = styled.div`
     }
   }
 `;
-
-const Message = styled.div`
-padding: 6rem 2rem;
-text-align: center;
-`;
-
 
 const FilterBroadcastList = () => {
   const { selectedMood, genres, slowest, fastest, isDirty } = useFilterStore();
@@ -62,13 +57,13 @@ const FilterBroadcastList = () => {
   }, [])
 
   if (loading) return <SectionLoader />;
-  if (error) return <Container><Message>Error : {error.message}</Message></Container>;
+  if (error) return <Container><SystemMessage type="error">Error : {error.message}</SystemMessage></Container>;
   if (!isDirty()) return <></>
   return (
     <Container>
 
       {data?.allBroadcastss.totalCount === 0 ? (
-        <Message>No match. You are quite the picky one!</Message>
+        <SystemMessage>No match. You are quite the picky one!</SystemMessage>
       ) : (<>
         <div className="list">
           {data?.allBroadcastss?.edges?.map((broadcast, index) => <div key={"broadcast" + index}>

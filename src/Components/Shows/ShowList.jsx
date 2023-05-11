@@ -1,10 +1,13 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { gql } from "graphql-tag";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useDebounce from "../../Hooks/useDebounce.";
 import { GetShowsQuery, ShowFragment } from "../../Queries/shows";
-import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
-import PageLoader from "../PageLoader";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
+import LoadMoreButton from "../LoadMoreButton";
+import SectionLoader from "../SectionLoader";
+import SystemMessage from "../SystemMessage";
 import ShowItem from "./ShowItem";
 
 export const getShowsQuery = gql`
@@ -56,28 +59,65 @@ const Container = styled.div`
 `;
 
 const ShowList = () => {
-  const { loading, error, data } = useQuery(getShowsQuery);
+  const [endCursor, setEndCursor] = useState(null)
   const [q, setQ] = useState("");
+  const [shows, setShows] = useState(null);
+  const [isInitial, setIsInitial] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [getData, { loading, error, data }] = useLazyQuery(
+    getShowsQuery, {
+    variables: {
+      itemsPerPage: ITEMS_PER_PAGE,
+      currentCursor: endCursor,
+      q: q
+    }
+    , onCompleted: (data) => {
+      if (isInitial) setIsInitial(false);
+      // more pages availables
+      setHasNextPage(data.allShowss.pageInfo.hasNextPage)
+      // setEndCursor(data.allShowss.pageInfo.endCursor) // WTF, setting endCursor retriggersquery
+      // first page
+      if (!data.allShowss.pageInfo.hasPreviousPage) {
+        setShows(data.allShowss.edges)
+      } else {
+        if (data.allShowss.edges[data.allShowss.edges.length - 1].cursor !== shows[shows.length - 1].cursor)
+          setShows([...shows, ...data.allShowss.edges])
+      }
+    }
+  });
 
-  if (loading) return <PageLoader />;
-  if (error) return <>Error : {error.message}</>;
-  const shows = data.allShowss.edges
+  const debouncedRequest = useDebounce(() => {
+    getData()
+  });
+
+  const loadMore = () => {
+    console.log(endCursor)
+    setEndCursor(data.allShowss.pageInfo.endCursor)
+    debouncedRequest();
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
+
+  if (loading && isInitial) return <SectionLoader />;
+  if (error) return <Container><SystemMessage message={error.message} type="error" /></Container>;
+
+  /**
+   * filter(
+            (show) =>
+              show.node.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
+              -1
+          )
+          
+   */
+  console.log(hasNextPage, shows ? shows[shows?.length - 1]?.cursor : "only one page", shows)
   return (
     <Container>
-      <form>
-        {/* {
-          shows?.filter(
-            (show) =>
-              show.node.title
-                .toString()
-                .toLowerCase()
-                .indexOf(q.toLowerCase()) > -1
-          )?.length
-        }{" "}
-        of {shows.totalCount} shows match your criteria! */}
+      <form onSubmit={() => console.log("let not submit")}>
         <label htmlFor="search-form">
           <input
-            type="search"
+            type="text"
             name="search-form"
             id="search-form"
             className="search-input"
@@ -88,16 +128,13 @@ const ShowList = () => {
         </label>
       </form>
       <div className="list">
-        {shows
-          ?.filter(
-            (show) =>
-              show.node.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
-              -1
-          )
-          .map((show) => (
-            <ShowItem key={show.node._meta.id} show={show} />
-          ))}
+        {shows?.map((show) => (
+          <ShowItem key={show.node.cursor} show={show} />
+        ))}
       </div>
+      {hasNextPage && (
+        <LoadMoreButton onClick={() => loadMore()} loading={loading}>Load More</LoadMoreButton>
+      )}
     </Container>
   );
 };
