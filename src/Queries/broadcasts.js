@@ -59,18 +59,6 @@ query GetBroadcastsByShowQuery($id: String!) {
   }
 }`
 
-/** refactor to return only single  */
-export const GetBroadcastByIdQuery = gql`
-  query GetBroadcastById($id:String!) {
-    allBroadcastss (id:$id) {
-      edges {
-        node {
-          ...broadcast
-        }
-      }
-    }
-  }`
-
 export const GetBroadcastQuery = gql`
   query GetBroadcastQuery($uid:String!) {
   broadcasts(uid:$uid, lang: "en-eu") {
