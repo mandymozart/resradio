@@ -60,11 +60,6 @@ const Footer = () => {
             culture, social injustice and other phenomena. Res.Radio is a space of diverse
             artistic freedom and is made from people for people.
           </p>
-          <p>
-            Support via donation:<br />
-            Vienna Community Webradio<br />
-            AT63 2011 1841 2411 3300<br />
-            GIBAATWWXXX</p>
           <Link to="/page/donate">Why it matters? Read more</Link>
         </div>
         <div></div>

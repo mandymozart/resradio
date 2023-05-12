@@ -75,9 +75,9 @@ const FilterSummary = () => {
             <ClearSmall />
           </span>
         )}
-        {isDirty() ? (
+        {isDirty() && (
           <button onClick={() => reset()}>Reset</button>
-        ) : <Message>Select filters to dive into our broadcast archive!</Message>}
+        )}
       </div>
     </Container>
   )

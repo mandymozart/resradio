@@ -10,7 +10,6 @@ import DonationBar from "./Donation/DonationBar";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./Search/SearchBar";
 import SlideOut from "./SlideOut";
-import Social from "./Social/Social";
 import VolumeButton from "./VolumeButton";
 
 export const HeaderButton = styled.button`
@@ -113,7 +112,6 @@ const Header = () => {
           <div className="tools">
             <ChatButton>Chat</ChatButton>
             <VolumeButton />
-            <Social />
             <SearchBar />
           </div>
           <Button
