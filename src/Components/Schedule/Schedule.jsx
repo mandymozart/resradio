@@ -53,7 +53,7 @@ const populateDays = (days, broadcasts) => {
 const Container = styled.section`
     
     padding: 2rem;
-    border-bottom: 2px solid var(--color);
+    /* border-bottom: 2px solid var(--color); */
     h3 {
         margin-bottom: 0;
     }

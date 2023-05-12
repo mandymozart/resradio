@@ -91,7 +91,6 @@ const ShowList = () => {
   });
 
   const loadMore = () => {
-    console.log(endCursor)
     setEndCursor(data.allShowss.pageInfo.endCursor)
     debouncedRequest();
   }
@@ -102,16 +101,6 @@ const ShowList = () => {
 
   if (loading && isInitial) return <SectionLoader />;
   if (error) return <Container><SystemMessage message={error.message} type="error" /></Container>;
-
-  /**
-   * filter(
-            (show) =>
-              show.node.title.toString().toLowerCase().indexOf(q.toLowerCase()) >
-              -1
-          )
-          
-   */
-  console.log(hasNextPage, shows ? shows[shows?.length - 1]?.cursor : "only one page", shows)
   return (
     <Container>
       <form onSubmit={() => console.log("let not submit")}>

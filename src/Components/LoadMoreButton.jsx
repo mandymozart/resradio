@@ -15,6 +15,9 @@ const Container = styled(Button)`
     svg {
         margin-top: 1rem;
     }
+    &:hover {
+        color: var(--second);
+    }
 `;
 
 const LoadMoreButton = ({ children, loading, ...props }) => {

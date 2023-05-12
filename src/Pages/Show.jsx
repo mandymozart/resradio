@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import React from "react";
 import { useParams } from "react-router-dom";
-import ShowBroadcastList from "../Components/Broadcasts/ShowBroadcastList";
+import ShowBroadcastsList from "../Components/Broadcasts/ShowBroadcastsList";
 import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
@@ -46,7 +46,7 @@ const Show = () => {
           <h3>{show.title}</h3>
           <KeyFieldParagraph className="text" text={show.description} />
         </Description>
-        <ShowBroadcastList id={show._meta.id} />
+        <ShowBroadcastsList id={show._meta.id} />
       </Container>
     </HeaderOffset>
   );

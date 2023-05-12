@@ -45,8 +45,17 @@ export const GetBroadcastsQuery = gql`
 
 /** refactor with general purpose query */
 export const GetBroadcastByShowQuery = gql`
-query GetBroadcastsByShowQuery($id: String!) {
-  allBroadcastss(where: {hostedby: $id}) {
+query GetBroadcastsByShowQuery(
+  $id: String!,
+  $itemsPerPage: Int,
+  $currentCursor: String,
+  ) {
+  allBroadcastss(
+    first: $itemsPerPage,
+    after: $currentCursor,
+    where: {
+      hostedby: $id,
+    }) {
     totalCount
     pageInfo {
       hasNextPage
@@ -55,6 +64,7 @@ query GetBroadcastsByShowQuery($id: String!) {
       endCursor
     }
     edges {
+      cursor
       node {
         ...broadcast
       }
@@ -198,6 +208,12 @@ ${BroadcastTagsFragment}
 
 export const getFeatureBroadcastQuery = gql`
 ${GetFeatureBroadcastQuery}
+${BroadcastFragment}
+${BroadcastTagsFragment}
+`
+
+export const getBroadcastsByShowQuery = gql`
+${GetBroadcastByShowQuery}
 ${BroadcastFragment}
 ${BroadcastTagsFragment}
 `

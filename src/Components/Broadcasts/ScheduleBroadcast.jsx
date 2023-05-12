@@ -24,7 +24,7 @@ const ScheduleBroadcast = ({ broadcast }) => {
             <span>
                 {trimZeros(dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
             </span>{" "}
-            <Link to={`../broadcasts/${broadcast._meta.uid}`}>{broadcast.hostedby.title} - {broadcast.title}</Link>
+            <Link to={`../broadcasts/${broadcast._meta.uid}`}>{broadcast.hostedby.title}</Link>
         </Container>
     );
 };

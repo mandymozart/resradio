@@ -40,6 +40,7 @@ const Bulletin = ({ bulletin }) => {
     return (<>
         <a href={bulletin.link.url} target={bulletin.link.target}>
             <img src={bulletin.image.url} alt={bulletin.image.alt} />
+            {bulletin.text}
         </a>
     </>)
 }

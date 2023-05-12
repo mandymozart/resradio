@@ -25,9 +25,18 @@ h4 {
   text-transform: initial;
   font-size: 1.25rem;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .meta {
   font-size: 1.25rem;
+  a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
 }
 .date {
   span {

@@ -60,7 +60,7 @@ h4 {
   }
 }
 `
-const ShowBroadcastItem = ({ broadcast }) => {
+const ShowBroadcastsItem = ({ broadcast }) => {
   const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
   const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
   const play = (uid) => {
@@ -113,4 +113,4 @@ const ShowBroadcastItem = ({ broadcast }) => {
     </Container>
   );
 };
-export default ShowBroadcastItem;
+export default ShowBroadcastsItem;

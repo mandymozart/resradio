@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import Footer from "../Components/Footer";
 import HeaderOffset from "../Components/HeaderOffset";
 import ShowList from "../Components/Shows/ShowList";
 
@@ -18,7 +17,6 @@ const Shows = () => {
       <HeaderOffset>
         <h2>Shows</h2>
         <ShowList />
-        <Footer />
       </HeaderOffset>
     </Container>
   );
