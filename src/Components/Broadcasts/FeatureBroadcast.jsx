@@ -1,10 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import gql from "graphql-tag";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BroadcastFragment, BroadcastTagsFragment, GetFeatureBroadcastQuery } from "../../Queries/broadcasts";
+import { getFeatureBroadcastQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_MD } from "../../config";
 import { trimZeros } from "../../utils";
 import SectionLoader from "../SectionLoader";
@@ -68,12 +67,6 @@ p {
       opacity: 1;
     }
   }
-`
-
-const getFeatureBroadcastQuery = gql`
-${GetFeatureBroadcastQuery}
-${BroadcastFragment}
-${BroadcastTagsFragment}
 `
 
 const FeatureBroadcast = () => {

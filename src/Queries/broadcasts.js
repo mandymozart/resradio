@@ -182,12 +182,22 @@ fragment broadcastTags on BroadcastsTags {
       }
     }
   }
-}
-
-  `
+}`
 
 export const getBroadcastsQuery = gql`
   ${GetBroadcastsQuery}
   ${BroadcastFragment}
   ${BroadcastTagsFragment}
+`
+
+export const getBroadcastQuery = gql`
+${GetBroadcastQuery}
+${BroadcastFragment}
+${BroadcastTagsFragment}
+`
+
+export const getFeatureBroadcastQuery = gql`
+${GetFeatureBroadcastQuery}
+${BroadcastFragment}
+${BroadcastTagsFragment}
 `

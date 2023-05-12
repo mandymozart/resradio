@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import { gql } from "graphql-tag";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import HeaderOffset from "../Components/HeaderOffset";
@@ -10,7 +9,7 @@ import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../Queries/broadcasts";
+import { getBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
 import { BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
@@ -90,11 +89,6 @@ const BroadcastPagePlayer = styled.div`
   }
 `
 
-export const getBroadcastQuery = gql`
-${GetBroadcastQuery}
-${BroadcastFragment}
-${BroadcastTagsFragment}
-`
 const BroadcastPage = () => {
   const { uid } = useParams();
   const { loading, error, data } = useQuery(getBroadcastQuery, { variables: { uid: uid } });

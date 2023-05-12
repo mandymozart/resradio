@@ -8,7 +8,7 @@ import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
-import { getBroadcastQuery } from "../Pages/Broadcast";
+import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
 import config, { BREAKPOINT_L, BREAKPOINT_MD } from '../config';
 import { DATE_FORMAT, trimZeros } from "../utils";

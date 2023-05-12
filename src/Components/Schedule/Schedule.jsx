@@ -44,7 +44,7 @@ const populateDays = (days, broadcasts) => {
 
         if (days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)))
             days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)).broadcasts.push(b)
-        else console.log("wtf")
+        else console.error("date string mismatch")
 
     })
     return days

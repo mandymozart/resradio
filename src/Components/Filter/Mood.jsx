@@ -43,7 +43,6 @@ const Mood = ({ mood }) => {
     const { selectedMood, setMood, clearMood } = useFilterStore();
 
     function toggle(mood) {
-        console.log(selectedMood, mood)
         if (selectedMood?._meta.id !== mood._meta.id) {
             setMood(mood);
         } else {

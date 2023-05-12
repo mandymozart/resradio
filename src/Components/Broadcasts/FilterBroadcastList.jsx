@@ -50,6 +50,7 @@ const FilterBroadcastList = () => {
       itemsPerPage: ITEMS_PER_PAGE,
       currentCursor: endCursor,
     }, onCompleted: (data) => {
+      console.log(data, broadcasts)
       if (isInitial) setIsInitial(false);
       // more pages availables
       setHasNextPage(data.allBroadcastss.pageInfo.hasNextPage)
@@ -91,7 +92,7 @@ const FilterBroadcastList = () => {
         <SystemMessage>No match. You are quite the picky one!</SystemMessage>
       ) : (
         <div className="list">
-          {broadcasts.edges?.map((broadcast, index) => <div key={"broadcast" + index}>
+          {broadcasts?.map((broadcast, index) => <div key={"broadcast" + index}>
 
             <BroadcastItem broadcast={broadcast} /></div>
           )}

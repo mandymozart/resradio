@@ -1,11 +1,10 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { gql } from "graphql-tag";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useIsMounted from "../../Hooks/isMounted";
 import useDebounce from "../../Hooks/useDebounce.";
-import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastQuery } from "../../Queries/broadcasts";
+import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
@@ -95,12 +94,6 @@ cursor: pointer;
 &.isVisible {
     transform: translateY(0);
 }
-`
-
-export const getBroadcastQuery = gql`
-${GetBroadcastQuery}
-${BroadcastFragment}
-${BroadcastTagsFragment}
 `
 const BroadcastPlayer = () => {
     const { setIsPlaying: setStreamIsPlaying, volume } = useAudioPlayerStore()
