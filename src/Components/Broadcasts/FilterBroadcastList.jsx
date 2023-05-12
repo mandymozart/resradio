@@ -1,13 +1,14 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import useFilterStore from "../../Stores/FilterStore";
-import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
+import LoadMoreButton from "../LoadMoreButton";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import BroadcastItem from "./BroadcastItem";
@@ -35,16 +36,40 @@ const Container = styled.div`
 
 const FilterBroadcastList = () => {
   const { selectedMood, genres, slowest, fastest, isDirty } = useFilterStore();
+  const [endCursor, setEndCursor] = useState(null)
+  const [broadcasts, setBroadcasts] = useState(null);
+  const [isInitial, setIsInitial] = useState(true);
+  const [hasNextPage, setHasNextPage] = useState(false);
   const [getData, { loading, error, data }] = useLazyQuery(
     getBroadcastsQuery, {
     variables: {
       sortBy: 'begin_ASC',
-      first: 10,
       tags: genres,
       moodId: selectedMood?._meta.id,
-      bpm_range: [slowest, fastest]
+      bpm_range: [slowest, fastest],
+      itemsPerPage: ITEMS_PER_PAGE,
+      currentCursor: endCursor,
+    }, onCompleted: (data) => {
+      if (isInitial) setIsInitial(false);
+      // more pages availables
+      setHasNextPage(data.allBroadcastss.pageInfo.hasNextPage)
+      // first page
+      if (!data.allBroadcastss.pageInfo.hasPreviousPage) {
+        setBroadcasts(data.allBroadcastss.edges)
+      } else {
+        if (data.allBroadcastss.edges[data.allBroadcastss.edges.length - 1].cursor !== broadcasts[broadcasts.length - 1].cursor)
+          setBroadcasts([...broadcasts, ...data.allBroadcastss.edges])
+      }
     }
   });
+
+
+  const loadMore = () => {
+    console.log(endCursor)
+    setEndCursor(data.allBroadcastss.pageInfo.endCursor)
+    debouncedRequest();
+  }
+
 
   const debouncedRequest = useDebounce(() => {
     if (isDirty()) {
@@ -64,14 +89,15 @@ const FilterBroadcastList = () => {
 
       {data?.allBroadcastss.totalCount === 0 ? (
         <SystemMessage>No match. You are quite the picky one!</SystemMessage>
-      ) : (<>
+      ) : (
         <div className="list">
-          {data?.allBroadcastss?.edges?.map((broadcast, index) => <div key={"broadcast" + index}>
+          {broadcasts.edges?.map((broadcast, index) => <div key={"broadcast" + index}>
 
             <BroadcastItem broadcast={broadcast} /></div>
           )}
-        </div>
-      </>
+        </div>)}
+      {hasNextPage && (
+        <LoadMoreButton onClick={() => loadMore()} loading={loading}>Load More</LoadMoreButton>
       )}
     </Container>
   );

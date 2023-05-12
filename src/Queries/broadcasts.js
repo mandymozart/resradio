@@ -99,26 +99,6 @@ query GetBroadcastsInRange($endAfter:DateTime!, $beginBefore:DateTime) {
   }
 }`
 
-/** remove soon */
-export const GetBroadcastsByTagsMoodBPM = gql`
-query GetBroadcastsByTagsMoodBPM($tags: [String!], $moodId: String, $bpm_range: [Float!]) {
-  allBroadcastss(tags_in: $tags, where: {mood: $moodId, bpm_range: $bpm_range}) {
-    edges {
-      node {
-        title
-        _meta {
-          tags
-          uid
-          id
-        }
-      }
-    }
-  }
-}
-
-`
-
-
 export const SearchBroadcastsQuery = gql`
 query SearchBroadcastsQuery($q:String!) {
   allShowss (fulltext: $q, first: 100) {
