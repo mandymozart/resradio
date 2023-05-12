@@ -26,6 +26,7 @@ const mapBroadcastsToDays = (broadcasts) => {
     let count = 0;
     broadcasts.forEach(function (b) {
         const d = dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT);
+        console.log(d, day)
         count++;
         if (day !== d && count === 1) {
             day = d;
@@ -39,7 +40,12 @@ const mapBroadcastsToDays = (broadcasts) => {
 
 const populateDays = (days, broadcasts) => {
     broadcasts.forEach(function (b) {
-        days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)).broadcasts.push(b)
+        console.log(dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT), days, broadcasts)
+
+        if (days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)))
+            days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)).broadcasts.push(b)
+        else console.log("wtf")
+
     })
     return days
 }
@@ -114,7 +120,7 @@ const Schedule = ({ from }) => {
                 {days?.map((day) => {
                     return (<div className="list-day">
                         <h4>{day.date}</h4>
-                        {day.broadcasts.map(broadcast => <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />)}
+                        {day.broadcasts?.map(broadcast => <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />)}
                     </div>)
                 })}
             </div>
