@@ -5,6 +5,7 @@ import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 
 const Container = styled.div`
 padding: 2rem;
+padding-bottom: 0.5rem;
 h4 {
   text-transform: initial;
   margin: 0;

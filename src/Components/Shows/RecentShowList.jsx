@@ -9,6 +9,7 @@ import { getShowsQuery } from "./ShowList";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import { ITEMS_PER_PAGE } from "../../config";
 import SectionLoader from "../SectionLoader";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
@@ -82,7 +83,7 @@ const AllShowsButton = () => {
 }
 
 const RecentShowsList = () => {
-  const { loading, error, data } = useQuery(getShowsQuery, { variables: { itemsPerPage: 10 } })
+  const { loading, error, data } = useQuery(getShowsQuery, { variables: { itemsPerPage: ITEMS_PER_PAGE } })
 
   if (loading) return <SectionLoader />;
   if (error) return <>Error : {error.message}</>;

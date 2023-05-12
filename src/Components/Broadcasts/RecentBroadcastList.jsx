@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
-import { BREAKPOINT_MD } from "../../config";
+import { BREAKPOINT_MD, ITEMS_PER_PAGE } from "../../config";
 import { getBroadcastsInRangeQuery } from "../AudioPlayer/StreamShortInfo";
 import SectionLoader from "../SectionLoader";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
@@ -102,7 +102,7 @@ const RecentBroadcastList = () => {
     variables: {
       endAfter: dayjs().subtract(14, 'days').format(),
       beginBefore: dayjs().subtract(7, 'days').format(),
-      itemsPerPage: 10
+      itemsPerPage: ITEMS_PER_PAGE
     }
   })
 
