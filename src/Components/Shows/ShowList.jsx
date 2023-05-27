@@ -44,12 +44,12 @@ const Container = styled.div`
   }
   .list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(0,1fr));
     @media (max-width: ${BREAKPOINT_L}px) {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, minmax(0,1fr));
     }
     @media (max-width: ${BREAKPOINT_MD}px) {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0,1fr));
     }
     @media (max-width: ${BREAKPOINT_XS}px) {
         grid-template-columns: 1fr;

@@ -5,8 +5,8 @@ import useLocalStorage from "../../Hooks/useLocalStorage"
 import ClearSmall from "../../images/ClearSmall"
 
 const Container = styled.section`
-background-color: var(--second);
-color: var(--background);
+background-color: var(--grey);
+color: var(--second);
 padding: 2rem;
 font-size: 1.5rem;
 font-family: var(--font-light);
