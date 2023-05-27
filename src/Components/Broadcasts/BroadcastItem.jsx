@@ -1,13 +1,12 @@
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import { BREAKPOINT_MD } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import Scheduled from "../../images/Schedule";
 import { DATE_FORMAT } from "../../utils";
 import Tags from "../Tags";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
@@ -46,6 +45,9 @@ h4 {
 .image {
   overflow: hidden;
   position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-height: 100%;
   svg {
     position: absolute;
     top: 50%; left: 50%;
@@ -72,6 +74,7 @@ h4 {
 const BroadcastItem = ({ broadcast }) => {
   const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
   const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
+  const navigate = useNavigate()
   const play = (uid) => {
     setPlaying(uid)
     setStreamIsPlaying(false)
@@ -85,6 +88,8 @@ const BroadcastItem = ({ broadcast }) => {
     if (broadcast.node.audio) {
       if (isPlaying && playing === broadcast.node._meta.uid) pause()
       else play(broadcast.node._meta.uid)
+    } else {
+      navigate(`../broadcasts/${broadcast.node._meta.uid}`)
     }
   }
   return (
@@ -103,16 +108,19 @@ const BroadcastItem = ({ broadcast }) => {
               </button>
             )}
           </>
-        ) : (<button disabled><Scheduled /></button>)}
+        ) : (<button>Read More</button>)}
 
       </div>
       <div className="meta">
-        <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>
+        <Link to={`../broadcasts/${broadcast.node._meta.uid}`} className="host">
           <h4>
             {broadcast.node.hostedby.title}
           </h4>
+        </Link>
+        <Link to={`../broadcasts/${broadcast.node._meta.uid}`} className="title">
           {broadcast.node.title}
         </Link>
+
         <div className="date">
           <span>
             {dayjs(broadcast.node.begin).format("ddd")}
