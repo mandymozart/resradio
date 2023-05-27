@@ -11,6 +11,9 @@ export const BREAKPOINT_XS = 481;
 
 export const ITEMS_PER_PAGE = 8;
 
-export const IDENTITY_URL = "https://res-stage.netlify.com";
+export const IDENTITY_URL = "https://res-stage.netlify.app";
+
+export const FUNCTIONS = "/.netlify/functions";
+
 
 export default config;

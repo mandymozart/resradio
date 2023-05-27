@@ -12,11 +12,12 @@ const client = createClient({
 
 const handler = async (event) => {
 
-    const data = JSON.parse(event.body)
-    const { id, title, hostedBy } = data
+    console.log(event.queryStringParameters)
+
+    const { uid, title, hostedby, begin, end } = event.queryStringParameters
 
     /* no user, no go */
-    if (!id) {
+    if (!uid) {
         console.log("No broadcast id!");
         return {
             statusCode: 401,
@@ -28,9 +29,11 @@ const handler = async (event) => {
 
     let newBroadcast = {
         _type: "broadcast",
-        title: event.queryStringParameters.title,
-        hostedBy: event.queryStringParameters.hostedBy,
-        id: event.queryStringParameters.id
+        title: title,
+        hostedBy: hostedby,
+        prismicId: uid,
+        begin: begin,
+        end: end
     };
 
     console.log(newBroadcast)

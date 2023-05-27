@@ -23,6 +23,11 @@ export default {
       title: "Begin",
       type: "datetime",
     },
+    {
+      name: "end",
+      title: "End",
+      type: "datetime",
+    }
   ],
   preview: {
     select: {

@@ -5,10 +5,11 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from 'react-router-dom';
+import { getQueryString } from "../../../utils";
 import Listeners from "../Listeners/Listeners";
 import { BroadcastFragment, BroadcastTagsFragment } from './../../../Queries/broadcasts';
 import { GetPlaylistQuery, PlaylistFragment, PlaylistTagsFragement } from './../../../Queries/playlists';
-import config from "./../../../config";
+import config, { FUNCTIONS } from "./../../../config";
 import PauseBig from "./../../../images/PauseBig";
 import PlayBig from "./../../../images/PlayBig";
 dayjs.extend(localizedFormat);
@@ -149,25 +150,37 @@ const Player = () => {
     }
 
     // send notification to RadioApp/ShortInfo
-    const sendRotationMessage = () => {
-        channel.publish(config.ABLY_ROTATION_CHANNEL,
+    const sendRotationMessage = async () => {
+        const cue = {
+            current:
             {
-                current:
-                {
-                    begin: dayjs().toISOString(),
-                    end: dayjs().add(parseInt(duration), 'seconds'),
-                    title: current.title,
-                    hostedby: current.hostedby.title,
-                    // TODO: remove anything but UID (depends on shortinfo)
-                    uid: current._meta.uid
-                }, next:
-                {
-                    title: next.title,
-                    hostedby: next.hostedby.title,
-                    // TODO: remove anything but UID (depends on short info update)
-                    uid: next._meta.uid
-                }
-            });
+                begin: dayjs().toISOString(),
+                end: dayjs().add(parseInt(duration), 'seconds').toISOString(),
+                title: current.title,
+                hostedby: current.hostedby.title,
+                // TODO: remove anything but UID (depends on shortinfo)
+                uid: current._meta.uid
+            }, next:
+            {
+                title: next.title,
+                hostedby: next.hostedby.title,
+                // TODO: remove anything but UID (depends on short info update)
+                uid: next._meta.uid
+            }
+        }
+        channel.publish(config.ABLY_ROTATION_CHANNEL, cue);
+
+        const queryString = getQueryString(cue.current);
+        await fetch(`${FUNCTIONS}/create-playlist-entry?${queryString}`).then((r) => {
+            console.log(r)
+            if (r.ok) {
+                //
+                console.log("done", cue.current)
+            }
+            if (!r.ok) {
+                console.log("error writing to cue");
+            }
+        });
     }
 
     /**

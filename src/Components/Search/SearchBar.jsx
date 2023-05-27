@@ -45,7 +45,8 @@ const SearchBar = () => {
     const [value, setValue] = useState("")
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
         navigate({
             pathname: '/search',
             search: '?q=' + value,

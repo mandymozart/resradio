@@ -52,3 +52,16 @@ export const secondsToMinutes = (seconds) => {
   // let result = seconds % 60;
   // return computeMinutes.toString().padStart(2, '0') + ":" + result.toString().padStart(2, '0').substring(0, 2);
 }
+
+/**
+ * Get api request params for url
+ * @param {*} params
+ * @returns
+ */
+export const getQueryString = (params) => {
+  return Object.keys(params)
+    .map((key) => {
+      return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+    })
+    .join("&");
+};
