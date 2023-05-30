@@ -10,7 +10,7 @@ import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } f
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import config from "../../config";
 import Dot from "../../images/Dot";
-import { trimZeros } from "../../utils";
+import { getTimeRangeString } from "../../utils";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
@@ -75,7 +75,8 @@ const StreamShortInfo = () => {
         <>
           {rotationInfo ? (
             <>
-              {trimZeros(dayjs(rotationInfo.data.current.begin))}&mdash;{trimZeros(dayjs(rotationInfo.data.current.end))} {dayjs(rotationInfo.data.current.end).format("A")} {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
+              {getTimeRangeString(rotationInfo.data.current.begin, rotationInfo.data.current.end)}
+              {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
             </>
           ) : (<>No station info available</>)}
         </>

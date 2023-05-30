@@ -5,7 +5,6 @@ import RecentBroadcastList from "../Components/Broadcasts/RecentBroadcastList";
 import Announcement from "../Components/Bulletin/Announcement";
 import Bulletin from "../Components/Bulletin/Bulletin";
 import Footer from "../Components/Footer";
-import HeaderOffset from "../Components/HeaderOffset";
 import Schedule from "../Components/Schedule/Schedule";
 import RecentShowList from "../Components/Shows/RecentShowList";
 
@@ -20,16 +19,14 @@ const BulletinSection = styled.section`
 const LandingPage = () => {
   return (
     <>
-      <HeaderOffset>
-        <FeatureBroadcast />
-        <BulletinSection>
-          <Schedule />
-          <Announcement />
-          <Bulletin />
-        </BulletinSection>
-        <RecentShowList />
-        <RecentBroadcastList />
-      </HeaderOffset>
+      <FeatureBroadcast />
+      <BulletinSection>
+        <Schedule />
+        <Announcement />
+        <Bulletin />
+      </BulletinSection>
+      <RecentShowList />
+      <RecentBroadcastList />
       <Footer />
     </>
   );

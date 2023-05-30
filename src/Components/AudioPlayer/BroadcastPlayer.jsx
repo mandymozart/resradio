@@ -129,7 +129,7 @@ const BroadcastPlayer = () => {
                 uid: playing,
                 referenceText: data.broadcasts.title + " - " + data.broadcasts.hostedby.title,
                 hostedbyUid: data.broadcasts.hostedby._meta.uid,
-                date: dayjs(),
+                date: dayjs().toISOString(),
                 timezone: Intl.DateTimeFormat().resolvedOptions().locale + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
 
             }

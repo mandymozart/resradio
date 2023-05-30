@@ -8,6 +8,10 @@ const useThemeStore = create(
     setNightMode: (value) => set((state) => {
       state.nightMode = value;
     }),
+    searchbarIsVisible: false,
+    setSearchbarIsVisible: (value) => set((state) => {
+      state.searchbarIsVisible = value;
+    })
   }))
 );
 

@@ -4,7 +4,6 @@ import utc from "dayjs/plugin/utc";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../Components/Button";
-import HeaderOffset from "../Components/HeaderOffset";
 import Schedule from "../Components/Schedule/Schedule";
 import { BREAKPOINT_L, BREAKPOINT_MD, DATE_FORMAT } from "../config";
 dayjs.extend(utc);
@@ -55,7 +54,7 @@ const SchedulePage = () => {
     const gotoNextWeek = () => {
         navigate("/schedule/" + next.format("YYYYMMDD"))
     }
-    return (<HeaderOffset>
+    return (
         <Container>
             <div className="controls">
                 <Button large onClick={() => gotoPreviousWeek()}>&lt;&lt; <span>{previous.format(DATE_FORMAT)}</span></Button>
@@ -64,9 +63,6 @@ const SchedulePage = () => {
             </div>
             <Schedule from={from} />
         </Container>
-
-    </HeaderOffset>
-
     )
 }
 

@@ -8,6 +8,7 @@ import MoodFilter from "./MoodFilter";
 
 const Container = styled.div`
 margin-bottom: 2rem;
+color: var(--color);
 /* .szh-accordion__item {
     border-bottom: 2px solid var(--color);
     padding: 0 2rem;

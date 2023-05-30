@@ -14,9 +14,7 @@ import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import Player from "./Components/Studio/Player/Player";
 import Playlists from "./Components/Studio/Playlists/Playlists";
-import AboutPage from "./Pages/About";
 import BroadcastPage from "./Pages/Broadcast";
-import Event from "./Pages/Event";
 import Explore from "./Pages/Explore";
 import LandingPage from "./Pages/LandingPage";
 import Page from "./Pages/Page";
@@ -78,13 +76,6 @@ root.render(
                 />
                 <Route
                   exact
-                  path="/event/:uid"
-                  element={
-                    <Event />
-                  }
-                />
-                <Route
-                  exact
                   path="/search/*"
                   element={
                     <SearchResults />
@@ -109,13 +100,6 @@ root.render(
                   path="/page/:uid"
                   element={
                     <Page />
-                  }
-                />
-                <Route
-                  exact
-                  path="/about"
-                  element={
-                    <AboutPage />
                   }
                 />
                 <Route

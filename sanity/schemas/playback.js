@@ -26,7 +26,7 @@ export default {
     {
       name: "timezone",
       title: "Timezone",
-      type: "string",
+      type: "string"
     }
   ],
   preview: {

@@ -3,16 +3,13 @@ import styled from "@emotion/styled";
 import { PrismicRichText } from "@prismicio/react";
 import React from "react";
 import { useParams } from "react-router-dom";
-import HeaderOffset from "../Components/HeaderOffset";
 import NotFound from "../Components/NotFound";
 import SectionLoader from "../Components/SectionLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
 import { GetPageQuery } from "../Queries/pages";
 
 const Container = styled.div`
-padding: 2rem 0;
-width: 50vw;
-margin: 0 auto;
+padding: 2rem 2rem;
 `;
 const Header = styled.header`
   text-align: center;
@@ -32,7 +29,7 @@ const Page = () => {
   if (!data.page) return <NotFound error={"Page does not exist"} />
   const page = data.page
   return (
-    <HeaderOffset>
+    <>
       {page.image && (
         <Header>
           <HeroImage image={page.image} />
@@ -54,7 +51,7 @@ const Page = () => {
           })} */}
         </Description>
       </Container>
-    </HeaderOffset>
+    </>
   );
 };
 

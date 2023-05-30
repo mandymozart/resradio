@@ -141,6 +141,8 @@ button {
   font-size: 1.25rem;
   background: none;
   border: none;
+  color: var(--color);
+  cursor: pointer;
 }
 button:hover {
   color: var(--second);
@@ -153,7 +155,10 @@ input {
         font-size: 1.25rem;
         background: none;
         line-height: 2rem;
-        padding: 0 .5rem;}
+        padding: 0 .5rem;
+        color:var(--color);
+        background: var(--background);
+}
 input:hover {
     color: var(--second);
 }

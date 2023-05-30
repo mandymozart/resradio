@@ -10,6 +10,7 @@ const Container = styled(Item)`
     font-size: 1.5rem;
     font-family: var(--font-light);
     display: flex;
+    color: var(--color);
     background: transparent;
     padding: 0;
     margin: 0;
@@ -20,6 +21,9 @@ const Container = styled(Item)`
     align-items: center;
     cursor: pointer;
     border: none;
+    &:hover {
+      color: var(--second);
+    }
   }`
 
 const AccordionItem = ({ header, ...rest }) => (

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import useThemeStore from "../../Stores/ThemeStore"
 import ClearSmall from "../../images/ClearSmall"
 import Search from "../../images/Search"
 
@@ -9,23 +10,25 @@ const Container = styled.div`
     height: 2rem;
     width: 2rem;;
   }
-form {
-    position: absolute;
-    right: 2rem;
-    left: 2rem;
-    top: 0;
-    width: 100%;
+form {  
     height: 5.5rem;
-    z-index: 100;
     
-    background-color: var(--background);
+    background-color: var(--grey);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 2rem;
+    .input {
+        flex: 50% 0 0;
+        display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
     input {
         font-size: 1.5rem;
         font-family: var(--font-light);
         width: 100%;
+        border: 1px solid var(--color);
     }
     svg {
         width: 2rem;
@@ -36,12 +39,8 @@ form {
     }
 }
 `
-
-const SearchButton = styled.button`
-`
-
 const SearchBar = () => {
-    const [visible, setVisible] = useState();
+    const { searchbarIsVisible, setSearchbarIsVisible } = useThemeStore();
     const [value, setValue] = useState("")
     const navigate = useNavigate();
 
@@ -52,24 +51,21 @@ const SearchBar = () => {
             search: '?q=' + value,
         });
     }
-    const toggle = () => {
-        setVisible(!visible);
-    }
+    if (!searchbarIsVisible) return <></>
     return (
         <Container>
-            {visible && (
-                <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
+                <div className="input">
                     <input name="q" type="text"
                         value={value}
                         className="search-input"
-                        placeholder="Search ..."
+                        placeholder="SEARCH"
                         onChange={(e) => setValue(e.target.value)}
                     />
-                    <button className="clear" onClick={() => toggle()}><ClearSmall /></button>
                     <button className="submit" type="submit" onClick={handleSubmit}><Search /></button>
-                </form>
-            )}
-            <button className="toggle" onClick={() => toggle()}><Search /></button>
+                </div>
+                <button className="clear" onClick={() => setSearchbarIsVisible(false)}><ClearSmall /></button>
+            </form>
         </Container>
     )
 }

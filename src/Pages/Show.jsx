@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import React from "react";
 import { useParams } from "react-router-dom";
 import ShowBroadcastsList from "../Components/Broadcasts/ShowBroadcastsList";
-import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
@@ -37,18 +36,16 @@ const Show = () => {
   console.log(data);
   const show = data.shows;
   return (
-    <HeaderOffset>
-      <Container>
-        <Header>
-          <HeroImage image={show.image.hero} />
-        </Header>
-        <Description>
-          <h3>{show.title}</h3>
-          <KeyFieldParagraph className="text" text={show.description} />
-        </Description>
-        <ShowBroadcastsList id={show._meta.id} />
-      </Container>
-    </HeaderOffset>
+    <Container>
+      <Header>
+        <HeroImage image={show.image.hero} />
+      </Header>
+      <Description>
+        <h3>{show.title}</h3>
+        <KeyFieldParagraph className="text" text={show.description} />
+      </Description>
+      <ShowBroadcastsList id={show._meta.id} />
+    </Container>
   );
 };
 

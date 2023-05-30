@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
 import Header from "./Components/Header";
+import HeaderOffset from "./Components/HeaderOffset";
+import SearchBar from "./Components/Search/SearchBar";
 
 function App() {
   return (
@@ -53,7 +55,10 @@ const PageWrapper = ({ children }) => {
       variants={pageVariants}
       transition={pageTransition}
     >
-      {children}
+      <HeaderOffset>
+        <SearchBar />
+        {children}
+      </HeaderOffset>
     </motion.div>
   );
 };

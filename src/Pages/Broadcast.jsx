@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useState } from "react";
+import { useIdentityContext } from "react-netlify-identity";
 import { Link, useParams } from "react-router-dom";
-import HeaderOffset from "../Components/HeaderOffset";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
@@ -12,7 +12,7 @@ import HeroImage from "../Components/TeaserImage/HeroImage";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from "../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT, FUNCTIONS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
 import Scheduled from "../images/Schedule";
@@ -68,6 +68,7 @@ const BroadcastPagePlayer = styled.div`
     border: none;
     padding: 0;
     width: 6rem;
+    color: var(--color);
     cursor: pointer;
     margin: 0;
     &:hover{
@@ -91,6 +92,9 @@ const BroadcastPagePlayer = styled.div`
 
 const BroadcastPage = () => {
   const { uid } = useParams();
+
+  const { user, isLoggedIn } = useIdentityContext()
+
   const { loading, error, data } = useQuery(getBroadcastQuery, { variables: { uid: uid } });
   const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()
   const { setPlaying, isPlaying, playing, setIsPlaying } = useBroadcastStore()
@@ -101,7 +105,13 @@ const BroadcastPage = () => {
   }
   const pause = () => {
     setIsPlaying(false);
+  }
 
+  const [playbacks, setPlaybacks] = useState(null);
+  const getPlaybacks = async () => {
+    const response = await fetch(`${FUNCTIONS}/get-playbacks?uid=${uid}`)
+    const data = await response.json();
+    setPlaybacks(data)
   }
 
   if (loading) return <PageLoader />;
@@ -109,54 +119,54 @@ const BroadcastPage = () => {
   if (!data?.broadcasts) return <NotFound error={"Broadcast does not exist"} />
   const broadcast = data.broadcasts;
   return (
-    <HeaderOffset>
-      <Container>
-        <Header>
-          <HeroImage image={broadcast.image.hero ? broadcast.image.hero : broadcast.image} />
-        </Header>
-        <BroadcastPagePlayer>
-          <div className="left">
-            {broadcast.audio ? (<>
-              {isPlaying && playing === broadcast._meta.uid ? (
-                <button onClick={() => pause()}>
-                  <PauseBig />
-                </button>
-              ) : (
-                <button onClick={() => play(broadcast._meta.uid)}>
-                  <PlayBig />
-                </button>
-              )}
-            </>
+    <Container>
+      <Header>
+        <HeroImage image={broadcast.image.hero ? broadcast.image.hero : broadcast.image} />
+      </Header>
+      <BroadcastPagePlayer>
+        <div className="left">
+          {broadcast.audio ? (<>
+            {isPlaying && playing === broadcast._meta.uid ? (
+              <button onClick={() => pause()}>
+                <PauseBig />
+              </button>
             ) : (
-              <button disabled>
-                <Scheduled />
+              <button onClick={() => play(broadcast._meta.uid)}>
+                <PlayBig />
               </button>
             )}
-            <div className="info">
-              <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
-                <h3>{broadcast.hostedby.title}</h3>
-              </Link>
-              <div>{broadcast.title}</div>
-            </div>
-          </div>
-          <div className="date">
-            {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
-            {getTimeRangeString(broadcast.begin, broadcast.end)}
-          </div>
-        </BroadcastPagePlayer>
-
-        <Description>
-          {broadcast.description ? (
-            <KeyFieldParagraph text={broadcast.description} />
+          </>
           ) : (
-            <div></div>
+            <button disabled>
+              <Scheduled />
+            </button>
           )}
-          <Meta>
-            <Tags tags={broadcast?._meta.tags} rtl />
-          </Meta>
-        </Description>
-      </Container>
-    </HeaderOffset>
+          <div className="info">
+            <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
+              <h3>{broadcast.hostedby.title}</h3>
+            </Link>
+            <div>{broadcast.title}{isLoggedIn && <>
+              {playbacks ? <> ({playbacks})</> : <><button onClick={() => getPlaybacks()}>?</button></>}
+            </>}</div>
+          </div>
+        </div>
+        <div className="date">
+          {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
+          {getTimeRangeString(broadcast.begin, broadcast.end)}
+        </div>
+      </BroadcastPagePlayer>
+
+      <Description>
+        {broadcast.description ? (
+          <KeyFieldParagraph text={broadcast.description} />
+        ) : (
+          <div></div>
+        )}
+        <Meta>
+          <Tags tags={broadcast?._meta.tags} rtl />
+        </Meta>
+      </Description>
+    </Container>
   );
 };
 

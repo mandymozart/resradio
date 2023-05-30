@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import HeaderOffset from "../Components/HeaderOffset";
 import ShowList from "../Components/Shows/ShowList";
 
 const Container = styled.div`
@@ -13,11 +12,8 @@ const Container = styled.div`
 const Shows = () => {
   return (
     <Container>
-
-      <HeaderOffset>
-        <h2>Shows</h2>
-        <ShowList />
-      </HeaderOffset>
+      <h2>Shows</h2>
+      <ShowList />
     </Container>
   );
 };

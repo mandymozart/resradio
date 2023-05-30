@@ -2,13 +2,14 @@ import styled from "@emotion/styled";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BREAKPOINT_MD } from "../config";
+import { BREAKPOINT_L, BREAKPOINT_MD } from "../config";
+import Chat from "../images/Chat";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
 import DonationBar from "./Donation/DonationBar";
 import MobileMenu from "./MobileMenu";
-import SearchBar from "./Search/SearchBar";
+import SearchBarToggle from "./Search/SearchBarToggle";
 import SlideOut from "./SlideOut";
 import VolumeButton from "./VolumeButton";
 
@@ -18,9 +19,6 @@ export const HeaderButton = styled.button`
   padding: 0;
   margin: 0;
   cursor: pointer;
-  &:hover {
-    color: var(--second);
-  }
 `
 const Container = styled.header`
   position: fixed;
@@ -34,7 +32,7 @@ const Container = styled.header`
   nav.primary{
     display: grid;
     line-height: 1rem;
-    height: 6rem;
+    height: 8.5rem;
     box-sizing: border-box;
     padding: 0 2rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -55,6 +53,11 @@ const Container = styled.header`
     @media (max-width: ${BREAKPOINT_MD}px) {
       display: none;
     }
+    &--about {
+      @media (max-width: ${BREAKPOINT_L}px) {
+        display: none;
+      }
+    }
   }
   .menu-button {
     justify-content: flex-end;
@@ -66,11 +69,16 @@ const Container = styled.header`
   }
   .tools {
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    @media (max-width: ${BREAKPOINT_MD}px) {
-      display: none;
+
+    .icons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        display: none;
+      }
     }
   }
 
@@ -110,9 +118,12 @@ const Header = () => {
           <Link to="explore" className="link">Explore</Link>
           <Link to="schedule" className="link">Schedule</Link>
           <div className="tools">
-            <ChatButton>Chat</ChatButton>
-            <VolumeButton />
-            <SearchBar />
+            <Link to="page/`about" className="link link--about">About</Link>
+            <div className="icons">
+              <ChatButton><Chat /></ChatButton>&nbsp;
+              <VolumeButton />
+              <SearchBarToggle />
+            </div>
           </div>
           <Button
             type="button"

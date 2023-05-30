@@ -291,7 +291,7 @@ const Player = () => {
                         onEnded={handleEnded}>
                         <source src={source} type='audio/mpeg'></source>
                     </audio>
-                    <div>{current?.hostedby.title} &mdash; {current?.title}</div>
+                    <div>{current?.hostedby?.title} &mdash; {current?.title}</div>
                     <div>
                         {currentTime}/{duration}
                     </div>
@@ -318,7 +318,7 @@ const Player = () => {
                             className={node.broadcast._meta.id
                                 ===
                                 current._meta.id ? "broadcast current" : "broadcast"}>
-                            <div>{index}</div> <div>{node.broadcast.hostedby.title} &mdash; {node.broadcast.title}</div>
+                            <div>{index}</div> <div>{node?.broadcast?.hostedby?.title} &mdash; {node.broadcast.title}</div>
                         </div>
                     )
                 }

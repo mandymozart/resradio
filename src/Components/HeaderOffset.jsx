@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 
 const Container = styled.div`
-  margin-top: 8.9rem;
+  margin-top: 11.5rem;
   // Inner
   img {
     max-width: 100%;

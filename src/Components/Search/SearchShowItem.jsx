@@ -3,8 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
-padding: 1rem 0;
-border-bottom: 2px solid var(--color);
+padding: 1rem 2rem;
+border-top: 2px solid var(--color);
 h4 {
   text-transform: initial;
   margin: 0;

@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import React, { useEffect } from "react";
 import FilterForm from "../Components/Filter/FilterForm";
 import FilterResults from "../Components/Filter/FilterResults";
-import HeaderOffset from "../Components/HeaderOffset";
 import useFilterStore from "../Stores/FilterStore";
 import { BREAKPOINT_MD } from "../config";
 
@@ -27,16 +26,14 @@ const Explore = () => {
 
   }, [genres, moods, tempos])
   return (
-    <HeaderOffset>
-      <Container>
-        <h2>Explore</h2>
-        <p className="lead">
-          Please select your filters to explore our broadcasts.
-        </p>
-        <FilterForm />
-        <FilterResults />
-      </Container>
-    </HeaderOffset>
+    <Container>
+      <h2>Explore</h2>
+      <p className="lead">
+        Please select your filters to explore our broadcasts.
+      </p>
+      <FilterForm />
+      <FilterResults />
+    </Container>
   );
 };
 
