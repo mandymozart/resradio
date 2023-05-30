@@ -172,13 +172,8 @@ const Player = () => {
 
         const queryString = getQueryString(cue.current);
         await fetch(`${FUNCTIONS}/create-playlist-entry?${queryString}`).then((r) => {
-            console.log(r)
-            if (r.ok) {
-                //
-                console.log("done", cue.current)
-            }
             if (!r.ok) {
-                console.log("error writing to cue");
+                console.warn("error writing to cue");
             }
         });
     }

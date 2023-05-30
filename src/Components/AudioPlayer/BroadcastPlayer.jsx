@@ -1,5 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useIsMounted from "../../Hooks/isMounted";
@@ -7,11 +9,12 @@ import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS } from "../../config";
 import ClearSmall from "../../images/ClearSmall";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import { secondsToMinutes } from "../../utils";
+import { getQueryString, secondsToMinutes } from "../../utils";
+dayjs.extend(utc);
 
 const Container = styled.div`
 position: fixed;
@@ -118,11 +121,29 @@ const BroadcastPlayer = () => {
             console.error("api error", res)
             setBroadcast(res)
         },
-        onCompleted: (data) => {
+        onCompleted: async (data) => {
             console.log(data)
             setIsLoading(false);
             setBroadcast(data.broadcasts)
-            // onUpdateBroadcast(data.broadcasts)
+            const playback = {
+                uid: playing,
+                referenceText: data.broadcasts.title + " - " + data.broadcasts.hostedby.title,
+                hostedbyUid: data.broadcasts.hostedby._meta.uid,
+                date: dayjs(),
+                timezone: Intl.DateTimeFormat().resolvedOptions().locale + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
+
+            }
+            const queryString = getQueryString(playback);
+            await fetch(`${FUNCTIONS}/log-playback?${queryString}`).then((r) => {
+                console.log(r)
+                if (r.ok) {
+                    //
+                    console.log("done", playback)
+                }
+                if (!r.ok) {
+                    console.log("error writing to cue");
+                }
+            });
 
         }
     });
