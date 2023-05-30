@@ -1,13 +1,17 @@
 import styled from "@emotion/styled";
-import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
-import { trimZeros } from "../../utils";
+import { getTimeRangeString } from "../../utils";
 
 const Container = styled.div`
-padding-right: 2rem;
+        padding-right: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
     span {
         font-size: 1rem;
+        flex: 7rem 0 0;
     }
     a {
         text-transform: initial;
@@ -22,7 +26,7 @@ const ScheduleBroadcast = ({ broadcast }) => {
     return (
         <Container>
             <span>
-                {trimZeros(dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
+                {getTimeRangeString(broadcast.begin, broadcast.end)}
             </span>{" "}
             <Link to={`../broadcasts/${broadcast._meta.uid}`}>{broadcast.hostedby.title}</Link>
         </Container>

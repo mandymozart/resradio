@@ -12,11 +12,11 @@ import HeroImage from "../Components/TeaserImage/HeroImage";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
 import Scheduled from "../images/Schedule";
-import { DATE_FORMAT, trimZeros } from "../utils";
+import { getTimeRangeString } from "../utils";
 
 const Container = styled.div`
 padding-bottom: 2rem;
@@ -141,7 +141,7 @@ const BroadcastPage = () => {
           </div>
           <div className="date">
             {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
-            {trimZeros(dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
+            {getTimeRangeString(broadcast.begin, broadcast.end)}
           </div>
         </BroadcastPagePlayer>
 

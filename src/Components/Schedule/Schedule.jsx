@@ -6,9 +6,8 @@ import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
-import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
+import { DATE_FORMAT } from "../../config";
 import palm from "../../images/palm.png";
-import { DATE_FORMAT } from "../../utils";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(isBetween);
@@ -25,7 +24,7 @@ const mapBroadcastsToDays = (broadcasts) => {
     let day = "";
     let count = 0;
     broadcasts.forEach(function (b) {
-        const d = dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT);
+        const d = dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT);
         console.log(d, day)
         count++;
         if (day !== d && count === 1) {
@@ -40,10 +39,10 @@ const mapBroadcastsToDays = (broadcasts) => {
 
 const populateDays = (days, broadcasts) => {
     broadcasts.forEach(function (b) {
-        console.log(dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT), days, broadcasts)
+        console.log(dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT), days, broadcasts)
 
-        if (days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)))
-            days.find(d => d.date === dayjs(b.node.begin).format('ddd, ' + DATE_FORMAT)).broadcasts.push(b)
+        if (days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)))
+            days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
         else console.error("date string mismatch")
 
     })
@@ -51,8 +50,11 @@ const populateDays = (days, broadcasts) => {
 }
 
 const Container = styled.section`
-    
+    border-radius: 1.5rem;
+    background-color: var(--color);
+    color: var(--background);
     padding: 2rem;
+    grid-row: span 2;
     /* border-bottom: 2px solid var(--color); */
     h3 {
         margin-bottom: 0;
@@ -60,33 +62,23 @@ const Container = styled.section`
 
     .list {
         margin-top: 4rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        @media (max-width: ${BREAKPOINT_L}px) {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-        @media (max-width: ${BREAKPOINT_MD}px) {
-            grid-template-columns: 1fr 1fr;
-        }
-        @media (max-width: ${BREAKPOINT_XS}px) {
-            grid-template-columns: 1fr;
-        }
-        gap: 0;
     
     }
     p {
         display: flex;margin: 0;
     }
+    a {
+        color: var(--background);
+    }
     h4 {
         font-family: var(--font-light);
         font-size: 1.5rem;
         text-transform: uppercase;
-        text-transform: initial;
         line-height: 3rem;
         margin-bottom: 1rem;
-        margin-top: 1rem;
-        border-bottom: 2px solid var(--color);
-    }`;
+        margin-top: 2rem;
+    }
+    `;
 
 const Schedule = ({ from }) => {
 

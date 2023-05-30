@@ -4,10 +4,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import { DATE_FORMAT } from "../../utils";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;

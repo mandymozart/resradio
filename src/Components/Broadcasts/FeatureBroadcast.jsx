@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 import { getFeatureBroadcastQuery } from "../../Queries/broadcasts";
-import { BREAKPOINT_MD } from "../../config";
-import { trimZeros } from "../../utils";
+import { BREAKPOINT_MD, DATE_FORMAT_LONG } from "../../config";
+import { getTimeRangeString } from "../../utils";
 import SectionLoader from "../SectionLoader";
 import Tags from "../Tags";
 import HeroImage from "../TeaserImage/HeroImage";
@@ -91,9 +91,8 @@ const FeatureBroadcast = () => {
       </h4>
       <div className="meta">
         <p>
-          {dayjs(broadcast.begin).format("MMM D.M.YYYY")}<br />
-          {trimZeros(
-            dayjs(broadcast.begin))}&mdash;{trimZeros(dayjs(broadcast.end))} {dayjs(broadcast.end).format("A")}
+          {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
+          {getTimeRangeString(broadcast.begin, broadcast.end)}
         </p>
         <div className="tags">
           <Tags tags={broadcast._meta.tags} />

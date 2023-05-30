@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { DATE_FORMAT } from "./config";
 dayjs.extend(utc);
 
 export const shuffle = (array) => {
@@ -18,7 +19,7 @@ export const shuffle = (array) => {
   return array;
 };
 
-export const DATE_FORMAT = "D.M.YYYY";
+
 
 let day = "";
 let count = 0;
@@ -39,7 +40,7 @@ export const getWeekdayHeadline = (begin) => {
      * @params date: dayjs object
     */
 export const trimZeros = (date) => {
-  return date.format("hh:mm");
+  return date.format("HH:mm");
   // const time = date.format("h:mm");
   // if (time.slice(-3) === ":00")
   //   return time.substring(0, time.length - 3);
@@ -51,6 +52,10 @@ export const secondsToMinutes = (seconds) => {
   // let computeMinutes = Math.floor(seconds / 60);
   // let result = seconds % 60;
   // return computeMinutes.toString().padStart(2, '0') + ":" + result.toString().padStart(2, '0').substring(0, 2);
+}
+
+export const getTimeRangeString = (begin, end) => {
+  return trimZeros(dayjs(begin)) + `—` + trimZeros(dayjs(end));
 }
 
 /**

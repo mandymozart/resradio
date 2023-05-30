@@ -4,10 +4,9 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD } from "../../config";
+import { BREAKPOINT_MD, DATE_FORMAT_LONG } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import { DATE_FORMAT } from "../../utils";
 import Tags from "../Tags";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
@@ -38,9 +37,7 @@ h4 {
   }
 }
 .date {
-  span {
     text-transform: uppercase;
-  }
 }
 .image {
   overflow: hidden;
@@ -122,10 +119,7 @@ const BroadcastItem = ({ broadcast }) => {
         </Link>
 
         <div className="date">
-          <span>
-            {dayjs(broadcast.node.begin).format("ddd")}
-          </span>{" "}
-          {dayjs(broadcast.node.begin).format(DATE_FORMAT)}
+          {dayjs(broadcast.node.begin).format(DATE_FORMAT_LONG)}
         </div>
         <Tags tags={broadcast.node._meta.tags} />
       </div>

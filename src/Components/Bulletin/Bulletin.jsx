@@ -1,77 +1,47 @@
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import _ from "lodash";
 import React from "react";
-import { GetBulletinsQuery } from "../../Queries/bulletins";
-import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
-import cherry from "../../images/cherry.png";
-import SectionLoader from "../SectionLoader";
-import Announcement from "./Announcement";
+import Grid from "../../images/Grid";
 
-const Container = styled.section`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    @media (max-width: ${BREAKPOINT_L}px) {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media (max-width: ${BREAKPOINT_MD}px) {
-        grid-template-columns: 1fr 1fr;
-    }
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        grid-template-columns: 1fr;
-    }
-    gap: 2rem;
-    align-items: center;
+const Container = styled.div`
+  cursor: pointer;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  margin-top: 8rem;
+  .overlay {
+    font-size: 1.5rem;
+    font-family: var(--font-bold);
+    color: var(--second);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
-    img {
-        transform: scale(0.5);
+    padding: 6rem;
+  }
+  &.hover {
+    color: var(--second);
+    h3,
+    div,
+    svg {
+      color: var(--second);
     }
+  }
+`;
 
-`
-
-const Cherry = () => {
-    return (
-        <img src={cherry} />
-    )
-}
-
-const Bulletin = ({ bulletin }) => {
-    return (<>
-        <a href={bulletin.link.url} target={bulletin.link.target}>
-            <img src={bulletin.image.url} alt={bulletin.image.alt} />
-            {bulletin.text}
-        </a>
-    </>)
-}
-
-const Bulletins = () => {
-    const { loading, error, data } = useQuery(GetBulletinsQuery)
-
-    if (loading) return <SectionLoader />
-    if (error) return <>{error.message}</>
-    if (!data) return <></>
-    const getList = () => {
-        let list = []
-        data.allBulletins.edges.forEach((node) => {
-            console.log(node)
-            list.push({
-                key: node.node._meta.id,
-                component: <Bulletin bulletin={node.node} />
-            })
-        })
-        list.push({
-            key: "announcement",
-            component: <Announcement />
-        })
-        return _.shuffle(list)
-    }
+const Bulletin = () => {
 
     return (
         <Container>
-            {getList().map((item, index) => <div key={'bulletin' + index}>{item.component}</div>)}
+            <Grid />
+            <div className="overlay">Host your own</div>
         </Container>
-    )
-}
-
-export default Bulletins;
+    );
+};
+export default Bulletin;

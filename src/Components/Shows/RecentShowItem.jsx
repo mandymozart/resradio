@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
-import { DATE_FORMAT } from "../../utils";
+import { DATE_FORMAT } from "../../config";
 import Tags from "../Tags";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
