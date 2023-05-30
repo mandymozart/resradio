@@ -152,9 +152,11 @@ export const BroadcastFragment = gql`
       ... on Shows {
         title
         _meta {
-          id
           uid
+          id
+          tags
         }
+        image
       }
     }
     mood {

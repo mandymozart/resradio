@@ -1,17 +1,19 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import RecentShowItem from "./RecentShowItem";
-import { getShowsQuery } from "./ShowList";
-
 import "swiper/css";
 import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { ITEMS_PER_PAGE } from "../../config";
 import SectionLoader from "../SectionLoader";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
+import RecentShowItem from "./RecentShowItem";
+dayjs.extend(utc);
 
 const Container = styled.div`
   border-bottom: 2px solid var(--color);
@@ -83,11 +85,19 @@ const AllShowsButton = () => {
 }
 
 const RecentShowsList = () => {
-  const { loading, error, data } = useQuery(getShowsQuery, { variables: { itemsPerPage: ITEMS_PER_PAGE } })
+  const { loading, error, data } = useQuery(getBroadcastsQuery,
+    {
+      variables: {
+        sortBy: "begin_ASC",
+        endAfter: dayjs().format(),
+        beginBefore: dayjs().add(7, 'days').format(),
+        itemsPerPage: ITEMS_PER_PAGE
+      }
+    })
 
   if (loading) return <SectionLoader />;
   if (error) return <>Error : {error.message}</>;
-  const shows = data.allShowss.edges
+  const broadcasts = data.allBroadcastss.edges
   return (
     <Container>
       <h3>Shows</h3>
@@ -101,8 +111,8 @@ const RecentShowsList = () => {
           },
         }}
         className="list">
-        {shows.map((show, index) => (<SwiperSlide key={"showSlider" + index}>
-          <RecentShowItem show={show} />
+        {broadcasts.map((broadcast, index) => (<SwiperSlide key={"showSlider" + index}>
+          <RecentShowItem broadcast={broadcast} />
         </SwiperSlide>
         ))}
         <SwiperSlide>

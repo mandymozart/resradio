@@ -29,13 +29,14 @@ h4 {
 }
 `
 
-const RecentShowItem = ({ show }) => {
-  const linkTo = `shows/${show.node._meta.uid}`;
+const RecentShowItem = ({ broadcast }) => {
+  console.log(broadcast)
+  const linkTo = `shows/${broadcast.node.hostedby._meta.uid}`;
   return (
     <Container>
       <Link to={linkTo}>
         <div className="image">
-          <ThumbnailPanoramaImage image={show.node.image.thumbnailPanorama} />
+          <ThumbnailPanoramaImage image={broadcast.node.hostedby.image.thumbnailPanorama} />
           {/* <div className="overlay">
             <div className="description">
               {show.node.description}
@@ -46,11 +47,11 @@ const RecentShowItem = ({ show }) => {
       </Link>
       <div className="meta">
         <Link to={linkTo}>
-          <h4>{show.node.title}</h4>
+          <h4>{broadcast.node.title}</h4>
         </Link>
-        <div>{dayjs(show.node.begin).format(DATE_FORMAT)}</div>
+        <div>{dayjs(broadcast.node.begin).format(DATE_FORMAT)}</div>
 
-        <Tags className="tags" tags={show.node._meta.tags} />
+        <Tags className="tags" tags={broadcast.node._meta.tags} />
       </div>
     </Container>
   );

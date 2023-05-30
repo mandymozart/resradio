@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React from "react";
@@ -10,7 +9,6 @@ import { DATE_FORMAT } from "../../config";
 import palm from "../../images/palm.png";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import SectionLoader from "../SectionLoader";
-dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const getBroadcastsInRangeQuery = gql`
