@@ -91,7 +91,7 @@ const Container = styled.section`
 const Schedule = ({ from }) => {
 
     const start = from ? dayjs(from) : dayjs().format('YYYY-MM-DD');
-    const after = dayjs(start).subtract(7, 'days')
+    const after = dayjs(start)
     const { loading, error, data } = useQuery(
         getBroadcastsInRangeQuery,
         {

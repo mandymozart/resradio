@@ -10,32 +10,11 @@ const client = createClient({
   useCdn: false,
 });
 
-const handler = async (event, context) => {
-  const id = event.queryStringParameters.id;
+const handler = async (event) => {
+  const email = event.queryStringParameters.email;
 
-  const uId = context.clientContext.user.sub;
-  const uRoles = context.clientContext.user.app_metadata.roles;
-
-  /* no user, no go */
-  if (!uId) {
-    return {
-      statusCode: 401,
-      body: JSON.stringify({
-        data: "no user",
-      }),
-    };
-  }
-  /* no basic role, no go */
-  if (uRoles[0] !== "basic") {
-    return {
-      statusCode: 401,
-      body: JSON.stringify({
-        data: "no uRoles",
-      }),
-    };
-  }
   /* no id, no go */
-  if (!id) {
+  if (!email) {
     return {
       statusCode: 401,
       body: JSON.stringify({
@@ -45,7 +24,7 @@ const handler = async (event, context) => {
   }
 
   try {
-    const query = `*[_id == "${id}"][0]{email,fullName}`;
+    const query = `*[email == "${email}"][0]{email,fullName}`;
 
     let user;
 

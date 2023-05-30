@@ -7,7 +7,6 @@ import useBroadcastStore from "../../Stores/BroadcastStore";
 import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import Scheduled from "../../images/Schedule";
 import { DATE_FORMAT } from "../../utils";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
@@ -37,6 +36,9 @@ h4 {
 .image {
   overflow: hidden;
   position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-height: 100%;
   svg {
     position: absolute;
     top: 50%; left: 50%;
@@ -94,7 +96,7 @@ const ShowBroadcastsItem = ({ broadcast }) => {
               </button>
             )}
           </>
-        ) : (<button disabled><Scheduled /></button>)}
+        ) : (<button disabled></button>)}
       </div>
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`}>
