@@ -2,22 +2,10 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useIdentityContext } from 'react-netlify-identity';
 import { useNavigate } from 'react-router-dom';
+import { FUNCTIONS } from '../../config';
 import Button from '../Button';
 import { Input } from '../FormElements/Input';
 import SystemMessage from '../SystemMessage';
-
-// import {
-//     AuthOption,
-//     AuthText,
-//     Button,
-//     ButtonGoogle,
-//     Container,
-//     Form,
-//     Header,
-//     Input,
-//     Label,
-//     TextError,
-// } from './components';
 
 const Container = styled.div`
 form {
@@ -39,8 +27,26 @@ const LogIn = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const logIn = (event) => {
+    const logIn = async (event) => {
         event.preventDefault();
+        await fetch(`${FUNCTIONS}/user?`).then((r) => {
+            console.log(r)
+            if (r.ok) {
+                //
+                console.log("done")
+                loginUser(email, password, true)
+                    .then(() => {
+                        navigate("/studio/playlists");
+                    })
+                    .catch((error) => {
+                        setError(true);
+                        console.log(error);
+                    });
+            }
+            if (!r.ok) {
+                console.log("user does not exist");
+            }
+        });
         loginUser(email, password, true)
             .then(() => {
                 navigate("/studio/playlists");
