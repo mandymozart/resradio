@@ -21,7 +21,7 @@ const Container = styled.div`
   }
   h3 {
     margin: 0 !important;
-    padding: 1rem 2rem .5rem 2rem;
+    padding: 3rem 2rem;
     @media (max-width: ${BREAKPOINT_MD}px) {
       padding: 1rem 1rem 0 1rem;
     }
@@ -43,16 +43,16 @@ const Container = styled.div`
   
   .swiper-button-next, .swiper-button-prev {
     position: absolute;
-    top: calc(50% - 6rem);
+    top: calc(50% - 8rem);
     width: 4rem;
     height: 6rem;
     z-index: 10;
     cursor: pointer;
     display: flex;
-    background-color: var(--grey);
+    background-color: var(--color);
     align-items: center;
     justify-content: center;
-    color: var(--color);
+    color: var(--background);
     &.swiper-button-disabled {
       display: none;
     }
@@ -83,6 +83,9 @@ const ExploreButtonContainer = styled.button`
   }
   &:hover {
     color: var(--second);
+  }
+  img {
+    opacity: 0;
   }
 `
 

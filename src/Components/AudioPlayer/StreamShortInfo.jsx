@@ -9,26 +9,16 @@ import React from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import config from "../../config";
-import Dot from "../../images/Dot";
 import { getTimeRangeString } from "../../utils";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
+
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
-.now {
-  color: var(--second);
-}
  flex: 1;
- span {
-  font-family: var(--font-bold);
-  flex: 1;
-  svg {
-    color: var(--second);
-  }
- }
  justify-content: center;
  align-items: center;
 `;
@@ -50,7 +40,7 @@ const StreamShortInfo = () => {
       },
       pollInterval: 60 * 1000
     });
-  const { currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo, isLive } = useBroadcastStore();
+  const { currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
 
   // ably websocket
   useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
@@ -64,9 +54,6 @@ const StreamShortInfo = () => {
   if (data?.allBroadcastss?.edges[1]) setNextBroadcast(data.allBroadcastss.edges[1].node);
   return (
     <Container>
-      {isLive() && (
-        <span className="now">Now <Dot /></span>
-      )}
       {currentBroadcast ? (
         <>
           {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
@@ -75,7 +62,7 @@ const StreamShortInfo = () => {
         <>
           {rotationInfo ? (
             <>
-              {getTimeRangeString(rotationInfo.data.current.begin, rotationInfo.data.current.end)}
+              {getTimeRangeString(rotationInfo.data.current.begin, rotationInfo.data.current.end)}{" "}
               {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
             </>
           ) : (<>No station info available</>)}

@@ -86,7 +86,7 @@ const FeatureBroadcast = () => {
       </Link>
       <h4>
         <Link to={`/broadcasts/${broadcast._meta.uid}`}>
-          {broadcast.hostedby.title} &mdash; {broadcast.title}
+          {broadcast.hostedby.title}&mdash;{broadcast.title}
         </Link>
       </h4>
       <div className="meta">

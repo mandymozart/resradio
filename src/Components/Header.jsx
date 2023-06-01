@@ -30,17 +30,17 @@ const Container = styled.header`
   background: var(--background);
 
   nav.primary{
-    display: grid;
-    line-height: 1rem;
-    height: 8.5rem;
+    display: grid;  
+
+    height: 7.5rem;
     box-sizing: border-box;
-    padding: 0 2rem;
+    padding:2rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     @media (max-width: ${BREAKPOINT_MD}px) {
       grid-template-columns: 1fr 1fr;
     }
     gap: 2rem;
-    align-items: center;
+    align-items: flex-start;
     z-index: 1;
     justify-content: left;
     border-bottom: 2px solid var(--color);
@@ -70,7 +70,12 @@ const Container = styled.header`
   .tools {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    @media (max-width: ${BREAKPOINT_L}px) {
+      justify-content: right;
+    }
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      display: none;
+    }
 
     .icons {
       display: flex;
@@ -86,8 +91,6 @@ const Container = styled.header`
 
 const Topbar = styled.div`
   box-sizing: border-box;
-  height: 3rem;
-  padding: 0 2rem 0 2rem;
   border-bottom: 2px solid var(--color);
 `
 
@@ -118,7 +121,7 @@ const Header = () => {
           <Link to="explore" className="link">Explore</Link>
           <Link to="schedule" className="link">Schedule</Link>
           <div className="tools">
-            <Link to="page/`about" className="link link--about">About</Link>
+            <Link to="page/about" className="link link--about">About</Link>
             <div className="icons">
               <ChatButton><Chat /></ChatButton>&nbsp;
               <VolumeButton />

@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { Accordion, } from '@szhsin/react-accordion';
+import { useEffect, useRef } from "react";
+import useFilterStore from "../../Stores/FilterStore";
 import AccordionItem from "../Accordion/AcordionItem";
 import TempoRangeSlider from "../RangeSlider/TempoRangeSlider";
 import FilterSummary from "./FilterSummary";
@@ -33,6 +35,13 @@ color: var(--color);
 `;
 
 const FilterForm = () => {
+    const { genres, moods, tempos } = useFilterStore();
+    const summaryRef = useRef();
+
+    useEffect(() => {
+        summaryRef.current.scrollIntoView();
+        console.log("jump")
+    }, [genres, moods, tempos])
     return (
         <Container>
             <Accordion>
@@ -46,6 +55,7 @@ const FilterForm = () => {
                     <TempoRangeSlider />
                 </AccordionItem>
             </Accordion>
+            <div ref={summaryRef}></div>
             <FilterSummary />
         </Container>
     )

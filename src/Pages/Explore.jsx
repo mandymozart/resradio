@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React from "react";
 import FilterForm from "../Components/Filter/FilterForm";
 import FilterResults from "../Components/Filter/FilterResults";
-import useFilterStore from "../Stores/FilterStore";
 import { BREAKPOINT_MD } from "../config";
 
 const Container = styled.section`
@@ -20,11 +19,6 @@ p.lead {
 `
 
 const Explore = () => {
-  const { genres, moods, tempos } = useFilterStore();
-
-  useEffect(() => {
-
-  }, [genres, moods, tempos])
   return (
     <Container>
       <h2>Explore</h2>

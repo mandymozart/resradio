@@ -31,8 +31,8 @@ form {
         border: 1px solid var(--color);
     }
     svg {
-        width: 2rem;
-        height: 2rem;
+        width: 1rem;
+        height: 1rem;
     }
     button.submit {
         margin-right: 3rem;

@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 import { DATE_FORMAT } from "../../config";
+import { getTimeRangeString } from "../../utils";
 import Tags from "../Tags";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 
@@ -14,15 +15,19 @@ padding: 0;
 h4 {
   text-transform: initial;
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-family: var(--font-medium);
+  margin-bottom: 0.25rem;
+  margin-top: 2rem;
 }
 .meta {
   padding: 0 2rem 0 2rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
   padding-bottom: 3rem;
-  line-height: 1.5rem;
 }
-
+.time {
+  margin-bottom: 2rem;
+}
 .image {
     overflow: hidden;
     position: relative;
@@ -46,10 +51,14 @@ const RecentShowItem = ({ broadcast }) => {
         </div>
       </Link>
       <div className="meta">
-        <Link to={linkTo}>
+        <Link to={linkTo} className="host">
           <h4>{broadcast.node.title}</h4>
         </Link>
-        <div>{dayjs(broadcast.node.begin).format(DATE_FORMAT)}</div>
+        <div className="date">{dayjs(broadcast.node.begin).format(DATE_FORMAT)}
+        </div>
+        <div className="time">
+          {getTimeRangeString(broadcast.node.begin, broadcast.node.end)}
+        </div>
 
         <Tags className="tags" tags={broadcast.node._meta.tags} />
       </div>

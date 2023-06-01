@@ -5,7 +5,7 @@ import ShowList from "../Components/Shows/ShowList";
 const Container = styled.div`
   h2 {
     margin: 0;
-    padding: 1rem 2rem 0 2rem;
+    padding: 3rem 2rem;
   }
 `
 

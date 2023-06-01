@@ -11,6 +11,7 @@ import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
 import config, { BREAKPOINT_L, BREAKPOINT_MD, DATE_FORMAT } from '../config';
+import { getTimeRangeString } from "../utils";
 import InlineLoader from "./InlineLoader";
 import ThumbnailPanoramaImage from "./TeaserImage/ThumbnailPanoramaImage";
 dayjs.extend(isBetween);
@@ -152,7 +153,7 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
           <div className="info">
             <div className="date">
               {dayjs(broadcast.begin).format("ddd")} {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
-              {getTimeInRange(broadcast.begin, broadcast.end)}
+              {getTimeRangeString(broadcast.begin, broadcast.end)}
             </div>
             <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
               <h3 className="show-title">{broadcast.hostedby.title}</h3>

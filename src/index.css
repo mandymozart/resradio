@@ -147,6 +147,9 @@ button {
 button:hover {
   color: var(--second);
 }
+button:focus {
+  outline: var(--second);
+}
 
 input {
         border:none;

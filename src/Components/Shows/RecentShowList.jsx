@@ -18,7 +18,7 @@ dayjs.extend(utc);
 const Container = styled.div`
   border-bottom: 2px solid var(--color);
   h3 {
-    padding: 1rem 1rem 0.5rem 2rem;
+    padding: 3rem 2rem;
     margin: 0 !important;
   }
   .list {
@@ -36,16 +36,16 @@ const Container = styled.div`
   
   .swiper-button-next, .swiper-button-prev {
     position: absolute;
-    top: calc(50% - 6rem);
+    top: calc(50% - 8rem);
     width: 4rem;
     height: 6rem;
     z-index: 10;
     cursor: pointer;
     display: flex;
-    background-color: var(--grey);
+    background-color: var(--color);
     align-items: center;
     justify-content: center;
-    color: var(--color);
+    color: var(--background);
     &.swiper-button-disabled {
       display: none;
     }
