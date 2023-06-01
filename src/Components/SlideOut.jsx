@@ -55,7 +55,7 @@ img {
   position: fixed;
   top: 10.5rem;
   width: 100%;
-  background: white;
+  background: var(--background);
   transform: translateY(-40rem);
   transition: transform .2s ease-out;
 
