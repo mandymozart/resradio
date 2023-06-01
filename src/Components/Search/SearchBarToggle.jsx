@@ -11,6 +11,7 @@ const SearchBarToggle = () => {
     const { searchbarIsVisible, setSearchbarIsVisible } = useThemeStore();
     const toggle = () => {
         setSearchbarIsVisible(!searchbarIsVisible);
+        if (!searchbarIsVisible) window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     }
     return (
         <Container className="toggle" onClick={() => toggle()}><Search /></Container>

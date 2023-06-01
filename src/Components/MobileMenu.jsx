@@ -74,6 +74,9 @@ const MobileMenu = ({ isOpen, setIsOpen }) => {
             <button onClick={() => goToLink("/page/about")}>About</button>
           </li>
           <li>
+            <button onClick={() => goToLink("/search")}>Search</button>
+          </li>
+          <li>
             <button onClick={() => setNightMode(!nightMode)}>
               {nightMode ? <BsSunFill /> : <BsMoon />}
             </button>

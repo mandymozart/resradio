@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
 padding: 1rem 2rem;
 border-top: 2px solid var(--color);
+
 h4 {
   text-transform: initial;
   margin: 0;
   font-family: var(--font-light);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
   
 `
@@ -17,11 +18,9 @@ h4 {
 const SearchShowItem = ({ show }) => {
   return (
     <Container>
-      <div className="meta">
-        <Link to={`/shows/${show._meta.uid} `}>
-          <h4>{show.title}</h4>
-        </Link>
-      </div>
+      <Link to={`/shows/${show._meta.uid} `}>
+        <h4>{show.title}</h4>
+      </Link>
     </Container>
   );
 };

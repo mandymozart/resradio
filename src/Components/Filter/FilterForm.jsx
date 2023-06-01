@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Accordion, } from '@szhsin/react-accordion';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFilterStore from "../../Stores/FilterStore";
 import AccordionItem from "../Accordion/AcordionItem";
 import TempoRangeSlider from "../RangeSlider/TempoRangeSlider";
@@ -37,10 +37,13 @@ color: var(--color);
 const FilterForm = () => {
     const { genres, moods, tempos } = useFilterStore();
     const summaryRef = useRef();
+    const { isInitial, setIsInitial } = useState(true);
 
     useEffect(() => {
-        summaryRef.current.scrollIntoView();
-        console.log("jump")
+        if (isInitial)
+            setIsInitial(false)
+        else summaryRef.current.scrollIntoView({ behavior: "smooth" });
+        console.log(isInitial)
     }, [genres, moods, tempos])
     return (
         <Container>

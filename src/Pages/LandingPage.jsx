@@ -26,7 +26,7 @@ const LandingPage = () => {
       <BulletinSection>
         <Schedule />
         <Announcement />
-        <Apply />
+        <a href="mailto:resradio.program@gmail.com"><Apply /></a>
       </BulletinSection>
       <RecentShowList />
       <RecentBroadcastList />

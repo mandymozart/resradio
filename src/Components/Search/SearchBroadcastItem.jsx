@@ -6,11 +6,22 @@ import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 1rem 2rem;
 border-top: 2px solid var(--color);
+overflow: hidden;
+a {
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 h4 {
   text-transform: initial;
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-family: var(--font-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 display: flex;
 justify-content: space-between;
@@ -27,7 +38,7 @@ const SearchBroadcastItem = ({ broadcast }) => {
     <Container>
       <div className="meta">
         <Link to={`/broadcasts/${broadcast._meta.uid} `}>
-          <h4>{broadcast.title}</h4>
+          <h4>{broadcast.hostedby?.title}&mdash;{broadcast.title}</h4>
         </Link>
       </div>
       <div className="image">

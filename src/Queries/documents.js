@@ -14,6 +14,7 @@ query SearchDocumentsQuery($q:String!) {
       node {
         ... showFragment
         ... broadcast
+        ... pageFragment
       }
     }
   }

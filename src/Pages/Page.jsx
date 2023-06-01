@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import NotFound from "../Components/NotFound";
 import SectionLoader from "../Components/SectionLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
-import { GetPageQuery } from "../Queries/pages";
+import { getPageQuery } from "../Queries/pages";
 
 const Container = styled.div`
 padding: 2rem 2rem;
@@ -22,7 +22,7 @@ const Description = styled.section``;
 
 const Page = () => {
   const { uid } = useParams();
-  const { loading, error, data } = useQuery(GetPageQuery, { variables: { uid: uid } });
+  const { loading, error, data } = useQuery(getPageQuery, { variables: { uid: uid } });
 
   if (loading) return <SectionLoader />;
   if (error) return <NotFound error={error.message} />;

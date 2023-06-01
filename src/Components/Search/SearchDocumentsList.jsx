@@ -8,9 +8,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { BroadcastFragment, BroadcastTagsFragment } from "../../Queries/broadcasts";
 import { SearchDocumentsQuery } from "../../Queries/documents";
+import { PageFragment } from "../../Queries/pages";
 import { ShowFragment } from "../../Queries/shows";
 import SectionLoader from "../SectionLoader";
 import SearchBroadcastItem from "./SearchBroadcastItem";
+import SearchPageItem from "./SearchPageItem";
 import SearchShowItem from "./SearchShowItem";
 
 const Container = styled.div`
@@ -23,12 +25,12 @@ const Container = styled.div`
   }
 `;
 
-
 export const searchShowsQuery = gql`
   ${SearchDocumentsQuery}
   ${ShowFragment}
   ${BroadcastFragment}
   ${BroadcastTagsFragment}
+  ${PageFragment}
 `
 
 const SearchDocumentsList = () => {
@@ -50,6 +52,8 @@ const SearchDocumentsList = () => {
             return <SearchShowItem show={doc.node} key={"result-list-show" + index} />
           if (doc.node.__typename === "Broadcasts")
             return <SearchBroadcastItem broadcast={doc.node} key={"result-list-broadcast" + index} />
+          if (doc.node.__typename === "Page")
+            return <SearchPageItem page={doc.node} key={"result-list-page" + index} />
 
 
         })}
