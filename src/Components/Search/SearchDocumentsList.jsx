@@ -11,17 +11,15 @@ import { SearchDocumentsQuery } from "../../Queries/documents";
 import { PageFragment } from "../../Queries/pages";
 import { ShowFragment } from "../../Queries/shows";
 import SectionLoader from "../SectionLoader";
+import SystemMessage from "../SystemMessage";
 import SearchBroadcastItem from "./SearchBroadcastItem";
 import SearchPageItem from "./SearchPageItem";
 import SearchShowItem from "./SearchShowItem";
 
 const Container = styled.div`
   h3 {
-    padding: 1rem 1rem 0.5rem 2rem;
+    padding: 3rem 2rem;
     margin: 0 !important;
-  }
-  .list {
-
   }
 `;
 
@@ -35,14 +33,12 @@ export const searchShowsQuery = gql`
 
 const SearchDocumentsList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get("q"));
 
   const { loading, error, data } = useQuery(searchShowsQuery, { variables: { q: searchParams.get("q") } })
 
   if (loading) return <SectionLoader />;
-  if (error) return <Container>Error : {error.message}</Container>;
-  if (data._allDocuments.totalCount < 1) return <Container>No results match your search query!</Container>
-  console.log(data._allDocuments)
+  if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
+  if (data._allDocuments.totalCount < 1) return <SystemMessage>No results match your search query!</SystemMessage>
   return (
     <Container>
       <div className="list">

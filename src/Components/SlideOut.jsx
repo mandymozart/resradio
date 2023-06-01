@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
@@ -22,6 +22,9 @@ margin: 0;
 padding: 0;
 border-bottom: 2px solid var(--color);
 font-size: 1.5rem;
+a {
+      cursor: pointer;
+    }
 .date {
   margin-bottom: 1rem;
 }
@@ -50,12 +53,13 @@ img {
 > div {
   z-index: 1;
   position: fixed;
-  top: 9rem;
+  top: 10.5rem;
   width: 100%;
   background: white;
   transform: translateY(-40rem);
+  transition: transform .2s ease-out;
 
-  &.isCollapsed {
+  &.isExpanded {
     opacity: 1;
     transform: translateY(0);
   }
@@ -78,6 +82,7 @@ img {
         padding: 0 2rem 1rem 2rem;
       }
     }
+
 
   }
   footer {
@@ -107,7 +112,8 @@ img {
   }
 }
 `
-const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
+const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) => {
+  const navigate = useNavigate()
   // ably websocket
   const [broadcast, setBroadcast] = useState()
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
@@ -141,8 +147,13 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
   useEffect(() => {
     setBroadcast(currentBroadcast)
   }, [currentBroadcast, nextBroadcast])
+
+  const goToLink = (to) => {
+    navigate(to)
+    setIsExpanded(false)
+  }
   return (<Container>
-    <div className={clsx({ isCollapsed })}>
+    <div className={clsx({ isExpanded: isExpanded })}>
       <div className="top">
         {loading && <InlineLoader />}
         {currentBroadcast && <>current Broadcast {JSON.stringify(currentBroadcast)}</>}
@@ -155,16 +166,16 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
               {dayjs(broadcast.begin).format("ddd")} {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
               {getTimeRangeString(broadcast.begin, broadcast.end)}
             </div>
-            <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
+            <a onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)}>
               <h3 className="show-title">{broadcast.hostedby.title}</h3>
               <div className="title">{broadcast.title}</div>
-            </Link>
+            </a>
             <p>
               {broadcast.description?.substring(1, 120)} ...
             </p>
-            <Link to={"../shows/" + broadcast.hostedby._meta.uid} className="more">
+            <a onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
               read more
-            </Link>
+            </a>
           </div>
 
         </>)}
@@ -177,7 +188,7 @@ const SlideOut = ({ isCollapsed, setIsCollapsed }) => {
           </>)}
         </div>
         <div>
-          <Link to={"/schedule"}><span className="show-more-prefix">Show </span>Schedule</Link>
+          <a onClick={() => goToLink("/schedule")}><span className="show-more-prefix">Show </span>Schedule</a>
         </div>
       </footer>
     </div>

@@ -57,6 +57,7 @@ const SearchBar = () => {
             <form onSubmit={handleSubmit}>
                 <div className="input">
                     <input name="q" type="text"
+                        autoFocus
                         value={value}
                         className="search-input"
                         placeholder="SEARCH"
