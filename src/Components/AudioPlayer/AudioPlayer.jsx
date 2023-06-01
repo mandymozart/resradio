@@ -91,7 +91,6 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
     }
   }
     , [isPlaying])
-  console.log(isStreaming())
   return (
     <Container>
       <header>
