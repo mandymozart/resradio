@@ -165,7 +165,7 @@ const Player = () => {
                 title: next.title,
                 hostedby: next.hostedby.title,
                 // TODO: remove anything but UID (depends on short info update)
-                uid: next._meta.uid
+                uid: next._meta.uid,
             }
         }
         channel.publish(config.ABLY_ROTATION_CHANNEL, cue);

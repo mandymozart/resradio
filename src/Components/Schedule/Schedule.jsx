@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
-import { DATE_FORMAT } from "../../config";
+import { DATE_FORMAT, FUNCTIONS } from "../../config";
 import palm from "../../images/palm.png";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import SectionLoader from "../SectionLoader";
@@ -92,6 +92,18 @@ const Schedule = ({ from }) => {
             }
         });
 
+    const [history, setHistory] = useState([]);
+
+    const getBroadcastHistory = async () => {
+        const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
+        const history = await res.json()
+        console.log(history);
+        setHistory(history)
+    }
+
+    useEffect(() => {
+        getBroadcastHistory()
+    }, [])
 
 
     if (loading) return <SectionLoader />;

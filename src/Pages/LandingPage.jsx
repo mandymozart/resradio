@@ -6,6 +6,7 @@ import Announcement from "../Components/Bulletin/Announcement";
 import Footer from "../Components/Footer";
 import Schedule from "../Components/Schedule/Schedule";
 import RecentShowList from "../Components/Shows/RecentShowList";
+import { BREAKPOINT_MD } from "../config";
 import Apply from "../images/Apply";
 
 const BulletinSection = styled.section`
@@ -15,6 +16,9 @@ const BulletinSection = styled.section`
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
   border-bottom: 2px solid var(--color);
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    grid-template-columns: 1fr;
+  }
   svg {
     max-width: 100%;
   }

@@ -122,7 +122,7 @@ const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) =>
     setUid(message.data.current.uid)
     setNextBroadcastPreview(message.data.next)
   });
-  const { currentBroadcast, nextBroadcast } = useBroadcastStore();
+  const { history, currentBroadcast, nextBroadcast } = useBroadcastStore();
   const [getData, { loading, error, data }] = useLazyQuery(getBroadcastQuery,
     {
       variables: {
@@ -147,6 +147,11 @@ const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) =>
   useEffect(() => {
     setBroadcast(currentBroadcast)
   }, [currentBroadcast, nextBroadcast])
+
+
+  useEffect(() => {
+    setUid(history?.prismicId);
+  }, [history])
 
   const goToLink = (to) => {
     navigate(to)
@@ -183,9 +188,13 @@ const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) =>
       </div>
       <footer>
         <div>
-          <span className="next">&gt;NEXT</span> {loading ? <InlineLoader /> : (<>
-            {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
-          </>)}
+          {nextBroadcastPreview && (
+            <>
+              <span className="next">&gt;NEXT</span> {loading ? <InlineLoader /> : (<>
+                {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
+              </>)}
+            </>
+          )}
         </div>
         <div>
           <a onClick={() => goToLink("/schedule")}><span className="show-more-prefix">Show </span>Schedule</a>

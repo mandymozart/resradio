@@ -5,11 +5,10 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
-import React from "react";
+import React, { useEffect } from "react";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import config from "../../config";
-import { getTimeRangeString } from "../../utils";
+import config, { FUNCTIONS } from "../../config";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
@@ -30,17 +29,37 @@ ${BroadcastTagsFragment}
 `
 
 const StreamShortInfo = () => {
+  const after = dayjs();
+  const before = dayjs()
   const { loading, error, data } = useQuery(
     getBroadcastsInRangeQuery,
     {
       variables:
       {
-        endAfter: dayjs().format(),
-        beginBefore: dayjs().format(),
+        endAfter: after.format(),
+        beginBefore: before.format(),
       },
       pollInterval: 60 * 1000
     });
-  const { currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
+  const { history, setHistory, currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
+
+  const getBroadcastHistory = async () => {
+    if (dayjs(rotationInfo?.data?.current.end).isAfter(after) && dayjs(rotationInfo?.data?.current.begin).isBefore(before)) {
+      console.log("got info from rotation", rotationInfo?.data?.current,)
+    } else {
+      console.log("getting info from history")
+      // Get info from History
+      const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
+      const history = await res.json()
+      const historyCurrent = history.filter(broadcast => dayjs(broadcast.end).isAfter(after) && dayjs(broadcast.begin).isBefore(before))[0]
+      console.log(historyCurrent.prismicId, rotationInfo?.data?.current.uid);
+      setHistory(historyCurrent)
+    }
+  }
+
+  useEffect(() => {
+    getBroadcastHistory()
+  }, [rotationInfo])
 
   // ably websocket
   useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
@@ -56,16 +75,15 @@ const StreamShortInfo = () => {
     <Container>
       {currentBroadcast ? (
         <>
-          {currentBroadcast.hostedby._meta.uid} &mdash; {currentBroadcast.title}
+          {currentBroadcast.hostedby._meta.uid}&mdash;{currentBroadcast.title}
         </>
       ) : (
         <>
           {rotationInfo ? (
             <>
-              {getTimeRangeString(rotationInfo.data.current.begin, rotationInfo.data.current.end)}{" "}
               {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
             </>
-          ) : (<>No station info available</>)}
+          ) : (<>{history?.title}</>)}
         </>
       )}
     </Container>

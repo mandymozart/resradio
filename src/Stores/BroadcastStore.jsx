@@ -4,6 +4,8 @@ import create from "zustand";
 
 const useBroadcastStore = create(
   produce((set, get) => ({
+    canPlay: false,
+    setCanPlay: (value) => set(() => ({ canPlay: value })),
     isPlaying: false,
     setIsPlaying: (value) => set(() => ({ isPlaying: value })),
     rotationInfo: null,
@@ -12,11 +14,13 @@ const useBroadcastStore = create(
       if (get().currentBroadcast !== undefined) return true;
       if (get().nextBroadcast !== undefined) return true;
       if (get().rotationInfo !== null) return true;
+      if (get().canPlay) return true;
       return false;
     },
     isLive: () => {
       if (get().currentBroadcast !== undefined) return true;
       if (get().nextBroadcast !== undefined) return true;
+      if (get().canPlay) return true;
       return false;
     },
     isLoading: false,
@@ -38,6 +42,11 @@ const useBroadcastStore = create(
     setNextBroadcast: (broadcast) =>
       set(() => ({
         nextBroadcast: broadcast,
+      })),
+    history: undefined,
+    setHistory: (history) =>
+      set(() => ({
+        history: history,
       })),
   }))
 );

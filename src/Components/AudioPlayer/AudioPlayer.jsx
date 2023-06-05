@@ -2,11 +2,12 @@ import styled from "@emotion/styled";
 import React, { useEffect, useRef } from "react";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import config from "../../config";
+import config, { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
+import InlineLoader from "../InlineLoader";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
@@ -20,6 +21,9 @@ button {
   align-items: center;
   grid-template-columns: 1fr 3fr;
   line-height: 3rem;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    display: flex;
+  }
 }
 
 .status {
@@ -30,6 +34,20 @@ button {
   box-sizing: border-box;
   text-transform: uppercase;
   white-space: nowrap;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    background-color: var(--background);
+    color: var(--second);
+    border-right: 0;
+    padding-right: 0;
+    .appendix {
+      display: none;
+    }
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    .now {
+      display: none;
+    }
+  }
 }
 .player {
   display: flex;
@@ -45,6 +63,13 @@ export const PlayButton = styled.button`
   align-items: center;
   justify-content: end;
   padding: 0;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    width: 2.5rem;
+    justify-content: flex-start;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    width: 2rem;
+  }
   svg {
     width: 2rem;
     height: 1.5rem;
@@ -55,7 +80,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
 
   const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume } =
     useAudioPlayerStore();
-  const { isPlaying: broadcastIsPlaying, setIsPlaying: setBroadcastIsPlaying, isStreaming } = useBroadcastStore()
+  const { canPlay, setCanPlay, setIsPlaying: setBroadcastIsPlaying, isStreaming, isLive } = useBroadcastStore()
 
   let audioPlayer = useRef();
 
@@ -71,11 +96,18 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
   }
 
   const handleEnded = () => {
-    // TODO: set next track in playlist
     console.warn('Audio Stream ended.')
+    setCanPlay(false);
+  }
+
+  const handleError = (e) => {
+    console.warn('No Stream available', e.target.error)
+    setIsLoading(false)
+    setCanPlay(false);
   }
 
   const onCanPlay = () => {
+    setCanPlay(true);
     setIsLoading(false);
     audioPlayer.current.volume = volume;
   };
@@ -99,33 +131,57 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
           volume={volume}
           onCanPlay={onCanPlay}
           onEnded={handleEnded}
+          onError={handleError}
           src={config.STREAM_URL}
         />
         <div className="status">
           {isStreaming() ? (
-            <span className="now">Now Playing</span>
+            <span>
+              <span className="now">Now</span>
+              <span className="appendix"> Playing</span>
+            </span>
           ) : (
-            <span className="now"><Dot /> Live now</span>
+            <>
+              {isLive() ? (
+                <span>
+                  <Dot />
+                  <span className="appendix"> Live</span>
+                  <span className="now"> now</span>
+                </span>
+              ) : (
+                <>
+                  {isLoading ? (
+                    <InlineLoader />
+                  ) : (
+                    <span>
+                      Off
+                      <span className="appendix">
+                        line!
+                      </span>
+                    </span>
+                  )}
+                </>
+              )}
+            </>
           )}
         </div>
-        <div className="player">
-
-          {isPlaying ? (
-            <PlayButton onClick={() => pause()}>
-              <PauseBig />
-            </PlayButton>
-          ) : (
-            <PlayButton onClick={() => play()}>
-              <PlayBig />
-            </PlayButton>
-          )}
-          <StreamShortInfo />
-          {isStreaming() && (
+        {isStreaming() && (<>
+          <div className="player">
+            {isPlaying ? (
+              <PlayButton onClick={() => pause()}>
+                <PauseBig />
+              </PlayButton>
+            ) : (
+              <PlayButton onClick={() => play()}>
+                <PlayBig />
+              </PlayButton>
+            )}
+            <StreamShortInfo />
             <button onClick={() => setIsCollapsed(!isCollapsed)}>
               <Arrow flipped={!isCollapsed} />
             </button>
-          )}
-        </div>
+          </div>
+        </>)}
       </header>
     </Container>
   );

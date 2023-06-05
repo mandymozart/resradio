@@ -9,8 +9,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
-import { ITEMS_PER_PAGE } from "../../config";
 import SectionLoader from "../SectionLoader";
+import SystemMessage from "../SystemMessage";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 import RecentShowItem from "./RecentShowItem";
 dayjs.extend(utc);
@@ -91,12 +91,13 @@ const RecentShowsList = () => {
         sortBy: "begin_ASC",
         endAfter: dayjs().format(),
         beginBefore: dayjs().add(7, 'days').format(),
-        itemsPerPage: ITEMS_PER_PAGE
+        itemsPerPage: 100
       }
     })
 
+  // TODO: .filter(broadcast=>broadcast.node.audio !== null) !Limit output to 8
   if (loading) return <SectionLoader />;
-  if (error) return <>Error : {error.message}</>;
+  if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
   const broadcasts = data.allBroadcastss.edges
   return (
     <Container>
