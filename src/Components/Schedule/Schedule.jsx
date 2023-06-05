@@ -8,6 +8,7 @@ import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } f
 import { DATE_FORMAT, FUNCTIONS } from "../../config";
 import palm from "../../images/palm.png";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
+import ScheduleHistoricalBroadcast from "../Broadcasts/ScheduleHistoricalBroadcast";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(utc);
 
@@ -41,6 +42,36 @@ const populateDays = (days, broadcasts) => {
 
         if (days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)))
             days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
+        else console.error("date string mismatch")
+
+    })
+    return days
+}
+
+const mapHistoricalBroadcastsToDays = (broadcasts) => {
+    let days = [];
+    let day = "";
+    let count = 0;
+    broadcasts.forEach(function (b) {
+        const d = dayjs(b.begin).format('dddd, ' + DATE_FORMAT);
+        console.log(d, day)
+        count++;
+        if (day !== d && count === 1) {
+            day = d;
+            days.push({ date: d, broadcasts: [] })
+        } else {
+            count = 0;
+        }
+    })
+    return populateHistoricalDays(days, broadcasts);
+}
+
+const populateHistoricalDays = (days, broadcasts) => {
+    broadcasts.forEach(function (b) {
+        console.log(dayjs(b.begin).format('dddd, ' + DATE_FORMAT), days, broadcasts)
+
+        if (days.find(d => d.date === dayjs(b.begin).format('dddd, ' + DATE_FORMAT)))
+            days.find(d => d.date === dayjs(b.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
         else console.error("date string mismatch")
 
     })
@@ -97,7 +128,7 @@ const Schedule = ({ from }) => {
     const getBroadcastHistory = async () => {
         const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
         const history = await res.json()
-        console.log(history);
+        console.log(history, "hisotry");
         setHistory(history)
     }
 
@@ -123,6 +154,12 @@ const Schedule = ({ from }) => {
                     return (<div className="list-day">
                         <h4>{day.date}</h4>
                         {day.broadcasts?.map(broadcast => <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />)}
+                    </div>)
+                })}
+                {mapHistoricalBroadcastsToDays(history).map((day) => {
+                    return (<div className="list-day">
+                        <h4>{day.date}</h4>
+                        {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId} broadcast={broadcast} />)}
                     </div>)
                 })}
             </div>
