@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
+import { useNetlifyIdentity } from "react-netlify-identity";
 import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
 import { DATE_FORMAT, FUNCTIONS } from "../../config";
 import palm from "../../images/palm.png";
@@ -110,7 +111,7 @@ const Container = styled.section`
     `;
 
 const Schedule = ({ from }) => {
-
+    const { isLoggedIn } = useNetlifyIdentity()
     const start = from ? dayjs(from) : dayjs().format('YYYY-MM-DD');
     const after = dayjs(start)
     const { loading, error, data } = useQuery(
@@ -156,12 +157,16 @@ const Schedule = ({ from }) => {
                         {day.broadcasts?.map(broadcast => <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />)}
                     </div>)
                 })}
-                {mapHistoricalBroadcastsToDays(history).map((day) => {
-                    return (<div className="list-day">
-                        <h4>{day.date}</h4>
-                        {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId} broadcast={broadcast} />)}
-                    </div>)
-                })}
+                {isLoggedIn && (
+                    <>
+                        {mapHistoricalBroadcastsToDays(history).map((day) => {
+                            return (<div className="list-day">
+                                <h4>{day.date}</h4>
+                                {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId} broadcast={broadcast} />)}
+                            </div>)
+                        })}
+                    </>
+                )}
             </div>
         </Container >
     );
