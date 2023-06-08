@@ -14,6 +14,7 @@ import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import Player from "./Components/Studio/Player/Player";
 import Playlists from "./Components/Studio/Playlists/Playlists";
+import Remote from "./Components/Studio/Remote/Remote";
 import BroadcastPage from "./Pages/Broadcast";
 import Explore from "./Pages/Explore";
 import LandingPage from "./Pages/LandingPage";
@@ -117,6 +118,11 @@ root.render(
                   path="playlists"
                   element={
                     <Playlists />
+                  } />
+                <Route
+                  path="remote"
+                  element={
+                    <Remote />
                   } />
                 <Route
                   path="playlists/:uid"

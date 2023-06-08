@@ -4,9 +4,11 @@ import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useRef, useState } from "react";
+import { useNetlifyIdentity } from "react-netlify-identity";
 import { useParams } from 'react-router-dom';
 import { getQueryString } from "../../../utils";
 import Listeners from "../Listeners/Listeners";
+import { RemoteMethods } from "../Remote/Remote";
 import { BroadcastFragment, BroadcastTagsFragment } from './../../../Queries/broadcasts';
 import { GetPlaylistQuery, PlaylistFragment, PlaylistTagsFragement } from './../../../Queries/playlists';
 import config, { FUNCTIONS } from "./../../../config";
@@ -80,16 +82,65 @@ const Player = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState();
     const [currentTime, setCurrentTime] = useState();
+    const [isBlocked, setIsBlocked] = useState(true);
 
     const [broadcasts, setBroadcasts] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
+    const [remote, setRemote] = useState(undefined);
+    const [token, setToken] = useState();
     const intervalRef = useRef();
 
-    // ably websocket
+    // rotation socket
     const [rotationInfo, setRotationInfo] = useState();
-    const [channel] = useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
+    const [rotationChannel] = useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
         setRotationInfo(message)
     });
+
+    // remote socket
+    const { user } = useNetlifyIdentity();
+
+    const [remoteChannel] = useChannel(config.ABLY_REMOTE_CHANNEL, (message) => {
+        console.log("remote method received", message.data, remote)
+        // if (isBlocked) {
+
+        //     handleBlocked();
+        //     return
+        // }
+        if (message.data.method === RemoteMethods.outgoing.CONNECT) {
+            handleConnect(message);
+            return
+        }
+        // if (!remote?.data?.token === message.data.token) {
+        //     handleUnauthorized()
+        //     return
+        // }
+        if (message.data.method === RemoteMethods.outgoing.CLOSE) {
+            handleClose()
+            return
+        }
+        if (message.data.method === RemoteMethods.outgoing.PLAY) {
+            handlePlay()
+            return
+        }
+        if (message.data.method === RemoteMethods.outgoing.PAUSE) {
+            handlePause()
+            return
+        }
+        if (message.data.method === RemoteMethods.outgoing.NEXT) {
+            console.log(current)
+            handleNext()
+            return
+        }
+        if (message.data.method === RemoteMethods.outgoing.PREVIOUS) {
+            handlePrevious()
+            return
+        }
+        if (!remote) {
+            return
+        }
+        return
+    });
+
 
     const currentPercentage = audioRef.current
         ? `${(trackProgress / audioRef.current) * 100}%`
@@ -143,32 +194,51 @@ const Player = () => {
         request.send()
     }
 
-    const getIndex = (broadcast) => {
+    const getPreviousIndex = (broadcast) => {
         const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
         console.log(index, "get index")
-        return index
+        if (index - 1 > -1) {
+            console.log("bigger null", index - 1)
+            return index - 1
+        }
+        else {
+            console.log(broadcasts.length - 1)
+            return broadcasts.length - 1
+        }
+    }
+    const getNextIndex = (broadcast) => {
+        const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
+        console.log('get next index', broadcast, broadcasts.length)
+        if (index + 1 < broadcasts.length) {
+            console.log(index + 1)
+            return index + 1
+        }
+        else {
+            console.log(0)
+            return 0
+        }
     }
 
     // send notification to RadioApp/ShortInfo
-    const sendRotationMessage = async () => {
+    const sendRotationMessage = async (broadcast, nextBroadcast) => {
         const cue = {
             current:
             {
                 begin: dayjs().toISOString(),
                 end: dayjs().add(parseInt(duration), 'seconds').toISOString(),
-                title: current.title,
-                hostedby: current.hostedby.title,
+                title: broadcast.title,
+                hostedby: broadcast.hostedby.title,
                 // TODO: remove anything but UID (depends on shortinfo)
-                uid: current._meta.uid
+                uid: broadcast._meta.uid
             }, next:
             {
-                title: next.title,
-                hostedby: next.hostedby.title,
+                title: nextBroadcast.title,
+                hostedby: nextBroadcast.hostedby.title,
                 // TODO: remove anything but UID (depends on short info update)
-                uid: next._meta.uid,
+                uid: nextBroadcast._meta.uid,
             }
         }
-        channel.publish(config.ABLY_ROTATION_CHANNEL, cue);
+        rotationChannel.publish(config.ABLY_ROTATION_CHANNEL, cue);
 
         const queryString = getQueryString(cue.current);
         await fetch(`${FUNCTIONS}/create-playlist-entry?${queryString}`).then((r) => {
@@ -183,23 +253,28 @@ const Player = () => {
      * @param {number} index *optional
      */
     const updateBroadcast = (index) => {
-        console.log(index, "update")
-        const broadcast = index !== undefined ? broadcasts[index].broadcast : getNextBroadcast(getIndex(current))
-        console.log("setting current", broadcast, index)
+        console.log(index, "update should be different ...")
+        const i = getNextIndex(current);
+        const broadcast = index !== undefined ? broadcasts[index].broadcast : broadcasts[i].broadcast
+        console.log("... than this", broadcast)
+        const nI = getNextIndex(broadcast);
+        const nextBroadcast = broadcasts[nI].broadcast;
+        console.log("setting current", broadcast, nextBroadcast, index, i, nI)
         if (broadcast) {
             setSource(broadcast.audio.url);
             getLengthOfMp3(broadcast.audio.url);
             setCurrent(broadcast);
-            setIsPlaying(true);
-            setNext(getNextBroadcast(getIndex(broadcast)))
+            isPlaying ? setIsPlaying(true) : setIsPlaying(false);
+            setNext(nextBroadcast)
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.load();
-                audioRef.current.play();
+                if (isPlaying)
+                    audioRef.current.play();
                 startTimer();
                 setTrackProgress(audioRef.current.currentTime);
             }
-            sendRotationMessage(broadcast)
+            sendRotationMessage(broadcast, nextBroadcast)
         }
     }
 
@@ -213,7 +288,7 @@ const Player = () => {
                 audioRef.current.load();
             }
             setCurrent(broadcast)
-            setNext(getNextBroadcast(getIndex(broadcast)))
+            setNext(broadcasts[getNextIndex(broadcast)].broadcast);
         }
     }
 
@@ -237,12 +312,42 @@ const Player = () => {
 
     const getNextBroadcast = (index) => {
         console.log(index, index + 1, broadcasts.length)
-        if (index + 1 < broadcasts.length) {
+        if (index + 1 <= broadcasts.length) {
             return broadcasts[index + 1].broadcast
         }
         else {
             return broadcasts[0].broadcast
         }
+    }
+
+    const handleUnauthorized = () => {
+        const data = {
+            status: "unauthorized",
+            method: RemoteMethods.incoming.AUTHORIZE
+        }
+        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+    }
+
+    const handleConnect = (message) => {
+        console.log(message, message.connectionId)
+        setRemote(message.connectionId)
+        const data = {
+            token: "approved",
+            status: "ok",
+            method: RemoteMethods.incoming.AUTHORIZE,
+            user: user
+        }
+        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+    }
+
+    const handleBlocked = () => {
+        setIsBlocked(true);
+        // const data = {
+        //     status: "blocked",
+        //     method: RemoteMethods.incoming.BLOCKED,
+        //     user: user
+        // }
+        // remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
     }
 
     const handleEnded = () => {
@@ -253,13 +358,26 @@ const Player = () => {
     const handlePlay = () => {
         audioRef.current.play();
         setIsPlaying(true);
-        sendRotationMessage();
+        // sendRotationMessage(current);
         startTimer();
     }
 
     const handlePause = () => {
         audioRef.current.pause();
         setIsPlaying(false);
+    }
+    const handleNext = () => {
+        updateBroadcast()
+    }
+    const handlePrevious = () => {
+        updateBroadcast(getPreviousIndex(current))
+    }
+    const handleClose = () => {
+        setRemote(undefined)
+        const data = {
+            method: RemoteMethods.incoming.CONNECTION_CLOSED,
+        }
+        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
     }
 
     const onCanPlay = () => {
@@ -279,12 +397,20 @@ const Player = () => {
     const playlist = data.allPlaylists.edges[0].node;
     return (
         <Container>
-            <h4>{playlist.title} ({broadcasts.length} Broadcasts) {!isPlaying && <span>Paused</span>}</h4>
+            <h4>{playlist.title} ({broadcasts.length} Broadcasts)
+                {!isPlaying && <span>Paused</span>}
+                {remote && (<>
+                    <span style={{ color: "var(--second)" }}>Remote</span>
+                </>)}
+                {isBlocked ? <button onClick={() => { setIsBlocked(false); }}>Unblock Remote</button> : <button onClick={() => { handleClose(); handleBlocked(); }}>Block</button>}
+            </h4>
             <div className='controls'>
                 <div>
+                    <button onClick={() => handlePrevious()}>&lt;</button>
                     {isPlaying ?
                         <button onClick={() => handlePause()}><PauseBig /></button> :
                         <button onClick={() => handlePlay()}><PlayBig /></button>}
+                    <button onClick={() => handleNext()}>&gt;</button>
                     <audio ref={audioRef}
                         onTimeUpdate={onPlaying}
                         onCanPlay={onCanPlay}
