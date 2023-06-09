@@ -62,6 +62,9 @@ img {
   &.isExpanded {
     opacity: 1;
     transform: translateY(0);
+    .top {
+      padding: 0;
+    }
   }
 
   .top {

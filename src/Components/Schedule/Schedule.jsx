@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import clsx from "clsx";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import gql from "graphql-tag";
@@ -83,6 +84,16 @@ const Container = styled.section`
     border-radius: 1.5rem;
     background-color: var(--color);
     color: var(--background);
+    &.inverted {
+        background-color: var(--background);
+        color: var(--color);
+        a {
+            color: var(--color);
+            &:hover {
+                color: var(--second);
+            }
+        }
+    }
     padding: 2rem;
     grid-row: span 2;
     /* border-bottom: 2px solid var(--color); */
@@ -110,7 +121,7 @@ const Container = styled.section`
     }
     `;
 
-const Schedule = ({ from }) => {
+const Schedule = ({ from, inverted }) => {
     const { isLoggedIn } = useNetlifyIdentity()
     const start = from ? dayjs(from) : dayjs().format('YYYY-MM-DD');
     const after = dayjs(start)
@@ -142,7 +153,7 @@ const Schedule = ({ from }) => {
     if (error) return <>Error : {error.message}</>;
     const days = mapBroadcastsToDays(data.allBroadcastss.edges)
     return (
-        <Container>
+        <Container className={clsx({ inverted: inverted })}>
 
             <h3>Schedule</h3>
             <p>our weekly updated schedule (UTC+2)</p>
@@ -159,10 +170,10 @@ const Schedule = ({ from }) => {
                 })}
                 {isLoggedIn && (
                     <>
-                        {mapHistoricalBroadcastsToDays(history).map((day) => {
+                        {mapHistoricalBroadcastsToDays(history).map((index, day) => {
                             return (<div className="list-day">
                                 <h4>{day.date}</h4>
-                                {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId} broadcast={broadcast} />)}
+                                {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId + index} broadcast={broadcast} />)}
                             </div>)
                         })}
                     </>

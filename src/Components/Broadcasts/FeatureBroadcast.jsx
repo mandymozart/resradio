@@ -61,7 +61,7 @@ p {
     cursor: pointer;
     img {
       /* filter: blur(10px); */
-      transform: scale(1.06);
+      transform: scale(1.01);
     }
     .image .overlay {
       opacity: 1;

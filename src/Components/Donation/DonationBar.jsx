@@ -1,7 +1,9 @@
 import styled from "@emotion/styled"
 import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import FadeIn from "../../Animations/FadeIn"
 import useLocalStorage from "../../Hooks/useLocalStorage"
+import { BREAKPOINT_MD } from "../../config"
 import ClearSmall from "../../images/ClearSmall"
 
 const Container = styled.section`
@@ -13,42 +15,63 @@ font-family: var(--font-light);
 display: flex;
 gap:2rem;
 justify-content: space-between;
+@media(max-width: ${BREAKPOINT_MD}px) { 
+   flex-direction: column;
+}
+.controls {
+    white-space: nowrap;
+}
 button {
-    border: 1px solid var(--background);
+
     line-height: 2rem;
     word-break: keep-all;
+    white-space: nowrap;
     padding: 0 1rem;
     cursor: pointer;
+    box-sizing: border-box;
+    text-transform: uppercase;
     &.primary {
-        background-color: var(--background);
-        color: var(--second);
-    }
-    &.secondary {
         background-color: var(--second);
         color: var(--background);
+        border: 1px solid var(--second);
+        margin-right: 1rem;
+    }
+    &.secondary {
+        background-color: transparent;
+        color: var(--second);
+        border-color: var(--second);
+        border: 1px solid var(--second);
     }
 }
 `
 
 const DonationBar = () => {
     const [visible, setVisible] = useState(true);
+    const navigate = useNavigate();
     const [hidden, setHidden] = useLocalStorage("donationBarHidden", "false");
+
+    const goToLink = () => {
+        setVisible(false)
+        navigate("/page/donate")
+    }
     useEffect(() => {
         if (!visible && !hidden)
             setHidden("true");
     }, [hidden, setHidden])
     if (!visible || hidden === "true") return <></>
     return (
-        <Container>
-            <div>
-                DONATE if you wanna support our community web radio and help us keep the airwaves alive!
-            </div>
-            <Link to="/page/donate">
-                <button className="primary">Click to donate</button>
-            </Link>
-            <button className="secondary" onClick={() => setHidden("true")}>Okay, next time! <ClearSmall /></button>
-
-        </Container>
+        <FadeIn>
+            <Container>
+                <div className="text">
+                    DONATE if you wanna support our community web radio and help us keep the airwaves alive!
+                </div>
+                <div className="controls">
+                    <button className="primary" onClick={() => goToLink()}>Click to donate</button>
+                    <button className="secondary" onClick={() => { setVisible(false) }}>Okay next time</button>
+                    <button className="clear" onClick={() => setVisible(false)}><ClearSmall /></button>
+                </div>
+            </Container>
+        </FadeIn>
     )
 }
 
