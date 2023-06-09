@@ -12,7 +12,7 @@ import HeroImage from "../Components/TeaserImage/HeroImage";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT, FUNCTIONS } from "../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
 import Scheduled from "../images/Schedule";
@@ -25,7 +25,8 @@ const Header = styled.header`
   text-align: center;
 `;
 const Meta = styled.div`
-  text-align: center;
+  text-align: right;
+  padding-top: 2rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     &&& > .rtl {
       text-align: left;
@@ -47,11 +48,11 @@ const Description = styled.section`
 `;
 
 const BroadcastPagePlayer = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: 10fr 2fr;
   @media (max-width: ${BREAKPOINT_XS}px) {
       grid-template-columns: 1fr;
-  }
+  } */
   align-items: center; 
   gap: 2rem;
   min-height: 6rem;
@@ -71,22 +72,28 @@ const BroadcastPagePlayer = styled.div`
     color: var(--color);
     cursor: pointer;
     margin: 0;
+    align-items: top;
+    svg {
+      width: 1rem;
+    }
     &:hover{
       color: var(--second);
     }
   }
   .left {
     display: flex;
-    align-items: center; 
+    align-items: top; 
+    justify-content: space-between;
   }
   .info {
+    flex: 1;
+    h3 {
+      margin-top: 2rem;
+    }
   }
   .date {
-    text-align: right;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-      text-align: left;
-      padding: 0 2rem;
-    }
+    font-size: 1rem;
+    margin-top: 1rem;
   }
 `
 
@@ -142,17 +149,20 @@ const BroadcastPage = () => {
             </button>
           )}
           <div className="info">
-            <Link to={"../shows/" + broadcast.hostedby._meta.uid}>
-              <h3>{broadcast.hostedby.title}</h3>
-            </Link>
-            <div>{broadcast.title}{isLoggedIn && <>
+
+            <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}{isLoggedIn && <>
               {playbacks ? <> ({playbacks})</> : <><button onClick={() => getPlaybacks()}>?</button></>}
-            </>}</div>
+            </>}</h3>
+
+            <div></div>
+            <div className="date">
+              {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
+              {getTimeRangeString(broadcast.begin, broadcast.end)}
+            </div>
           </div>
-        </div>
-        <div className="date">
-          {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
-          {getTimeRangeString(broadcast.begin, broadcast.end)}
+          <Meta>
+            <Tags tags={broadcast?._meta.tags} rtl />
+          </Meta>
         </div>
       </BroadcastPagePlayer>
 
@@ -162,9 +172,6 @@ const BroadcastPage = () => {
         ) : (
           <div></div>
         )}
-        <Meta>
-          <Tags tags={broadcast?._meta.tags} rtl />
-        </Meta>
       </Description>
     </Container>
   );

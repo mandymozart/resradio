@@ -135,7 +135,9 @@ code {
 p {
   margin-bottom: 2rem;
 }
-
+img {
+  display: block;
+}
 button {
   font-family: var(--font-medium);
   font-size: 1.25rem;
