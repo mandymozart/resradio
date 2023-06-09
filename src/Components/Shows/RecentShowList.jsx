@@ -99,6 +99,7 @@ const RecentShowsList = () => {
   if (loading) return <SectionLoader />;
   if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
   const broadcasts = data.allBroadcastss.edges
+  if (broadcasts.length === 0) return <></>
   return (
     <Container>
       <h3>Shows</h3>

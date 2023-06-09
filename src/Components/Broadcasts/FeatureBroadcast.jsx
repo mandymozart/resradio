@@ -52,6 +52,7 @@ padding: 0 2rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     text-align: left;
     padding-left: 2rem;
+    margin-top: 1.5rem;
   }
 }
 .image {

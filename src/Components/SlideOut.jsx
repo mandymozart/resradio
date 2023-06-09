@@ -27,6 +27,7 @@ a {
     }
 .date {
   margin-bottom: 1rem;
+  font-size: 1rem;
 }
 h3 {
   margin: 0;
@@ -42,10 +43,22 @@ p {
 .title {
   text-transform: initial;
   margin-bottom: 1rem;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    margin-bottom: 1rem;
+  }
+}
+.description {
+  font-family: var(--font-light);
+  font-size: 1.5rem;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+      display: none;
+    }
 }
 .more {
   font-size: 1rem;
   text-transform: uppercase;
+  margin-bottom: .5rem;
+  display: block;
 }
 img {
   width: 100%;
@@ -62,21 +75,22 @@ img {
   &.isExpanded {
     opacity: 1;
     transform: translateY(0);
-    .top {
+    /* .top {
       padding: 0;
-    }
+    } */
   }
 
   .top {
     border-bottom: 2px solid var(--color);
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr;
     @media (max-width: ${BREAKPOINT_L}px) {
       grid-template-columns: 2fr 2fr;
     }
     @media (max-width: ${BREAKPOINT_MD}px) {
       grid-template-columns: 2fr;
       padding: 0;
+      gap: 1.5rem;
     }
     gap: 1rem;
     padding: 2rem 0;
@@ -89,19 +103,36 @@ img {
 
   }
   footer {
-    display: flex;
-    gap: 1rem;
+    display: grid;
+    gap: 0;
     line-height: 3rem;
     justify-content: space-between;
+    grid-template-columns: 8.5rem auto 1fr;
     border-bottom: 2px solid var(--color);
-    padding: 0 2rem;
+
     div:first-of-type {
       white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .next {
       font-family: var(--font-medium);
+      background-color: var(--second);
+      border-right: 2px solid var(--color);
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        display: none;
+        border:0;
+        background-color: var(--background);
+        color: var(--color);
+      }
+      color: var(--background);
+      padding: 0 2rem 0 2rem;
+    }
+    .status {
+      padding-left: 2rem ;
+    }
+    .schedule {
+      text-align: center;
     }
     a {
       font-size: 1.25rem;
@@ -178,7 +209,7 @@ const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) =>
               <h3 className="show-title">{broadcast.hostedby.title}</h3>
               <div className="title">{broadcast.title}</div>
             </a>
-            <p>
+            <p className="description">
               {broadcast.description?.substring(1, 120)} ...
             </p>
             <a onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
@@ -190,18 +221,17 @@ const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) =>
 
       </div>
       <footer>
-        <div>
+        <span className="next">NEXT</span>
+        <div className="status">
           {nextBroadcastPreview && (
             <>
-              <span className="next">&gt;NEXT</span> {loading ? <InlineLoader /> : (<>
+              {loading ? <InlineLoader /> : (<>
                 {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
               </>)}
             </>
           )}
         </div>
-        <div>
-          <a onClick={() => goToLink("/schedule")}><span className="show-more-prefix">Show </span>Schedule</a>
-        </div>
+        <a onClick={() => goToLink("/schedule")} className="schedule"><span className="show-more-prefix">Show </span>Schedule</a>
       </footer>
     </div>
   </Container>

@@ -19,7 +19,7 @@ button {
 > header {
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 8rem auto;
   line-height: 3rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     display: flex;
@@ -27,16 +27,24 @@ button {
 }
 
 .status {
-  background-color: var(--second);
-  padding: 0 2rem;
-  color: var(--background);
-  border-right: 2px solid var(--color);
+  padding: 0 1rem;
+  width:8.5rem;
+  color: var(--second);
   box-sizing: border-box;
   text-transform: uppercase;
   white-space: nowrap;
+  border-right: 2px solid var(--color);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  span {
+  }
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
   @media (max-width: ${BREAKPOINT_MD}px) {
-    background-color: var(--background);
-    color: var(--second);
     border-right: 0;
     padding-right: 0;
     .appendix {
@@ -137,16 +145,17 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
         <div className="status">
           {isStreaming() ? (
             <span>
-              <span className="now">Now</span>
-              <span className="appendix"> Playing</span>
+              <Dot />
+              {/* <span className="now">Now</span>
+              <span className="appendix"> Playing</span> */}
             </span>
           ) : (
             <>
               {isLive() ? (
                 <span>
                   <Dot />
-                  <span className="appendix"> Live</span>
-                  <span className="now"> now</span>
+                  {/* <span className="appendix"> Live</span>
+                  <span className="now"> now</span> */}
                 </span>
               ) : (
                 <>

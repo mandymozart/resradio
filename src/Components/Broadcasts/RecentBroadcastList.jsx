@@ -23,7 +23,7 @@ const Container = styled.div`
     margin: 0 !important;
     padding: 3rem 2rem;
     @media (max-width: ${BREAKPOINT_MD}px) {
-      padding: 1rem 1rem 0 1rem;
+      padding: 1rem 1rem 2rem 1rem;
     }
   }
   .swiper-button-next {

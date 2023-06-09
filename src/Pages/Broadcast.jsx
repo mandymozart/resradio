@@ -37,6 +37,7 @@ const Meta = styled.div`
 
 const Description = styled.section`
   font-size: 1.5rem;
+  margin-top: 3rem;
   padding: 2rem 2rem;
   display: grid;
   grid-template-columns: 2fr 2fr;
@@ -48,14 +49,7 @@ const Description = styled.section`
 `;
 
 const BroadcastPagePlayer = styled.div`
-  /* display: grid;
-  grid-template-columns: 10fr 2fr;
-  @media (max-width: ${BREAKPOINT_XS}px) {
-      grid-template-columns: 1fr;
-  } */
-  align-items: center; 
-  gap: 2rem;
-  min-height: 6rem;
+
   padding: 0 2rem 0 0;
   h3 {
     font-size: 1.5rem;
@@ -84,6 +78,10 @@ const BroadcastPagePlayer = styled.div`
     display: flex;
     align-items: top; 
     justify-content: space-between;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+    display: block;
+    padding: 0 2rem;
+  }
   }
   .info {
     flex: 1;
