@@ -105,8 +105,12 @@ const Container = styled.section`
         margin-top: 4rem;
     
     }
-    p {
-        display: flex;margin: 0;
+    .notice {
+        font-size: 1.5rem;
+        margin-top: 5rem;
+        img {
+            margin-top: 4rem;
+        }
     }
     a {
         color: var(--background);
@@ -156,9 +160,9 @@ const Schedule = ({ from, inverted }) => {
         <Container className={clsx({ inverted: inverted })}>
 
             <h3>Schedule</h3>
-            <p>our weekly updated schedule (UTC+2)</p>
-            {days.length < 1 && (<p>
-                No upcoming shows scheduled. It's possible, that we might be on vacation.
+            <div>our weekly updated schedule (UTC+2)</div>
+            {days.length < 1 && (<p className="notice">
+                No upcoming shows scheduled. It's possible, <br />that we might be on vacation.<br />
                 <img src={palm} alt="vacation" />
             </p>)}
             <div className="list">

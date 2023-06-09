@@ -73,9 +73,9 @@ const SchedulePage = () => {
         <Container>
             <Schedule from={from} inverted />
             <div className="controls">
-                <Button large onClick={() => gotoPreviousWeek()}>&lt;&lt; <span>{previous.format(DATE_FORMAT)}</span></Button>
+                <Button large onClick={() => gotoPreviousWeek()}>&laquo; <span>{previous.format(DATE_FORMAT)}</span></Button>
                 <div>{current.format("DD.MM")}&mdash;{current.add(6, "days").format("DD.MM")} <span>{current.add(6, "days").format("YYYY")}</span></div>
-                <Button large onClick={() => gotoNextWeek()}><span>{next.format(DATE_FORMAT)}</span> &gt;&gt;</Button>
+                <Button large onClick={() => gotoNextWeek()}><span>{next.format(DATE_FORMAT)}{" "}</span>&raquo;</Button>
             </div>
         </Container>
     )
