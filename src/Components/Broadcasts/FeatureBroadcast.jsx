@@ -12,17 +12,18 @@ import HeroImage from "../TeaserImage/HeroImage";
 
 const Container = styled.div`
 border-bottom: 2px solid var(--color);
+padding-bottom: 1rem;
 .image {
   border-bottom: 2px solid var(--color);
 }
 h4 {
-  margin: 1rem 0;
-  padding: 0 2rem;
+  margin: 2rem 0 1rem 0;
+padding: 0 2rem;
   a{
     text-transform: initial;
   }
 }
-p {
+.date {
   font-size: 1rem;
   margin: 0;
   text-transform: uppercase;
@@ -32,11 +33,14 @@ p {
   }
 
 }
-.meta {
+.content {
   display: flex;
   @media (max-width: ${BREAKPOINT_MD}px) {
     display: block;
   }
+}
+.meta {
+
   margin-bottom: 1rem;
   gap: 2rem;
 }
@@ -44,6 +48,7 @@ p {
   text-align: right;
   flex: 1;
   padding-right: 2rem;
+  margin-top: 2rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     text-align: left;
     padding-left: 2rem;
@@ -52,6 +57,9 @@ p {
 .image {
     overflow: hidden;
     position: relative;
+    a {
+      display: block;
+    }
     img {
       transition: all .2s ease;
       vertical-align: middle;
@@ -84,16 +92,20 @@ const FeatureBroadcast = () => {
           <HeroImage image={broadcast.image.hero} />
         </div>
       </Link>
-      <h4>
-        <Link to={`/broadcasts/${broadcast._meta.uid}`}>
-          {broadcast.hostedby.title}&mdash;{broadcast.title}
-        </Link>
-      </h4>
-      <div className="meta">
-        <p>
-          {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
-          {getTimeRangeString(broadcast.begin, broadcast.end)}
-        </p>
+      <div className="content">
+
+        <div className="meta">
+
+          <h4>
+            <Link to={`/broadcasts/${broadcast._meta.uid}`}>
+              {broadcast.hostedby.title}&mdash;{broadcast.title}
+            </Link>
+          </h4>
+          <div className="date">
+            {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
+            {getTimeRangeString(broadcast.begin, broadcast.end)}
+          </div>
+        </div>
         <div className="tags">
           <Tags tags={broadcast._meta.tags} />
         </div>
