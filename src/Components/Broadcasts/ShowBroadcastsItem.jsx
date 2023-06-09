@@ -4,9 +4,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
+import { getTimeRangeString } from "../../utils";
+import Tags from "../Tags";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
@@ -28,9 +30,12 @@ h4 {
   margin: 0;
 }
 .date {
-  span {
-    text-transform: uppercase;
-  }
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+.tags {
+  margin-top: 2rem;
 }
 .image {
   overflow: hidden;
@@ -79,6 +84,7 @@ const ShowBroadcastsItem = ({ broadcast }) => {
       else play(broadcast.node._meta.uid)
     }
   }
+  console.log(broadcast)
   return (
     <Container>
       <div className="image" onClick={() => handleClick()}>
@@ -104,10 +110,11 @@ const ShowBroadcastsItem = ({ broadcast }) => {
           </h4>
         </Link>
         <div className="date">
-          <span>
-            {dayjs(broadcast.node.begin).format("ddd")}
-          </span>{" "}
-          {dayjs(broadcast.node.begin).format(DATE_FORMAT)}
+          {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
+          {getTimeRangeString(broadcast.begin, broadcast.end)}
+        </div>
+        <div className="tags">
+          <Tags tags={broadcast?.node._meta.tags} />
         </div>
       </div>
 

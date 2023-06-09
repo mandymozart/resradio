@@ -14,8 +14,9 @@ import ShowBroadcastsItem from "./ShowBroadcastsItem";
 
 const Container = styled.div`
   h3 {
-    padding: 1rem 1rem .5rem 2rem;
+    padding: 2rem;
     margin: 0;
+    font-size: 1.5rem;
   }
   .list {
     

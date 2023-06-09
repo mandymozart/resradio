@@ -20,10 +20,10 @@ const Description = styled.section`
     font-size: 1.5rem;
     font-family: var(--font-bold);
     margin-bottom: 1rem; 
+    margin-top: 2rem;
     text-transform: none;
   }
-  border-bottom: 2px solid var(--color);
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 `;
 
 const Show = () => {
