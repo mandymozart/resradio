@@ -7,7 +7,6 @@ import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import InlineLoader from "../InlineLoader";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
@@ -143,36 +142,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
           src={config.STREAM_URL}
         />
         <div className="status">
-          {isStreaming() ? (
-            <span>
-              <Dot />
-              {/* <span className="now">Now</span>
-              <span className="appendix"> Playing</span> */}
-            </span>
-          ) : (
-            <>
-              {isLive() ? (
-                <span>
-                  <Dot />
-                  {/* <span className="appendix"> Live</span>
-                  <span className="now"> now</span> */}
-                </span>
-              ) : (
-                <>
-                  {isLoading ? (
-                    <InlineLoader />
-                  ) : (
-                    <span>
-                      Off
-                      <span className="appendix">
-                        line!
-                      </span>
-                    </span>
-                  )}
-                </>
-              )}
-            </>
-          )}
+          {isStreaming() || isLive() ? (<Dot />) : ("Off")}
         </div>
         {isStreaming() && (<>
           <div className="player">
