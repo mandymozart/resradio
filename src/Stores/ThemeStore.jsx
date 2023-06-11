@@ -5,13 +5,9 @@ import create from "zustand";
 const useThemeStore = create(
   produce((set) => ({
     nightMode: false,
-    setNightMode: (value) => set((state) => {
-      state.nightMode = value;
-    }),
+    setNightMode: (value) => set({ nightMode: value }),
     searchbarIsVisible: false,
-    setSearchbarIsVisible: (value) => set((state) => {
-      state.searchbarIsVisible = value;
-    })
+    setSearchbarIsVisible: (value) => set({ searchbarIsVisible: value })
   }))
 );
 

@@ -21,9 +21,7 @@ position: absolute;
 top: 3rem;
 padding: 1rem;
 background: var(--background);
-border-bottom: 2px solid var(--color);
-border-left: 2px solid var(--color);
-border-right: 2px solid var(--color);
+border: 2px solid var(--color);
 
 /* Styles for the slider component */
 .slider {

@@ -25,14 +25,15 @@ form {
     align-items: center;
     }
     input {
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-family: var(--font-light);
         width: 100%;
         border: 1px solid var(--color);
     }
     svg {
-        width: 1rem;
-        height: 1rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        transform: translateX(-2.25rem) translateY(0.1rem);
     }
     button.submit {
         margin-right: 3rem;

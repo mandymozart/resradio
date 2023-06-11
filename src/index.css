@@ -58,8 +58,8 @@ body {
   font-family: var(--font-light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.25;
   font-size: 1.5rem;
-  line-height: 1.1875;
   color: var(--color);
   background: var(--background);
 }
@@ -92,31 +92,35 @@ h6 {
   font-size: 1.5rem;
 }
 
-*>h1:first-child {
+h1 {
   margin-top: 0;
   margin-bottom: 4rem;
 }
 
-*>h2:first-child {
+h2 {
   margin-top: 0;
   margin-bottom: 4rem;
 }
 
-*>h3:first-child {
+h3 {
   margin-top: 0;
   margin-bottom: 4rem;
 }
 
-*>h4:first-child {
-  margin-top: 0;
+h4 {
+  margin-bottom: 0rem;
+    margin-top: 6rem;
 }
 
-*>h5:first-child {
-  margin-top: 0;
+h5 {
+  margin-bottom: 0rem;
+    margin-top: 6rem;
 }
 
-*>h6:first-child {
+h6 {
   margin-top: 0;
+  margin-bottom: 0rem;
+    margin-top: 6rem;
 }
 
 b,
