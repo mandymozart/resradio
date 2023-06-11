@@ -12,7 +12,7 @@ import HeroImage from "../Components/TeaserImage/HeroImage";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
+import { BREAKPOINT_MD, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
 import Scheduled from "../images/Schedule";
@@ -27,12 +27,11 @@ const Header = styled.header`
 const Meta = styled.div`
   text-align: right;
   padding-top: 2rem;
+  &&& > .rtl {
   @media (max-width: ${BREAKPOINT_MD}px) {
-    &&& > .rtl {
-      text-align: left;
-    }
+    text-align: left;
   }
-  
+}
 `;
 
 const Description = styled.section`
@@ -58,6 +57,9 @@ const BroadcastPagePlayer = styled.div`
     text-transform: none;
   }
   font-size: 1.5rem;
+  .controls {
+    padding-top: 2rem;
+  }
   button {
     background: none;
     border: none;
@@ -67,6 +69,10 @@ const BroadcastPagePlayer = styled.div`
     cursor: pointer;
     margin: 0;
     align-items: top;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      width: 1.5rem;
+      margin-right: 1rem;
+    }
     svg {
       width: 1rem;
     }
@@ -78,20 +84,25 @@ const BroadcastPagePlayer = styled.div`
     display: flex;
     align-items: top; 
     justify-content: space-between;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-    display: block;
-    padding: 0 2rem;
-  }
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      display: block;
+      padding: 0 2rem;
+    }
   }
   .info {
     flex: 1;
+    display: flex;
     h3 {
       margin-top: 2rem;
     }
   }
+
   .date {
     font-size: 1rem;
     margin-top: 1rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      /* margin-bottom: .5rem; */
+    }
   }
 `
 
@@ -130,36 +141,37 @@ const BroadcastPage = () => {
       </Header>
       <BroadcastPagePlayer>
         <div className="left">
-          {broadcast.audio ? (<>
-            {isPlaying && playing === broadcast._meta.uid ? (
-              <button onClick={() => pause()}>
-                <PauseBig />
-              </button>
-            ) : (
-              <button onClick={() => play(broadcast._meta.uid)}>
-                <PlayBig />
-              </button>
-            )}
-          </>
-          ) : (
-            <button disabled>
-              <Scheduled />
-            </button>
-          )}
           <div className="info">
-
-            <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}{isLoggedIn && <>
-              {playbacks ? <> ({playbacks})</> : <><button onClick={() => getPlaybacks()}>?</button></>}
-            </>}</h3>
-
-            <div></div>
-            <div className="date">
-              {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
-              {getTimeRangeString(broadcast.begin, broadcast.end)}
+            <div className="controls">
+              {broadcast.audio ? (<>
+                {isPlaying && playing === broadcast._meta.uid ? (
+                  <button onClick={() => pause()}>
+                    <PauseBig />
+                  </button>
+                ) : (
+                  <button onClick={() => play(broadcast._meta.uid)}>
+                    <PlayBig />
+                  </button>
+                )}
+              </>
+              ) : (
+                <button disabled>
+                  <Scheduled />
+                </button>
+              )}
+            </div>
+            <div>
+              <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}{isLoggedIn && <>
+                {playbacks ? <> ({playbacks})</> : <><button onClick={() => getPlaybacks()}>?</button></>}
+              </>}</h3>
+              <div className="date">
+                {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
+                {getTimeRangeString(broadcast.begin, broadcast.end)}
+              </div>
             </div>
           </div>
           <Meta>
-            <Tags tags={broadcast?._meta.tags} rtl />
+            <Tags tags={broadcast?._meta.tags} className="tags" rtl />
           </Meta>
         </div>
       </BroadcastPagePlayer>

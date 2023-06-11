@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
 import { getFeatureBroadcastQuery } from "../../Queries/broadcasts";
-import { BREAKPOINT_MD, DATE_FORMAT_LONG } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG } from "../../config";
 import { getTimeRangeString } from "../../utils";
 import SectionLoader from "../SectionLoader";
 import Tags from "../Tags";
@@ -35,8 +35,11 @@ padding: 0 2rem;
 }
 .content {
   display: flex;
-  @media (max-width: ${BREAKPOINT_MD}px) {
+    align-items: top; 
+    justify-content: space-between;
+    @media (max-width: ${BREAKPOINT_XS}px) {
     display: block;
+    padding: 0 2rem;
   }
 }
 .meta {
