@@ -227,8 +227,8 @@ const BroadcastPlayer = () => {
     useEffect(() => {
         console.log("setting current", broadcast)
         if (broadcast) {
-            setSource(broadcast.audio.url);
-            getLengthOfMp3(broadcast.audio.url);
+            setSource(broadcast.audio);
+            getLengthOfMp3(broadcast.audio);
             setIsVisible(true);
         } else {
             console.warn("No broadcast loaded.")

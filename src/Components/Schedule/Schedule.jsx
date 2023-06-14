@@ -3,22 +3,15 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
-import { BroadcastFragment, BroadcastTagsFragment, GetBroadcastsInRangeQuery } from "../../Queries/broadcasts";
+import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { DATE_FORMAT, FUNCTIONS } from "../../config";
 import palm from "../../images/palm.png";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import ScheduleHistoricalBroadcast from "../Broadcasts/ScheduleHistoricalBroadcast";
 import SectionLoader from "../SectionLoader";
 dayjs.extend(utc);
-
-const getBroadcastsInRangeQuery = gql`
-${GetBroadcastsInRangeQuery}
-${BroadcastFragment}
-${BroadcastTagsFragment}
-`
 
 const mapBroadcastsToDays = (broadcasts) => {
     let days = [];
@@ -130,7 +123,7 @@ const Schedule = ({ from, inverted }) => {
     const start = from ? dayjs(from) : dayjs().format('YYYY-MM-DD');
     const after = dayjs(start)
     const { loading, error, data } = useQuery(
-        getBroadcastsInRangeQuery,
+        getBroadcastsQuery,
         {
             variables:
             {

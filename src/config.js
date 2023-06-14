@@ -14,6 +14,8 @@ export const ITEMS_PER_PAGE = 8;
 
 export const IDENTITY_URL = "https://res-stage.netlify.app";
 
+export const CDN_URL = "https://res-audio.viennastruggle.at";
+
 export const FUNCTIONS = "/.netlify/functions";
 
 export const DATE_FORMAT = "D.M.YYYY";

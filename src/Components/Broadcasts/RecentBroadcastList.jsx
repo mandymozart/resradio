@@ -8,8 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
+import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_MD, ITEMS_PER_PAGE } from "../../config";
-import { getBroadcastsInRangeQuery } from "../AudioPlayer/StreamShortInfo";
 import SectionLoader from "../SectionLoader";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 import BroadcastItem from "./BroadcastItem";
@@ -101,7 +101,7 @@ const ExploreButton = () => {
 }
 
 const RecentBroadcastList = () => {
-  const { loading, error, data } = useQuery(getBroadcastsInRangeQuery, {
+  const { loading, error, data } = useQuery(getBroadcastsQuery, {
     variables: {
       endAfter: dayjs().subtract(14, 'days').format(),
       beginBefore: dayjs().subtract(7, 'days').format(),

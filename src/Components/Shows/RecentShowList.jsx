@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
+import { ITEMS_PER_PAGE } from "../../config";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
@@ -89,7 +90,7 @@ const RecentShowsList = () => {
     {
       variables: {
         sortBy: "begin_ASC",
-        endAfter: dayjs().format(),
+        endAfter: dayjs().subtract(3, 'months').format(),
         beginBefore: dayjs().add(7, 'days').format(),
         itemsPerPage: 100
       }
@@ -113,7 +114,7 @@ const RecentShowsList = () => {
           },
         }}
         className="list">
-        {broadcasts.map((broadcast, index) => (<SwiperSlide key={"showSlider" + index}>
+        {broadcasts.slice(0, ITEMS_PER_PAGE).map((broadcast, index) => (<SwiperSlide key={"showSlider" + index}>
           <RecentShowItem broadcast={broadcast} />
         </SwiperSlide>
         ))}

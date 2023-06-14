@@ -1,133 +1,106 @@
 {
-  "Main": {
-    "uid": {
-      "type": "UID",
-      "config": {
-        "label": "slug"
+  "Main" : {
+    "uid" : {
+      "type" : "UID",
+      "config" : {
+        "label" : "slug"
       }
     },
-    "title": {
-      "type": "Text",
-      "config": {
-        "label": "title"
+    "title" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "title"
       }
     },
-    "hostedby": {
-      "type": "Link",
-      "config": {
-        "select": "document",
-        "customtypes": [
-          "shows"
-        ],
-        "label": "hostedBy"
+    "hostedby" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "document",
+        "customtypes" : [ "shows" ],
+        "label" : "hostedBy"
       }
     },
-    "description": {
-      "type": "Text",
-      "config": {
-        "label": "description"
+    "description" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "description"
       }
     },
-    "begin": {
-      "type": "Timestamp",
-      "config": {
-        "label": "begin"
+    "begin" : {
+      "type" : "Timestamp",
+      "config" : {
+        "label" : "begin"
       }
     },
-    "end": {
-      "type": "Timestamp",
-      "config": {
-        "label": "end"
+    "end" : {
+      "type" : "Timestamp",
+      "config" : {
+        "label" : "end"
       }
     },
-    "length": {
-      "type": "Number",
-      "config": {
-        "label": "length",
-        "placeholder": "exact length of show in minutes (defaults are 60, 120), make sure uploads are full minutes"
+    "length" : {
+      "type" : "Number",
+      "config" : {
+        "label" : "length",
+        "placeholder" : "exact length of show in minutes (defaults are 60, 120), make sure uploads are full minutes"
       }
     },
-    "bpm": {
-      "type": "Number",
-      "config": {
-        "label": "BPM"
+    "bpm" : {
+      "type" : "Number",
+      "config" : {
+        "label" : "BPM"
       }
     },
-    "mood": {
-      "type": "Link",
-      "config": {
-        "select": "document",
-        "customtypes": [
-          "mood"
-        ],
-        "label": "mood"
+    "mood" : {
+      "type" : "Link",
+      "config" : {
+        "select" : "document",
+        "customtypes" : [ "mood" ],
+        "label" : "mood"
       }
     },
-    "soundcloud": {
-      "type": "Embed",
-      "config": {
-        "label": "soundcloud",
-        "placeholder": "deprecated, stop using"
+    "soundcloud" : {
+      "type" : "Embed",
+      "config" : {
+        "label" : "soundcloud",
+        "placeholder" : "deprecated, stop using"
       }
     },
-    "keyword": {
-      "type": "Text",
-      "config": {
-        "label": "keyword",
-        "placeholder": "meaningful keyword, we will use AI to generate a random artwork"
+    "keyword" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "keyword",
+        "placeholder" : "meaningful keyword, we will use AI to generate a random artwork"
       }
     },
-    "image": {
-      "type": "Image",
-      "config": {
-        "constraint": {
-          "width": 1080,
-          "height": 1080
+    "audio" : {
+      "type" : "Text",
+      "config" : {
+        "label" : "audio",
+        "placeholder" : "https://res-audio.viennastruggle.at/2023/..."
+      }
+    },
+    "image" : {
+      "type" : "Image",
+      "config" : {
+        "constraint" : {
+          "width" : 1080,
+          "height" : 1080
         },
-        "thumbnails": [
-          {
-            "name": "2x",
-            "width": 2160,
-            "height": 2160
-          },
-          {
-            "name": "thumbnail",
-            "width": 440,
-            "height": 440
-          },
-          {
-            "name": "hero",
-            "width": 1920,
-            "height": 840
-          }
-        ],
-        "label": "image"
-      }
-    },
-    "audio": {
-      "type": "Link",
-      "config": {
-        "select": "media",
-        "label": "audio"
-      }
-    },
-    "tags": {
-      "type": "Group",
-      "config": {
-        "fields": {
-          "tag": {
-            "type": "Link",
-            "config": {
-              "select": "document",
-              "customtypes": [
-                "tag"
-              ],
-              "label": "tag",
-              "placeholder": "genre, mood, tempo"
-            }
-          }
-        },
-        "label": "tags"
+        "thumbnails" : [ {
+          "name" : "2x",
+          "width" : 2160,
+          "height" : 2160
+        }, {
+          "name" : "thumbnail",
+          "width" : 440,
+          "height" : 440
+        }, {
+          "name" : "hero",
+          "width" : 1920,
+          "height" : 840
+        } ],
+        "label" : "image"
       }
     }
   }

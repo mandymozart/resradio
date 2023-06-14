@@ -1,4 +1,7 @@
 import gql from "graphql-tag"
+import { BroadcastFragment } from "./broadcasts"
+import { PageFragment } from "./pages"
+import { ShowFragment } from "./shows"
 
 export const SearchDocumentsQuery = gql`
 query SearchDocumentsQuery($q:String!) {
@@ -19,4 +22,12 @@ query SearchDocumentsQuery($q:String!) {
     }
   }
 }
+`
+
+
+export const searchShowsQuery = gql`
+  ${SearchDocumentsQuery}
+  ${ShowFragment}
+  ${BroadcastFragment}
+  ${PageFragment}
 `

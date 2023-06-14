@@ -1,29 +1,19 @@
 import { useChannel } from "@ably-labs/react-hooks";
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useRef, useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
 import { useParams } from 'react-router-dom';
+import { getPlaylistQuery } from "../../../Queries/playlists";
 import { getQueryString } from "../../../utils";
 import Listeners from "../Listeners/Listeners";
 import { RemoteMethods } from "../Remote/Remote";
-import { BroadcastFragment, BroadcastTagsFragment } from './../../../Queries/broadcasts';
-import { GetPlaylistQuery, PlaylistFragment, PlaylistTagsFragement } from './../../../Queries/playlists';
 import config, { FUNCTIONS } from "./../../../config";
 import PauseBig from "./../../../images/PauseBig";
 import PlayBig from "./../../../images/PlayBig";
 dayjs.extend(localizedFormat);
-
-const playlistQuery = gql`
-${GetPlaylistQuery}
-${PlaylistFragment}
-${BroadcastFragment}
-${BroadcastTagsFragment}
-${PlaylistTagsFragement}
-`
-
 
 const Container = styled.div`
 h4 { padding: 1rem 2rem; margin: 0;
@@ -74,7 +64,7 @@ const Player = () => {
 
     const { uid } = useParams();
 
-    const { loading, error, data } = useQuery(playlistQuery, { variables: { uid: uid } });
+    const { loading, error, data } = useQuery(getPlaylistQuery, { variables: { uid: uid } });
     const audioRef = useRef();
     const [current, setCurrent] = useState();
     const [next, setNext] = useState();
@@ -261,8 +251,8 @@ const Player = () => {
         const nextBroadcast = broadcasts[nI].broadcast;
         console.log("setting current", broadcast, nextBroadcast, index, i, nI)
         if (broadcast) {
-            setSource(broadcast.audio.url);
-            getLengthOfMp3(broadcast.audio.url);
+            setSource(broadcast.audio);
+            getLengthOfMp3(broadcast.audio);
             setCurrent(broadcast);
             isPlaying ? setIsPlaying(true) : setIsPlaying(false);
             setNext(nextBroadcast)
@@ -281,8 +271,8 @@ const Player = () => {
     // only once
     const loadBroadcast = (broadcast) => {
         if (broadcast) {
-            getLengthOfMp3(broadcast.audio.url);
-            setSource(broadcast.audio.url);
+            getLengthOfMp3(broadcast.audio);
+            setSource(broadcast.audio);
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.load();

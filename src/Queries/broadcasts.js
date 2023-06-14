@@ -141,13 +141,7 @@ export const BroadcastFragment = gql`
     bpm
     length
     image
-    audio {
-      ... on _FileLink {
-        name
-        url
-        size
-      }
-    }
+    audio
     hostedby {
       ... on Shows {
         title
@@ -167,55 +161,25 @@ export const BroadcastFragment = gql`
         name
       }
     }
-    tags {
-      ...broadcastTags
-    }
   }
   `
-
-export const BroadcastTagsFragment = gql`
-fragment broadcastTags on BroadcastsTags {
-  tag {
-    _linkType
-    ... on Tag {
-      name
-      _meta {
-        id
-        uid
-      }
-      category {
-        ... on Category {
-          name
-          _meta {
-            id
-            uid
-          }
-        }
-      }
-    }
-  }
-}`
 
 export const getBroadcastsQuery = gql`
   ${GetBroadcastsQuery}
   ${BroadcastFragment}
-  ${BroadcastTagsFragment}
 `
 
 export const getBroadcastQuery = gql`
 ${GetBroadcastQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragment}
 `
 
 export const getFeatureBroadcastQuery = gql`
 ${GetFeatureBroadcastQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragment}
 `
 
 export const getBroadcastsByShowQuery = gql`
 ${GetBroadcastByShowQuery}
 ${BroadcastFragment}
-${BroadcastTagsFragment}
 `

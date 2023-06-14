@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { BroadcastFragment } from './broadcasts';
 
 /* Query broadcasts with a 1 day buffer in case a show crosses into the new day */
 export const GetPlaylistsQuery = gql`
@@ -75,3 +76,9 @@ export const PlaylistTagsFragement = gql`
     }
   }
   `
+export const getPlaylistQuery = gql`
+${GetPlaylistQuery}
+${PlaylistFragment}
+${BroadcastFragment}
+${PlaylistTagsFragement}
+`

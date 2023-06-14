@@ -36,18 +36,12 @@ h4 {
 
 const RecentShowItem = ({ broadcast }) => {
   console.log(broadcast)
-  const linkTo = `shows/${broadcast.node.hostedby._meta.uid}`;
+  const linkTo = `shows/${broadcast.node.hostedby?._meta.uid}`;
   return (
     <Container>
       <Link to={linkTo}>
         <div className="image">
-          <ThumbnailPanoramaImage image={broadcast.node.hostedby.image.thumbnailPanorama} />
-          {/* <div className="overlay">
-            <div className="description">
-              {show.node.description}
-            </div>
-            
-          </div> */}
+          <ThumbnailPanoramaImage image={broadcast.node.hostedby?.image.thumbnailPanorama} />
         </div>
       </Link>
       <div className="meta">

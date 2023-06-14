@@ -1,15 +1,11 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { gql } from "graphql-tag";
 import React, { useEffect } from "react";
 
 import { useSearchParams } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
-import { BroadcastFragment, BroadcastTagsFragment } from "../../Queries/broadcasts";
-import { SearchDocumentsQuery } from "../../Queries/documents";
-import { PageFragment } from "../../Queries/pages";
-import { ShowFragment } from "../../Queries/shows";
+import { searchShowsQuery } from "../../Queries/documents";
 import useThemeStore from "../../Stores/ThemeStore";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
@@ -23,14 +19,6 @@ const Container = styled.div`
     margin: 0 !important;
   }
 `;
-
-export const searchShowsQuery = gql`
-  ${SearchDocumentsQuery}
-  ${ShowFragment}
-  ${BroadcastFragment}
-  ${BroadcastTagsFragment}
-  ${PageFragment}
-`
 
 const SearchDocumentsList = () => {
   const [searchParams] = useSearchParams();
