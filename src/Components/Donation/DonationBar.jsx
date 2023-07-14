@@ -20,9 +20,12 @@ justify-content: space-between;
 }
 .controls {
     white-space: nowrap;
+    @media(max-width: ${BREAKPOINT_MD}px) { 
+        white-space: wrap;
+        line-height: 3rem;
+    }
 }
 button {
-
     line-height: 2rem;
     word-break: keep-all;
     white-space: nowrap;
