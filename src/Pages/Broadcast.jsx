@@ -12,7 +12,7 @@ import HeroImage from "../Components/TeaserImage/HeroImage";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useAudioPlayerStore from "../Stores/AudioPlayerStore";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import { BREAKPOINT_MD, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
 import Scheduled from "../images/Schedule";
@@ -87,6 +87,9 @@ const BroadcastPagePlayer = styled.div`
     @media (max-width: ${BREAKPOINT_MD}px) {
       display: block;
       padding: 0 2rem;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 0 1rem;
     }
   }
   .info {

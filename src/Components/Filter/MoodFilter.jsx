@@ -14,8 +14,9 @@ grid-template-columns: 1fr 1fr 1fr 1fr;
 @media (max-width: ${BREAKPOINT_MD}px) {
       grid-template-columns: 1fr 1fr ;
     }
-@media (max-width: ${BREAKPOINT_XS}px) {
-      grid-template-columns: 1fr;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 gap: 2rem;
 padding-bottom: 2rem;

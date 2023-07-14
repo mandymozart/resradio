@@ -2,12 +2,11 @@ import styled from "@emotion/styled";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BREAKPOINT_L, BREAKPOINT_MD } from "../config";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 import Chat from "../images/Chat";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
-import DonationBar from "./Donation/DonationBar";
 import MobileMenu from "./MobileMenu";
 import SearchBarToggle from "./Search/SearchBarToggle";
 import SlideOut from "./SlideOut";
@@ -28,6 +27,7 @@ const Container = styled.header`
   background: transparent;
   box-sizing: border-box;
   background: var(--background);
+ 
 
   nav.primary{
     display: grid;  
@@ -36,14 +36,18 @@ const Container = styled.header`
     box-sizing: border-box;
     padding:2rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    @media (max-width: ${BREAKPOINT_MD}px) {
-      grid-template-columns: 1fr 1fr;
-    }
     gap: 2rem;
     align-items: flex-start;
     z-index: 1;
     justify-content: left;
     border-bottom: 2px solid var(--color);
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 2rem 1rem;
+      gap: 1rem;
+    }
   }
 
   .logo {
@@ -63,6 +67,11 @@ const Container = styled.header`
     justify-content: flex-end;
     border: none;
     padding: 0;
+    .hamburger-react {
+      > div {
+        height: 2px !important;
+      }
+    }
     @media (min-width: ${BREAKPOINT_MD - 1}px) {
       display: none;
     }
@@ -134,14 +143,13 @@ const Header = () => {
             active={isOpen}
             onClick={() => setIsOpen(!isOpen)}
           >
-            <Hamburger />
+            <Hamburger distance="sm" size={48} />
           </Button>
         </nav>
         <Topbar>
           <AudioPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
           {/* <FilterPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> */}
         </Topbar>
-        <DonationBar />
       </Container>
 
       <SlideOut isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Accordion, } from '@szhsin/react-accordion';
 import { useEffect, useRef, useState } from "react";
 import useFilterStore from "../../Stores/FilterStore";
+import { BREAKPOINT_XS } from "../../config";
 import AccordionItem from "../Accordion/AcordionItem";
 import TempoRangeSlider from "../RangeSlider/TempoRangeSlider";
 import FilterSummary from "./FilterSummary";
@@ -11,6 +12,12 @@ import MoodFilter from "./MoodFilter";
 const Container = styled.div`
 margin-bottom: 2rem;
 color: var(--color);
+.szh-accordion__item-btn.true svg {
+    transform: rotate(180deg);
+}
+@media (max-width: ${BREAKPOINT_XS}px) {
+    margin-bottom: 1rem;
+}
 `;
 
 const FilterForm = () => {

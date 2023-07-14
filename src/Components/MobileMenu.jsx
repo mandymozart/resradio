@@ -19,7 +19,6 @@ nav {
   box-sizing: border-box;
   gap: 0.5rem;
   transition: transform 0.5s cubic-bezier(1, 0, 0, 1), opacity 0.5s ease-out;
-  opacity: 0;
   z-index: 1000;
   transform: translateY(100vh);
   ul {
@@ -43,7 +42,6 @@ nav {
   }
 
   &.isOpen {
-    opacity: 1;
     pointer-events: visible;
     transform: translateY(0);
     overflow: auto;

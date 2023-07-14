@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
-import { BREAKPOINT_MD, ITEMS_PER_PAGE } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
 import SectionLoader from "../SectionLoader";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 import BroadcastItem from "./BroadcastItem";
@@ -17,13 +17,20 @@ import BroadcastItem from "./BroadcastItem";
 const Container = styled.div`
   border-bottom: 2px solid var(--color);
   @media (max-width: ${BREAKPOINT_MD}px) {
-    padding: 1rem;
+    padding: 0;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 0;
   }
   h3 {
     margin: 0 !important;
     padding: 3rem 2rem;
     @media (max-width: ${BREAKPOINT_MD}px) {
-      padding: 1rem 1rem 2rem 1rem;
+      padding: .5rem 1rem .5rem 1rem;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      font-size: 1.5rem;
+      font-family: var(--font-light);
     }
   }
   .swiper-button-next {
@@ -44,6 +51,9 @@ const Container = styled.div`
   .swiper-button-next, .swiper-button-prev {
     position: absolute;
     top: calc(50% - 8rem);
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      top: calc(50% - 6rem);
+    }
     width: 4rem;
     height: 6rem;
     z-index: 10;
@@ -103,7 +113,7 @@ const ExploreButton = () => {
 const RecentBroadcastList = () => {
   const { loading, error, data } = useQuery(getBroadcastsQuery, {
     variables: {
-      endAfter: dayjs().subtract(14, 'days').format(),
+      endAfter: dayjs().subtract(31, 'days').format(),
       beginBefore: dayjs().subtract(7, 'days').format(),
       itemsPerPage: ITEMS_PER_PAGE
     }

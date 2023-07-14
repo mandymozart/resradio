@@ -4,7 +4,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, DATE_FORMAT_LONG } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG } from "../../config";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
 import Tags from "../Tags";
@@ -12,7 +12,10 @@ import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 const Container = styled.div`
 padding: 0 2rem 2rem 2rem;
 @media (max-width: ${BREAKPOINT_MD}px) {
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 1rem .5rem 1rem;
+}
+@media (max-width: ${BREAKPOINT_XS}px) {
+  padding: 0 1rem .5rem 1rem;
 }
 height: 100%;
 box-sizing: border-box;
@@ -24,10 +27,13 @@ h4, .host {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1rem;
+  }
 }
 .host {
-  margin-bottom: 0.25rem;
-  margin-top: 2rem;
+  margin-bottom: 0;
+  margin-top: 1rem;
 }
 a {
   text-transform: initial;
@@ -41,7 +47,7 @@ a {
 }
 .date {
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .image {
   overflow: hidden;

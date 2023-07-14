@@ -6,7 +6,7 @@ import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
-import { DATE_FORMAT, FUNCTIONS } from "../../config";
+import { BREAKPOINT_XS, DATE_FORMAT, FUNCTIONS } from "../../config";
 import palm from "../../images/palm.png";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import ScheduleHistoricalBroadcast from "../Broadcasts/ScheduleHistoricalBroadcast";
@@ -88,6 +88,9 @@ const Container = styled.section`
         }
     }
     padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+    }
     grid-row: span 2;
     /* border-bottom: 2px solid var(--color); */
     h3 {
@@ -137,7 +140,7 @@ const Schedule = ({ from, inverted }) => {
     const getBroadcastHistory = async () => {
         const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
         const history = await res.json()
-        console.log(history, "hisotry");
+        console.log(history, "history");
         setHistory(history)
     }
 

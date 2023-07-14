@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React from "react";
 import { Link } from "react-router-dom";
-import { DATE_FORMAT } from "../../config";
+import { BREAKPOINT_XS, DATE_FORMAT } from "../../config";
 import { getTimeRangeString } from "../../utils";
 import Tags from "../Tags";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
@@ -19,14 +19,25 @@ h4 {
   font-family: var(--font-medium);
   margin-bottom: 0.25rem;
   margin-top: 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1rem;
+    margin-bottom: 0rem;
+    margin-top: 0rem;
+  }
 }
 .meta {
-  padding: 0 2rem 0 2rem;
+  padding: 1rem;
   font-size: 1rem;
   padding-bottom: 3rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding-bottom: .5rem;
+  }
 }
 .time {
   margin-bottom: 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    margin-bottom: 1rem;
+  }
 }
 .image {
     overflow: hidden;
@@ -53,7 +64,6 @@ const RecentShowItem = ({ broadcast }) => {
         <div className="time">
           {getTimeRangeString(broadcast.node.begin, broadcast.node.end)}
         </div>
-
         <Tags className="tags" tags={broadcast.node._meta.tags} />
       </div>
     </Container>

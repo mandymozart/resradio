@@ -5,8 +5,14 @@ import { BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 
 const Container = styled.footer`
   max-width: var(--content-width);
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    font-size: 1rem;
+  }
   section {
     padding: 2rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      padding: 1rem;
+    }    
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
@@ -19,6 +25,11 @@ const Container = styled.footer`
     h3 {
       padding: 0;
       margin: 1rem 0 3rem;
+      top: calc(50% - 8rem);
+      @media (max-width: ${BREAKPOINT_MD}px) {
+        font-size: 1rem;
+        margin: 0;
+      }
     }
   }
   nav {

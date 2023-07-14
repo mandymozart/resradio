@@ -22,7 +22,7 @@ button {
   line-height: 3rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     display: flex;
-  }
+  } 
 }
 
 .status {
@@ -44,8 +44,16 @@ button {
     width: 1.5rem;
   }
   @media (max-width: ${BREAKPOINT_MD}px) {
-    border-right: 0;
-    padding-right: 0;
+    padding: 0;
+    width: 4rem;
+  
+    .appendix {
+      display: none;
+    }
+  }
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    padding: 0;
+    width: 4rem;
     .appendix {
       display: none;
     }
@@ -142,7 +150,7 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
           src={config.STREAM_URL}
         />
         <div className="status">
-          {isStreaming() || isLive() ? (<Dot />) : ("Off")}
+          {isStreaming() || isLive() ? (<Dot />) : ("O")}
         </div>
         {isStreaming() && (<>
           <div className="player">

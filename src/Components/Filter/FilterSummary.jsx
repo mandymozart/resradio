@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import useFilterStore, { initialState } from "../../Stores/FilterStore";
+import { BREAKPOINT_XS } from "../../config";
 import ClearSmall from "../../images/ClearSmall";
 import Genre from "./Genre";
 
@@ -10,6 +11,9 @@ position: relative;
 color: var(--color);
 .list {
   padding: 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 1rem;
+  }
 }
 .tag {
   color: var(--background);
@@ -42,11 +46,6 @@ button {
   cursor: pointer;
   font-family: var(--font-light);
 }
-`;
-
-const Message = styled.div`
-padding: 6rem 2rem;
-text-align: center;
 `;
 
 const FilterSummary = () => {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import FadeIn from "../../Animations/FadeIn"
 import useLocalStorage from "../../Hooks/useLocalStorage"
-import { BREAKPOINT_MD } from "../../config"
+import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config"
 import ClearSmall from "../../images/ClearSmall"
 
 const Container = styled.section`
@@ -16,7 +16,10 @@ display: flex;
 gap:2rem;
 justify-content: space-between;
 @media(max-width: ${BREAKPOINT_MD}px) { 
-   flex-direction: column;
+    flex-direction: column;
+}
+@media(max-width: ${BREAKPOINT_XS}px) { 
+   padding: 1rem;
 }
 .controls {
     white-space: nowrap;

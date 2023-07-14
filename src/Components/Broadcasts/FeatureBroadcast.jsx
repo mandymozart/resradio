@@ -22,6 +22,9 @@ padding: 0 2rem;
   a{
     text-transform: initial;
   }
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    padding: 0 1rem;
+  }
 }
 .date {
   font-size: 1rem;
@@ -30,6 +33,7 @@ padding: 0 2rem;
   padding: 0 2rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     margin-bottom: .5rem;
+    padding: 0 1rem;
   }
 
 }
@@ -38,9 +42,9 @@ padding: 0 2rem;
     align-items: top; 
     justify-content: space-between;
     @media (max-width: ${BREAKPOINT_XS}px) {
-    display: block;
-    padding: 0 2rem;
-  }
+      display: block;
+      padding: 0;
+    }
 }
 .meta {
 
@@ -54,7 +58,7 @@ padding: 0 2rem;
   margin-top: 2rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     text-align: left;
-    padding-left: 2rem;
+    padding-left: 1rem;
     margin-top: 1.5rem;
   }
 }

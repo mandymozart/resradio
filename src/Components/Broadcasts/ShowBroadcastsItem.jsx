@@ -19,6 +19,8 @@ grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 @media (max-width: ${BREAKPOINT_XS}px) {
       grid-template-columns: 1fr;
+      padding: 0 1rem 1rem 1rem;
+      gap: 1rem;
     }
 gap: 2rem;
     box-sizing: border-box;
@@ -28,6 +30,9 @@ a {
 h4 {
   text-transform: initial;
   margin: 0;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1.5rem;
+  }
 }
 .date {
   font-size: 1rem;

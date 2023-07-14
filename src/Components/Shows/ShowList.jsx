@@ -118,7 +118,7 @@ const ShowList = () => {
       </form>
       <div className="list">
         {shows?.map((show) => (
-          <ShowItem key={show.node.cursor} show={show} />
+          <ShowItem key={show.node._meta.id} show={show} />
         ))}
       </div>
       {hasNextPage && (

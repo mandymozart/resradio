@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
-import { ITEMS_PER_PAGE } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
@@ -21,6 +21,11 @@ const Container = styled.div`
   h3 {
     padding: 3rem 2rem;
     margin: 0 !important;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 0.5rem 1rem;
+      font-size: 1.5rem;
+      font-family: var(--font-light);
+    }
   }
   .list {
     display: grid;
@@ -29,15 +34,24 @@ const Container = styled.div`
   .swiper-button-next {
     right: 2rem;
     left: auto;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      right: 1rem;
+    }
   }
   .swiper-button-prev {
     left: 2rem;
     right: auto;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      left: 1rem;
+    }
   }
   
   .swiper-button-next, .swiper-button-prev {
     position: absolute;
     top: calc(50% - 8rem);
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      top: calc(50% - 6rem);
+    }
     width: 4rem;
     height: 6rem;
     z-index: 10;

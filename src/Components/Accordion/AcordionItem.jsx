@@ -1,10 +1,15 @@
 import styled from "@emotion/styled";
 import { AccordionItem as Item } from "@szhsin/react-accordion";
+import { BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 
 const Container = styled(Item)`
   border-bottom: 2px solid var(--color);
   padding: 0 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 0 1rem;
+      
+    }
 
   h3 > button {
     font-size: 1.5rem;
@@ -24,6 +29,7 @@ const Container = styled(Item)`
     &:hover {
       color: var(--second);
     }
+
   }`
 
 const AccordionItem = ({ header, ...rest }) => (

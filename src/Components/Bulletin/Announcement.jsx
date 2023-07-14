@@ -4,6 +4,7 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GetAnnouncement } from "../../Queries/announcement";
+import { BREAKPOINT_XS } from "../../config";
 import KeyFieldParagraph from "../KeyFieldParagraph";
 import SectionLoader from "../SectionLoader";
 
@@ -21,8 +22,16 @@ const Container = styled.div`
   text-align: center;
   justify-content: center;
   font-family: var(--font-bold);
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 1rem;
+  }
   &.hover {
     color: var(--yellow);
+  }
+  h4 {
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      margin-top: 0;
+    }
   }
 `;
 

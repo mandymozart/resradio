@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastsByShowQuery } from "../../Queries/broadcasts";
-import { ITEMS_PER_PAGE } from "../../config";
+import { BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
 import LoadMoreButton from "../LoadMoreButton";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
@@ -17,6 +17,9 @@ const Container = styled.div`
     padding: 2rem;
     margin: 0;
     font-size: 1.5rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 1rem;
+    }
   }
   .list {
     

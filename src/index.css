@@ -139,6 +139,11 @@ code {
 p {
   margin-bottom: 2rem;
 }
+@media (max-width: 769px) {
+  p {
+    font-size: 1rem;
+  }
+}
 img {
   display: block;
 }

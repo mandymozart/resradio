@@ -14,10 +14,6 @@ import SearchPageItem from "./SearchPageItem";
 import SearchShowItem from "./SearchShowItem";
 
 const Container = styled.div`
-  h2 {
-    padding: 3rem 2rem;
-    margin: 0 !important;
-  }
 `;
 
 const SearchDocumentsList = () => {

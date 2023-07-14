@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useThemeStore from "../../Stores/ThemeStore"
+import { BREAKPOINT_XS } from "../../config"
 import ClearSmall from "../../images/ClearSmall"
 import Search from "../../images/Search"
 
@@ -18,11 +19,24 @@ form {
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 0 1rem;
+        height: 4.5rem;
+    }
     .input {
         flex: 50% 0 0;
         display: flex;
-    justify-content: space-between;
-    align-items: center;
+        justify-content: space-between;
+        align-items: center;
+        @media (max-width: ${BREAKPOINT_XS}px) {
+            flex: 100 0 0;
+        }
+        svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transform: translateX(-2.25rem) translateY(0.1rem);
+            
+        }
     }
     input {
         font-size: 1rem;
@@ -30,13 +44,14 @@ form {
         width: 100%;
         border: 1px solid var(--color);
     }
-    svg {
-        width: 1.25rem;
-        height: 1.25rem;
-        transform: translateX(-2.25rem) translateY(0.1rem);
-    }
     button.submit {
         margin-right: 3rem;
+    }
+    button.clear {
+        svg {
+            width: 1.25rem;
+            height: 1.25rem;            
+        }
     }
 }
 `

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
+import DonationBar from "./Components/Donation/DonationBar";
 import Header from "./Components/Header";
 import HeaderOffset from "./Components/HeaderOffset";
 import SearchBar from "./Components/Search/SearchBar";
@@ -57,6 +58,7 @@ const PageWrapper = ({ children }) => {
     >
       <HeaderOffset>
         <SearchBar />
+        <DonationBar />
         {children}
       </HeaderOffset>
     </motion.div>
