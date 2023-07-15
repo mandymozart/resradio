@@ -64,7 +64,7 @@ const ShowBroadcastsList = ({ id }) => {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [getData])
 
   if (loading && isInitial) return <SectionLoader />;
   if (error) return <Container><SystemMessage message={error.message} type="error" /></Container>;

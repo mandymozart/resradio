@@ -38,6 +38,7 @@ nav {
       width: 100%;
       font-size: 1.5rem;
       text-transform: uppercase;
+      text-align: center;
     }
   }
 
@@ -48,7 +49,7 @@ nav {
   }
 }
 `
-const MobileMenu = ({ isOpen, setIsOpen, closeMenu }) => {
+const MobileMenu = ({ isOpen, setIsOpen }) => {
 
   const navigate = useNavigate();
 

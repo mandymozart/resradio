@@ -120,7 +120,6 @@ const RecentBroadcastList = () => {
   if (loading) return <RecentBroadcastsSectionLoader />;
   if (error) return <>Error : {error.message}</>;
   const broadcasts = data.allBroadcastss.edges
-  console.log(broadcasts)
   return (
     <Container>
       <h3>Recent Broadcasts</h3>

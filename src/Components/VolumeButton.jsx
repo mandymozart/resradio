@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { isDesktop } from 'react-device-detect'
 import Slider from 'react-slider'
 import useAudioPlayerStore from '../Stores/AudioPlayerStore'
@@ -66,7 +66,6 @@ border: 2px solid var(--color);
 const VolumeButton = () => {
     const { volume, setVolume } = useAudioPlayerStore();
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
-    const volumeSlider = useRef();
 
     const toggleVolumeSlider = () => {
         setShowVolumeSlider(!showVolumeSlider);

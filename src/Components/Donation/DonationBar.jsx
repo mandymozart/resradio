@@ -63,7 +63,7 @@ const DonationBar = () => {
     useEffect(() => {
         if (!visible && !hidden)
             setHidden("true");
-    }, [hidden, setHidden])
+    }, [hidden, setHidden, visible])
     if (!visible || hidden === "true") return <></>
     return (
         <FadeIn>

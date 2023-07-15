@@ -56,7 +56,7 @@ const Playlists = () => {
                 )}
             </div>
             <div className="add"><Button>
-                <a href="http://resradio.prismic.io" target="_blank">Add Playlist</a>
+                <a href="http://resradio.prismic.io" target="_blank" rel="noreferrer">Add Playlist</a>
             </Button>
             </div>
         </Container>

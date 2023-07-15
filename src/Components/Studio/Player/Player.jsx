@@ -168,7 +168,7 @@ const Player = () => {
     const [broadcasts, setBroadcasts] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
     const [remote, setRemote] = useState(undefined);
-    const [token, setToken] = useState();
+    // const [token, setToken] = useState();
     const intervalRef = useRef();
 
     // rotation socket
@@ -372,7 +372,7 @@ const Player = () => {
     useEffect(() => {
         if (broadcasts)
             loadBroadcast(data.allPlaylists.edges[0].node.broadcasts[0].broadcast)
-    }, [broadcasts])
+    }, [broadcasts, data.allPlaylists.edges])
 
 
     const onPlaying = (e) => {
@@ -380,13 +380,13 @@ const Player = () => {
     };
 
     // TODO: Increase blocking authorization 
-    const handleUnauthorized = () => {
-        const data = {
-            status: "unauthorized",
-            method: RemoteMethods.incoming.AUTHORIZE
-        }
-        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
-    }
+    // const handleUnauthorized = () => {
+    //     const data = {
+    //         status: "unauthorized",
+    //         method: RemoteMethods.incoming.AUTHORIZE
+    //     }
+    //     remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+    // }
 
     const handleConnect = (message) => {
         setRemote(message.connectionId)

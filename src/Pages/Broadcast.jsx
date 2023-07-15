@@ -117,7 +117,7 @@ const BroadcastPagePlayer = styled.div`
 const BroadcastPage = () => {
   const { uid } = useParams();
 
-  const { user, isLoggedIn } = useIdentityContext()
+  const { isLoggedIn } = useIdentityContext()
 
   const { loading, error, data } = useQuery(getBroadcastQuery, { variables: { uid: uid } });
   const { setIsPlaying: setStreamIsPlaying } = useAudioPlayerStore()

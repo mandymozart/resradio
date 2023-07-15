@@ -77,8 +77,8 @@ const FilterBroadcastList = () => {
   });
 
   useEffect(() => {
-    const unsub = useFilterStore.subscribe(debouncedRequest)
-  }, [])
+    useFilterStore.subscribe(debouncedRequest)
+  }, [debouncedRequest])
 
   if (loading) return <SectionLoader />;
   if (error) return <Container><SystemMessage type="error">Error : {error.message}</SystemMessage></Container>;

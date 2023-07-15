@@ -28,7 +28,7 @@ const SearchDocumentsList = () => {
     } else {
       setSearchbarIsVisible(true);
     }
-  }, [searchParams])
+  }, [searchParams, getData, setSearchbarIsVisible])
 
   if (loading) return <SectionLoader />;
   if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
@@ -44,6 +44,7 @@ const SearchDocumentsList = () => {
             return <SearchBroadcastItem broadcast={doc.node} key={"result-list-broadcast" + index} />
           if (doc.node.__typename === "Page")
             return <SearchPageItem page={doc.node} key={"result-list-page" + index} />
+          return null
         })}
       </div>
     </Container>

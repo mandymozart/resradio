@@ -62,6 +62,8 @@ const Announcement = () => {
       case "Link.document":
         navigate(announcement.link.url);
         break;
+      default:
+        break;
     }
     return;
   };

@@ -24,7 +24,7 @@ h1 {
 `
 
 function Studio() {
-  const { user, isLoggedIn } = useIdentityContext()
+  const { isLoggedIn } = useIdentityContext()
 
   return (
     <Container>

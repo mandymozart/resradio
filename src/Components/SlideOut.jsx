@@ -23,9 +23,6 @@ margin: 0;
 padding: 0;
 border-bottom: 2px solid var(--color);
 font-size: 1.5rem;
-a {
-      cursor: pointer;
-    }
 .date {
   margin-bottom: 1rem;
   font-size: 1rem;
@@ -146,8 +143,10 @@ img {
     }
     .schedule {
       text-align: center;
+      text-transform: uppercase;
+      line-height: 3rem;
     }
-    a {
+    button {
       font-size: 1.25rem;
     }
     .show-more-prefix {
@@ -173,7 +172,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     setNextBroadcastPreview(message.data.next)
   });
   const { history, currentBroadcast, nextBroadcast } = useBroadcastStore();
-  const [getData, { loading, error, data }] = useLazyQuery(getBroadcastQuery,
+  const [getData, { loading, data }] = useLazyQuery(getBroadcastQuery,
     {
       variables: {
         uid: uid
@@ -187,7 +186,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   });
   useEffect(() => {
     debouncedRequest()
-  }, [uid])
+  }, [uid, getData, debouncedRequest])
 
   useEffect(() => {
     if (data?.broadcasts)
@@ -221,16 +220,16 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
               {dayjs(broadcast.begin).format("ddd")} {dayjs(broadcast.begin).format(DATE_FORMAT)}<br />
               {getTimeRangeString(broadcast.begin, broadcast.end)}
             </div>
-            <a onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)}>
+            <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)}>
               <h3 className="show-title">{broadcast.hostedby.title}</h3>
               <div className="title">{broadcast.title}</div>
-            </a>
+            </button>
             <p className="description">
               {broadcast.description?.substring(1, 120)} ...
             </p>
-            <a onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
+            <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
               read more
-            </a>
+            </button>
           </div>
 
         </>)}
@@ -247,7 +246,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
             </>
           )}
         </div>
-        <a onClick={() => goToLink("/schedule")} className="schedule"><span className="show-more-prefix">Show </span>Schedule</a>
+        <button onClick={() => goToLink("/schedule")} className="schedule"><span className="show-more-prefix">Show </span>Schedule</button>
       </footer>
     </div>
   </Container>

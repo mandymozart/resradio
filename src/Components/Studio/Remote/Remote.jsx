@@ -39,7 +39,7 @@ const Remote = () => {
             setLoading(false);
         }
     });
-    const [rotationChannel] = useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
+    useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
         setMessage(message)
     });
 

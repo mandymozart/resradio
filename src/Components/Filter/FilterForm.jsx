@@ -29,7 +29,7 @@ const FilterForm = () => {
         if (isInitial)
             setIsInitial(false)
         else summaryRef.current.scrollIntoView({ behavior: "smooth" });
-    }, [genres, moods, tempos])
+    }, [genres, moods, tempos, isInitial, setIsInitial])
     return (
         <Container>
             <Accordion>

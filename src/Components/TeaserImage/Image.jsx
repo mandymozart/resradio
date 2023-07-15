@@ -7,7 +7,7 @@ const Container = styled.img`
 
 const Image = ({ placeholderUrl, ...props }) => {
     const [loaded, setLoaded] = useState(false);
-    const [hasError, setHasError] = useState(false);
+    const [hasError] = useState(false);
     const style = !loaded ? { display: "none" } : {}
     const handleLoad = () => {
         setLoaded(true);

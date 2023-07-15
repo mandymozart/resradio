@@ -18,9 +18,6 @@ padding: 2rem;
 const Header = styled.header`
   text-align: center;
 `;
-const Meta = styled.div`
-  text-align: center;
-`;
 
 const Description = styled.section`
 h2 {

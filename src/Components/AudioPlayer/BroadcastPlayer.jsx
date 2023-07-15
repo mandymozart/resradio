@@ -38,6 +38,8 @@ const Player = styled.div`
     background: none;
     border: none;
     padding: 0;
+    text-align: center;
+    display: block;
     width: 6rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
             width: 4rem;
@@ -101,7 +103,7 @@ cursor: pointer;
 const BroadcastPlayer = () => {
     const { setIsPlaying: setStreamIsPlaying, volume } = useAudioPlayerStore()
     const isMounted = useIsMounted();
-    const { playing, isPlaying, setIsPlaying, isLoading, setIsLoading, error, setError } = useBroadcastStore()
+    const { playing, isPlaying, setIsPlaying, setIsLoading, error, setError } = useBroadcastStore()
     const [isVisible, setIsVisible] = useState(false);
     const [currentTime, setCurrentTime] = useState();
     const [source, setSource] = useState();
@@ -217,17 +219,11 @@ const BroadcastPlayer = () => {
             getLengthOfMp3(broadcast.audio);
             setIsVisible(true);
         } else {
-            console.warn("No broadcast loaded.")
         }
     }, [broadcast])
 
     const handleEnded = () => {
         setIsPlaying(false);
-    }
-
-    const handleVolumeChange = (e) => {
-        // setVolume(e.value)
-        audioRef.current.volume = e.value;
     }
 
     const onPlaying = (e) => {
