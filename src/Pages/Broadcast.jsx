@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useIdentityContext } from "react-netlify-identity";
 import { Link, useParams } from "react-router-dom";
+import FooterSlim from "../Components/FooterSlim";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
@@ -19,7 +20,6 @@ import Scheduled from "../images/Schedule";
 import { getTimeRangeString } from "../utils";
 
 const Container = styled.div`
-padding-bottom: 2rem;
 `;
 const Header = styled.header`
   text-align: center;
@@ -37,12 +37,17 @@ const Meta = styled.div`
 const Description = styled.section`
   font-size: 1.5rem;
   margin-top: 3rem;
-  padding: 2rem 2rem;
+  padding: 2rem;
   display: grid;
   grid-template-columns: 2fr 2fr;
   @media (max-width: ${BREAKPOINT_MD}px) {
     display: flex;
     flex-direction: column-reverse;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
   }
   gap: 2rem;
 `;
@@ -103,8 +108,8 @@ const BroadcastPagePlayer = styled.div`
   .date {
     font-size: 1rem;
     margin-top: 1rem;
-    @media (max-width: ${BREAKPOINT_MD}px) {
-      /* margin-bottom: .5rem; */
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding-bottom: 0;
     }
   }
 `
@@ -186,6 +191,7 @@ const BroadcastPage = () => {
           <div></div>
         )}
       </Description>
+      <FooterSlim />
     </Container>
   );
 };

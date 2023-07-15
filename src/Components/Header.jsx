@@ -112,7 +112,7 @@ const ChatButton = styled(HeaderButton)`
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
 
   const goToLink = (link) => {
@@ -147,12 +147,11 @@ const Header = () => {
           </Button>
         </nav>
         <Topbar>
-          <AudioPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-          {/* <FilterPlayer isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} /> */}
+          <AudioPlayer isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         </Topbar>
       </Container>
 
-      <SlideOut isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+      <SlideOut isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );

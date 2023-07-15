@@ -5,7 +5,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../Components/Button";
 import Schedule from "../Components/Schedule/Schedule";
-import { BREAKPOINT_L, BREAKPOINT_MD, DATE_FORMAT } from "../config";
+import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from "../config";
 dayjs.extend(utc);
 
 const Container = styled.div`
@@ -13,6 +13,9 @@ const Container = styled.div`
     border-radius: 0;
     h3 {
         padding: 0 0 4rem 0;
+        @media (max-width: ${BREAKPOINT_XS}px) {
+            padding: 0 0 1rem 0;
+        }
     }
 }
 .controls {

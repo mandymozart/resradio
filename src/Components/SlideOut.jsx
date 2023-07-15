@@ -1,6 +1,7 @@
 import { useChannel } from "@ably-labs/react-hooks";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { useClickAway } from "@uidotdev/usehooks";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
@@ -146,8 +147,11 @@ img {
   }
 }
 `
-const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) => {
+const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const navigate = useNavigate()
+  const ref = useClickAway(() => {
+    setIsExpanded(false);
+  });
   // ably websocket
   const [broadcast, setBroadcast] = useState()
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
@@ -192,7 +196,7 @@ const SlideOut = ({ isCollapsed: isExpanded, setIsCollapsed: setIsExpanded }) =>
     setIsExpanded(false)
   }
   return (<Container>
-    <div className={clsx({ isExpanded: isExpanded })}>
+    <div className={clsx({ isExpanded: isExpanded })} ref={ref}>
       <div className="top">
         {loading && <InlineLoader />}
         {currentBroadcast && <>current Broadcast {JSON.stringify(currentBroadcast)}</>}

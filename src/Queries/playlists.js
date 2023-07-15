@@ -42,6 +42,7 @@ export const PlaylistBriefFragment = gql`
     title
     user
     description
+    image
     tags {
       ...playlistTags
     }
@@ -58,6 +59,7 @@ export const PlaylistFragment = gql`
     title
     user
     description
+    image
     tags {
       ...playlistTags
     }
@@ -76,6 +78,13 @@ export const PlaylistTagsFragement = gql`
     }
   }
   `
+
+export const getPlaylistsQuery = gql`
+${GetPlaylistsQuery}
+${PlaylistBriefFragment}
+${PlaylistTagsFragement}
+`
+
 export const getPlaylistQuery = gql`
 ${GetPlaylistQuery}
 ${PlaylistFragment}

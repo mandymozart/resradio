@@ -8,27 +8,71 @@ import { useNetlifyIdentity } from "react-netlify-identity";
 import { useParams } from 'react-router-dom';
 import { getPlaylistQuery } from "../../../Queries/playlists";
 import { getQueryString } from "../../../utils";
+import Button from "../../Button";
+import KeyFieldParagraph from "../../KeyFieldParagraph";
+import SectionLoader from "../../SectionLoader";
+import HeroImage from "../../TeaserImage/HeroImage";
 import Listeners from "../Listeners/Listeners";
 import { RemoteMethods } from "../Remote/Remote";
-import config, { FUNCTIONS } from "./../../../config";
+import config, { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS } from "./../../../config";
 import PauseBig from "./../../../images/PauseBig";
 import PlayBig from "./../../../images/PlayBig";
 dayjs.extend(localizedFormat);
 
 const Container = styled.div`
-h4 { padding: 1rem 2rem; margin: 0;
-
-  span {
-    color: red;
-  }
+h4 { 
+    padding: 1rem 2rem; 
+    margin: 0;
+    
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        font-size: 1rem;
+        padding: 1rem 1rem 0 1rem;
+    }
 }
-
+.meta {
+    padding: 0 2rem;
+    font-size: 1rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 0 1rem
+    }
+}
+.remote {
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem
+    }
+    span {
+        color: white;
+        margin-right: 1rem;
+        font-size: 1rem;
+        background-color: red;
+        padding: .3rem 1rem;
+        border-radius: .1rem;
+        font-family: var(--font-medium);
+        text-transform: uppercase;
+    }
+}
 .controls {
   padding: 1rem 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 1rem;
+  }
   > div {
     display: flex;
     gap: 1rem;
-    
+    align-items: center;
+    justify-content: space-between;
+  }
+  .title {
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        font-size: 1.25rem;
+    }
+  }
+  .controls-buttons {
+    display: flex;
+    justify-items: center;
+    gap: .5rem;
+    border-radius: .5rem;
   }
   input {
     width: 100%;
@@ -37,17 +81,46 @@ h4 { padding: 1rem 2rem; margin: 0;
     cursor: pointer;
     height: 4rem;
     width: 4rem;
+    font-size: 2rem;
+    background-color: var(--grey);
+    font-size: 3rem;
+    line-height: 2rem;
+    svg {
+            height: 3rem;
+        }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        height: 2rem;
+        width: 2rem;
+        font-size: 1rem;
+        line-height: 2rem;
+        svg {
+            height: 1rem;
+        }
+    }
   }
-  border-bottom: 2px solid var(--color); 
 }
 .list {
   padding: 2rem;
   border-bottom: 2px solid var(--color); 
+  h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+        font-size: 1rem;
+    }
   .broadcast {
     display: grid;
     grid-template-columns: 1fr 31fr;
     gap: 1rem;
     cursor: pointer;
+    > div:first-of-type {
+        font-size: 1rem;
+        background-color: var(--grey);
+        padding: 0.5rem;
+        border-radius: .5rem;
+    }
     &:hover {
       color: var(--second);
     }
@@ -59,6 +132,24 @@ h4 { padding: 1rem 2rem; margin: 0;
   border-bottom: 2px solid var(--color); 
 }
 `
+
+const Description = styled.section`
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  gap: 2rem;
+`;
 
 const Player = () => {
 
@@ -382,33 +473,47 @@ const Player = () => {
         };
     }, []);
 
-    if (loading || !broadcasts || !current || !next) return <>Loading...</>;
+    if (loading || !broadcasts || !current || !next) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;
     const playlist = data.allPlaylists.edges[0].node;
     return (
         <Container>
-            <h4>{playlist.title} ({broadcasts.length} Broadcasts)
+            <HeroImage image={playlist.image.hero ? playlist.image.hero : playlist.image} />
+            <h4>{playlist.title}</h4>
+            <div className="meta">
+                {broadcasts.length} Broadcasts
+            </div>
+            <Description>
+                {playlist.description ? (
+                    <KeyFieldParagraph text={playlist.description} />
+                ) : (
+                    <div></div>
+                )}
+            </Description>
+            <div className="remote">
                 {!isPlaying && <span>Paused</span>}
                 {remote && (<>
                     <span style={{ color: "var(--second)" }}>Remote</span>
                 </>)}
-                {isBlocked ? <button onClick={() => { setIsBlocked(false); }}>Unblock Remote</button> : <button onClick={() => { handleClose(); handleBlocked(); }}>Block</button>}
-            </h4>
+                {isBlocked ? <Button onClick={() => { setIsBlocked(false); }}>Unblock Remote</Button> : <Button onClick={() => { handleClose(); handleBlocked(); }}>Block</Button>}
+            </div>
             <div className='controls'>
                 <div>
-                    <button onClick={() => handlePrevious()}>&lt;</button>
-                    {isPlaying ?
-                        <button onClick={() => handlePause()}><PauseBig /></button> :
-                        <button onClick={() => handlePlay()}><PlayBig /></button>}
-                    <button onClick={() => handleNext()}>&gt;</button>
+                    <div className="controls-buttons">
+                        <button onClick={() => handlePrevious()}>&lt;</button>
+                        {isPlaying ?
+                            <button onClick={() => handlePause()}><PauseBig /></button> :
+                            <button onClick={() => handlePlay()}><PlayBig /></button>}
+                        <button onClick={() => handleNext()}>&gt;</button>
+                    </div>
                     <audio ref={audioRef}
                         onTimeUpdate={onPlaying}
                         onCanPlay={onCanPlay}
                         onEnded={handleEnded}>
                         <source src={source} type='audio/mpeg'></source>
                     </audio>
-                    <div>{current?.hostedby?.title} &mdash; {current?.title}</div>
-                    <div>
+                    <div className="title">{current?.hostedby?.title} &mdash; {current?.title}</div>
+                    <div className="duration">
                         {currentTime}/{duration}
                     </div>
                 </div>

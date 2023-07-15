@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../Animations/FadeIn";
+import { BREAKPOINT_XS } from "../config";
 import icon from "./../images/cat.png";
 
 const Container = styled.section`
@@ -11,6 +12,9 @@ const Container = styled.section`
   justify-content: center;
   height: 100vh;
   text-align: center;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    height: auto;margin-top: 2rem;
+  }
 `;
 
 const NotFound = ({ error }) => {

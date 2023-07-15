@@ -90,11 +90,15 @@ const Container = styled.section`
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
+        font-size: 1rem;
     }
     grid-row: span 2;
     /* border-bottom: 2px solid var(--color); */
     h3 {
         margin-bottom: 0;
+        @media (max-width: ${BREAKPOINT_XS}px) {
+            font-size: 1.5rem;
+        }
     }
 
     .list {
@@ -106,6 +110,9 @@ const Container = styled.section`
         margin-top: 5rem;
         img {
             margin-top: 4rem;
+        }
+        @media (max-width: ${BREAKPOINT_XS}px) {
+            font-size: 1rem;
         }
     }
     a {

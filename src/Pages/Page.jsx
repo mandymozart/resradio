@@ -7,9 +7,13 @@ import NotFound from "../Components/NotFound";
 import SectionLoader from "../Components/SectionLoader";
 import HeroImage from "../Components/TeaserImage/HeroImage";
 import { getPageQuery } from "../Queries/pages";
+import { BREAKPOINT_XS } from "../config";
 
 const Container = styled.div`
-padding: 2rem 2rem;
+padding: 2rem;
+@media (max-width: ${BREAKPOINT_XS}px) {
+  padding: 1rem;
+}
 `;
 const Header = styled.header`
   text-align: center;
@@ -18,7 +22,14 @@ const Meta = styled.div`
   text-align: center;
 `;
 
-const Description = styled.section``;
+const Description = styled.section`
+h2 {
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
+`;
 
 const Page = () => {
   const { uid } = useParams();
@@ -37,18 +48,8 @@ const Page = () => {
       )}
       <Container>
         <Description>
-          <h3>{page.title}</h3>
+          <h2>{page.title}</h2>
           <PrismicRichText field={page.text} />
-          {/* {page.text.map(el => {
-            if (el.type === "paragraph") return <KeyFieldParagraph text={el.text} />
-            if (el.type === "heading1") return <h1>{el.text}</h1>
-            if (el.type === "heading2") return <h2>{el.text}</h2>
-            if (el.type === "heading3") return <h3>{el.text}</h3>
-            if (el.type === "heading4") return <h4>{el.text}</h4>
-            if (el.type === "heading5") return <h5>{el.text}</h5>
-            if (el.type === "heading6") return <h6>{el.text}</h6>
-            if (el.type === "image") return <img src={el.url} alt={el.alt} />
-          })} */}
         </Description>
       </Container>
     </>

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { noop } from "lodash";
 import React, { useEffect, useRef } from "react";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
@@ -11,6 +12,9 @@ import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
 padding-right: 2rem;
+@media (max-width: ${BREAKPOINT_XS}px) {
+  padding-right: 1rem;
+}
 
 button {
   cursor: pointer;
@@ -91,11 +95,11 @@ export const PlayButton = styled.button`
   }
 `;
 
-const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
+const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
 
-  const { isPlaying, setIsPlaying, isLoading, setIsLoading, volume } =
+  const { isPlaying, setIsPlaying, setIsLoading, volume } =
     useAudioPlayerStore();
-  const { canPlay, setCanPlay, setIsPlaying: setBroadcastIsPlaying, isStreaming, isLive } = useBroadcastStore()
+  const { setCanPlay, setIsPlaying: setBroadcastIsPlaying, isStreaming, isLive } = useBroadcastStore()
 
   let audioPlayer = useRef();
 
@@ -164,8 +168,8 @@ const AudioPlayer = ({ isCollapsed, setIsCollapsed }) => {
               </PlayButton>
             )}
             <StreamShortInfo />
-            <button onClick={() => setIsCollapsed(!isCollapsed)}>
-              <Arrow flipped={!isCollapsed} />
+            <button onClick={() => { isExpanded === false ? setIsExpanded(true) : noop() }}>
+              <Arrow flipped={!isExpanded} />
             </button>
           </div>
         </>)}

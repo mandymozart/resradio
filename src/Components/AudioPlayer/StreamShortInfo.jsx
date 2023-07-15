@@ -12,16 +12,16 @@ dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
-
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
- flex: 1;
- justify-content: center;
- align-items: center;
+flex: 1;
+justify-content: center;
+align-items: center;
 `;
 
-const StreamShortInfo = () => {
+const StreamShortInfo = ({ onClick }) => {
+
   const after = dayjs();
   const before = dayjs()
   const { error, data } = useQuery(
