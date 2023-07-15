@@ -48,7 +48,7 @@ nav {
   }
 }
 `
-const MobileMenu = ({ isOpen, setIsOpen }) => {
+const MobileMenu = ({ isOpen, setIsOpen, closeMenu }) => {
 
   const navigate = useNavigate();
 

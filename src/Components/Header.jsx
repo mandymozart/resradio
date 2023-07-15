@@ -119,7 +119,6 @@ const Header = () => {
     setIsOpen(false);
     navigate(link);
   };
-
   return (
     <>
       <Container>
@@ -141,9 +140,8 @@ const Header = () => {
             type="button"
             className="menu-button"
             active={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
           >
-            <Hamburger distance="sm" size={48} />
+            <Hamburger distance="sm" size={48} toggled={isOpen} onToggle={setIsOpen} />
           </Button>
         </nav>
         <Topbar>
