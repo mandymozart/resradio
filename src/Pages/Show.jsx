@@ -40,7 +40,6 @@ const Show = () => {
   if (loading) return <PageLoader />;
   if (error) return <NotFound error={error.message} />;
   if (!data.shows) return <></>
-  console.log(data);
   const show = data.shows;
   return (
     <Container>

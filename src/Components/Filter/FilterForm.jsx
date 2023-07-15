@@ -29,7 +29,6 @@ const FilterForm = () => {
         if (isInitial)
             setIsInitial(false)
         else summaryRef.current.scrollIntoView({ behavior: "smooth" });
-        console.log(isInitial)
     }, [genres, moods, tempos])
     return (
         <Container>

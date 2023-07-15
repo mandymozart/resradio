@@ -89,7 +89,6 @@ const ShowBroadcastsItem = ({ broadcast }) => {
       else play(broadcast.node._meta.uid)
     }
   }
-  console.log(broadcast)
   return (
     <Container>
       <div className="image" onClick={() => handleClick()}>

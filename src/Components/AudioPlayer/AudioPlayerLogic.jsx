@@ -11,7 +11,7 @@ const AudioPlayerLogic = () => {
   //   const audioPlayer = useState(new Audio(STREAM_URL));
   const isPlaying = useAudioPlayerStore((store) => store.isPlaying);
   const volumeStore = useAudioPlayerStore((store) => store.volume);
-  const { player, ready, loading, playing, fade, volume } = useAudioPlayer({
+  const { player, ready, loading, playing, fade } = useAudioPlayer({
     autoplay: false,
     src: OFFLINE_URL,
     html5: true,
@@ -20,7 +20,6 @@ const AudioPlayerLogic = () => {
   useEffect(() => {
     fade(0, 1, 5000);
   }, [fade]);
-  console.log(ready, loading, playing, player);
   return <></>;
 };
 

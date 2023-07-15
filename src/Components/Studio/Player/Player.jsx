@@ -181,7 +181,6 @@ const Player = () => {
     const { user } = useNetlifyIdentity();
 
     const [remoteChannel] = useChannel(config.ABLY_REMOTE_CHANNEL, (message) => {
-        console.log("remote method received", message.data, remote)
         // if (isBlocked) {
 
         //     handleBlocked();
@@ -208,7 +207,6 @@ const Player = () => {
             return
         }
         if (message.data.method === RemoteMethods.outgoing.NEXT) {
-            console.log(current)
             handleNext()
             return
         }
@@ -277,25 +275,19 @@ const Player = () => {
 
     const getPreviousIndex = (broadcast) => {
         const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
-        console.log(index, "get index")
         if (index - 1 > -1) {
-            console.log("bigger null", index - 1)
             return index - 1
         }
         else {
-            console.log(broadcasts.length - 1)
             return broadcasts.length - 1
         }
     }
     const getNextIndex = (broadcast) => {
         const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
-        console.log('get next index', broadcast, broadcasts.length)
         if (index + 1 < broadcasts.length) {
-            console.log(index + 1)
             return index + 1
         }
         else {
-            console.log(0)
             return 0
         }
     }
@@ -334,13 +326,10 @@ const Player = () => {
      * @param {number} index *optional
      */
     const updateBroadcast = (index) => {
-        console.log(index, "update should be different ...")
         const i = getNextIndex(current);
         const broadcast = index !== undefined ? broadcasts[index].broadcast : broadcasts[i].broadcast
-        console.log("... than this", broadcast)
         const nI = getNextIndex(broadcast);
         const nextBroadcast = broadcasts[nI].broadcast;
-        console.log("setting current", broadcast, nextBroadcast, index, i, nI)
         if (broadcast) {
             setSource(broadcast.audio);
             getLengthOfMp3(broadcast.audio);
@@ -387,20 +376,10 @@ const Player = () => {
 
 
     const onPlaying = (e) => {
-        // TODO: check with length and prepare file change when nessecary
         setCurrentTime(parseInt(e.target.currentTime));
     };
 
-    const getNextBroadcast = (index) => {
-        console.log(index, index + 1, broadcasts.length)
-        if (index + 1 <= broadcasts.length) {
-            return broadcasts[index + 1].broadcast
-        }
-        else {
-            return broadcasts[0].broadcast
-        }
-    }
-
+    // TODO: Increase blocking authorization 
     const handleUnauthorized = () => {
         const data = {
             status: "unauthorized",
@@ -410,7 +389,6 @@ const Player = () => {
     }
 
     const handleConnect = (message) => {
-        console.log(message, message.connectionId)
         setRemote(message.connectionId)
         const data = {
             token: "approved",
@@ -432,14 +410,13 @@ const Player = () => {
     }
 
     const handleEnded = () => {
-        // TODO: set next track in playlist
+
         updateBroadcast()
     }
 
     const handlePlay = () => {
         audioRef.current.play();
         setIsPlaying(true);
-        // sendRotationMessage(current);
         startTimer();
     }
 

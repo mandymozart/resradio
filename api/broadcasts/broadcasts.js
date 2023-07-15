@@ -34,7 +34,6 @@ const handler = async (event) => {
 
     try {
         const query = `*[_type == "broadcast"] | order(_updatedAt desc) [${from}...${to}]`;
-        console.log(query)
         let broadcasts;
 
         await client.fetch(query).then((r) => {

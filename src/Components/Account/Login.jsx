@@ -30,21 +30,17 @@ const LogIn = () => {
     const logIn = async (event) => {
         event.preventDefault();
         await fetch(`${FUNCTIONS}/user?`).then((r) => {
-            console.log(r)
             if (r.ok) {
                 //
-                console.log("done")
                 loginUser(email, password, true)
                     .then(() => {
                         navigate("/studio/playlists");
                     })
                     .catch((error) => {
                         setError(true);
-                        console.log(error);
                     });
             }
             if (!r.ok) {
-                console.log("user does not exist");
             }
         });
         loginUser(email, password, true)
@@ -53,7 +49,6 @@ const LogIn = () => {
             })
             .catch((error) => {
                 setError(true);
-                console.log(error);
             });
     };
 

@@ -46,7 +46,6 @@ h4 {
 `
 
 const RecentShowItem = ({ broadcast }) => {
-  console.log(broadcast)
   const linkTo = `shows/${broadcast.node.hostedby?._meta.uid}`;
   return (
     <Container>

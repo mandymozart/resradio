@@ -122,7 +122,6 @@ const BroadcastPlayer = () => {
             setBroadcast(res)
         },
         onCompleted: async (data) => {
-            console.log(data)
             setIsLoading(false);
             setBroadcast(data.broadcasts)
             const playback = {
@@ -134,16 +133,7 @@ const BroadcastPlayer = () => {
 
             }
             const queryString = getQueryString(playback);
-            await fetch(`${FUNCTIONS}/log-playback?${queryString}`).then((r) => {
-                console.log(r)
-                if (r.ok) {
-                    //
-                    console.log("done", playback)
-                }
-                if (!r.ok) {
-                    console.log("error writing to cue");
-                }
-            });
+            await fetch(`${FUNCTIONS}/log-playback?${queryString}`);
 
         }
     });
@@ -154,11 +144,9 @@ const BroadcastPlayer = () => {
                 console.error("no broadcast uid found to play")
                 return
             }
-            console.log("got request to play", playing, broadcast)
             if (playing !== broadcast?._meta?.uid) {
                 getData()
             } else {
-                console.log("broadcast did not change. resume playing")
                 audioRef.current.play();
                 setIsVisible(true);
             }
@@ -174,7 +162,6 @@ const BroadcastPlayer = () => {
     }, [volume])
 
     useEffect(() => {
-        console.log("isPlaying change is fired", isPlaying)
         setIsLoading(true);
         debouncedRequest()
     }, [isPlaying])
@@ -225,7 +212,6 @@ const BroadcastPlayer = () => {
 
     /** On Update Broadcast */
     useEffect(() => {
-        console.log("setting current", broadcast)
         if (broadcast) {
             setSource(broadcast.audio);
             getLengthOfMp3(broadcast.audio);

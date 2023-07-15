@@ -12,13 +12,10 @@ const client = createClient({
 
 const handler = async (event) => {
 
-    console.log(event.queryStringParameters)
-
     const { uid, title, hostedby, begin, end } = event.queryStringParameters
 
     /* no user, no go */
     if (!uid) {
-        console.log("No broadcast id!");
         return {
             statusCode: 401,
             body: JSON.stringify({
@@ -36,8 +33,6 @@ const handler = async (event) => {
         end: end
     };
 
-    console.log(newBroadcast)
-
     try {
         const result = await client.create(newBroadcast).then((res) => {
             console.log("RESULT FROM SANITY: ", res);
@@ -49,7 +44,6 @@ const handler = async (event) => {
             body: JSON.stringify(result),
         };
     } catch (error) {
-        console.log(error);
         return {
             headers: { "Content-Type": "application/json" },
             statusCode: 500,

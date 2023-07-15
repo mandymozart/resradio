@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import "swiper/css";
 import "swiper/css/navigation";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
-import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE, RECENT_BROADCASTS_BEGIN_BEFORE, RECENT_BROADCASTS_END_AFTER } from "../../config";
 import SectionLoader from "../SectionLoader";
 import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 import BroadcastItem from "./BroadcastItem";
@@ -113,9 +113,9 @@ const ExploreButton = () => {
 const RecentBroadcastList = () => {
   const { loading, error, data } = useQuery(getBroadcastsQuery, {
     variables: {
-      endAfter: dayjs().subtract(31, 'days').format(),
-      beginBefore: dayjs().subtract(7, 'days').format(),
-      itemsPerPage: ITEMS_PER_PAGE
+      endAfter: dayjs().subtract(RECENT_BROADCASTS_END_AFTER, 'days').format(),
+      beginBefore: dayjs().subtract(RECENT_BROADCASTS_BEGIN_BEFORE, 'days').format(),
+      itemsPerPage: 100
     }
   })
 
@@ -142,7 +142,7 @@ const RecentBroadcastList = () => {
         }}
         className="list"
       >
-        {broadcasts.map((broadcast, index) => (<SwiperSlide key={"recentBroadcastSlider" + index}>
+        {broadcasts.filter(b => b.audio !== "").slice(0, ITEMS_PER_PAGE).map((broadcast, index) => (<SwiperSlide key={"recentBroadcastSlider" + index}>
           <BroadcastItem broadcast={broadcast} />
         </SwiperSlide>
         ))}

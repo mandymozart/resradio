@@ -110,7 +110,6 @@ const RecentShowsList = () => {
       }
     })
 
-  // TODO: .filter(broadcast=>broadcast.node.audio !== null) !Limit output to 8
   if (loading) return <SectionLoader />;
   if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
   const broadcasts = data.allBroadcastss.edges

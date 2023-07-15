@@ -38,7 +38,6 @@ const SearchDocumentsList = () => {
     <Container>
       <div className="list">
         {data?._allDocuments.edges.map((doc, index) => {
-          console.log(doc.node.__typename)
           if (doc.node.__typename === "Shows")
             return <SearchShowItem show={doc.node} key={"result-list-show" + index} />
           if (doc.node.__typename === "Broadcasts")

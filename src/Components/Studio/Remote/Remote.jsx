@@ -24,7 +24,6 @@ const Remote = () => {
 
     // channels
     const [remoteChannel] = useChannel(config.ABLY_REMOTE_CHANNEL, (message) => {
-        console.log("remote method received", message)
         if (message.data.method === incomingMethod.AUTHORIZE) {
             return authorize(message.data)
         }
@@ -41,13 +40,11 @@ const Remote = () => {
         }
     });
     const [rotationChannel] = useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
-        console.log("rotation message received", message)
         setMessage(message)
     });
 
     // incoming methods
     const authorize = (data) => {
-        console.log(data)
         if (data.status === "ok") {
             setAuthorized(true);
             setToken(data.token);

@@ -19,7 +19,6 @@ const mapBroadcastsToDays = (broadcasts) => {
     let count = 0;
     broadcasts.forEach(function (b) {
         const d = dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT);
-        console.log(d, day)
         count++;
         if (day !== d && count === 1) {
             day = d;
@@ -33,8 +32,6 @@ const mapBroadcastsToDays = (broadcasts) => {
 
 const populateDays = (days, broadcasts) => {
     broadcasts.forEach(function (b) {
-        console.log(dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT), days, broadcasts)
-
         if (days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)))
             days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
         else console.error("date string mismatch")
@@ -49,7 +46,6 @@ const mapHistoricalBroadcastsToDays = (broadcasts) => {
     let count = 0;
     broadcasts.forEach(function (b) {
         const d = dayjs(b.begin).format('dddd, ' + DATE_FORMAT);
-        console.log(d, day)
         count++;
         if (day !== d && count === 1) {
             day = d;
@@ -63,8 +59,6 @@ const mapHistoricalBroadcastsToDays = (broadcasts) => {
 
 const populateHistoricalDays = (days, broadcasts) => {
     broadcasts.forEach(function (b) {
-        console.log(dayjs(b.begin).format('dddd, ' + DATE_FORMAT), days, broadcasts)
-
         if (days.find(d => d.date === dayjs(b.begin).format('dddd, ' + DATE_FORMAT)))
             days.find(d => d.date === dayjs(b.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
         else console.error("date string mismatch")
@@ -147,7 +141,6 @@ const Schedule = ({ from, inverted }) => {
     const getBroadcastHistory = async () => {
         const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
         const history = await res.json()
-        console.log(history, "history");
         setHistory(history)
     }
 

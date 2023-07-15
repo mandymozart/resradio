@@ -50,7 +50,6 @@ const FilterBroadcastList = () => {
       itemsPerPage: ITEMS_PER_PAGE,
       currentCursor: endCursor,
     }, onCompleted: (data) => {
-      console.log(data, broadcasts)
       if (isInitial) setIsInitial(false);
       // more pages availables
       setHasNextPage(data.allBroadcastss.pageInfo.hasNextPage)
@@ -66,7 +65,6 @@ const FilterBroadcastList = () => {
 
 
   const loadMore = () => {
-    console.log(endCursor)
     setEndCursor(data.allBroadcastss.pageInfo.endCursor)
     debouncedRequest();
   }

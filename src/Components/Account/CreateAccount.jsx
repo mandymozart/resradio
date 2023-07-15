@@ -26,7 +26,6 @@ export const CreateAccount = () => {
             })
             .catch((error) => {
                 setError(true);
-                console.log(error);
             });
     };
 

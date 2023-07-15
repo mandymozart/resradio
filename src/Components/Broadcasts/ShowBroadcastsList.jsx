@@ -39,7 +39,6 @@ const ShowBroadcastsList = ({ id }) => {
       itemsPerPage: ITEMS_PER_PAGE,
       currentCursor: endCursor,
     }, onCompleted: (data) => {
-      console.log(data, broadcasts)
       if (isInitial) setIsInitial(false);
       // more pages availables
       setHasNextPage(data.allBroadcastss.pageInfo.hasNextPage)
@@ -55,7 +54,6 @@ const ShowBroadcastsList = ({ id }) => {
 
 
   const loadMore = () => {
-    console.log(endCursor)
     setEndCursor(data.allBroadcastss.pageInfo.endCursor)
     debouncedRequest();
   }

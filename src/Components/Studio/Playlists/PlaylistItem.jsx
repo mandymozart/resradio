@@ -22,7 +22,6 @@ h3 {
 `
 
 const PlaylistItem = ({ playlist }) => {
-    console.log(playlist)
     return (<Container>
         <Link to={`${playlist._meta.uid}`}>
             <ThumbnailImage image={playlist.image} />

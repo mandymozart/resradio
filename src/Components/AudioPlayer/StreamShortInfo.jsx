@@ -43,7 +43,6 @@ const StreamShortInfo = ({ onClick }) => {
       const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
       const history = await res.json()
       const historyCurrent = history.filter(broadcast => dayjs(broadcast.end).isAfter(after) && dayjs(broadcast.begin).isBefore(before))[0]
-      console.log(historyCurrent, rotationInfo?.data?.current.uid);
       setHistory(historyCurrent)
     }
   }

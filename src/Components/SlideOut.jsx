@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import config, { BREAKPOINT_L, BREAKPOINT_MD, DATE_FORMAT } from '../config';
+import config, { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from '../config';
 import { getTimeRangeString } from "../utils";
 import InlineLoader from "./InlineLoader";
 import ThumbnailPanoramaImage from "./TeaserImage/ThumbnailPanoramaImage";
@@ -35,6 +35,9 @@ h3 {
   font-size: 1.5rem;
   font-family: var(--font-medium);
   text-transform: initial;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1rem;
+  }
 }
 p {
   margin: 0;
@@ -46,6 +49,9 @@ p {
   margin-bottom: 1rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     margin-bottom: 1rem;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1rem;
   }
 }
 .description {
@@ -93,11 +99,17 @@ img {
       padding: 0;
       gap: 1.5rem;
     }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      gap: 1rem;
+    }
     gap: 1rem;
     padding: 2rem 0;
     .info {
       @media (max-width: ${BREAKPOINT_MD}px) {
         padding: 0 2rem 1rem 2rem;
+      }
+      @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 0 1rem 1rem 1rem;
       }
     }
 

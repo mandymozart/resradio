@@ -74,7 +74,6 @@ const VolumeButton = () => {
 
     const changeVolume = (e) => {
         // send volumen changed event to window, all players will listen to this.
-        console.log(e)
         setVolume(parseFloat(e.target.value))
     };
 

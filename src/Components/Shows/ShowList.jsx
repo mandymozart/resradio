@@ -1,6 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { gql } from "graphql-tag";
+import { noop } from "lodash";
 import React, { useEffect, useState } from "react";
 import useDebounce from "../../Hooks/useDebounce.";
 import { GetShowsQuery, ShowFragment } from "../../Queries/shows";
@@ -103,7 +104,7 @@ const ShowList = () => {
   if (error) return <Container><SystemMessage message={error.message} type="error" /></Container>;
   return (
     <Container>
-      <form onSubmit={() => console.log("let not submit")}>
+      <form onSubmit={() => noop()}>
         <label htmlFor="search-form">
           <input
             type="text"
