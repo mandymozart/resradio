@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
-import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE, RECENT_SHOWS_BEGIN_BEFORE, RECENT_SHOWS_END_AFTER } from "../../config";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
@@ -103,9 +103,9 @@ const RecentShowsList = () => {
   const { loading, error, data } = useQuery(getBroadcastsQuery,
     {
       variables: {
-        sortBy: "begin_ASC",
-        endAfter: dayjs().subtract(3, 'months').format(),
-        beginBefore: dayjs().add(7, 'days').format(),
+        sortBy: "begin_DESC",
+        endAfter: dayjs().subtract(RECENT_SHOWS_END_AFTER, 'days').format(),
+        beginBefore: dayjs().add(RECENT_SHOWS_BEGIN_BEFORE, 'days').format(),
         itemsPerPage: 100
       }
     })

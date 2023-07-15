@@ -11,8 +11,10 @@ export const BREAKPOINT_MD = 769;
 export const BREAKPOINT_XS = 481;
 
 export const ITEMS_PER_PAGE = 8;
+export const RECENT_SHOWS_END_AFTER = 100;
+export const RECENT_SHOWS_BEGIN_BEFORE = 1;
 export const RECENT_BROADCASTS_END_AFTER = 100;
-export const RECENT_BROADCASTS_BEGIN_BEFORE = 7;
+export const RECENT_BROADCASTS_BEGIN_BEFORE = 14;
 
 export const IDENTITY_URL = "https://res-stage.netlify.app";
 

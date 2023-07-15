@@ -51,9 +51,6 @@ const Container = styled.div`
   .swiper-button-next, .swiper-button-prev {
     position: absolute;
     top: calc(50% - 8rem);
-    @media (max-width: ${BREAKPOINT_XS}px) {
-      top: calc(50% - 6rem);
-    }
     width: 4rem;
     height: 6rem;
     z-index: 10;
@@ -113,6 +110,7 @@ const ExploreButton = () => {
 const RecentBroadcastList = () => {
   const { loading, error, data } = useQuery(getBroadcastsQuery, {
     variables: {
+      sortBy: "begin_DESC",
       endAfter: dayjs().subtract(RECENT_BROADCASTS_END_AFTER, 'days').format(),
       beginBefore: dayjs().subtract(RECENT_BROADCASTS_BEGIN_BEFORE, 'days').format(),
       itemsPerPage: 100
@@ -122,6 +120,7 @@ const RecentBroadcastList = () => {
   if (loading) return <RecentBroadcastsSectionLoader />;
   if (error) return <>Error : {error.message}</>;
   const broadcasts = data.allBroadcastss.edges
+  console.log(broadcasts)
   return (
     <Container>
       <h3>Recent Broadcasts</h3>
@@ -142,7 +141,7 @@ const RecentBroadcastList = () => {
         }}
         className="list"
       >
-        {broadcasts.filter(b => b.audio !== "").slice(0, ITEMS_PER_PAGE).map((broadcast, index) => (<SwiperSlide key={"recentBroadcastSlider" + index}>
+        {broadcasts.filter(b => b.node.audio !== null).slice(0, ITEMS_PER_PAGE).map((broadcast, index) => (<SwiperSlide key={"recentBroadcastSlider" + index}>
           <BroadcastItem broadcast={broadcast} />
         </SwiperSlide>
         ))}
