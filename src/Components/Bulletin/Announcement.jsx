@@ -29,6 +29,7 @@ const Container = styled.div`
     color: var(--yellow);
   }
   h4 {
+    margin-top: 0;
     @media (max-width: ${BREAKPOINT_XS}px) {
       margin-top: 0;
     }

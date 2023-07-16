@@ -29,7 +29,7 @@ const Container = styled.header`
   background: var(--background);
  
 
-  nav.primary{
+  nav.primary {
     display: grid;  
 
     height: 7.5rem;
@@ -90,6 +90,7 @@ const Container = styled.header`
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: .5rem;
       @media (max-width: ${BREAKPOINT_MD}px) {
         display: none;
       }
@@ -131,7 +132,7 @@ const Header = () => {
           <div className="tools">
             <Link to="page/about" className="link link--about">About</Link>
             <div className="icons">
-              <ChatButton><a href="https://t.me/resradio" target="_blank" rel="noreferrer"><Chat /></a></ChatButton>&nbsp;
+              <ChatButton><a href="https://t.me/resradio" target="_blank" rel="noreferrer"><Chat /></a></ChatButton>
               <VolumeButton />
               <SearchBarToggle />
             </div>
