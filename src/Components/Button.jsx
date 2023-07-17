@@ -8,6 +8,7 @@ const Container = styled.button`
   border-radius: 2px;
   color: ${(props) => (props.active ? "var(--background)" : "var(--color)")};
   background: var(--background);
+padding: 0 1rem;
   line-height: ${props => props.large ? "3rem" : "1.5rem"};
   font-family: "Scope-LightExpanded", "Courir", -apple-system,
     BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",

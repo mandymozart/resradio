@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useClickAway } from '@uidotdev/usehooks'
 import React, { useState } from 'react'
 import { isDesktop } from 'react-device-detect'
 import Slider from 'react-slider'
@@ -67,6 +68,10 @@ const VolumeButton = () => {
     const { volume, setVolume } = useAudioPlayerStore();
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
+    const ref = useClickAway(() => {
+        setShowVolumeSlider(false);
+    });
+
     const toggleVolumeSlider = () => {
         setShowVolumeSlider(!showVolumeSlider);
     };
@@ -85,7 +90,7 @@ const VolumeButton = () => {
                     </button>
 
                     {showVolumeSlider && (
-                        <VolumeSlider>
+                        <VolumeSlider ref={ref}>
                             {/* <input
                                 orient="vertical"
                                 type="range"
