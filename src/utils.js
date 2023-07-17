@@ -47,11 +47,25 @@ export const trimZeros = (date) => {
   // else return time;
 }
 
+export const roundTo = (n, place) => {
+  return +(Math.round(n + "e+" + place) + "e-" + place);
+}
+
+/**
+ * 
+ * @param {number} seconds 
+ * @returns {string}
+ */
 export const secondsToMinutes = (seconds) => {
-  return seconds;
+  // return seconds;
   // let computeMinutes = Math.floor(seconds / 60);
   // let result = seconds % 60;
   // return computeMinutes.toString().padStart(2, '0') + ":" + result.toString().padStart(2, '0').substring(0, 2);
+  let minutes = Math.floor(seconds / 60);
+  let extraSeconds = seconds % 60;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  extraSeconds = extraSeconds < 10 ? "0" + extraSeconds : extraSeconds;
+  return minutes + ":" + roundTo(extraSeconds, 0).toString().padStart(2, '0');
 }
 
 export const getTimeRangeString = (begin, end) => {

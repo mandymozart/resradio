@@ -369,13 +369,14 @@ const Player = () => {
     useEffect(() => {
         // init Player
         if (data) {
-            setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio))
+            console.log(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio !== null))
+            setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.length > 5))
         }
     }, [data])
 
     useEffect(() => {
         if (broadcasts)
-            loadBroadcast(data.allPlaylists.edges[0].node.broadcasts[0].broadcast)
+            loadBroadcast(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio !== null)[0].broadcast)
     }, [broadcasts, data?.allPlaylists?.edges])
 
 
@@ -532,7 +533,7 @@ const Player = () => {
                     <>
                         {dayjs(rotationInfo.data.begin).format("ddd, HH:mm")} - {dayjs(rotationInfo.data.end).format("HH:mm")} {rotationInfo.data.hostedby} &mdash; {rotationInfo.data.title}
                     </>
-                ) : (<>Currently not playing</>)}
+                ) : (<>Currently nobody listening</>)}
                 <Listeners />
             </div>
         </Container>

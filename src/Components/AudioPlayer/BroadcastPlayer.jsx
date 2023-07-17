@@ -66,7 +66,7 @@ const Player = styled.div`
   }
   .time {
     font-size: 1rem;
-    width: 4rem;
+    width: 5rem;
     }
   .image {
     text-align: right;
