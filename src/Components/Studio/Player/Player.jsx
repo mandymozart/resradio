@@ -85,6 +85,10 @@ h4 {
     background-color: var(--grey);
     font-size: 3rem;
     line-height: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     svg {
             height: 3rem;
         }
@@ -372,7 +376,7 @@ const Player = () => {
     useEffect(() => {
         if (broadcasts)
             loadBroadcast(data.allPlaylists.edges[0].node.broadcasts[0].broadcast)
-    }, [broadcasts, data.allPlaylists.edges])
+    }, [broadcasts, data?.allPlaylists?.edges])
 
 
     const onPlaying = (e) => {
