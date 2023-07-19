@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Slider from "react-slider";
 import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
@@ -13,7 +12,8 @@ import { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS } from "../../config";
 import ClearSmall from "../../images/ClearSmall";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
-import { getQueryString, roundTo, secondsToMinutes } from "../../utils";
+import { getQueryString } from "../../utils";
+import ProgressBar from "./ProgressBar";
 dayjs.extend(utc);
 
 const Container = styled.div`
@@ -27,6 +27,14 @@ const Player = styled.div`
     align-items: center;
     height: 6rem;
     padding: 0 2rem 2rem 0 0;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        display: grid;
+        grid-template-columns: 4rem auto;
+        grid-template-areas:
+            "left top"
+            "left bottom";
+    }
+
   h3 {
     font-size: 1rem;
     font-family: var(--font-bold);
@@ -40,12 +48,12 @@ const Player = styled.div`
     padding: 0;
     text-align: center;
     display: block;
-    width: 4rem;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-            width: 4rem;
-        }
+    flex: 4rem 0 0;
     cursor: pointer;
     margin: 0;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-area: left
+    }
     svg {
         height: 3rem;
         @media (max-width: ${BREAKPOINT_XS}px) {
@@ -56,82 +64,15 @@ const Player = styled.div`
       color: var(--second);
     }
   }
-  .left {
-    display: flex;
-    align-items: center; 
-  }
   .info {
-    flex: 1;
+    flex: calc(50% - 2rem) 0 0;
     font-size: 1rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        grid-area: top;
+    }
   }
-  .time {
-    font-size: 1rem;
-    width: 4rem;
-    text-align: center;
-    margin-right: 1rem;
-  }
-  .progress {
-    width: calc(50vw - 37rem);
-    margin-right: 1rem;
-  }
-  input[type=number] {
-        text-align: center;
-        width: 6rem;
-        border:none;
-        outline: none;
-        font-family: var(--font-medium);
-        font-size: 1.25rem;
-        background: none;
-        line-height: 2rem;
-        padding: 0 .5rem;
-        &:hover {
-            color: var(--second);
-        }
-        &:focus, &:focus-visible {
-            border:none;
-            outline: none;
-        }
 
-    }
 
-    /* Styles for the slider component */
-    .slider {
-        height: 0.5rem;
-        width: 100%;
-        background-color: var(--grey);
-        border-radius: 1rem;
-    }
-
-    /* Styles for the slider thumb */
-    .slider .thumb {
-        height: 1.5rem;
-        width: 1.5rem;
-        transform: translate(-0.5rem, -0.5rem);
-        border-radius: 50%;
-        background-color: var(--color);
-        cursor: grab;
-        box-shadow: none;
-        &.thumb-1 {
-            transform: translate(0.5rem,-0.5rem);
-        }
-    }
-
-    /* Styles for the slider active state */
-    .slider .thumb.active {
-        background-color: var(--second);
-        box-shadow: none;
-    }
-    .slider .track-1 {
-        background: var(--color);
-        border-radius: .5rem;
-        height: 0.5rem;
-    }
-    .slider .track-2,
-    .slider .track-0 {
-        background: none;
-        height: 0.5rem;
-        border-radius: .5rem;
-    }
   /* .image {
     text-align: right;
     img {
@@ -155,10 +96,10 @@ height: 6rem;
 transform: translateY(10rem);
 background: var(--grey);
 .close {
-position: absolute;
-top: 1rem;
-right: 1rem;
-cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
 }
 &.isVisible {
     transform: translateY(0);
@@ -172,10 +113,10 @@ const BroadcastPlayer = () => {
     const [source, setSource] = useState();
     const [duration, setDuration] = useState();
     const [broadcast, setBroadcast] = useState();
-    const [negativeTime, setNegativeTime] = useState(true);
     const [trackProgress, setTrackProgress] = useState(0);
     const intervalRef = useRef();
     const audioRef = useRef();
+    const progressBarRef = useRef();
 
     const [getData] = useLazyQuery(
         getBroadcastQuery, {
@@ -238,21 +179,6 @@ const BroadcastPlayer = () => {
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
   `;
 
-    const onScrub = (value) => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-        audioRef.current.currentTime = value;
-        setTrackProgress(audioRef.current.currentTime);
-    };
-
-    const onScrubEnd = () => {
-        // If not already playing, start
-        if (!isPlaying) {
-            setIsPlaying(true);
-        }
-        startTimer();
-    };
-
     const startTimer = () => {
         // Clear any timers already running
         clearInterval(intervalRef.current);
@@ -303,6 +229,8 @@ const BroadcastPlayer = () => {
             setSource(broadcast.audio);
             getLengthOfMp3(broadcast.audio);
             setIsVisible(true);
+            setDuration(null);
+            setCurrentTime(1);
         } else {
         }
     }, [broadcast])
@@ -350,44 +278,13 @@ const BroadcastPlayer = () => {
                                 <PlayBig />
                             </button>
                         )}
-                        <div className="time" onClick={() => setNegativeTime(!negativeTime)}>{negativeTime ?
-                            <>{secondsToMinutes(currentTime)}</> : <>-{secondsToMinutes(duration - currentTime)}</>}
-                        </div>
-                        <div class="progress">
-                            <Slider orientation='horizontal'
-                                className="slider"
-                                value={roundTo(trackProgress, 0)}
-                                onChange={(e) => onScrub(e.target.value)}
-                                onMouseUp={onScrubEnd}
-                                onKeyUp={onScrubEnd}
-                                style={{ background: trackStyling }}
-                                invert
-                                min={0}
-                                max={duration ? roundTo(duration, 0) : `${roundTo(duration, 0)}`}
-                                step={1}
-                            />
-                        </div>
-                        {/* <input
-                            type="range"
-                            value={roundTo(trackProgress, 0)}
-                            step="1"
-                            min="0"
-                            max={duration ? roundTo(duration, 0) : `${roundTo(duration, 0)}`}
-                            className="progress"
-                            onChange={(e) => onScrub(e.target.value)}
-                            onMouseUp={onScrubEnd}
-                            onKeyUp={onScrubEnd}
-                            style={{ background: trackStyling }}
-                        /> */}
+                        <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={currentTime} duration={duration} />
                         <div className="info">
                             <Link to={"../broadcasts/" + broadcast._meta.uid}>
                                 <h3>{broadcast.hostedby.title}</h3>
                                 <div>{broadcast.title}</div>
                             </Link>
                         </div>
-                        {/* <div className="image">
-                                <ThumbnailImage image={broadcast.image.thumbnail} />
-                            </div> */}
                     </Player>
                     <div className="close" onClick={() => close()}>
                         <ClearSmall />

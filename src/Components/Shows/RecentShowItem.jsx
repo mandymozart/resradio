@@ -29,22 +29,24 @@ h4 {
   padding: 2rem;
   font-size: 1rem;
   padding: 1rem 2rem 3rem 2rem;
-  h4 {
-    margin: 0;
-  }
   @media (max-width: ${BREAKPOINT_XS}px) {
-    padding: 0 1rem .5rem 1rem;
+    padding: 1rem 1rem 0 1rem;
   }
 }
 .time {
   margin-bottom: 2rem;
   @media (max-width: ${BREAKPOINT_XS}px) {
-    margin-bottom: 1rem;
+    display: none;
   }
 }
 .image {
     overflow: hidden;
     position: relative;
+}
+.tags {
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    display: none;
+  }
 }
 `
 
@@ -66,7 +68,9 @@ const RecentShowItem = ({ broadcast }) => {
         <div className="time">
           {getTimeRangeString(broadcast.node.begin, broadcast.node.end)}
         </div>
-        <Tags className="tags" tags={broadcast.node._meta.tags} />
+        <div className="tags">
+          <Tags tags={broadcast.node._meta.tags} />
+        </div>
       </div>
     </Container>
   );

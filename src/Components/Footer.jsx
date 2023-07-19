@@ -56,7 +56,7 @@ const Container = styled.footer`
       }
       font-family: var(--font-light);
         font-size: 1rem;
-        line-height: 1rem;
+        line-height: 1.25rem;
       gap: 2rem;
       margin:0;
       list-style-type: none;

@@ -50,7 +50,7 @@ const Container = styled.div`
     position: absolute;
     top: calc(50% - 8rem);
     @media (max-width: ${BREAKPOINT_MD}px) {
-      top: calc(50% - 6rem);
+      top: calc(50% - 4rem);
     }
     width: 4rem;
     height: 6rem;

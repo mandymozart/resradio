@@ -163,15 +163,16 @@ const Schedule = ({ from, inverted }) => {
             </p>)}
             <div className="list">
                 {days?.map((day) => {
-                    return (<div className="list-day">
+                    return (<div className="list-day" key={day.date + "regular"}>
                         <h4>{day.date}</h4>
                         {day.broadcasts?.map(broadcast => <ScheduleBroadcast key={broadcast.node._meta.id} broadcast={broadcast.node} />)}
                     </div>)
                 })}
                 {isLoggedIn && (
                     <>
+                        <h3>Historical</h3>
                         {mapHistoricalBroadcastsToDays(history).map((index, day) => {
-                            return (<div className="list-day">
+                            return (<div className="list-day" key={day.date + "historical"}>
                                 <h4>{day.date}</h4>
                                 {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId + index} broadcast={broadcast} />)}
                             </div>)

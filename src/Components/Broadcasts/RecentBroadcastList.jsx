@@ -51,6 +51,9 @@ const Container = styled.div`
   .swiper-button-next, .swiper-button-prev {
     position: absolute;
     top: calc(50% - 8rem);
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      top: calc(50% - 4rem);
+    }
     width: 4rem;
     height: 6rem;
     z-index: 10;

@@ -18,6 +18,9 @@ const Container = styled.div`
         }
     }
 }
+.spacer {
+    height: 90vh;
+}
 .controls {
     position: sticky;
     bottom: 0;
@@ -75,6 +78,9 @@ const SchedulePage = () => {
     return (
         <Container>
             <Schedule from={from} inverted />
+            <div className="spacer">
+                &nbsp;
+            </div>
             <div className="controls">
                 <Button large onClick={() => gotoPreviousWeek()}>&laquo; <span>{previous.format(DATE_FORMAT)}</span></Button>
                 <div>{current.format("DD.MM")}&mdash;{current.add(6, "days").format("DD.MM")} <span>{current.add(6, "days").format("YYYY")}</span></div>

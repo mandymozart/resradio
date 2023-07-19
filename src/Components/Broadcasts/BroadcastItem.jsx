@@ -48,6 +48,14 @@ a {
 .date {
   text-transform: uppercase;
   margin-bottom: 1rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    margin-bottom: 0.5rem;
+  }
+}
+.tags {
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    display: none;
+  }
 }
 .image {
   overflow: hidden;
@@ -131,7 +139,9 @@ const BroadcastItem = ({ broadcast }) => {
         <div className="date">
           {dayjs(broadcast.node.begin).format(DATE_FORMAT_LONG)}
         </div>
-        <Tags tags={broadcast.node._meta.tags} />
+        <div className="tags">
+          <Tags tags={broadcast.node._meta.tags} />
+        </div>
       </div>
 
     </Container>
