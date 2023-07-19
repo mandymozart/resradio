@@ -26,11 +26,14 @@ h4 {
   }
 }
 .meta {
-  padding: 1rem;
+  padding: 2rem;
   font-size: 1rem;
-  padding-bottom: 3rem;
+  padding: 1rem 2rem 3rem 2rem;
+  h4 {
+    margin: 0;
+  }
   @media (max-width: ${BREAKPOINT_XS}px) {
-    padding-bottom: .5rem;
+    padding: 0 1rem .5rem 1rem;
   }
 }
 .time {
