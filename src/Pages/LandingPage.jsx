@@ -15,6 +15,7 @@ const BulletinSection = styled.section`
   grid-row: span 2;
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(auto, 1fr);
   border-bottom: 2px solid var(--color);
   @media (max-width: ${BREAKPOINT_MD}px) {
     grid-template-columns: 1fr;
@@ -23,8 +24,11 @@ const BulletinSection = styled.section`
     padding: 1rem;
     gap: 1rem;
   }
-  svg {
-    max-width: 100%;
+  .apply {
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 `
 const LandingPage = () => {
@@ -34,7 +38,7 @@ const LandingPage = () => {
       <BulletinSection>
         <Schedule />
         <Announcement />
-        <a href="mailto:resradio.program@gmail.com"><Apply /></a>
+        <a className="apply" href="mailto:resradio.program@gmail.com"><Apply /></a>
       </BulletinSection>
       <RecentShowList />
       <RecentBroadcastList />
