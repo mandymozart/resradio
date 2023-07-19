@@ -24,7 +24,7 @@ input[type=range] {
     position: relative;
     height: 0.5rem;
     width: 100%;
-    background-color: var(--dark-grey);
+    background-color: var(--color);
     border-radius: 1rem;
     cursor: pointer;
 }
@@ -33,7 +33,7 @@ input[type=range] {
 input[type=range]::-moz-range-track {
     position: relative;
     width: 100%;
-    background-color: var(--dark-grey);
+    background-color: var(--color);
     border-radius: 1rem;
     cursor: pointer;
 }
@@ -41,11 +41,11 @@ input[type=range]::-moz-range-track {
 /* played progress length - Chrome & safari*/
 input[type=range]::before {
     content: '';
-    height: 2px;
-    background: #f50;
+    background: var(--second);
     width: var(--range-progress);
-    border-bottom-left-radius: 2px;
-    border-top-left-radius: 2px;
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+    height: .5rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -53,10 +53,10 @@ input[type=range]::before {
 
 /* played progress length - firefox */
 input[type=range]::-moz-range-progress {
-    background: #f50;
-    border-bottom-left-radius: 2px;
-    border-top-left-radius: 2px;
-    height: 2px;
+    background: var(--second);
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+    height: .5rem;
 }
 
 /* slider thumb - chrome and safari */

@@ -23,7 +23,7 @@ bottom: 0;
 `;
 
 const Player = styled.div`
-  display: flex;
+    display: flex;
     align-items: center;
     height: 6rem;
     padding: 0 2rem 2rem 0 0;

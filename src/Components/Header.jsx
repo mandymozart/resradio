@@ -90,7 +90,7 @@ const Container = styled.header`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: .5rem;
+      gap: 1rem;
       @media (max-width: ${BREAKPOINT_MD}px) {
         display: none;
       }
