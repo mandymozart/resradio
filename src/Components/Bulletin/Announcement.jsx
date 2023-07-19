@@ -12,7 +12,6 @@ const Container = styled.div`
   cursor: pointer;
   height: 100%;
   border-radius: 1.5rem;
-  padding: 2rem;
   display: flex;
   background-color: var(--second);
   color: var(--background);
@@ -22,8 +21,11 @@ const Container = styled.div`
   text-align: center;
   justify-content: center;
   font-family: var(--font-bold);
-  @media (max-width: ${BREAKPOINT_XS}px) {
-    padding: 1rem;
+  .content {
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 1rem;
+    }
   }
   &.hover {
     color: var(--yellow);
@@ -80,9 +82,12 @@ const Announcement = () => {
       onMouseLeave={() => setHovered(false)}
       className={clsx({ hover: isHovered })}
     >
-      <h4>Announcement</h4>
+      <div className="content">
 
-      <KeyFieldParagraph text={announcement.text} />
+        <h4>Announcement</h4>
+
+        <KeyFieldParagraph text={announcement.text} />
+      </div>
     </Container>
   );
 };
