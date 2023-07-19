@@ -5,8 +5,10 @@ import { BREAKPOINT_XS } from "../../config";
 const Container = styled.div`
 display: flex;
 align-items: center;
+flex: calc(50% - 8rem);
 @media (max-width: ${BREAKPOINT_XS}px) {
-    grid-area: bottom
+    grid-area: bottom;
+    padding-left: 1rem;
 }
 .time {
     white-space: nowrap;

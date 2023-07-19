@@ -132,7 +132,7 @@ const Header = () => {
           <div className="tools">
             <Link to="page/about" className="link link--about">About</Link>
             <div className="icons">
-              <ChatButton><a href="https://t.me/resradio" target="_blank" rel="noreferrer"><Chat /></a></ChatButton>
+              <ChatButton><Link to={"/chat"}><Chat /></Link></ChatButton>
               <VolumeButton />
               <SearchBarToggle />
             </div>

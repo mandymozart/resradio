@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 import { createRoot } from "react-dom/client";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import App from "./App";
+import ChatBox from "./Components/Chat/ChatBox";
 import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import Player from "./Components/Studio/Player/Player";
@@ -108,6 +109,13 @@ root.render(
                   path="/shop"
                   element={
                     <ShopPage />
+                  }
+                />
+                <Route
+                  exact
+                  path="/chat"
+                  element={
+                    <ChatBox />
                   }
                 />
 

@@ -26,13 +26,15 @@ const Player = styled.div`
     display: flex;
     align-items: center;
     height: 6rem;
-    padding: 0 2rem 2rem 0 0;
+    padding: 0 0 0 0;
     @media (max-width: ${BREAKPOINT_XS}px) {
+        height: 5rem;
+        padding-top: .5rem;
         display: grid;
         grid-template-columns: 4rem auto;
         grid-template-areas:
             "left top"
-            "left bottom";
+            "bottom bottom";
     }
 
   h3 {
