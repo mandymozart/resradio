@@ -19,13 +19,16 @@ justify-content: space-between;
     flex-direction: column;
 }
 @media(max-width: ${BREAKPOINT_XS}px) { 
-   padding: 1rem;
+    padding: 1rem;
 }
 .controls {
     white-space: nowrap;
     @media(max-width: ${BREAKPOINT_MD}px) { 
         white-space: wrap;
         line-height: 3rem;
+    }
+    @media(max-width: ${BREAKPOINT_XS}px) { 
+        white-space: wrap;
     }
 }
 button {
