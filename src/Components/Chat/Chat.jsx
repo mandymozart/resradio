@@ -1,13 +1,32 @@
 import { useChannel, usePresence } from '@ably-labs/react-hooks';
+import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { GoPaperAirplane } from 'react-icons/go';
 import config from '../../config';
-import Button from '../Button';
+import PrimaryButtonSquare from '../FormElements/PrimaryButtonSquare';
 import Message from './Message';
 
+const Container = styled.div`
+font-size: 1rem;
+font-family: var(--font-light);
+width: 100%;
+padding-top: 1rem;
+form {
+    display: flex;
+    input {
+        flex: 1;
+        margin-right: 1rem;
+        padding: 0 0.5rem;
+        line-height: 2rem;
+        border-radius: 0.1rem;
+        border: 1px solid var(--color);
+        font-size: 1rem;
+        font-family: var(--font-light)
+    }
+}
+`
 
 const Chat = ({ username }) => {
-
-
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
     const [channel] = useChannel(config.ABLY_CHAT_CHANNEL, (msg) => {
@@ -44,7 +63,7 @@ const Chat = ({ username }) => {
         setBody('');
     }
     return (
-        <div>
+        <Container>
             <form className="form" onSubmit={handleMessageSubmit}>
                 <input
                     id="new-message"
@@ -52,17 +71,17 @@ const Chat = ({ username }) => {
                     value={body}
                     placeholder='Message'
                 />
-                <Button>Send</Button>
+                <PrimaryButtonSquare><GoPaperAirplane /></PrimaryButtonSquare>
             </form>
 
             <div className='list'>
                 {items?.map(item => (
                     <div key={item.created_at + item.username} className="message-item">
-                        <Message message={item} />
+                        <Message message={item} username={username} />
                     </div>
                 ))}
             </div>
-        </div>
+        </Container>
     );
 }
 

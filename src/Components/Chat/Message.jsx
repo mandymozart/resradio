@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import clsx from "clsx";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
 import React from "react";
@@ -9,11 +10,16 @@ font-size: 1rem;
 margin: 1rem 0 0 0;
 padding: 1rem;
 background: var(--grey);
-border-radius: 0.5rem;`
+border-radius: 0.5rem;
+&.isSelf {
+    background-color: var(--second);
+    color: var(--background);
+}
+`
 
-const Message = ({ message }) => {
+const Message = ({ message, username }) => {
     return (
-        <Container>
+        <Container className={clsx({ isSelf: message.username === username })}>
             <div className="header">
                 <div className="row">
                     <div className="username">

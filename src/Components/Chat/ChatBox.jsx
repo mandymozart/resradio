@@ -29,7 +29,7 @@ class ChatBox extends Component {
     render() {
         return (
             <Container>
-                <h3>Chat</h3>
+                <h2>Chat</h2>
                 {!this.state.activate ? (
                     <ChatLogin changeState={this.changeState} />
                 ) : (
