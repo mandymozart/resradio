@@ -7,6 +7,7 @@ import useBroadcastStore from "../../Stores/BroadcastStore";
 import config, { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
+import DotGrey from "../../images/DotGrey";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
@@ -138,7 +139,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
         />
         {isStreaming() && (<>
           <div className="status">
-            {isLive() ? (<Dot />) : ("O")}
+            {isLive() ? (<Dot />) : (<DotGrey />)}
           </div>
           {isPlaying ? (
             <PlayButton onClick={() => pause()}>
