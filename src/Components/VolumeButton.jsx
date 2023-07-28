@@ -11,10 +11,6 @@ const Container = styled.div`
     button { 
         cursor: pointer;
     }
-    svg {
-    height: 2rem;
-    width: 2rem;;
-  }
 `
 
 const VolumeSlider = styled.div`
@@ -22,7 +18,9 @@ position: absolute;
 top: 3rem;
 padding: 1rem;
 background: var(--background);
-border: 2px solid var(--color);
+border: 1px solid var(--color);
+transform: translateX(-0.75rem);
+border-radius: .1rem;
 
 /* Styles for the slider component */
 .slider {

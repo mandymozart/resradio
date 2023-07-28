@@ -30,7 +30,7 @@ h4 {
   font-size: 1rem;
   padding: 1rem 2rem 3rem 2rem;
   @media (max-width: ${BREAKPOINT_XS}px) {
-    padding: 1rem 1rem 0 1rem;
+    padding: 1rem;
   }
 }
 .time {

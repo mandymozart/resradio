@@ -20,8 +20,8 @@ const Container = styled.div`
   align-items: center;
   text-align: center;
   justify-content: center;
-  font-family: var(--font-bold);
   .content {
+    font-family: var(--light);
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
       padding: 1rem;
@@ -32,6 +32,7 @@ const Container = styled.div`
   }
   h4 {
     margin-top: 0;
+    margin-bottom: 1.5rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
       margin-top: 0;
     }

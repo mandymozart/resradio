@@ -13,6 +13,7 @@ export const Tag = styled.span`
   cursor: pointer;
   margin-bottom: 0.5rem;
   white-space: nowrap;
+  border-radius: .1rem;
   &:hover {
     background-color: var(--second)
   }

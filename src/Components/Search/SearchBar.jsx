@@ -24,7 +24,7 @@ form {
         height: 4.5rem;
     }
     .input {
-        flex: 50% 0 0;
+        flex: calc(50% + 4rem) 0 0;
         display: flex;
         justify-content: space-between;
         align-items: center;

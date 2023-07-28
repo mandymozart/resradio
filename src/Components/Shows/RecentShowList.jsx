@@ -10,21 +10,20 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE, RECENT_SHOWS_BEGIN_BEFORE, RECENT_SHOWS_END_AFTER } from "../../config";
+import placeholder from "../../images/placeholder-panorama-thumbnail-secondary.png";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
-import ThumbnailPanoramaImage from "../TeaserImage/ThumbnailPanoramaImage";
 import RecentShowItem from "./RecentShowItem";
 dayjs.extend(utc);
 
 const Container = styled.div`
-  border-bottom: 2px solid var(--color);
+  border-bottom: 1px solid var(--color);
   h3 {
     padding: 3rem 2rem;
     margin: 0 !important;
     @media (max-width: ${BREAKPOINT_XS}px) {
       padding: 0.5rem 1rem;
       font-size: 1.5rem;
-      font-family: var(--font-light);
     }
   }
   .list {
@@ -75,6 +74,7 @@ const AllShowsButtonContainer = styled.button`
   justify-content: center;
   font-family: var(--font-bold);
   font-size: 2rem;
+  color: var(--background);
   width:100%;
   cursor: pointer;
   position: relative;
@@ -82,16 +82,17 @@ const AllShowsButtonContainer = styled.button`
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%,-50%);
+    text-transform: uppercase;
   }
   &:hover {
-    color: var(--second);
+    color: var(--yellow);
   }
 `
 
 const AllShowsButton = () => {
   return (<AllShowsButtonContainer>
     <div>
-      <ThumbnailPanoramaImage />
+      <img src={placeholder} alt="nix" />
       <span>
         All Shows
       </span>

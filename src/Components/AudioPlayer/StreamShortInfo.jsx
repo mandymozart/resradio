@@ -16,6 +16,7 @@ white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 flex: 1;
+padding-left: 1rem;
 justify-content: center;
 align-items: center;
 `;

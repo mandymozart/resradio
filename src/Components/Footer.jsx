@@ -33,10 +33,10 @@ const Container = styled.footer`
     }
   }
   nav {
-    border-top: 2px solid var(--color);
+    border-top: 1px solid var(--color);
     padding: 2rem;
     background-color: var(--grey);
-
+    padding-bottom: 8rem;
     ul {
       display: grid;
       line-height: 2rem;

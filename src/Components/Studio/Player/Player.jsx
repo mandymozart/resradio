@@ -165,7 +165,7 @@ const Player = () => {
     const [next, setNext] = useState();
     const [source, setSource] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
-    const [duration, setDuration] = useState();
+    const [duration, setDuration] = useState(3600);
     const [currentTime, setCurrentTime] = useState();
     const [isBlocked, setIsBlocked] = useState(true);
 

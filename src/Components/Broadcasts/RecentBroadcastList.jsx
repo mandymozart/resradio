@@ -10,12 +10,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE, RECENT_BROADCASTS_BEGIN_BEFORE, RECENT_BROADCASTS_END_AFTER } from "../../config";
+import placeholder from "../../images/placeholder-thumbnail-secondary.png";
 import SectionLoader from "../SectionLoader";
-import ThumbnailImage from "../TeaserImage/ThumbnailImage";
 import BroadcastItem from "./BroadcastItem";
 
 const Container = styled.div`
-  border-bottom: 2px solid var(--color);
+  border-bottom: 1px solid var(--color);
   @media (max-width: ${BREAKPOINT_MD}px) {
     padding: 0;
   }
@@ -30,7 +30,6 @@ const Container = styled.div`
     }
     @media (max-width: ${BREAKPOINT_XS}px) {
       font-size: 1.5rem;
-      font-family: var(--font-light);
     }
   }
   .swiper-button-next {
@@ -84,6 +83,7 @@ const ExploreButtonContainer = styled.button`
   font-family: var(--font-bold);
   font-size: 2rem;
   width:100%;
+  color: var(--background);
   cursor: pointer;
   position: relative;
   span {
@@ -92,17 +92,14 @@ const ExploreButtonContainer = styled.button`
     transform: translate(-50%,-50%);
   }
   &:hover {
-    color: var(--second);
-  }
-  img {
-    opacity: 0;
+    color: var(--yellow);
   }
 `
 
 const ExploreButton = () => {
   return (<ExploreButtonContainer>
     <div>
-      <ThumbnailImage />
+      <img src={placeholder} alt="explore" />
       <span>
         Explore
       </span>

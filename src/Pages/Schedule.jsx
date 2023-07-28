@@ -82,9 +82,9 @@ const SchedulePage = () => {
                 &nbsp;
             </div>
             <div className="controls">
-                <Button large onClick={() => gotoPreviousWeek()}>&laquo; <span>{previous.format(DATE_FORMAT)}</span></Button>
-                <div>{current.format("DD.MM")}&mdash;{current.add(6, "days").format("DD.MM")} <span>{current.add(6, "days").format("YYYY")}</span></div>
-                <Button large onClick={() => gotoNextWeek()}><span>{next.format(DATE_FORMAT)}{" "}</span>&raquo;</Button>
+                <Button large onClick={() => gotoPreviousWeek()}>&laquo;&nbsp;<span>{previous.format(DATE_FORMAT)}</span></Button>
+                <div>{current.format("DD.MM")}&mdash;{current.add(6, "days").format("DD.MM")}.<span>{current.add(6, "days").format("YYYY")}</span></div>
+                <Button large onClick={() => gotoNextWeek()}><span>{next.format(DATE_FORMAT)}{" "}</span>&nbsp;&raquo;</Button>
             </div>
         </Container>
     )

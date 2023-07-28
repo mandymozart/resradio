@@ -20,10 +20,10 @@ h4 {
   text-transform: initial;
   margin: 0;
   font-family: var(--font-light);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   @media (max-width: ${BREAKPOINT_XS}px) {
-  font-size: 1rem;
-}
+    font-size: 1rem;
+  }
 }
 p {
   margin: 0;

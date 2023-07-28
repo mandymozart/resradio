@@ -16,7 +16,7 @@ const BulletinSection = styled.section`
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: minmax(auto, 1fr);
-  border-bottom: 2px solid var(--color);
+  border-bottom: 1px solid var(--color);
   @media (max-width: ${BREAKPOINT_MD}px) {
     grid-template-columns: 1fr;
   }

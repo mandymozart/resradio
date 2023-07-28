@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useIdentityContext } from "react-netlify-identity";
 import { Link, useParams } from "react-router-dom";
-import FooterSlim from "../Components/FooterSlim";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
@@ -108,7 +107,7 @@ const BroadcastPagePlayer = styled.div`
 
   .date {
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: .25rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
       padding-bottom: 0;
     }
@@ -192,7 +191,6 @@ const BroadcastPage = () => {
           <div></div>
         )}
       </Description>
-      <FooterSlim />
     </Container>
   );
 };

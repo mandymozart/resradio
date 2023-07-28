@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
+import { GoComment } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
 import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
-import Chat from "../images/Chat";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
@@ -85,12 +85,14 @@ const Container = styled.header`
     @media (max-width: ${BREAKPOINT_MD}px) {
       display: none;
     }
-
     .icons {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5em;
+      button {
+        font-size: 1.5rem;
+      }
       @media (max-width: ${BREAKPOINT_MD}px) {
         display: none;
       }
@@ -132,9 +134,9 @@ const Header = () => {
           <div className="tools">
             <Link to="page/about" className="link link--about">About</Link>
             <div className="icons">
-              <ChatButton><Link to={"/chat"}><Chat /></Link></ChatButton>
-              <VolumeButton />
               <SearchBarToggle />
+              <ChatButton><Link to={"/chat"}><GoComment /></Link></ChatButton>
+              <VolumeButton />
             </div>
           </div>
           <Button

@@ -53,6 +53,7 @@ const Player = styled.div`
     flex: 4rem 0 0;
     cursor: pointer;
     margin: 0;
+    color: var(--background);
     @media (max-width: ${BREAKPOINT_XS}px) {
         grid-area: left
     }
@@ -69,6 +70,9 @@ const Player = styled.div`
   .info {
     flex: calc(50% - 2rem) 0 0;
     font-size: 1rem;
+    div, h3  { 
+        color: var(--background);
+    }
     @media (max-width: ${BREAKPOINT_XS}px) {
         grid-area: top;
     }
@@ -96,7 +100,8 @@ width: 50vw;
 }
 height: 6rem;
 transform: translateY(10rem);
-background: var(--grey);
+background: var(--color);
+color: var(--background);
 .close {
     position: absolute;
     top: 1rem;

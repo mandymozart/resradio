@@ -11,16 +11,18 @@ const Chat = ({ username }) => {
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
     const [channel] = useChannel(config.ABLY_CHAT_CHANNEL, (msg) => {
-        console.log(msg)
-        setItems([...items, msg.data]);
+        const prevState = [...items]
+        console.log(msg, prevState, items, [...prevState, msg.data])
+        setItems([...prevState, msg.data]);
     });
 
     usePresence(config.ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
         console.log(update)
+        const prevState = [...items]
         if (update.action === "enter")
-            setItems([...items, { 'username': update.data.username, 'body': 'entered', created_at: new Date() }]);
+            setItems([...prevState, { 'username': update.data.username, 'body': 'entered', created_at: new Date() }]);
         if (update.action === "leave")
-            setItems([...items, { 'username': update.data.username, 'body': 'left', created_at: new Date() }]);
+            setItems([...prevState, { 'username': update.data.username, 'body': 'left', created_at: new Date() }]);
     });
 
     const handleMessageChange = (e) => {

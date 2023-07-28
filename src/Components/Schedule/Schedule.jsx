@@ -88,11 +88,15 @@ const Container = styled.section`
     }
     grid-row: span 2;
     /* border-bottom: 2px solid var(--color); */
-    h3 {
+    h2 {
         margin-bottom: 0;
         @media (max-width: ${BREAKPOINT_XS}px) {
             font-size: 1.5rem;
         }
+    }
+    p {
+        margin-top: 0;
+        font-size: 1rem;;
     }
 
     .list {
@@ -101,7 +105,7 @@ const Container = styled.section`
     }
     .notice {
         font-size: 1.5rem;
-        margin-top: 5rem;
+        margin-top: 3rem;
         img {
             margin-top: 4rem;
         }
@@ -154,9 +158,8 @@ const Schedule = ({ from, inverted }) => {
     const days = mapBroadcastsToDays(data.allBroadcastss.edges)
     return (
         <Container className={clsx({ inverted: inverted })}>
-
-            <h3>Schedule</h3>
-            <div>our weekly updated schedule (UTC+2)</div>
+            <h2>Schedule</h2>
+            <p>our weekly updated schedule (UTC+2)</p>
             {days.length < 1 && (<p className="notice">
                 No upcoming shows scheduled. It's possible, <br />that we might be on vacation.<br />
                 <img src={palm} alt="vacation" />

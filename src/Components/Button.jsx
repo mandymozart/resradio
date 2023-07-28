@@ -5,14 +5,11 @@ const Container = styled.button`
   display: inline-flex;
   align-items: center;
   border: 1px solid ${(props) => (props.ghost ? "transparent" : "var(--color)")};
-  border-radius: 2px;
   color: ${(props) => (props.active ? "var(--background)" : "var(--color)")};
   background: var(--background);
-padding: 0 1rem;
+  padding: 0 1rem;
   line-height: ${props => props.large ? "3rem" : "1.5rem"};
-  font-family: "Scope-LightExpanded", "Courir", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--font-light);
   font-weight: 400;
   letter-spacing: 0.05rem;
   font-size: 1.2rem;

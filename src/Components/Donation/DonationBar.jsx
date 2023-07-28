@@ -13,7 +13,7 @@ padding: 2rem;
 font-size: 1.5rem;
 font-family: var(--font-light);
 display: flex;
-gap:2rem;
+gap: 2rem;
 justify-content: space-between;
 @media(max-width: ${BREAKPOINT_MD}px) { 
     flex-direction: column;
@@ -23,12 +23,15 @@ justify-content: space-between;
 }
 .controls {
     white-space: nowrap;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
     @media(max-width: ${BREAKPOINT_MD}px) { 
         white-space: wrap;
         line-height: 3rem;
     }
     @media(max-width: ${BREAKPOINT_XS}px) { 
-        white-space: wrap;
+        justify-content: space-between;
     }
 }
 button {
@@ -43,15 +46,28 @@ button {
         background-color: var(--second);
         color: var(--background);
         border: 1px solid var(--second);
-        margin-right: 1rem;
+        @media(max-width: ${BREAKPOINT_XS}px) { 
+            flex: 1;
+            text-align: center;
+        }
     }
     &.secondary {
         background-color: transparent;
         color: var(--second);
         border-color: var(--second);
         border: 1px solid var(--second);
+        @media(max-width: ${BREAKPOINT_XS}px) { 
+            flex: 1;
+            text-align: center;
+        }
+    }
+    &.clear {
+        padding: 0;
+        display: flex;
+        align-items: center;
     }
 }
+
 `
 
 const DonationBar = () => {
@@ -72,11 +88,11 @@ const DonationBar = () => {
         <FadeIn>
             <Container>
                 <div className="text">
-                    DONATE if you wanna support our community web radio and help us keep the airwaves alive!
+                    Do you want to support res.radio?
                 </div>
                 <div className="controls">
-                    <button className="primary" onClick={() => goToLink()}>Click to donate</button>
-                    <button className="secondary" onClick={() => { setVisible(false) }}>Okay next time</button>
+                    <button className="primary" onClick={() => goToLink()}>Donate</button>
+                    <button className="secondary" onClick={() => { setVisible(false) }}>No thanks</button>
                     <button className="clear" onClick={() => setVisible(false)}><ClearSmall /></button>
                 </div>
             </Container>

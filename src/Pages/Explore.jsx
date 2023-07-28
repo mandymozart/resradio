@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import React from "react";
 import FilterForm from "../Components/Filter/FilterForm";
 import FilterResults from "../Components/Filter/FilterResults";
-import { BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
+import { LeadParagraph } from "../Components/Typography/LeadParagraph";
+import { BREAKPOINT_XS } from "../config";
 
 const Container = styled.section`
 h2 {
@@ -13,28 +14,15 @@ h2 {
     margin-bottom: 1rem;
   }
 }
-p.lead {
-  width: 50%;
-  padding: 0 2rem;
-  font-size: 1.5rem;
-  @media (max-width: ${BREAKPOINT_MD}px) {
-    width: auto;
-  }
-  @media (max-width: ${BREAKPOINT_XS}px) {
-    font-size: 1rem;
-    padding: 0 1rem;
-    margin-bottom: 1rem;
-  }
-}
 `
 
 const Explore = () => {
   return (
     <Container>
       <h2>Explore</h2>
-      <p className="lead">
+      <LeadParagraph>
         Please select your filters to explore our broadcasts.
-      </p>
+      </LeadParagraph>
       <FilterForm />
       <FilterResults />
     </Container>

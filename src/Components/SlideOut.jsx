@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
+import { GoIterations } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
@@ -44,6 +45,8 @@ p {
 .title {
   text-transform: initial;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-family: var(--font-medium);
   @media (max-width: ${BREAKPOINT_MD}px) {
     margin-bottom: 1rem;
   }
@@ -54,6 +57,7 @@ p {
 .description {
   font-family: var(--font-light);
   font-size: 1.5rem;
+  margin-bottom: 1rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
       display: none;
     }
@@ -113,11 +117,14 @@ img {
 
   }
   footer {
-    display: grid;
-    gap: 0;
+    display: flex;
+    gap: 1rem;
+    padding: 0 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      padding: 0 1rem;
+    }
     line-height: 3rem;
     justify-content: space-between;
-    grid-template-columns: 8.5rem auto 1fr;
     border-bottom: 2px solid var(--color);
 
     div:first-of-type {
@@ -126,20 +133,10 @@ img {
       text-overflow: ellipsis;
     }
     .next {
-      font-family: var(--font-medium);
-      background-color: var(--second);
-      border-right: 2px solid var(--color);
-      @media (max-width: ${BREAKPOINT_MD}px) {
-        display: none;
-        border:0;
-        background-color: var(--background);
-        color: var(--color);
-      }
-      color: var(--background);
-      padding: 0 2rem 0 2rem;
+      padding: 0 0 0 1.75rem;
     }
     .status {
-      padding-left: 2rem ;
+      flex: 1;
     }
     .schedule {
       text-align: center;
@@ -225,7 +222,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
               <div className="title">{broadcast.title}</div>
             </button>
             <p className="description">
-              {broadcast.description?.substring(1, 120)} ...
+              {broadcast.description?.substring(0, 120)} ...
             </p>
             <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
               read more
@@ -236,7 +233,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
 
       </div>
       <footer>
-        <span className="next">NEXT</span>
+        <span className="next"><GoIterations /></span>
         <div className="status">
           {nextBroadcastPreview && (
             <>

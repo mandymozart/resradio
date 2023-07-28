@@ -11,11 +11,28 @@ import Tags from "../Tags";
 import HeroImage from "../TeaserImage/HeroImage";
 
 const Container = styled.div`
-border-bottom: 2px solid var(--color);
+border-bottom: 1px solid var(--color);
 padding-bottom: 1rem;
 .image {
-  border-bottom: 2px solid var(--color);
+  border-bottom: 1px solid var(--color);
+  overflow: hidden;
+  position: relative;
+  a {
+    display: block;
+  }
+  img {
+    transition: all .2s ease;
+    vertical-align: middle;
+  }
 }
+&:hover {
+  cursor: pointer;
+  img {
+    /* filter: blur(10px); */
+    transform: scale(1.01);
+  }
+}
+
 h4 {
   margin: 2rem 0 1rem 0;
 padding: 0 2rem;
@@ -62,27 +79,7 @@ padding: 0 2rem;
     margin-top: 1.5rem;
   }
 }
-.image {
-    overflow: hidden;
-    position: relative;
-    a {
-      display: block;
-    }
-    img {
-      transition: all .2s ease;
-      vertical-align: middle;
-    }
-  }
-  &:hover {
-    cursor: pointer;
-    img {
-      /* filter: blur(10px); */
-      transform: scale(1.01);
-    }
-    .image .overlay {
-      opacity: 1;
-    }
-  }
+
 `
 
 const FeatureBroadcast = () => {

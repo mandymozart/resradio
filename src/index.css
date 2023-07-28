@@ -20,9 +20,9 @@
   --content-width: 100%;
 
   /* Day */
-  --color-day: #0D0D0D;
-  --second-day: #5800FF;
-  --background-day: #FFFFFF;
+  --color-day: hsl(0, 0%, 5%);
+  --second-day:  hsl(248, 88%, 57%);
+  --background-day: hsl(248, 0%, 98%);
 
   /* Night */
   --color-night: var(--background-day);
@@ -32,9 +32,9 @@
   --color: var(--color-day);
   --second: var(--second-day);
   --background: var(--background-day);
-  --yellow: #FFFD39;
-  --grey: #F8F8F8;
-  --dark-grey: #919191;
+  --yellow: hsl(59, 100%, 61%);
+  --grey: hsl(248, 10%, 95%);
+  --dark-grey: hsl(0, 0%, 57%);
   --red: #e02500;
 
   --font-light: "Scope-LightExpanded", "Courir", -apple-system,
@@ -100,7 +100,7 @@ h1 {
 
 h2 {
   margin-top: 0;
-  margin-bottom: 4rem;
+  margin-bottom: 0rem;
 }
 
 h3 {
@@ -110,18 +110,18 @@ h3 {
 
 h4 {
   margin-bottom: 0rem;
-    margin-top: 6rem;
+    margin-top: 4rem;
 }
 
 h5 {
   margin-bottom: 0rem;
-    margin-top: 6rem;
+    margin-top: 4rem;
 }
 
 h6 {
   margin-top: 0;
   margin-bottom: 0rem;
-    margin-top: 6rem;
+    margin-top: 4rem;
 }
 
 b,
@@ -150,7 +150,7 @@ img {
 }
 button {
   font-family: var(--font-light);
-  font-size: 1.25rem;
+  font-size: 1rem;
   background: none;
   border: none;
   color: var(--color);
@@ -159,6 +159,7 @@ button {
   padding: 0;
   display: inline;
   text-align: left;
+  border-radius: .1rem;
 }
 button:hover {
   color: var(--second);
@@ -168,15 +169,16 @@ button:focus {
 }
 
 input {
-        border:none;
-        outline: none;
-        font-family: var(--font-medium);
-        font-size: 1.25rem;
-        background: none;
-        line-height: 2rem;
-        padding: 0 .5rem;
-        color:var(--color);
-        background: var(--background);
+  border:none;
+  outline: none;
+  font-family: var(--font-medium);
+  font-size: 1.25rem;
+  background: none;
+  line-height: 2rem;
+  padding: 0 .5rem;
+  border-radius: .1rem;
+  color:var(--color);
+  background: var(--background);
 }
 input[type=range] {
   padding: 0;

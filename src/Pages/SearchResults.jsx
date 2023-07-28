@@ -5,8 +5,7 @@ import { BREAKPOINT_XS } from "../config";
 
 const Container = styled.section`
 h2 {
-  padding: 3rem 2rem;
-  margin: 0;
+  padding: 2rem;
   @media (max-width: ${BREAKPOINT_XS}px) {
     padding: 1rem 1rem;
     font-size: 1.5rem;

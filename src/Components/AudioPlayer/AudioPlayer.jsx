@@ -1,28 +1,29 @@
 import styled from "@emotion/styled";
 import { noop } from "lodash";
 import React, { useEffect, useRef } from "react";
+import { GoPlay, GoSquareFill } from "react-icons/go";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import config, { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
-import PauseBig from "../../images/PauseBig";
-import PlayBig from "../../images/PlayBig";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
-padding-right: 2rem;
+padding: 0 2rem;
 @media (max-width: ${BREAKPOINT_XS}px) {
-  padding-right: 1rem;
+  padding: 0 1rem;
 }
 
 button {
   cursor: pointer;
 }
 > header {
-  display: grid;
+  display: flex;
   align-items: center;
-  grid-template-columns: 8rem auto;
+  justify-content: space-between;
+  overflow: hidden;
+  gap: 0rem;
   line-height: 3rem;
   @media (max-width: ${BREAKPOINT_MD}px) {
     display: flex;
@@ -30,34 +31,24 @@ button {
 }
 
 .status {
-  padding: 0 1rem;
-  width:8.5rem;
   color: var(--second);
   box-sizing: border-box;
   text-transform: uppercase;
   white-space: nowrap;
-  border-right: 2px solid var(--color);
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
-  span {
-  }
   svg {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
   }
   @media (max-width: ${BREAKPOINT_MD}px) {
-    padding: 0;
-    width: 4rem;
-  
     .appendix {
       display: none;
     }
   }
   @media (max-width: ${BREAKPOINT_MD}px) {
-    padding: 0;
-    width: 4rem;
     .appendix {
       display: none;
     }
@@ -68,22 +59,14 @@ button {
     }
   }
 }
-.player {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-}
 `;
 export const PlayButton = styled.button`
   height: 3rem;
-  width: 4rem;
   display: flex;
   align-items: center;
   justify-content: end;
   padding: 0;
   @media (max-width: ${BREAKPOINT_MD}px) {
-    width: 2.5rem;
     justify-content: flex-start;
   }
   @media (max-width: ${BREAKPOINT_XS}px) {
@@ -153,25 +136,23 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
           onError={handleError}
           src={config.STREAM_URL}
         />
-        <div className="status">
-          {isStreaming() || isLive() ? (<Dot />) : ("O")}
-        </div>
         {isStreaming() && (<>
-          <div className="player">
-            {isPlaying ? (
-              <PlayButton onClick={() => pause()}>
-                <PauseBig />
-              </PlayButton>
-            ) : (
-              <PlayButton onClick={() => play()}>
-                <PlayBig />
-              </PlayButton>
-            )}
-            <StreamShortInfo />
-            <button onClick={() => { isExpanded === false ? setIsExpanded(true) : noop() }}>
-              <Arrow flipped={!isExpanded} />
-            </button>
+          <div className="status">
+            {isLive() ? (<Dot />) : ("O")}
           </div>
+          {isPlaying ? (
+            <PlayButton onClick={() => pause()}>
+              <GoSquareFill />
+            </PlayButton>
+          ) : (
+            <PlayButton onClick={() => play()}>
+              <GoPlay />
+            </PlayButton>
+          )}
+          <StreamShortInfo />
+          <button onClick={() => { isExpanded === false ? setIsExpanded(true) : noop() }}>
+            <Arrow flipped={!isExpanded} />
+          </button>
         </>)}
       </header>
     </Container>
