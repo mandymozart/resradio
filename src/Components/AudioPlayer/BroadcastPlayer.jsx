@@ -8,7 +8,7 @@ import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS, OFFLINE_URL } from "../../config";
 import ClearSmall from "../../images/ClearSmall";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
@@ -117,7 +117,7 @@ const BroadcastPlayer = () => {
     const { playing, isPlaying, setIsPlaying, setIsLoading, error, setError } = useBroadcastStore()
     const [isVisible, setIsVisible] = useState(false);
     const [currentTime, setCurrentTime] = useState();
-    const [source, setSource] = useState();
+    const [source, setSource] = useState(OFFLINE_URL);
     const [duration, setDuration] = useState();
     const [broadcast, setBroadcast] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
@@ -220,7 +220,19 @@ const BroadcastPlayer = () => {
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.load();
-            audioRef.current.play();
+
+            // TODO 
+            const promise = audioRef.current.play();
+
+            if (promise !== undefined) {
+                promise.then(_ => {
+                    // Autoplay started!
+                }).catch(error => {
+                    // Autoplay was prevented.
+                    // Show a "Play" button so that user can start playback.
+                    console.log("audio Element failed", error)
+                });
+            }
             startTimer();
             setTrackProgress(audioRef.current.currentTime);
         }
@@ -286,17 +298,17 @@ const BroadcastPlayer = () => {
         pause();
         setIsVisible(false);
     }
-    if (broadcast)
-        return (
-            <Container>
-                <audio
-                    ref={audioRef}
-                    volume={volume}
-                    onTimeUpdate={onPlaying}
-                    onEnded={handleEnded}
-                >
-                    <source src={source} type='audio/mpeg'></source>
-                </audio>
+    return (
+        <Container>
+            <audio
+                ref={audioRef}
+                volume={volume}
+                onTimeUpdate={onPlaying}
+                onEnded={handleEnded}
+            >
+                <source src={source} type='audio/mpeg'></source>
+            </audio>
+            {broadcast && (
                 <Controls className={isVisible ? "isVisible" : ""}>
                     <Player>
                         {isPlaying ? (<button onClick={() => pause()}>
@@ -318,8 +330,9 @@ const BroadcastPlayer = () => {
                         <ClearSmall />
                     </div>
                 </Controls>
-            </Container>
-        );
-};
+            )}
+        </Container>
+    );
+}
 
 export default BroadcastPlayer;

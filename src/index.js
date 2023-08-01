@@ -25,6 +25,7 @@ import SearchResults from "./Pages/SearchResults";
 import ShopPage from "./Pages/Shop";
 import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
+import Sandbox from "./Sandbox";
 import Studio from "./Studio";
 import config, { IDENTITY_URL } from "./config";
 import { client } from "./prismic";
@@ -138,6 +139,7 @@ root.render(
                     <Player />
                   } />
               </Route>
+              <Route path="/sandbox" element={<Sandbox />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ScrollToTop>

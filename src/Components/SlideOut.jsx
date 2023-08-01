@@ -1,14 +1,14 @@
 import { useChannel } from "@ably-labs/react-hooks";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useClickAway } from "@uidotdev/usehooks";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GoIterations } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import { useOnClickOutside } from 'usehooks-ts';
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
@@ -157,9 +157,22 @@ img {
 `
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const navigate = useNavigate()
-  const ref = useClickAway(() => {
-    setIsExpanded(false);
-  });
+  const ref = useRef(null);
+
+  const handleClickOutside = () => {
+    // Your custom logic here
+    console.log("clicked outside", isExpanded)
+    if (isExpanded)
+      setIsExpanded(false);
+  }
+
+  const handleClickInside = () => {
+    // Your custom logic here
+    console.log('clicked inside')
+  }
+
+  useOnClickOutside(ref, handleClickOutside)
+
   // ably websocket
   const [broadcast, setBroadcast] = useState()
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState()

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { noop } from "lodash";
 import React, { useEffect, useRef } from "react";
 import { GoPlay, GoSquareFill } from "react-icons/go";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
@@ -126,6 +125,9 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
     }
   }
     , [isPlaying])
+
+  const handleClick = () => { setIsExpanded(!isExpanded) }
+
   return (
     <Container>
       <header>
@@ -151,7 +153,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
             </PlayButton>
           )}
           <StreamShortInfo />
-          <button onClick={() => { isExpanded === false ? setIsExpanded(true) : noop() }}>
+          <button onClick={handleClick}>
             <Arrow flipped={!isExpanded} />
           </button>
         </>)}

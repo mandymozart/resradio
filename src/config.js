@@ -4,8 +4,9 @@ const config = {
     ABLY_REMOTE_CHANNEL: "remote",
     ABLY_CHAT_CHANNEL: "chat",
     ABLY_KEY: "-UKVOQ.551SOg:ATV3cBDTx4wFI1GZpLbCH0EynLqak8T74g85L2o-JJA",
-    OFFLINE_URL: "https://soundimage.org/wp-content/uploads/2016/08/Street-Ambience.mp3",
 }
+
+export const OFFLINE_URL = "/resradio-signatur.mp3";
 
 export const BREAKPOINT_L = 1279;
 export const BREAKPOINT_MD = 769;
