@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
-import { useClickAway } from '@uidotdev/usehooks'
+
 import React, { useState } from 'react'
 import { isDesktop } from 'react-device-detect'
 import Slider from 'react-slider'
+import { useOnClickOutside } from 'usehooks-ts'
 import useAudioPlayerStore from '../Stores/AudioPlayerStore'
 import Volume from '../images/Volume'
 
@@ -66,10 +67,6 @@ const VolumeButton = () => {
     const { volume, setVolume } = useAudioPlayerStore();
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
-    const ref = useClickAway(() => {
-        setShowVolumeSlider(false);
-    });
-
     const toggleVolumeSlider = () => {
         setShowVolumeSlider(!showVolumeSlider);
     };
@@ -78,6 +75,12 @@ const VolumeButton = () => {
         // send volumen changed event to window, all players will listen to this.
         setVolume(parseFloat(e.target.value))
     };
+
+    const handleClickOutside = () => {
+        setShowVolumeSlider(false);
+    }
+
+    useOnClickOutside(ref, handleClickOutside)
 
     return (
         <Container>
