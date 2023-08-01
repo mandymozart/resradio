@@ -166,11 +166,6 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
       setIsExpanded(false);
   }
 
-  const handleClickInside = () => {
-    // Your custom logic here
-    console.log('clicked inside')
-  }
-
   useOnClickOutside(ref, handleClickOutside)
 
   // ably websocket
