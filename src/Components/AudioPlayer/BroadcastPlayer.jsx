@@ -242,6 +242,21 @@ const BroadcastPlayer = () => {
         }
     }, [broadcast])
 
+    useEffect(() => {
+        const audio = audioRef.current;
+        const promise = audio.play();
+
+        if (promise !== undefined) {
+            promise.then(_ => {
+                // Autoplay started!
+            }).catch(error => {
+                // Autoplay was prevented.
+                // Show a "Play" button so that user can start playback.
+                console.log("audio Element failed", error)
+            });
+        }
+    }, []); // Empty array ensures effect is only run once on mount
+
     const handleEnded = () => {
         setIsPlaying(false);
     }
