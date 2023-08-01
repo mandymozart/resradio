@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { isDesktop } from 'react-device-detect'
 import Slider from 'react-slider'
 import { useOnClickOutside } from 'usehooks-ts'
@@ -66,6 +66,7 @@ border-radius: .1rem;
 const VolumeButton = () => {
     const { volume, setVolume } = useAudioPlayerStore();
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+    const ref = useRef();
 
     const toggleVolumeSlider = () => {
         setShowVolumeSlider(!showVolumeSlider);
