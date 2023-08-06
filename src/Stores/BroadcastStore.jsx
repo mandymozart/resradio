@@ -15,7 +15,6 @@ const useBroadcastStore = create(
       return false;
     },
     isLive: () => {
-      console.log(get().currentBroadcast, get().nextBroadcast);
       if (get().currentBroadcast !== undefined && get().nextBroadcast !== undefined && get().rotationInfo === undefined) return true;
       return false;
     },
