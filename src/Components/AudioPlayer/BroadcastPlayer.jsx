@@ -133,6 +133,10 @@ const BroadcastPlayer = () => {
         },
         onCompleted: async (data) => {
             setBroadcast(data.broadcasts)
+            setSource(data.broadcasts.audio);
+            // getLengthOfMp3(broadcast.audio);
+            setDuration(data.broadcasts.length ? data.broadcasts.length : 3600);
+            setCurrentTime(0);
             const playback = {
                 uid: playing,
                 referenceText: data.broadcasts.title + " - " + data.broadcasts.hostedby.title,
@@ -153,7 +157,9 @@ const BroadcastPlayer = () => {
         }
         if (playing !== broadcast?._meta?.uid) {
             getData()
-        } else {
+        }
+        // play if uid is available
+        else {
             audioRef.current.play();
             setIsPlaying(true);
         }
@@ -176,8 +182,6 @@ const BroadcastPlayer = () => {
             audioRef.current.pause();
             audioRef.current.load();
             console.log("resetting audio ref")
-        } else {
-            console.warn("no audioRef.current")
         }
         setCurrentTime(0);
     }
@@ -187,13 +191,10 @@ const BroadcastPlayer = () => {
         resetAudioRef()
     }, [source])
 
-    /** On Update Broadcast */
+    /** On Update Broadcast JUST FOR INFO and Debugging */
     useEffect(() => {
         if (broadcast) {
-            setSource(broadcast.audio);
-            // getLengthOfMp3(broadcast.audio);
-            setDuration(broadcast.length ? broadcast.length : 3600);
-            setCurrentTime(0);
+            console.log("broadcast updated", broadcast)
         } else {
             console.warn("no broadcast loaded")
         }

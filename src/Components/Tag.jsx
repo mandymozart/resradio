@@ -10,7 +10,6 @@ export const Tag = styled.span`
   text-transform: uppercase;
   line-height: 2rem;
   margin-right: 0;
-  cursor: pointer;
   margin-bottom: 0.5rem;
   white-space: nowrap;
   border-radius: .1rem;
