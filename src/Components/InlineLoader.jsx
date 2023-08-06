@@ -6,8 +6,9 @@ import { SyncLoader } from "react-spinners";
 const Container = styled.div`
   display: inline-flex;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0;
   justify-content: center;
+  height: 2rem;
 `;
 
 const override = css`

@@ -11,16 +11,12 @@ const useBroadcastStore = create(
     rotationInfo: null,
     setRotationInfo: (info) => set(() => ({ rotationInfo: info })),
     isStreaming: () => {
-      if (get().currentBroadcast !== undefined) return true;
-      if (get().nextBroadcast !== undefined) return true;
-      if (get().rotationInfo !== null) return true;
-      if (get().canPlay) return true;
+      if (get().rotationInfo !== undefined) return true;
       return false;
     },
     isLive: () => {
-      if (get().currentBroadcast !== undefined) return true;
-      if (get().nextBroadcast !== undefined) return true;
-      if (get().canPlay) return true;
+      console.log(get().currentBroadcast, get().nextBroadcast);
+      if (get().currentBroadcast !== undefined && get().nextBroadcast !== undefined && get().rotationInfo === undefined) return true;
       return false;
     },
     error: false,

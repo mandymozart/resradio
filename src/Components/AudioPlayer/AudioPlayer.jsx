@@ -7,6 +7,7 @@ import config, { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
 import DotGrey from "../../images/DotGrey";
+import InlineLoader from "../InlineLoader";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
@@ -80,9 +81,9 @@ export const PlayButton = styled.button`
 
 const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
 
-  const { isPlaying, setIsPlaying, setIsLoading, volume } =
+  const { isPlaying, setIsPlaying, setIsLoading, isLoading, volume } =
     useAudioPlayerStore();
-  const { setCanPlay, setIsPlaying: setBroadcastIsPlaying, isStreaming, isLive } = useBroadcastStore()
+  const { canPlay, setCanPlay, setIsPlaying: setBroadcastIsPlaying, isStreaming, isLive } = useBroadcastStore()
 
   let audioPlayer = useRef();
 
@@ -108,7 +109,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
     setCanPlay(false);
   }
 
-  const onCanPlay = () => {
+  const onCanPlayThrough = () => {
     setCanPlay(true);
     setIsLoading(false);
     audioPlayer.current.volume = volume;
@@ -134,29 +135,33 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
         <audio
           ref={audioPlayer}
           volume={volume}
-          onCanPlay={onCanPlay}
+          onCanPlayThrough={onCanPlayThrough}
           onEnded={handleEnded}
           onError={handleError}
           src={config.STREAM_URL}
         />
-        {isStreaming() && (<>
-          <div className="status">
-            {isLive() ? (<Dot />) : (<DotGrey />)}
-          </div>
-          {isPlaying ? (
-            <PlayButton onClick={() => pause()}>
-              <GoSquareFill />
-            </PlayButton>
-          ) : (
-            <PlayButton onClick={() => play()}>
-              <GoPlay />
-            </PlayButton>
-          )}
-          <StreamShortInfo />
-          <button onClick={handleClick}>
-            <Arrow flipped={!isExpanded} />
-          </button>
-        </>)}
+        {isLoading ? (<InlineLoader />) : (
+          <>
+            {canPlay ? (<>
+              <div className="status">
+                {isLive() ? (<Dot />) : (<DotGrey />)}
+              </div>
+              {isPlaying ? (
+                <PlayButton onClick={() => pause()}>
+                  <GoSquareFill />
+                </PlayButton>
+              ) : (
+                <PlayButton onClick={() => play()}>
+                  <GoPlay />
+                </PlayButton>
+              )}
+              <StreamShortInfo />
+              <button onClick={handleClick}>
+                <Arrow flipped={!isExpanded} />
+              </button>
+            </>) : (<>Offline</>)}
+          </>
+        )}
       </header>
     </Container>
   );
