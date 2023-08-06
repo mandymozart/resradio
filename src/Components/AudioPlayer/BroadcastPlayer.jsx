@@ -156,7 +156,6 @@ const BroadcastPlayer = () => {
         } else {
             audioRef.current.play();
             setIsPlaying(true);
-            setIsVisible(true);
         }
     });
 
@@ -171,23 +170,6 @@ const BroadcastPlayer = () => {
         setIsPlaying(false);
         debouncedRequest();
     }, [playing])
-
-    // Fine Tune Length if stored Length is not correct or unset in CMS
-    const getLengthOfMp3 = async (mp3file) => {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-        const request = new XMLHttpRequest()
-        request.open('GET', mp3file, true)
-        request.responseType = 'arraybuffer'
-        request.onload = function () {
-            audioContext.decodeAudioData(request.response,
-                function (buffer) {
-                    if (duration !== buffer.duration)
-                        setDuration(duration)
-                }
-            )
-        }
-        request.send()
-    }
 
     const resetAudioRef = () => {
         if (audioRef.current) {
@@ -209,10 +191,11 @@ const BroadcastPlayer = () => {
     useEffect(() => {
         if (broadcast) {
             setSource(broadcast.audio);
-            getLengthOfMp3(broadcast.audio);
+            // getLengthOfMp3(broadcast.audio);
             setDuration(broadcast.length ? broadcast.length : 3600);
             setCurrentTime(0);
         } else {
+            console.warn("no broadcast loaded")
         }
     }, [broadcast])
 
