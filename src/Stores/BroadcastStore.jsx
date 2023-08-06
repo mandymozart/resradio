@@ -23,8 +23,6 @@ const useBroadcastStore = create(
       if (get().canPlay) return true;
       return false;
     },
-    isLoading: false,
-    setIsLoading: (value) => set(() => ({ isLoading: value })),
     error: false,
     setError: (error) => set(() => ({ error: error })),
     playing: null,

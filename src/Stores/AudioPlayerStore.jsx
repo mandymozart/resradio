@@ -19,11 +19,6 @@ const useAudioPlayerStore = create(
       set(() => ({
         isPlayingBroadcast: value,
       })),
-    isLoadingBroadcast: false,
-    setIsLoadingBroadcast: (value) =>
-      set(() => ({
-        isLoadingBroadcast: value,
-      })),
     volume: 0.7,
     setVolume: (value) => set(() => ({ volume: value })),
   }))

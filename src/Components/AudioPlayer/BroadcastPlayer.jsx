@@ -114,14 +114,12 @@ color: var(--background);
 `
 const BroadcastPlayer = () => {
     const { setIsPlaying: setStreamIsPlaying, volume } = useAudioPlayerStore()
-    const { playing, isPlaying, setIsPlaying, setIsLoading, error, setError } = useBroadcastStore()
+    const { playing, isPlaying, setIsPlaying } = useBroadcastStore()
     const [isVisible, setIsVisible] = useState(false);
-    const [currentTime, setCurrentTime] = useState();
+    const [currentTime, setCurrentTime] = useState(1);
     const [source, setSource] = useState(OFFLINE_URL);
     const [duration, setDuration] = useState();
     const [broadcast, setBroadcast] = useState();
-    const [trackProgress, setTrackProgress] = useState(0);
-    const intervalRef = useRef();
     const audioRef = useRef();
     const progressBarRef = useRef();
 
@@ -132,10 +130,8 @@ const BroadcastPlayer = () => {
         },
         onError: (res) => {
             console.error("api error", res)
-            setBroadcast(res)
         },
         onCompleted: async (data) => {
-            setIsLoading(false);
             setBroadcast(data.broadcasts)
             const playback = {
                 uid: playing,
@@ -147,25 +143,20 @@ const BroadcastPlayer = () => {
             }
             const queryString = getQueryString(playback);
             await fetch(`${FUNCTIONS}/log-playback?${queryString}`);
-
         }
     });
 
     const debouncedRequest = useDebounce(() => {
-        if (isPlaying) {
-            if (playing === null) {
-                console.error("no broadcast uid found to play")
-                return
-            }
-            if (playing !== broadcast?._meta?.uid) {
-                getData()
-            } else {
-                audioRef.current.play();
-                setIsVisible(true);
-            }
+        if (playing === null) {
+            console.warn("no broadcast uid found to play. waiting for user input")
+            return
+        }
+        if (playing !== broadcast?._meta?.uid) {
+            getData()
         } else {
-            if (audioRef.current)
-                pause();
+            audioRef.current.play();
+            setIsPlaying(true);
+            setIsVisible(true);
         }
     });
 
@@ -175,31 +166,13 @@ const BroadcastPlayer = () => {
     }, [volume])
 
     useEffect(() => {
-        setIsLoading(true);
-        debouncedRequest()
-    }, [isPlaying])
+        setIsVisible(true);
+        setCurrentTime(0);
+        setIsPlaying(false);
+        debouncedRequest();
+    }, [playing])
 
-    const currentPercentage = audioRef.current
-        ? `${(trackProgress / audioRef.current) * 100}%`
-        : "0%";
-    const trackStyling = `
-    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-  `;
-
-    const startTimer = () => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-
-        intervalRef.current = setInterval(() => {
-            if (audioRef.current) {
-                if (audioRef.current.ended) {
-                } else {
-                    setTrackProgress(audioRef.current.currentTime);
-                }
-            }
-        }, [1000]);
-    };
-
+    // Fine Tune Length if stored Length is not correct or unset in CMS
     const getLengthOfMp3 = async (mp3file) => {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)()
         const request = new XMLHttpRequest()
@@ -208,8 +181,8 @@ const BroadcastPlayer = () => {
         request.onload = function () {
             audioContext.decodeAudioData(request.response,
                 function (buffer) {
-                    const duration = buffer.duration
-                    setDuration(duration)
+                    if (duration !== buffer.duration)
+                        setDuration(duration)
                 }
             )
         }
@@ -220,23 +193,11 @@ const BroadcastPlayer = () => {
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.load();
-
-            // TODO 
-            const promise = audioRef.current.play();
-
-            if (promise !== undefined) {
-                promise.then(_ => {
-                    // Autoplay started!
-                }).catch(error => {
-                    // Autoplay was prevented.
-                    // Show a "Play" button so that user can start playback.
-                    console.log("audio Element failed", error)
-                });
-            }
-            startTimer();
-            setTrackProgress(audioRef.current.currentTime);
+            console.log("resetting audio ref")
         }
+        setCurrentTime(0);
     }
+
     /** Resetting source audio magic and tracking progress */
     useEffect(() => {
         resetAudioRef()
@@ -247,9 +208,8 @@ const BroadcastPlayer = () => {
         if (broadcast) {
             setSource(broadcast.audio);
             getLengthOfMp3(broadcast.audio);
-            setIsVisible(true);
-            setDuration(null);
-            setCurrentTime(1);
+            setDuration(broadcast.length ? broadcast.length : 3600);
+            setCurrentTime(0);
         } else {
         }
     }, [broadcast])
@@ -257,18 +217,7 @@ const BroadcastPlayer = () => {
     useEffect(() => {
         const audio = audioRef.current;
         if (audio) {
-
-            const promise = audio.play();
-
-            if (promise !== undefined) {
-                promise.then(_ => {
-                    // Autoplay started!
-                }).catch(error => {
-                    // Autoplay was prevented.
-                    // Show a "Play" button so that user can start playback.
-                    console.log("audio Element failed", error)
-                });
-            }
+            console.log("initial audio is ready to play")
         }
         else {
             console.log("nope")
@@ -293,6 +242,9 @@ const BroadcastPlayer = () => {
         audioRef.current.pause();
         setIsPlaying(false)
     }
+    useEffect(() => {
+        isPlaying ? play() : pause();
+    }, [isPlaying])
 
     const close = () => {
         pause();

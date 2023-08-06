@@ -104,6 +104,7 @@ const Container = styled.header`
 const Topbar = styled.div`
   box-sizing: border-box;
   border-bottom: 2px solid var(--color);
+  min-height: calc(3rem + 2px);
 `
 
 const ChatButton = styled(HeaderButton)`

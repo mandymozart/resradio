@@ -92,12 +92,11 @@ const BroadcastItem = ({ broadcast }) => {
   const navigate = useNavigate()
   const play = (uid) => {
     setPlaying(uid)
-    setStreamIsPlaying(false)
-    setIsPlaying(true);
+    setStreamIsPlaying(false);
+    if (playing === uid) setIsPlaying(true);
   }
   const pause = () => {
     setIsPlaying(false);
-
   }
   const handleClick = () => {
     if (broadcast.node.audio) {

@@ -31,36 +31,36 @@ border-radius: .1rem;
     border-radius: 1rem;
     }
 
-    /* Styles for the slider thumb */
-    .slider .thumb {
-        height: 1.5rem;
-        width: 1.5rem;
-        transform: translate(-0.5rem,.5rem);
-        border-radius: 50%;
-        background-color: var(--color);
-        cursor: grab;
-        box-shadow: none;
-        &.thumb-1 {
-            transform: translate(0.5rem,-0.5rem);
-        }
+/* Styles for the slider thumb */
+.slider .thumb {
+    height: 1.5rem;
+    width: 1.5rem;
+    transform: translate(-0.5rem,.5rem);
+    border-radius: 50%;
+    background-color: var(--color);
+    cursor: grab;
+    box-shadow: none;
+    &.thumb-1 {
+        transform: translate(0.5rem,-0.5rem);
     }
+}
 
-    /* Styles for the slider active state */
-    .slider .thumb.active {
-        background-color: var(--second);
-        box-shadow: none;
-    }
-    .slider .track-1 {
-        background: var(--grey);
-        border-radius: .5rem;
-        width: 0.5rem;
-    }
-    .slider .track-2,
-    .slider .track-0 {
-        background: none;
-        height: 0.5rem;
-        border-radius: .5rem;
-    }
+/* Styles for the slider active state */
+.slider .thumb.active {
+    background-color: var(--second);
+    box-shadow: none;
+}
+.slider .track-1 {
+    background: var(--grey);
+    border-radius: .5rem;
+    width: 0.5rem;
+}
+.slider .track-2,
+.slider .track-0 {
+    background: none;
+    height: 0.5rem;
+    border-radius: .5rem;
+}
 `;
 
 const VolumeButton = () => {
@@ -73,7 +73,6 @@ const VolumeButton = () => {
     };
 
     const changeVolume = (e) => {
-        // send volumen changed event to window, all players will listen to this.
         setVolume(parseFloat(e.target.value))
     };
 
@@ -93,24 +92,12 @@ const VolumeButton = () => {
 
                     {showVolumeSlider && (
                         <VolumeSlider ref={ref}>
-                            {/* <input
-                                orient="vertical"
-                                type="range"
-                                max="1"
-                                min="0"
-                                value={volume}
-                                step="0.01"
-                                ref={volumeSlider}
-                                onChange={changeVolume}
-                            /> */}
                             <div>
-
                                 <Slider orientation='vertical'
                                     className="slider"
                                     value={volume}
                                     onMouseUp={changeVolume}
                                     onAfterChange={(value) => setVolume(value)}
-                                    // ref={volumeSlider}
                                     invert
                                     min={0}
                                     max={1}
