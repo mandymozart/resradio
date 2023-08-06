@@ -7,7 +7,6 @@ import config, { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
 import DotGrey from "../../images/DotGrey";
-import InlineLoader from "../InlineLoader";
 import StreamShortInfo from "./StreamShortInfo";
 
 const Container = styled.div`
@@ -119,7 +118,6 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
     audioPlayer.current.volume = volume;
   }, [volume])
 
-
   useEffect(() => {
     if (!isPlaying) {
       pause()
@@ -140,28 +138,25 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
           onError={handleError}
           src={config.STREAM_URL}
         />
-        {isLoading ? (<InlineLoader />) : (
-          <>
-            {canPlay ? (<>
-              <div className="status">
-                {isLive() ? (<Dot />) : (<DotGrey />)}
-              </div>
-              {isPlaying ? (
-                <PlayButton onClick={() => pause()}>
-                  <GoSquareFill />
-                </PlayButton>
-              ) : (
-                <PlayButton onClick={() => play()}>
-                  <GoPlay />
-                </PlayButton>
-              )}
-              <StreamShortInfo />
-              <button onClick={handleClick}>
-                <Arrow flipped={!isExpanded} />
-              </button>
-            </>) : (<>Offline</>)}
-          </>
-        )}
+        {canPlay ? (<>
+          <div className="status">
+            {isLive() && (<Dot />)}
+            {isStreaming() && (<DotGrey />)}
+          </div>
+          {isPlaying ? (
+            <PlayButton onClick={() => pause()}>
+              <GoSquareFill />
+            </PlayButton>
+          ) : (
+            <PlayButton onClick={() => play()}>
+              <GoPlay />
+            </PlayButton>
+          )}
+          <StreamShortInfo />
+          <button onClick={handleClick}>
+            <Arrow flipped={!isExpanded} />
+          </button>
+        </>) : (<>Offline</>)}
       </header>
     </Container>
   );

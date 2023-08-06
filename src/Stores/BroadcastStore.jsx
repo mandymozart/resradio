@@ -4,7 +4,7 @@ import create from "zustand";
 
 const useBroadcastStore = create(
   produce((set, get) => ({
-    canPlay: false,
+    canPlay: true,
     setCanPlay: (value) => set(() => ({ canPlay: value })),
     isPlaying: false,
     setIsPlaying: (value) => set(() => ({ isPlaying: value })),
