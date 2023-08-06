@@ -194,6 +194,8 @@ const BroadcastPlayer = () => {
             audioRef.current.pause();
             audioRef.current.load();
             console.log("resetting audio ref")
+        } else {
+            console.warn("no audioRef.current")
         }
         setCurrentTime(0);
     }
@@ -222,14 +224,13 @@ const BroadcastPlayer = () => {
         else {
             console.log("nope")
         }
-    }, []); // Empty array ensures effect is only run once on mount
+    }, []);
 
     const handleEnded = () => {
         setIsPlaying(false);
     }
 
     const onPlaying = (e) => {
-        // TODO: check with length and prepare file change when nessecary
         setCurrentTime(parseInt(e.target.currentTime));
     };
 
