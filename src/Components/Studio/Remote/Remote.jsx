@@ -1,8 +1,32 @@
 import { useChannel } from "@ably-labs/react-hooks";
+import styled from "@emotion/styled";
 import React, { useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
 import { ABLY_REMOTE_CHANNEL, ABLY_ROTATION_CHANNEL } from "../../../config";
+import Button from "../../Button";
 import SectionLoader from "../../SectionLoader";
+
+const Container = styled.div`
+h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+    margin: 2rem;
+    .controls {
+        padding: 1rem;
+        background: var(--color);
+    }
+`
+
+const Label = styled.div`
+    border-radius: .1rem;
+    background-color: var(--second);
+    font-size: 1rem;
+    text-transform: none;
+    padding: 0 1rem;
+    color: var(--background);
+`
 
 const outgoingMethod = {
     PLAY: "play", PAUSE: "pause", NEXT: "next", PREVIOUS: "previous", CONNECT: "connect", CLOSE: "close"
@@ -83,25 +107,26 @@ const Remote = () => {
 
 
 
-    return (<>
-        <h3>Remote</h3>
+    return (<Container>
+        <h3>Remote         {authorized && (<Label>Online</Label>)}</h3>
+        <p>Remote connection is a dangerous tool! Be aware that you have complete power over the stream. If there is no playlist open in the studio, you won't be able to do anything. But when you have control, you can fuck things up. In the worst case, just press play!</p>
         <div className="controls">
             {authorized && (<>
-                <button onClick={() => remote(outgoingMethod.PLAY)}>Play</button>
-                <button onClick={() => remote(outgoingMethod.PAUSE)}>Pause</button>
+                <Button onClick={() => remote(outgoingMethod.PLAY)}>Play</Button>
+                <Button onClick={() => remote(outgoingMethod.PAUSE)}>Pause</Button>
             </>)}
             {/* <button onClick={() => remote(outgoingMethod.NEXT)}>Next</button>
             <button onClick={() => remote(outgoingMethod.PREVIOUS)}>Previous</button> */}
-            {authorized ? <button onClick={() => remote(outgoingMethod.CLOSE)}>Close</button> : <button onClick={() => connect()}>Connect</button>}
+            {authorized ? <Button onClick={() => remote(outgoingMethod.CLOSE)}>Close</Button> : <Button onClick={() => connect()}>Connect</Button>}
 
         </div>
         <div className="meta">
-            <div className="current">{message?.data?.current.title},</div>
+            <div className="current">{message?.data?.current.title}</div>
             <div className="next">{message?.data?.next.title}</div>
         </div>
         {loading && <SectionLoader />}
-        {authorized && (<>connected</>)}
-    </>)
+
+    </Container>)
 }
 
 export default Remote;

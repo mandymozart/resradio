@@ -33,6 +33,7 @@
   --second: var(--second-day);
   --background: var(--background-day);
   --yellow: hsl(59, 100%, 61%);
+  --green: hsl(135, 100%, 61%);
   --grey: hsl(248, 10%, 95%);
   --dark-grey: hsl(0, 0%, 57%);
   --red: #e02500;
