@@ -24,6 +24,7 @@ color: var(--color);
   align-items: center;
   gap: 1rem;
   font-family: var(--font-light);
+  border-radius: 0.1rem;
   text-transform: uppercase;
   line-height: 2rem;
   margin-right: 0;
