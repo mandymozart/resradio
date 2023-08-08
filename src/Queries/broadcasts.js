@@ -143,7 +143,10 @@ export const BroadcastFragment = gql`
     begin
     end
     bpm
+    bpm_min
+    bpm_max
     length
+    duration
     image
     audio
     hostedby {

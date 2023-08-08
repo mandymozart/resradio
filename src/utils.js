@@ -53,14 +53,24 @@ export const roundTo = (n, place) => {
 
 export const formatTime = (time) => {
   if (time && !isNaN(time)) {
-    const minutes = Math.floor(time / 60);
-    const formatMinutes =
-      minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const days = Math.floor(time / 86400);
+    const formatDays = days < 10 ? `0${days}` : `${days}`;
+    const hours = Math.floor((time % 86400) / 3600);
+    const formatHours = hours < 10 ? `0${hours}` : `${hours}`;
+    const minutes = Math.floor((time % 3600) / 60);
+    const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
     const seconds = Math.floor(time % 60);
-    const formatSeconds =
-      seconds < 10 ? `0${seconds}` : `${seconds}`;
-    return `${formatMinutes}:${formatSeconds}`;
+    const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    if (days > 0) {
+      return `${formatDays}:${formatHours}:${formatMinutes}:${formatSeconds}`;
+    } else if (hours > 0) {
+      return `${formatHours}:${formatMinutes}:${formatSeconds}`;
+    } else {
+      return `${formatMinutes}:${formatSeconds}`;
+    }
   }
+
   return '00:00';
 };
 

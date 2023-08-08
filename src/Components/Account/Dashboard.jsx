@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 import React from "react";
-import { useIdentityContext } from 'react-netlify-identity';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { BREAKPOINT_XS } from '../../config';
-import Button from '../Button';
 // code split the modal til you need it!
 
 const Container = styled.div`
@@ -24,17 +22,8 @@ header {
 `
 
 function Dashboard() {
-  const { user, logoutUser } = useIdentityContext();
   return (
     <Container>
-      <header>
-        {user?.email}<br />
-        <Button onClick={() => logoutUser()}>Log out</Button>
-        <br /><br />
-        <nav>
-          <Link to="/studio/playlists">Playlists</Link>
-        </nav>
-      </header>
       <div>
         <Outlet />
       </div>

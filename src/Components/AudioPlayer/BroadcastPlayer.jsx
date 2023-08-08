@@ -77,17 +77,6 @@ const Player = styled.div`
         grid-area: top;
     }
   }
-
-
-  /* .image {
-    text-align: right;
-    img {
-        width: 4rem;
-        height: 4rem;
-        margin-right: 2rem;
-    }
-  } */
-
 `
 
 const Controls = styled.div`
@@ -100,6 +89,7 @@ width: 50%;
 }
 height: 6rem;
 transform: translateY(10rem);
+transition: transform .2s ease-out;
 background: var(--color);
 color: var(--background);
 .close {
@@ -134,7 +124,8 @@ const BroadcastPlayer = () => {
             setBroadcast(data.broadcasts)
             setSource(data.broadcasts.audio);
             // getLengthOfMp3(broadcast.audio);
-            setDuration(data.broadcasts.length ? data.broadcasts.length : 3600);
+            const duration = data.broadcasts.duration ? data.broadcasts.duration : data.broadcasts.length ? data.broadcasts.length * 60 : 3600
+            setDuration(duration);
             setCurrentTime(0);
             const playback = {
                 uid: playing,
@@ -151,7 +142,6 @@ const BroadcastPlayer = () => {
 
     const debouncedRequest = useDebounce(() => {
         if (playing === null) {
-            console.warn("no broadcast uid found to play. waiting for user input")
             return
         }
         if (playing !== broadcast?._meta?.uid) {
@@ -175,38 +165,14 @@ const BroadcastPlayer = () => {
         debouncedRequest();
     }, [playing])
 
-    const resetAudioRef = () => {
+    /** Resetting source audio magic and tracking progress */
+    useEffect(() => {
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.load();
-            console.log("resetting audio ref")
         }
         setCurrentTime(0);
-    }
-
-    /** Resetting source audio magic and tracking progress */
-    useEffect(() => {
-        resetAudioRef()
     }, [source])
-
-    /** On Update Broadcast JUST FOR INFO and Debugging */
-    useEffect(() => {
-        if (broadcast) {
-            console.log("broadcast updated", broadcast)
-        } else {
-            console.warn("no broadcast loaded")
-        }
-    }, [broadcast])
-
-    useEffect(() => {
-        const audio = audioRef.current;
-        if (audio) {
-            console.log("initial audio is ready to play")
-        }
-        else {
-            console.log("nope")
-        }
-    }, []);
 
     const handleEnded = () => {
         setIsPlaying(false);

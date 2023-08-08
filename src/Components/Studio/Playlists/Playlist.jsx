@@ -5,7 +5,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { getPlaylistQuery } from "../../../Queries/playlists";
-import { BREAKPOINT_XS, BROADCAST_MAX_ALLOWED_DURATION, BROADCAST_MIN_ALLOWED_DURATION } from "../../../config";
+import { BREAKPOINT_XS } from "../../../config";
 import KeyFieldParagraph from "../../KeyFieldParagraph";
 import SectionLoader from "../../SectionLoader";
 import ThumbnailImage from '../../TeaserImage/ThumbnailImage';
@@ -48,9 +48,11 @@ const Playlist = () => {
     useEffect(() => {
         // init Player
         if (data) {
-            console.log(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")))
-            setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")))
-            setFaultyBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.length < BROADCAST_MIN_ALLOWED_DURATION || i.broadcast.length > BROADCAST_MAX_ALLOWED_DURATION))
+            const valid = data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")).filter(i => i.broadcast.duration || i.broadcast.length);
+            const faulty = data.allPlaylists.edges[0].node.broadcasts.filter(i => !i.broadcast.audio?.includes(".mp3")).filter(i => !i.broadcast.duration || !i.broadcast.length);
+            setBroadcasts(valid)
+            setFaultyBroadcasts(faulty)
+            console.log("These broadcasts were faulty and ommited from the list:", faulty);
         }
     }, [data])
 
@@ -78,7 +80,7 @@ const Playlist = () => {
 
             </div>
             <div>
-                <StudioPlayer broadcasts={broadcasts} />
+                <StudioPlayer broadcasts={broadcasts} setBroadcasts={setBroadcasts} />
             </div>
         </Container>
     )

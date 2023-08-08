@@ -1,15 +1,21 @@
 import styled from '@emotion/styled';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@reach/tabs';
 import React from "react";
+import { GoPerson, GoSignOut } from 'react-icons/go';
 import { useIdentityContext } from 'react-netlify-identity';
+import { Link } from 'react-router-dom';
 import CreateAccount from './Components/Account/CreateAccount';
 import Dashboard from './Components/Account/Dashboard';
 import LogIn from './Components/Account/Login';
+import Button from './Components/Button';
 import { BREAKPOINT_XS } from './config';
 // code split the modal til you need it!
 
 const Container = styled.div`
 header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items:center; 
   padding: 2rem;
   border-bottom: 2px solid var(--color);
   background-color: var(--grey);
@@ -20,27 +26,34 @@ header {
 h1 {
   margin: 0;
 }
-.current {
-  font-family: var(--font-bold);
-}
-[data-reach-tabs] {
-  margin-top: 1rem;
-}
-button[role=tab] {
-  margin-left: 2rem;
-  &[aria-selected=true]{
-    font-family: var(--font-bold);
-  }
+.account {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+    justify-content: end;
+    gap: 0.75rem;
 }
 `
 
 function Studio() {
-  const { isLoggedIn } = useIdentityContext()
+  const { isLoggedIn, user, logoutUser } = useIdentityContext()
 
   return (
     <Container>
       <header>
         <h1>res.studio</h1>
+        <nav>
+          <Link to="/studio/playlists">Playlists</Link>
+        </nav>
+        <div></div>
+        <nav className='account'>
+          <div>
+            <GoPerson /> {user?.email}<br />
+          </div>
+          <div>
+            <Button hasIcon ghost onClick={() => logoutUser()}><GoSignOut /></Button>
+          </div>
+        </nav>
       </header>
       {isLoggedIn ? <Dashboard /> : <>
         <Tabs>
