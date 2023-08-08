@@ -120,6 +120,7 @@ const ProgressBar = ({
                 defaultValue="0"
                 max={duration ? duration : 3600}
                 onChange={handleProgressChange}
+                value={timeProgress}
             />
             <span className="time duration">{duration !== null ? formatTime(duration) : "--:--"}</span>
         </Container>

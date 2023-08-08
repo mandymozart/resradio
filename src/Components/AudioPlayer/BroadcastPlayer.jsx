@@ -2,7 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
@@ -200,12 +200,20 @@ const BroadcastPlayer = () => {
         pause();
         setIsVisible(false);
     }
+
+    const handleTimeUpdate = useCallback(event => {
+        const audioElement = event.target;
+        console.log('Time updated:', audioElement.currentTime);
+        // Perform actions based on the updated time
+        setCurrentTime(parseInt(audioElement.currentTime));
+    }, []);
+
     return (
         <Container>
             <audio
                 ref={audioRef}
                 volume={volume}
-                onTimeUpdate={onPlaying}
+                onTimeUpdate={handleTimeUpdate}
                 onEnded={handleEnded}
             >
                 <source src={source} type='audio/mpeg'></source>

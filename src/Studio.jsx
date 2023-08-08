@@ -8,13 +8,16 @@ import CreateAccount from './Components/Account/CreateAccount';
 import Dashboard from './Components/Account/Dashboard';
 import LogIn from './Components/Account/Login';
 import Button from './Components/Button';
-import { BREAKPOINT_XS } from './config';
+import { BREAKPOINT_MD, BREAKPOINT_XS } from './config';
 // code split the modal til you need it!
 
 const Container = styled.div`
 header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media (max-width: ${BREAKPOINT_MD}){
+    grid-template-columns: 1fr 1fr;
+  }
   align-items:center; 
   padding: 2rem;
   border-bottom: 2px solid var(--color);
@@ -45,7 +48,7 @@ function Studio() {
         <nav>
           <Link to="/studio/playlists">Playlists</Link>
         </nav>
-        <div></div>
+        <Link to="/studio/remote">Remote</Link>
         <nav className='account'>
           <div>
             <GoPerson /> {user?.email}<br />

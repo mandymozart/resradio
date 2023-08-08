@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useIdentityContext } from 'react-netlify-identity';
 import { useNavigate } from 'react-router-dom';
-import { FUNCTIONS } from '../../config';
+import { BREAKPOINT_XS, FUNCTIONS } from '../../config';
 import Button from '../Button';
 import { Input } from '../FormElements/Input';
 import SystemMessage from '../SystemMessage';
@@ -12,6 +12,9 @@ form {
     display:flex;
     flex-direction: column;
     width: 25%;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        width: 100%;
+    }
     background-color: var(--grey);
     padding: 2rem;
     gap: 1rem;

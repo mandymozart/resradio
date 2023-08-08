@@ -15,6 +15,9 @@ dayjs.extend(localizedFormat);
 const Container = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 2fr;
+    @media (max-width: ${BREAKPOINT_XS}px){
+        grid-template-columns: 1fr;
+    }
     gap: 1rem;
     h4 {
         margin: 0;

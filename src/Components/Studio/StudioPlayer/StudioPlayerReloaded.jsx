@@ -3,7 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
 import useDebounce from "../../../Hooks/useDebounce.";
 import { getBroadcastsQuery } from "../../../Queries/broadcasts";
@@ -111,7 +111,7 @@ h6 {
   .broadcast {
     display: grid;
     grid-template-columns: 2rem auto 5rem;
-    line-height: 1rem;
+    line-height: 1.5rem;
     gap: .5rem;
     font-size: 1rem;
     margin-bottom: .5rem;
@@ -126,7 +126,7 @@ h6 {
         font-size: .75rem;
         background-color: var(--grey);
         text-align: center;
-        border-radius: .5rem;
+        border-radius: .1rem;
         color: var(--color);
     }
     .title {
@@ -299,6 +299,8 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         if (broadcast) {
             setSource(broadcast.audio);
             setDuration(broadcast.duration ? broadcast.duration : broadcast.length ? broadcast.length * 60 : 3600);
+            setCurrentTime(0);
+            console.log(currentTime)
             setCurrent(broadcast);
             isPlaying ? setIsPlaying(true) : setIsPlaying(false);
             setNext(nextBroadcast)
@@ -331,8 +333,12 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
     }, [])
 
 
-    const onPlaying = (e) => {
-        setCurrentTime(parseInt(e.target.currentTime));
+    const onPlaying = (event) => {
+        const audioElement = event.target;
+        console.log('Time updated:', audioElement.currentTime);
+        // Perform actions based on the updated time
+        console.log("playing", event.target.currentTime)
+        setCurrentTime(parseInt(event.target.currentTime));
     };
 
     // TODO: Increase blocking authorization 
@@ -401,6 +407,13 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         };
     }, []);
 
+    const handleTimeUpdate = useCallback(event => {
+        const audioElement = event.target;
+        console.log('Time updated:', audioElement.currentTime);
+        // Perform actions based on the updated time
+        setCurrentTime(parseInt(audioElement.currentTime));
+    }, []);
+
     const getTotalDuration = () => {
         let totalDuration = 0;
         broadcasts.forEach(i => {
@@ -424,7 +437,7 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
                 <div>
 
                     <audio ref={audioRef}
-                        onTimeUpdate={onPlaying}
+                        onTimeUpdate={handleTimeUpdate}
                         onEnded={handleEnded}>
                         <source src={source} type='audio/mpeg'></source>
                     </audio>
