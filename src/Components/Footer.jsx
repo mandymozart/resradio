@@ -36,7 +36,7 @@ const Container = styled.footer`
     border-top: 1px solid var(--color);
     padding: 2rem;
     background-color: var(--grey);
-    padding-bottom: 8rem;
+    padding-bottom: 2rem;
     ul {
       display: grid;
       line-height: 2rem;

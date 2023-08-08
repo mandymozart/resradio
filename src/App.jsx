@@ -5,13 +5,16 @@ import DonationBar from "./Components/Donation/DonationBar";
 import Header from "./Components/Header";
 import HeaderOffset from "./Components/HeaderOffset";
 import SearchBar from "./Components/Search/SearchBar";
+import useBroadcastStore from "./Stores/BroadcastStore";
 
 function App() {
+  const { isVisible } = useBroadcastStore();
   return (
     <>
       <Header />
       <PageWrapper>
         <Outlet />
+        {isVisible && (<div style={{ height: "6rem" }}>&nbsp;</div>)}
       </PageWrapper>
       <BroadcastPlayer />
     </>

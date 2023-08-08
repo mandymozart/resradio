@@ -94,9 +94,9 @@ const Controls = styled.div`
 position: fixed;
 right: 0;
 bottom: 0;
-width: 50vw;
+width: 50%;
 @media (max-width: ${BREAKPOINT_MD}px) {
-    width: 100vw;
+    width: 100%;
 }
 height: 6rem;
 transform: translateY(10rem);
@@ -114,8 +114,7 @@ color: var(--background);
 `
 const BroadcastPlayer = () => {
     const { setIsPlaying: setStreamIsPlaying, volume } = useAudioPlayerStore()
-    const { playing, isPlaying, setIsPlaying } = useBroadcastStore()
-    const [isVisible, setIsVisible] = useState(false);
+    const { playing, isPlaying, setIsPlaying, isVisible, setIsVisible } = useBroadcastStore()
     const [currentTime, setCurrentTime] = useState(1);
     const [source, setSource] = useState(OFFLINE_URL);
     const [duration, setDuration] = useState();
@@ -171,7 +170,6 @@ const BroadcastPlayer = () => {
     }, [volume])
 
     useEffect(() => {
-        setIsVisible(true);
         setCurrentTime(0);
         setIsPlaying(false);
         debouncedRequest();
@@ -220,6 +218,7 @@ const BroadcastPlayer = () => {
 
     const play = () => {
         setIsPlaying(true)
+        setIsVisible(true)
         setStreamIsPlaying(false)
         audioRef.current.play();
     }

@@ -8,6 +8,8 @@ const useBroadcastStore = create(
     setCanPlay: (value) => set(() => ({ canPlay: value })),
     isPlaying: false,
     setIsPlaying: (value) => set(() => ({ isPlaying: value })),
+    isVisible: false,
+    setIsVisible: (value) => set(() => ({ isVisible: value })),
     rotationInfo: null,
     setRotationInfo: (info) => set(() => ({ rotationInfo: info })),
     isStreaming: () => {
