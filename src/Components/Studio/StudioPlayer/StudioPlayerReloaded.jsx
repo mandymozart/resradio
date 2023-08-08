@@ -335,9 +335,7 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
 
     const onPlaying = (event) => {
         const audioElement = event.target;
-        console.log('Time updated:', audioElement.currentTime);
         // Perform actions based on the updated time
-        console.log("playing", event.target.currentTime)
         setCurrentTime(parseInt(event.target.currentTime));
     };
 
@@ -386,7 +384,7 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         setIsPlaying(false);
     }
     const handleNext = () => {
-        updateBroadcast()
+        updateBroadcast(getNextIndex(current))
     }
     const handlePrevious = () => {
         updateBroadcast(getPreviousIndex(current))

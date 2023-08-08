@@ -112,7 +112,9 @@ const Remote = () => {
         <p>Remote connection is a dangerous tool! Be aware that you have complete power over the stream. If there is no playlist open in the studio, you won't be able to do anything. But when you have control, you can fuck things up. In the worst case, just press play!</p>
         <div className="controls">
             {authorized && (<>
+                <Button onClick={() => remote(outgoingMethod.PREVIOUS)}>Previous</Button>
                 <Button onClick={() => remote(outgoingMethod.PLAY)}>Play</Button>
+                <Button onClick={() => remote(outgoingMethod.NEXT)}>Next</Button>
                 <Button onClick={() => remote(outgoingMethod.PAUSE)}>Pause</Button>
             </>)}
             {/* <button onClick={() => remote(outgoingMethod.NEXT)}>Next</button>
