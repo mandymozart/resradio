@@ -1,7 +1,7 @@
 import { usePresence } from "@ably-labs/react-hooks";
 import styled from '@emotion/styled';
 import React from "react";
-import config from "../../../config";
+import { ABLY_ROTATION_CHANNEL } from "../../../config";
 
 const Container = styled.div`
 h6 { 
@@ -10,7 +10,7 @@ h6 {
 }`
 
 const Listeners = () => {
-  const [presenceData] = usePresence(config.ABLY_ROTATION_CHANNEL, "host");
+  const [presenceData] = usePresence(ABLY_ROTATION_CHANNEL, "host");
   const members = presenceData.map((msg, index) => <li key={index}>{msg.clientId}: {msg.data}</li>);
   return (<Container>
     <h6>Active visitors ({presenceData.filter(m => m.data !== "listener").length})</h6>

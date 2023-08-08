@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@reach/tabs';
 import React from "react";
 import { useIdentityContext } from 'react-netlify-identity';
+import CreateAccount from './Components/Account/CreateAccount';
 import Dashboard from './Components/Account/Dashboard';
 import LogIn from './Components/Account/Login';
 import { BREAKPOINT_XS } from './config';
@@ -21,6 +23,15 @@ h1 {
 .current {
   font-family: var(--font-bold);
 }
+[data-reach-tabs] {
+  margin-top: 1rem;
+}
+button[role=tab] {
+  margin-left: 2rem;
+  &[aria-selected=true]{
+    font-family: var(--font-bold);
+  }
+}
 `
 
 function Studio() {
@@ -32,8 +43,20 @@ function Studio() {
         <h1>res.studio</h1>
       </header>
       {isLoggedIn ? <Dashboard /> : <>
-        <LogIn />
-        {/* <CreateAccount /> */}
+        <Tabs>
+          <TabList>
+            <Tab>Login</Tab>
+            <Tab>Create Account</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <LogIn />
+            </TabPanel>
+            <TabPanel>
+              <CreateAccount />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </>
       }
     </Container>

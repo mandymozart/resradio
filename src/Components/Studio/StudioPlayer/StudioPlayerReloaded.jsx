@@ -1,41 +1,22 @@
 import { useChannel } from "@ably-labs/react-hooks";
-import { useQuery } from '@apollo/client';
 import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useEffect, useRef, useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
-import { useParams } from 'react-router-dom';
-import { getPlaylistQuery } from "../../../Queries/playlists";
-import { getQueryString } from "../../../utils";
+import { ABLY_REMOTE_CHANNEL, ABLY_ROTATION_CHANNEL, BREAKPOINT_XS, FUNCTIONS } from "../../../config";
+import PauseBig from "../../../images/PauseBig";
+import PlayBig from "../../../images/PlayBig";
+import { formatTime, getQueryString } from "../../../utils";
+import ProgressBar from "../../AudioPlayer/ProgressBar";
 import Button from "../../Button";
-import KeyFieldParagraph from "../../KeyFieldParagraph";
 import SectionLoader from "../../SectionLoader";
-import HeroImage from "../../TeaserImage/HeroImage";
-import Listeners from "../Listeners/Listeners";
 import { RemoteMethods } from "../Remote/Remote";
-import config, { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS } from "./../../../config";
-import PauseBig from "./../../../images/PauseBig";
-import PlayBig from "./../../../images/PlayBig";
 dayjs.extend(localizedFormat);
 
 const Container = styled.div`
-h4 { 
-    padding: 1rem 2rem; 
-    margin: 0;
-    
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        font-size: 1rem;
-        padding: 1rem 1rem 0 1rem;
-    }
-}
-.meta {
-    padding: 0 2rem;
-    font-size: 1rem;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        padding: 0 1rem
-    }
-}
+background: var(--color);
+color: var(--background);
 .remote {
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
@@ -62,6 +43,7 @@ h4 {
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 1rem;
   }
   .title {
     @media (max-width: ${BREAKPOINT_XS}px) {
@@ -116,75 +98,62 @@ h4 {
     }
   .broadcast {
     display: grid;
-    grid-template-columns: 1fr 31fr;
-    gap: 1rem;
+    grid-template-columns: 2rem auto 5rem;
+    line-height: 1rem;
+    gap: .5rem;
+    font-size: 1rem;
+    margin-bottom: .5rem;
     cursor: pointer;
-    > div:first-of-type {
-        font-size: 1rem;
+    &.current {
+        color: var(--yellow);
+        .index {
+            background-color: var(--yellow);
+        }
+    }
+    .index {
+        font-size: .75rem;
         background-color: var(--grey);
-        padding: 0.5rem;
+        text-align: center;
         border-radius: .5rem;
+        color: var(--color);
+    }
+    .title {
+
+    } 
+    .duration {
+        text-align: right;
     }
     &:hover {
       color: var(--second);
     }
   }
 }
-.status {
-  font-size: 1rem;
-  padding: 2rem;
-  border-bottom: 2px solid var(--color); 
-}
 `
+const StudioPlayer = ({ broadcasts }) => {
 
-const Description = styled.section`
-  font-size: 1.5rem;
-  margin-top: 3rem;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 2fr 2fr;
-  @media (max-width: ${BREAKPOINT_MD}px) {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-  @media (max-width: ${BREAKPOINT_XS}px) {
-    font-size: 1rem;
-    padding: 1rem;
-    margin-top: 1rem;
-  }
-  gap: 2rem;
-`;
-
-const Player = () => {
-
-    const { uid } = useParams();
-
-    const { loading, error, data } = useQuery(getPlaylistQuery, { variables: { uid: uid } });
     const audioRef = useRef();
+    const progressBarRef = useRef();
     const [current, setCurrent] = useState();
     const [next, setNext] = useState();
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [source, setSource] = useState();
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(3600);
-    const [currentTime, setCurrentTime] = useState();
+    const [currentTime, setCurrentTime] = useState(0);
     const [isBlocked, setIsBlocked] = useState(true);
 
-    const [broadcasts, setBroadcasts] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
     const [remote, setRemote] = useState(undefined);
     // const [token, setToken] = useState();
     const intervalRef = useRef();
 
     // rotation socket
-    const [rotationInfo, setRotationInfo] = useState();
-    const [rotationChannel] = useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
-        setRotationInfo(message)
-    });
+    const [rotationChannel] = useChannel(ABLY_ROTATION_CHANNEL);
 
     // remote socket
     const { user } = useNetlifyIdentity();
 
-    const [remoteChannel] = useChannel(config.ABLY_REMOTE_CHANNEL, (message) => {
+    const [remoteChannel] = useChannel(ABLY_REMOTE_CHANNEL, (message) => {
         // if (isBlocked) {
 
         //     handleBlocked();
@@ -224,59 +193,6 @@ const Player = () => {
         return
     });
 
-
-    const currentPercentage = audioRef.current
-        ? `${(trackProgress / audioRef.current) * 100}%`
-        : "0%";
-    const trackStyling = `
-    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-  `;
-
-
-
-    const startTimer = () => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-
-        intervalRef.current = setInterval(() => {
-            if (audioRef.current.ended) {
-            } else {
-                setTrackProgress(audioRef.current.currentTime);
-            }
-        }, [1000]);
-    };
-
-    const onScrub = (value) => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-        audioRef.current.currentTime = value;
-        setTrackProgress(audioRef.current.currentTime);
-    };
-
-    const onScrubEnd = () => {
-        // If not already playing, start
-        if (!isPlaying) {
-            setIsPlaying(true);
-        }
-        startTimer();
-    };
-
-    const getLengthOfMp3 = async (mp3file) => {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-        const request = new XMLHttpRequest()
-        request.open('GET', mp3file, true)
-        request.responseType = 'arraybuffer'
-        request.onload = function () {
-            audioContext.decodeAudioData(request.response,
-                function (buffer) {
-                    const duration = buffer.duration
-                    setDuration(duration)
-                }
-            )
-        }
-        request.send()
-    }
-
     const getPreviousIndex = (broadcast) => {
         const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
         if (index - 1 > -1) {
@@ -315,7 +231,7 @@ const Player = () => {
                 uid: nextBroadcast._meta.uid,
             }
         }
-        rotationChannel.publish(config.ABLY_ROTATION_CHANNEL, cue);
+        rotationChannel.publish(ABLY_ROTATION_CHANNEL, cue);
 
         const queryString = getQueryString(cue.current);
         await fetch(`${FUNCTIONS}/create-playlist-entry?${queryString}`).then((r) => {
@@ -332,11 +248,13 @@ const Player = () => {
     const updateBroadcast = (index) => {
         const i = getNextIndex(current);
         const broadcast = index !== undefined ? broadcasts[index].broadcast : broadcasts[i].broadcast
+        setCurrentIndex(index ? index : i);
         const nI = getNextIndex(broadcast);
         const nextBroadcast = broadcasts[nI].broadcast;
         if (broadcast) {
             setSource(broadcast.audio);
-            getLengthOfMp3(broadcast.audio);
+            if (broadcast.duration > 0)
+                setDuration(broadcast.duration > 0 ? broadcast.duration : 3600);
             setCurrent(broadcast);
             isPlaying ? setIsPlaying(true) : setIsPlaying(false);
             setNext(nextBroadcast)
@@ -345,18 +263,17 @@ const Player = () => {
                 audioRef.current.load();
                 if (isPlaying)
                     audioRef.current.play();
-                startTimer();
                 setTrackProgress(audioRef.current.currentTime);
             }
             sendRotationMessage(broadcast, nextBroadcast)
         }
     }
 
-    // only once
+    // only once // TODO: can be same as above method
     const loadBroadcast = (broadcast) => {
         if (broadcast) {
-            getLengthOfMp3(broadcast.audio);
             setSource(broadcast.audio);
+            setDuration(broadcast.duration > 0 ? broadcast.duration : 3600)
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.load();
@@ -367,17 +284,8 @@ const Player = () => {
     }
 
     useEffect(() => {
-        // init Player
-        if (data) {
-            console.log(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio !== null))
-            setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.length > 5))
-        }
-    }, [data])
-
-    useEffect(() => {
-        if (broadcasts)
-            loadBroadcast(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio !== null)[0].broadcast)
-    }, [broadcasts, data?.allPlaylists?.edges])
+        loadBroadcast(broadcasts[0].broadcast)
+    }, [])
 
 
     const onPlaying = (e) => {
@@ -390,7 +298,7 @@ const Player = () => {
     //         status: "unauthorized",
     //         method: RemoteMethods.incoming.AUTHORIZE
     //     }
-    //     remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+    //     remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
     // }
 
     const handleConnect = (message) => {
@@ -401,7 +309,7 @@ const Player = () => {
             method: RemoteMethods.incoming.AUTHORIZE,
             user: user
         }
-        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+        remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
     }
 
     const handleBlocked = () => {
@@ -411,7 +319,7 @@ const Player = () => {
         //     method: RemoteMethods.incoming.BLOCKED,
         //     user: user
         // }
-        // remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+        // remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
     }
 
     const handleEnded = () => {
@@ -422,7 +330,6 @@ const Player = () => {
     const handlePlay = () => {
         audioRef.current.play();
         setIsPlaying(true);
-        startTimer();
     }
 
     const handlePause = () => {
@@ -440,7 +347,7 @@ const Player = () => {
         const data = {
             method: RemoteMethods.incoming.CONNECTION_CLOSED,
         }
-        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, data)
+        remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
     }
 
     const onCanPlay = () => {
@@ -455,23 +362,9 @@ const Player = () => {
         };
     }, []);
 
-    if (loading || !broadcasts || !current || !next) return <SectionLoader />;
-    if (error) return <>Error : {error.message}</>;
-    const playlist = data.allPlaylists.edges[0].node;
+    if (!current || !next) return <SectionLoader />;
     return (
         <Container>
-            <HeroImage image={playlist.image.hero ? playlist.image.hero : playlist.image} />
-            <h4>{playlist.title}</h4>
-            <div className="meta">
-                {broadcasts.length} Broadcasts
-            </div>
-            <Description>
-                {playlist.description ? (
-                    <KeyFieldParagraph text={playlist.description} />
-                ) : (
-                    <div></div>
-                )}
-            </Description>
             <div className="remote">
                 {!isPlaying && <span>Paused</span>}
                 {remote && (<>
@@ -495,22 +388,8 @@ const Player = () => {
                         <source src={source} type='audio/mpeg'></source>
                     </audio>
                     <div className="title">{current?.hostedby?.title} &mdash; {current?.title}</div>
-                    <div className="duration">
-                        {currentTime}/{duration}
-                    </div>
                 </div>
-                <input
-                    type="range"
-                    value={trackProgress}
-                    step="1"
-                    min="0"
-                    max={duration ? duration : `${duration}`}
-                    className="progress"
-                    onChange={(e) => onScrub(e.target.value)}
-                    onMouseUp={onScrubEnd}
-                    onKeyUp={onScrubEnd}
-                    style={{ background: trackStyling }}
-                />
+                <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={currentTime} duration={duration} />
             </div>
             <div className='list'>
                 <h6>Cue</h6>
@@ -518,26 +397,18 @@ const Player = () => {
                     return (
                         <div key={index}
                             onClick={() => updateBroadcast(index)}
-                            className={node.broadcast._meta.id
-                                ===
-                                current._meta.id ? "broadcast current" : "broadcast"}>
-                            <div>{index}</div> <div>{node?.broadcast?.hostedby?.title} &mdash; {node.broadcast.title}</div>
+                            className={index === currentIndex ? "broadcast current" : "broadcast"}>
+                            <div className="index">{index}</div>
+                            <div className="title">{node?.broadcast?.hostedby?.title} &mdash; {node.broadcast.title}</div>
+                            <div className="duration">{node.broadcast.duration ? formatTime(node.broadcast.duration) : formatTime(node.broadcast.length)}</div>
                         </div>
                     )
                 }
                 )}
             </div>
-            <div className="status">
-                <h6>Status</h6>
-                {rotationInfo ? (
-                    <>
-                        {dayjs(rotationInfo.data.begin).format("ddd, HH:mm")} - {dayjs(rotationInfo.data.end).format("HH:mm")} {rotationInfo.data.hostedby} &mdash; {rotationInfo.data.title}
-                    </>
-                ) : (<>Currently nobody listening</>)}
-                <Listeners />
-            </div>
+
         </Container>
     )
 }
 
-export default Player;
+export default StudioPlayer;

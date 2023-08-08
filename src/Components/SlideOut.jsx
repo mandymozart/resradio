@@ -12,7 +12,7 @@ import { useOnClickOutside } from 'usehooks-ts';
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
-import config, { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from '../config';
+import { ABLY_ROTATION_CHANNEL, BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from '../config';
 import { getTimeRangeString } from "../utils";
 import InlineLoader from "./InlineLoader";
 import ThumbnailPanoramaImage from "./TeaserImage/ThumbnailPanoramaImage";
@@ -172,7 +172,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const [broadcast, setBroadcast] = useState()
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
   const [uid, setUid] = useState();
-  useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
+  useChannel(ABLY_ROTATION_CHANNEL, (message) => {
     setUid(message.data.current.uid)
     setNextBroadcastPreview(message.data.next)
   });

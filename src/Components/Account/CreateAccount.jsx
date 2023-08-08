@@ -6,9 +6,20 @@ import Button from '../Button';
 import { Input } from '../FormElements/Input';
 import SystemMessage from '../SystemMessage';
 
-const Container = styled.div``
 
-export const CreateAccount = () => {
+const Container = styled.div`
+form {
+    display:flex;
+    flex-direction: column;
+    width: 25%;
+    background-color: var(--grey);
+    padding: 2rem;
+    gap: 1rem;
+}
+padding: 2rem;
+`
+
+const CreateAccount = () => {
     const { loginUser, signupUser } = useIdentityContext();
     const [error, setError] = useState(false);
     const navigate = useNavigate();
@@ -31,8 +42,8 @@ export const CreateAccount = () => {
 
     return (
         <Container>
-            <h2>Sign up with email:</h2>
             <form onSubmit={signUp}>
+                <h4>Sign up with email:</h4>
                 <label htmlFor="email">Email</label>
                 <Input
                     type="email"
@@ -53,10 +64,12 @@ export const CreateAccount = () => {
                         and try again.
                     </SystemMessage>
                 ) : null}
-                <Button type="submit">
-                    Create account
+                <Button type="submit" large>
+                    CREATE ACCOUNT
                 </Button>
             </form>
         </Container>
     );
 };
+
+export default CreateAccount;

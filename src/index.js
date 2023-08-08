@@ -13,7 +13,7 @@ import App from "./App";
 import ChatBox from "./Components/Chat/ChatBox";
 import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
-import Player from "./Components/Studio/Player/Player";
+import Playlist from "./Components/Studio/Playlists/Playlist";
 import Playlists from "./Components/Studio/Playlists/Playlists";
 import Remote from "./Components/Studio/Remote/Remote";
 import BroadcastPage from "./Pages/Broadcast";
@@ -27,13 +27,13 @@ import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Sandbox from "./Sandbox";
 import Studio from "./Studio";
-import config, { IDENTITY_URL } from "./config";
+import { ABLY_KEY, IDENTITY_URL } from "./config";
 import { client } from "./prismic";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-configureAbly({ key: config.ABLY_KEY, clientId: nanoid() })
+configureAbly({ key: ABLY_KEY, clientId: nanoid() })
 
 root.render(
   <React.StrictMode>
@@ -136,7 +136,7 @@ root.render(
                 <Route
                   path="playlists/:uid"
                   element={
-                    <Player />
+                    <Playlist />
                   } />
               </Route>
               <Route path="/sandbox" element={<Sandbox />} />

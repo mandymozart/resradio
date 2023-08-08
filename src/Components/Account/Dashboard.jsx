@@ -24,22 +24,22 @@ header {
 `
 
 function Dashboard() {
-    const { user, logoutUser } = useIdentityContext();
-    return (
-        <Container>
-            <header>
-                {user?.email}<br />
-                <Button onClick={() => logoutUser()}>Log out</Button>
-                <br /><br />
-                <nav>
-                    <Link to="/studio/playlists">All</Link>
-                </nav>
-            </header>
-            <div>
-                <Outlet />
-            </div>
-        </Container>
-    );
+  const { user, logoutUser } = useIdentityContext();
+  return (
+    <Container>
+      <header>
+        {user?.email}<br />
+        <Button onClick={() => logoutUser()}>Log out</Button>
+        <br /><br />
+        <nav>
+          <Link to="/studio/playlists">Playlists</Link>
+        </nav>
+      </header>
+      <div>
+        <Outlet />
+      </div>
+    </Container>
+  );
 }
 
 export default Dashboard;

@@ -13,6 +13,8 @@ export const GetBroadcastsQuery = gql`
       $itemsPerPage: Int,
       $currentCursor: String,
       $q: String,
+      $bpm_min: Float,
+      $bpm_max: Float,
     ) {
     allBroadcastss( 
         sortBy: $sortBy, 
@@ -24,7 +26,9 @@ export const GetBroadcastsQuery = gql`
           end_after: $endAfter, 
           begin_before: $beginBefore,
           mood: $moodId, 
-          bpm_range: $bpm_range
+          bpm_range: $bpm_range,
+          bpm_min_gt: $bpm_min, 
+          bpm_max_lt: $bpm_max,
         }) {
       pageInfo {
         hasNextPage

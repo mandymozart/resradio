@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { GoPlay, GoSquareFill } from "react-icons/go";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import config, { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config";
+import { BREAKPOINT_MD, BREAKPOINT_XS, STREAM_URL } from "../../config";
 import Arrow from "../../images/Arrow";
 import Dot from "../../images/Dot";
 import DotGrey from "../../images/DotGrey";
@@ -136,7 +136,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
           onCanPlayThrough={onCanPlayThrough}
           onEnded={handleEnded}
           onError={handleError}
-          src={config.STREAM_URL}
+          src={STREAM_URL}
         />
         {canPlay ? (<>
           <div className="status">

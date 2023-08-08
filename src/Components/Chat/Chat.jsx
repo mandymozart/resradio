@@ -2,7 +2,7 @@ import { useChannel, usePresence } from '@ably-labs/react-hooks';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { GoPaperAirplane } from 'react-icons/go';
-import config from '../../config';
+import { ABLY_CHAT_CHANNEL } from '../../config';
 import PrimaryButtonSquare from '../FormElements/PrimaryButtonSquare';
 import Message from './Message';
 
@@ -29,13 +29,13 @@ form {
 const Chat = ({ username }) => {
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
-    const [channel] = useChannel(config.ABLY_CHAT_CHANNEL, (msg) => {
+    const [channel] = useChannel(ABLY_CHAT_CHANNEL, (msg) => {
         const prevState = [...items]
         console.log(msg, prevState, items, [...prevState, msg.data])
         setItems([...prevState, msg.data]);
     });
 
-    usePresence(config.ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
+    usePresence(ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
         console.log(update)
         const prevState = [...items]
         if (update.action === "enter")

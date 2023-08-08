@@ -46,7 +46,9 @@ const FilterBroadcastList = () => {
       sortBy: 'begin_ASC',
       tags: genres,
       moodId: selectedMood?._meta.id,
-      bpm_range: [slowest, fastest],
+      bpm_range: [slowest, fastest], // used for average, deprecated 
+      // bpm_min: slowest - 1, // range 
+      // bpm_max: fastest + 1, // range
       itemsPerPage: ITEMS_PER_PAGE,
       currentCursor: endCursor,
     }, onCompleted: (data) => {

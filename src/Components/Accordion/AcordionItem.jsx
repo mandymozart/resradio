@@ -4,7 +4,7 @@ import { BREAKPOINT_XS } from "../../config";
 import Arrow from "../../images/Arrow";
 
 const Container = styled(Item)`
-  border-bottom: 2px solid var(--color);
+  border-bottom: 1px solid var(--color);
   padding: 0 2rem;
   @media (max-width: ${BREAKPOINT_XS}px) {
       padding: 0 1rem;

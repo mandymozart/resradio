@@ -1,7 +1,7 @@
 import { useChannel } from "@ably-labs/react-hooks";
 import React, { useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
-import config from "../../../config";
+import { ABLY_REMOTE_CHANNEL, ABLY_ROTATION_CHANNEL } from "../../../config";
 import SectionLoader from "../../SectionLoader";
 
 const outgoingMethod = {
@@ -23,7 +23,7 @@ const Remote = () => {
     const { user } = useNetlifyIdentity();
 
     // channels
-    const [remoteChannel] = useChannel(config.ABLY_REMOTE_CHANNEL, (message) => {
+    const [remoteChannel] = useChannel(ABLY_REMOTE_CHANNEL, (message) => {
         if (message.data.method === incomingMethod.AUTHORIZE) {
             return authorize(message.data)
         }
@@ -39,7 +39,7 @@ const Remote = () => {
             setLoading(false);
         }
     });
-    useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
+    useChannel(ABLY_ROTATION_CHANNEL, (message) => {
         setMessage(message)
     });
 
@@ -67,7 +67,7 @@ const Remote = () => {
             user: user,
             token: token
         }
-        remoteChannel.publish(config.ABLY_REMOTE_CHANNEL, message);
+        remoteChannel.publish(ABLY_REMOTE_CHANNEL, message);
 
     }
 

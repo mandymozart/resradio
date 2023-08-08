@@ -7,7 +7,7 @@ import utc from "dayjs/plugin/utc";
 import React, { useEffect } from "react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import config, { FUNCTIONS } from "../../config";
+import { ABLY_ROTATION_CHANNEL, FUNCTIONS } from "../../config";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
@@ -53,10 +53,10 @@ const StreamShortInfo = ({ onClick }) => {
   }, [rotationInfo])
 
   // ably websocket
-  useChannel(config.ABLY_ROTATION_CHANNEL, (message) => {
+  useChannel(ABLY_ROTATION_CHANNEL, (message) => {
     setRotationInfo(message)
   });
-  usePresence(config.ABLY_ROTATION_CHANNEL, "listener");
+  usePresence(ABLY_ROTATION_CHANNEL, "listener");
 
   if (error) return <>Error : {error.message}</>;
   if (data?.allBroadcastss?.edges > 0)
