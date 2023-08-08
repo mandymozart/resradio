@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import _ from 'lodash';
 import React from 'react';
 import { DebounceInput } from 'react-debounce-input';
 import Slider from 'react-slider';
@@ -92,6 +93,7 @@ const TempoRangeSlider = () => {
         setSlowest(newValues[0]);
         setFastest(newValues[1]);
     }
+    const debouncedHandleChange = _.debounce(handleChange, 2000);
     return (
         <Container className={slowest === min && fastest === max ? "default" : ""}>
             <DebounceInput
@@ -102,7 +104,7 @@ const TempoRangeSlider = () => {
                 debounceTimeout={300}
                 minLength={2}
                 value={slowest}
-                onChange={(e) => handleChange([+e.target.value, fastest])}
+                onChange={(e) => debouncedHandleChange([+e.target.value, fastest])}
             />
             <Slider
                 className="slider"
@@ -119,7 +121,7 @@ const TempoRangeSlider = () => {
                 debounceTimeout={300}
                 minLength={2}
                 value={fastest}
-                onChange={(e) => handleChange([slowest, +e.target.value])}
+                onChange={(e) => debouncedHandleChange([slowest, +e.target.value])}
             />
         </Container>
     );

@@ -21,8 +21,8 @@ const useFilterStore = create(
     removeGenre: (genre) => set(state => ({
       genres: state.genres.filter(g => g !== genre)
     })),
-    setSlowest: (bpm) => set((state) => (state.slowest = bpm)),
-    setFastest: (bpm) => set((state) => (state.fastest = bpm)),
+    setSlowest: (bpm) => set({ slowest: bpm }),
+    setFastest: (bpm) => set({ fastest: bpm }),
     clearMood: () => set({ selectedMood: null }),
     setMood: (mood) => set({ selectedMood: mood }),
     isDirty: () => {
