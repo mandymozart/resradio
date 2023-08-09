@@ -5,6 +5,7 @@ import { useNetlifyIdentity } from "react-netlify-identity";
 import { ABLY_REMOTE_CHANNEL, ABLY_ROTATION_CHANNEL } from "../../../config";
 import Button from "../../Button";
 import SectionLoader from "../../SectionLoader";
+import RotationInfo from "../RotationInfo";
 
 const Container = styled.div`
 h3 {
@@ -126,6 +127,7 @@ const Remote = () => {
             <div className="current">{message?.data?.current.title}</div>
             <div className="next">{message?.data?.next.title}</div>
         </div>
+        <RotationInfo />
         {loading && <SectionLoader />}
 
     </Container>)
