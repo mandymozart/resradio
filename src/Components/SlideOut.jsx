@@ -241,7 +241,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
 
       </div>
       <footer>
-        <span className="next"><GoIterations /></span>
+        <span className="next">{nextBroadcastPreview && (<GoIterations />)}</span>
         <div className="status">
           {nextBroadcastPreview && (
             <>
