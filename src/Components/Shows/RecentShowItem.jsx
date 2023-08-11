@@ -61,7 +61,7 @@ const RecentShowItem = ({ broadcast }) => {
       </Link>
       <div className="meta">
         <Link to={linkTo} className="host">
-          <h4>{broadcast.node.title}</h4>
+          <h4>{broadcast.node.hostedby.title}&mdash;{broadcast.node.title}</h4>
         </Link>
         <div className="date">{dayjs(broadcast.node.begin).format(DATE_FORMAT)}
         </div>

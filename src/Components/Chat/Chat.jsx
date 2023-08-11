@@ -1,8 +1,9 @@
 import { useChannel, usePresence } from '@ably-labs/react-hooks';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GoPaperAirplane } from 'react-icons/go';
-import { ABLY_CHAT_CHANNEL } from '../../config';
+import useChatStore from '../../Stores/ChatStore';
+import { ABLY_CHAT_CHANNEL, BREAKPOINT_XS } from '../../config';
 import PrimaryButtonSquare from '../FormElements/PrimaryButtonSquare';
 import Message from './Message';
 
@@ -12,6 +13,11 @@ font-family: var(--font-light);
 width: 100%;
 padding-top: 1rem;
 form {
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+    }
+    background: var(--grey);
     display: flex;
     input {
         flex: 1;
@@ -24,24 +30,47 @@ form {
         font-family: var(--font-light)
     }
 }
+.list {
+    height: calc(100vh - 29rem);
+    overflow: auto;
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+    }
+}
 `
 
-const Chat = ({ username }) => {
+const Chat = () => {
+    const { username } = useChatStore();
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
-    const [channel] = useChannel(ABLY_CHAT_CHANNEL, (msg) => {
-        const prevState = [...items]
-        console.log(msg, prevState, items, [...prevState, msg.data])
-        setItems([...prevState, msg.data]);
+
+    const messageEl = useRef(null);
+
+    useEffect(() => {
+        if (messageEl) {
+            messageEl.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
+
+    const [channel] = useChannel(ABLY_CHAT_CHANNEL, (update) => {
+        console.log(update)
+        const newItem = { id: update.id, username: update.data.username, body: update.data.body, created_at: update.data.created_at, action: update.action }
+        setItems((prevState) => [...prevState, newItem]);
     });
 
     usePresence(ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
-        console.log(update)
-        const prevState = [...items]
-        if (update.action === "enter")
-            setItems([...prevState, { 'username': update.data.username, 'body': 'entered', created_at: new Date() }]);
-        if (update.action === "leave")
-            setItems([...prevState, { 'username': update.data.username, 'body': 'left', created_at: new Date() }]);
+        if (update.action === "enter") {
+            setItems((prevState) => [...prevState, { id: update.id, 'username': update.data.username, 'body': 'entered', created_at: new Date(), action: update.action }]);
+            return
+        }
+        if (update.action === "leave") {
+            setItems((prevState) => [...prevState, { id: update.id, 'username': update.data.username, 'body': 'left', created_at: new Date(), action: update.action }]);
+            return
+        }
     });
 
     const handleMessageChange = (e) => {
@@ -50,7 +79,7 @@ const Chat = ({ username }) => {
 
     const handleMessageSubmit = (e) => {
         e.preventDefault();
-        if (!body.length) {
+        if (body.length < 1) {
             return;
         }
         const newItem = {
@@ -64,6 +93,13 @@ const Chat = ({ username }) => {
     }
     return (
         <Container>
+            <div className='list' ref={messageEl}>
+                {items?.map(item => (
+                    <div key={item.id} className="message-item">
+                        <Message message={item} username={username} />
+                    </div>
+                ))}
+            </div>
             <form className="form" onSubmit={handleMessageSubmit}>
                 <input
                     id="new-message"
@@ -73,14 +109,6 @@ const Chat = ({ username }) => {
                 />
                 <PrimaryButtonSquare><GoPaperAirplane /></PrimaryButtonSquare>
             </form>
-
-            <div className='list'>
-                {items?.map(item => (
-                    <div key={item.created_at + item.username} className="message-item">
-                        <Message message={item} username={username} />
-                    </div>
-                ))}
-            </div>
         </Container>
     );
 }

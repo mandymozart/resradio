@@ -16,6 +16,11 @@ const Container = styled.button`
         flex: 1;
         text-align: center;
     }
+    &:hover {
+        color: var(--background);
+        background-color: var(--color);
+        border-color: var(--color);
+    }
 `
 
 const PrimaryButton = ({ children, ...props }) => {

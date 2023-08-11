@@ -13,6 +13,11 @@ const Container = styled.button`
     color: var(--background);
     border: 1px solid var(--second);
     text-align: center;
+    &:hover {
+        background-color: var(--color);
+        color: var(--background);
+        border-color: var(--color);
+    }
 `
 
 const PrimaryButtonSquare = ({ children, ...props }) => {

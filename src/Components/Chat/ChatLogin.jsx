@@ -1,8 +1,14 @@
 import styled from '@emotion/styled';
 import React, { Component } from 'react';
+import useChatStore from '../../Stores/ChatStore';
+import { BREAKPOINT_XS } from '../../config';
 import PrimaryButton from '../FormElements/PrimaryButton';
 
 const Container = styled.div`
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+    }
 margin: 0 auto;
 max-width: 25rem;
     form {
@@ -24,9 +30,36 @@ max-width: 25rem;
     }
 }
 `
+const ChatLogin = () => {
+    const { username, setUsername, setActivate } = useChatStore()
 
+    const handleUsername = (e) => {
+        e.preventDefault();
+        setUsername(e.target.value);
+    }
 
-class ChatLogin extends Component {
+    const login = () => {
+        console.log(username)
+        if (username.length > 0)
+            setActivate(true)
+    }
+    return (
+        <Container>
+            <p>Please follow the community guidelines and treat any being with respect!</p>
+            <form onSubmit={handleUsername}>
+                <input
+                    placeholder="Name"
+                    id="username-input"
+                    onChange={handleUsername}
+                    value={username}
+                />
+                <PrimaryButton className="submit" onClick={login}>Login</PrimaryButton>
+            </form>
+        </Container>
+    )
+}
+
+class ChatLoginOld extends Component {
     constructor(props) {
         super(props);
 
