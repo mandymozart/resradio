@@ -114,8 +114,8 @@ const ShowBroadcastsItem = ({ broadcast }) => {
           </h4>
         </Link>
         <div className="date">
-          {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
-          {getTimeRangeString(broadcast.begin, broadcast.end)}
+          {dayjs(broadcast.node.begin).format(DATE_FORMAT_LONG)}<br />
+          {getTimeRangeString(broadcast.node.begin, broadcast.node.end)}
         </div>
         <div className="tags">
           <Tags tags={broadcast?.node._meta.tags} />
