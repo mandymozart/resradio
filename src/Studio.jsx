@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@reach/tabs';
 import React from "react";
-import { GoPerson, GoSignOut } from 'react-icons/go';
+import { GoListOrdered, GoPerson, GoPlug, GoSignOut } from 'react-icons/go';
 import { useIdentityContext } from 'react-netlify-identity';
 import { Link } from 'react-router-dom';
 import CreateAccount from './Components/Account/CreateAccount';
@@ -14,10 +14,11 @@ import { BREAKPOINT_MD, BREAKPOINT_XS } from './config';
 const Container = styled.div`
 header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   @media (max-width: ${BREAKPOINT_MD}){
     grid-template-columns: 1fr 1fr;
   }
+  gap: 1rem;
   align-items:center; 
   padding: 2rem;
   border-bottom: 2px solid var(--color);
@@ -36,6 +37,17 @@ h1 {
     justify-content: end;
     gap: 0.75rem;
 }
+.menu {
+  a {
+
+    margin-right: 1rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      span {
+        display: none;
+      }
+    }
+  }
+}
 [role=tab] {
   padding: 2rem 0rem 0rem 2rem;
 }
@@ -48,10 +60,10 @@ function Studio() {
     <Container>
       <header>
         <h1>res.studio</h1>
-        <nav>
-          <Link to="/studio/playlists">Playlists</Link>
+        <nav className='menu'>
+          <Link to="/studio/playlists"><GoListOrdered /><span> Playlists</span></Link>
+          <Link to="/studio/remote"><GoPlug /><span> Remote</span></Link>
         </nav>
-        <Link to="/studio/remote">Remote</Link>
         <nav className='account'>
           <div>
             <GoPerson /> {user?.email}<br />

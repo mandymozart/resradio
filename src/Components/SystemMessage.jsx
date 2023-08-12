@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import clsx from "clsx";
 import React from "react";
 
 export const Container = styled.div`
@@ -11,12 +12,16 @@ text-align: center;
     color: var(--second);
 }
 &.info {}
+&.small {
+    font-size: 1rem;
+    padding:1rem 2rem;
+}
 
 `;
 
-const SystemMessage = ({ message, type, children, props }) => {
+const SystemMessage = ({ message, type, small, children, props }) => {
     return (
-        <Container className={type} {...props}>
+        <Container className={clsx({ error: type === "error" ? true : "", warning: type === "warning" ? true : "", info: type === "info" ? true : "", small })} {...props}>
             <span>
                 {message}
             </span>

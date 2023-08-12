@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useIdentityContext } from 'react-netlify-identity';
 import { useNavigate } from 'react-router-dom';
-import { BREAKPOINT_XS, FUNCTIONS } from '../../config';
 import { Input } from '../FormElements/Input';
 import PrimaryButton from '../FormElements/PrimaryButton';
 import SystemMessage from '../SystemMessage';
@@ -17,10 +16,8 @@ label {
 form {
     display:flex;
     flex-direction: column;
-    width: 25%;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        width: 100%;
-    }
+    max-width: 25rem;
+
     background-color: var(--grey);
     padding: 2rem;
     gap: 1rem;
@@ -38,20 +35,6 @@ const LogIn = () => {
 
     const logIn = async (event) => {
         event.preventDefault();
-        await fetch(`${FUNCTIONS}/user?`).then((r) => {
-            if (r.ok) {
-                //
-                loginUser(email, password, true)
-                    .then(() => {
-                        navigate("/studio/playlists");
-                    })
-                    .catch((error) => {
-                        setError(true);
-                    });
-            }
-            if (!r.ok) {
-            }
-        });
         loginUser(email, password, true)
             .then(() => {
                 navigate("/studio/playlists");
@@ -59,6 +42,13 @@ const LogIn = () => {
             .catch((error) => {
                 setError(true);
             });
+        // await fetch(`${FUNCTIONS}/user?`).then((r) => {
+        //     if (r.ok) {
+        //         //
+        //     }
+        //     if (!r.ok) {
+        //     }
+        // });
     };
 
     return (
