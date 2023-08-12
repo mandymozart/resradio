@@ -3,6 +3,7 @@ import React from "react";
 
 const Container = styled.button`
   display: inline-flex;
+  text-align: center;
   align-items: center;
   border: 1px solid ${(props) => (props.ghost ? "transparent" : "var(--color)")};
   color: ${(props) => (props.active ? "var(--background)" : "var(--color)")};

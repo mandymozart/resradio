@@ -3,11 +3,17 @@ import React, { useState } from 'react';
 import { useIdentityContext } from 'react-netlify-identity';
 import { useNavigate } from 'react-router-dom';
 import { BREAKPOINT_XS, FUNCTIONS } from '../../config';
-import Button from '../Button';
 import { Input } from '../FormElements/Input';
+import PrimaryButton from '../FormElements/PrimaryButton';
 import SystemMessage from '../SystemMessage';
 
 const Container = styled.div`
+h4 {
+    margin: 0 0 2rem 0;
+}
+label {
+    font-size: 1rem;
+}
 form {
     display:flex;
     flex-direction: column;
@@ -78,9 +84,9 @@ const LogIn = () => {
                             and try again.
                         </SystemMessage>
                     ) : null}
-                    <Button large type="submit">
+                    <PrimaryButton large type="submit">
                         LOGIN
-                    </Button>
+                    </PrimaryButton>
                 </form>
             </Container >
         </>

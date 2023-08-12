@@ -36,26 +36,26 @@ const CreateAccount = () => {
                 navigate("/studio");
             })
             .catch((error) => {
+                console.log(error)
                 setError(true);
             });
     };
 
     return (
         <Container>
+            <p>We are currently invite only for resradio team members. Please contact us via email resradio.vienna@gmail.com.</p>
             <form onSubmit={signUp}>
                 <h4>Sign up with email:</h4>
-                <label htmlFor="email">Email</label>
+                <label>Email</label>
                 <Input
                     type="email"
-                    id="email"
                     onChange={e => setEmail(e.target.value)}
                 />
-                <label htmlFor="password">
+                <label>
                     Password <span>(min. 6 characters)</span>
                 </label>
                 <Input
                     type="password"
-                    id="password"
                     onChange={e => setPassword(e.target.value)}
                 />
                 {error ? (
@@ -64,7 +64,7 @@ const CreateAccount = () => {
                         and try again.
                     </SystemMessage>
                 ) : null}
-                <Button type="submit" large>
+                <Button type="submit" disabled large>
                     CREATE ACCOUNT
                 </Button>
             </form>

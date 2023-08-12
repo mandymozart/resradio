@@ -36,6 +36,9 @@ h1 {
     justify-content: end;
     gap: 0.75rem;
 }
+[role=tab] {
+  padding: 2rem 0rem 0rem 2rem;
+}
 `
 
 function Studio() {
@@ -62,7 +65,7 @@ function Studio() {
         <Tabs>
           <TabList>
             <Tab>Login</Tab>
-            <Tab>Create Account</Tab>
+            <Tab>Request Invite</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>

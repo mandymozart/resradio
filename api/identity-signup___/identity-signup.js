@@ -24,7 +24,6 @@ const handler = async function (event) {
       app_other_thing: 'some app value'
     },
     user_metadata: {
-      ...user.user_metadata,
       user_other_thing: 'some user value'
     },
   }
@@ -36,7 +35,7 @@ const handler = async function (event) {
     _id: user.id,
     _type: 'user',
     email: user.email,
-    fullName: user.user_metadata.full_name,
+    fullName: "",
   }
 
   try {
