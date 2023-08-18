@@ -203,7 +203,6 @@ const BroadcastPlayer = () => {
 
     const handleTimeUpdate = useCallback(event => {
         const audioElement = event.target;
-        console.log('Time updated:', audioElement.currentTime);
         // Perform actions based on the updated time
         setCurrentTime(parseInt(audioElement.currentTime));
     }, []);

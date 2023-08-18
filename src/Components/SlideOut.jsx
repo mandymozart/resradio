@@ -172,6 +172,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const [uid, setUid] = useState();
   useChannel(ABLY_ROTATION_CHANNEL, (message) => {
     setUid(message.data.current.uid)
+    console.log("Rotation update received", message.data)
     setNextBroadcastPreview(message.data.next)
   });
   const { history, currentBroadcast, nextBroadcast } = useBroadcastStore();
