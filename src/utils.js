@@ -19,7 +19,9 @@ export const shuffle = (array) => {
   return array;
 };
 
-
+export const getBaseURL = () => {
+  return window.location.protocol + "//" + window.location.host;
+}
 
 let day = "";
 let count = 0;

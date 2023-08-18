@@ -39,7 +39,7 @@ h1 {
 }
 .menu {
   a {
-
+    font-size: 1rem;
     margin-right: 1rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
       span {

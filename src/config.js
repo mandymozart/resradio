@@ -19,8 +19,6 @@ const hour = 3600;
 export const BROADCAST_MIN_ALLOWED_DURATION = hour * .5; // Minimum amount of seconds a broadcast can have in order to be recognized eligable for the platform
 export const BROADCAST_MAX_ALLOWED_DURATION = hour * 12; // Minimum amount of seconds a broadcast can have in order to be recognized eligable for the platform
 
-export const IDENTITY_URL = "https://res-stage.netlify.app";
-
 export const CDN_URL = "https://res-audio.viennastruggle.at";
 
 export const FUNCTIONS = "/.netlify/functions";

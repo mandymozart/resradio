@@ -27,8 +27,9 @@ import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Sandbox from "./Sandbox";
 import Studio from "./Studio";
-import { ABLY_KEY, IDENTITY_URL } from "./config";
+import { ABLY_KEY } from "./config";
 import { client } from "./prismic";
+import { getBaseURL } from "./utils";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -38,7 +39,7 @@ configureAbly({ key: ABLY_KEY, clientId: nanoid() })
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IdentityContextProvider url={IDENTITY_URL}>
+      <IdentityContextProvider url={getBaseURL()}>
         <Router>
           <ScrollToTop>
             <Routes>
