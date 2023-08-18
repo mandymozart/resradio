@@ -160,8 +160,6 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const ref = useRef(null);
 
   const handleClickOutside = () => {
-    // Your custom logic here
-    console.log("clicked outside", isExpanded)
     if (isExpanded)
       setIsExpanded(false);
   }
