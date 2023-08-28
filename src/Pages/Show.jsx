@@ -1,92 +1,58 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import FadeIn from "../Animations/FadeIn";
+import ShowBroadcastsList from "../Components/Broadcasts/ShowBroadcastsList";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
-import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
-import Tags from "../Components/Tags";
-import TeaserImage from "../Components/TeaserImage/TeaserImage";
-import useThemeStore from "../Stores/ThemeStore";
+import HeroImage from "../Components/TeaserImage/HeroImage";
+import { GetShowQuery } from "../Queries/shows";
+import { BREAKPOINT_XS } from "../config";
 
 const Container = styled.div``;
 const Header = styled.header`
   text-align: center;
 `;
-const Meta = styled.div`
-  text-align: center;
-  padding: 1rem;
-`;
-
-export const SoundcloudPlayer = styled.div`
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin-top: 1rem;
-  padding-top: 56.25%;
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
 const Description = styled.section`
   font-size: 1rem;
+  padding: 0 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 0 1rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+    font-family: var(--font-bold);
+    margin-bottom: 1rem; 
+    margin-top: 2rem;
+    text-transform: none;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      margin-top: 1rem;
+    }
+  }
+  padding-bottom: 2rem;
 `;
 
 const Show = () => {
   const { uid } = useParams();
-  const setKeyword = useThemeStore((store) => store.setKeyword);
+  const { loading, error, data } = useQuery(GetShowQuery, { variables: { uid: uid } });
 
-  const [document, { state }] = useAllPrismicDocumentsByUIDs("shows", [uid]);
-  useEffect(() => {
-    if (document) setKeyword(document[0].data.keyword);
-  }, [setKeyword]);
-
-  if (state === "loading") return <PageLoader />;
-  else if (state === "failed") return <NotFound />;
-  else if (state === "loaded" && document[0])
-    return (
-      <Layout>
-        <Container>
-          <Header>
-            <FadeIn>
-              <TeaserImage image={document[0].data.image} />
-            </FadeIn>
-            {document[0].data?.soundcloud.html && (
-              <FadeIn>
-                <SoundcloudPlayer
-                  dangerouslySetInnerHTML={{
-                    __html: document[0].data.soundcloud.html,
-                  }}
-                />
-              </FadeIn>
-            )}
-          </Header>
-          <FadeIn>
-            <Meta>
-              <Tags tags={document[0].data.tags} />
-            </Meta>
-          </FadeIn>
-          <Description>
-            <FadeIn>
-              <h3>{document[0].data.title}</h3>
-            </FadeIn>
-            <FadeIn>
-              <KeyFieldParagraph text={document[0].data.description} />
-            </FadeIn>
-          </Description>
-        </Container>
-      </Layout>
-    );
-  return <NotFound />;
+  if (loading) return <PageLoader />;
+  if (error) return <NotFound error={error.message} />;
+  if (!data.shows) return <></>
+  const show = data.shows;
+  return (
+    <Container>
+      <Header>
+        <HeroImage image={show.image.hero} />
+      </Header>
+      <Description>
+        <h3>{show.title}</h3>
+        <KeyFieldParagraph className="text" text={show.description} />
+      </Description>
+      <ShowBroadcastsList id={show._meta.id} />
+    </Container>
+  );
 };
 
 export default Show;

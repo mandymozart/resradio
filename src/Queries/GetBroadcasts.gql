@@ -1,0 +1,28 @@
+query GetBroadcasts {
+  allBroadcastss(sortBy: meta_firstPublicationDate_DESC) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    totalCount
+    edges {
+      node {
+        tags {
+          ... on BroadcastsTags {
+            tag {
+              _linkType
+            }
+          }
+        }
+        _meta {
+          ... on Meta {
+            uid
+            id
+            firstPublicationDate
+          }
+        }
+        title
+      }
+    }
+  }
+}

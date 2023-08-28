@@ -1,29 +1,39 @@
-import clsx from "clsx";
-import React, { useState } from "react";
+import styled from "@emotion/styled";
+import React from "react";
 import { Link } from "react-router-dom";
-import FadeIn from "../../Animations/FadeIn";
-import { ItemContainer } from "../ItemContainer";
-import TeaserImage from "../TeaserImage/TeaserImage";
+import ThumbnailImage from "../TeaserImage/ThumbnailImage";
+
+const Container = styled.div`
+padding: 2rem;
+padding-bottom: 0.5rem;
+h4 {
+  text-transform: initial;
+  margin: 0;
+  font-size: 1.25rem;
+}
+&:nth-of-type(4n){
+  border-right: none;
+  /* padding: 1rem 2rem 1rem 1rem; */
+}
+&:nth-of-type(4n + 1){
+  border-left: none;
+  /* padding: 1rem 1rem 1rem 2rem; */
+}
+  
+`
 
 const ShowItem = ({ show }) => {
-  const [isHovered, setHovered] = useState(false);
-
   return (
-    <FadeIn>
-      <ItemContainer
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <Link to={show.url} className={clsx("image", { rotate: isHovered })}>
-          <TeaserImage image={show.data.image} />
+    <Container>
+      <Link to={`${show.node._meta.uid} `}>
+        <ThumbnailImage image={show.node.image.thumbnail} />
+      </Link>
+      <div className="meta">
+        <Link to={`${show.node._meta.uid} `}>
+          <h4>{show.node.title}</h4>
         </Link>
-        <div className="meta">
-          <Link key={show.id} to={show.url}>
-            <h4>{show.data.title}</h4>
-          </Link>
-        </div>
-      </ItemContainer>
-    </FadeIn>
+      </div>
+    </Container>
   );
 };
 export default ShowItem;

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "about",
+    "name": "About",
+    "repeatable": false,
+    "value": "about.json"
+  },
+  {
+    "id": "announcement",
+    "name": "Announcement",
+    "repeatable": false,
+    "value": "announcent.json"
+  },
+  {
+    "id": "broadcasts",
+    "name": "Broadcasts",
+    "repeatable": true,
+    "value": "broadcasts.json"
+  },
+  {
+    "id": "events",
+    "name": "Schedule",
+    "repeatable": true,
+    "value": "events.json"
+  },
+  {
+    "id": "landingpage",
+    "name": "Landing Page",
+    "repeatable": false,
+    "value": "landingpage.json"
+  },
+  {
+    "id": "shows",
+    "name": "Shows",
+    "repeatable": true,
+    "value": "shows.json"
+  },
+  {
+    "id": "tag",
+    "name": "Tag",
+    "repeatable": true,
+    "value": "tag.json"
+  },
+  {
+    "id": "category",
+    "name": "Category",
+    "repeatable": true,
+    "value": "category.json"
+  }
+]

@@ -1,0 +1,24 @@
+[build]
+  publish = "build"
+  command = "yarn build"
+  
+[functions]
+  directory = "api"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[template.environment]
+  ABLY_API_KEY = "change me to your Ably API key"
+  STREAM_URL = "https://edge.mixlr.com/channel/yourchannel"
+  ABLY_ROTATION_CHANNEL = "rotation"
+  IDENTITY_URL = "https://your-identity-instance.netlify.com"
+  OFFLINE_URL = "https://soundimage.org/wp-content/uploads/2016/08/Street-Ambience.mp3"

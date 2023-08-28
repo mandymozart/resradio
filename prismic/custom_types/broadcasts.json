@@ -1,0 +1,137 @@
+{
+  "Main": {
+    "uid": {
+      "type": "UID",
+      "config": {
+        "label": "slug"
+      }
+    },
+    "title": {
+      "type": "Text",
+      "config": {
+        "label": "Title"
+      }
+    },
+    "hostedby": {
+      "type": "Link",
+      "config": {
+        "select": "document",
+        "customtypes": [
+          "shows"
+        ],
+        "label": "Hosted by"
+      }
+    },
+    "description": {
+      "type": "Text",
+      "config": {
+        "label": "Description"
+      }
+    },
+    "begin": {
+      "type": "Timestamp",
+      "config": {
+        "label": "Begin"
+      }
+    },
+    "end": {
+      "type": "Timestamp",
+      "config": {
+        "label": "End"
+      }
+    },
+    "length": {
+      "type": "Number",
+      "config": {
+        "label": "length (deprecated)",
+        "placeholder": "(deprecated) exact length of show in minutes (defaults are 60, 120), make sure uploads are full minutes"
+      }
+    },
+    "duration": {
+      "type": "Number",
+      "config": {
+        "label": "Duration",
+        "placeholder": "in seconds"
+      }
+    },
+    "bpm": {
+      "type": "Number",
+      "config": {
+        "label": "BPM Average (deprecated)",
+        "placeholder": "(deprecated)"
+      }
+    },
+    "bpm_min": {
+      "type": "Number",
+      "config": {
+        "label": "BPM MIN",
+        "placeholder": "Slowest BPM used"
+      }
+    },
+    "bpm_max": {
+      "type": "Number",
+      "config": {
+        "label": "BPM MAX",
+        "placeholder": "Fastest BPM used"
+      }
+    },
+    "mood": {
+      "type": "Link",
+      "config": {
+        "select": "document",
+        "customtypes": [
+          "mood"
+        ],
+        "label": "mood"
+      }
+    },
+    "soundcloud": {
+      "type": "Embed",
+      "config": {
+        "label": "Soundcloud (deprecated)",
+        "placeholder": "(deprecated) url"
+      }
+    },
+    "keyword": {
+      "type": "Text",
+      "config": {
+        "label": "Keyword (deprecated)",
+        "placeholder": "meaningful keyword, we will use AI to generate a random artwork"
+      }
+    },
+    "audio": {
+      "type": "Text",
+      "config": {
+        "label": "Audio",
+        "placeholder": "https://res-audio.viennastruggle.at/2023/..."
+      }
+    },
+    "image": {
+      "type": "Image",
+      "config": {
+        "constraint": {
+          "width": 1080,
+          "height": 1080
+        },
+        "thumbnails": [
+          {
+            "name": "2x",
+            "width": 2160,
+            "height": 2160
+          },
+          {
+            "name": "thumbnail",
+            "width": 440,
+            "height": 440
+          },
+          {
+            "name": "hero",
+            "width": 1920,
+            "height": 840
+          }
+        ],
+        "label": "Image"
+      }
+    }
+  }
+}

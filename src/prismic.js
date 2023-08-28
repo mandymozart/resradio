@@ -1,10 +1,11 @@
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import * as prismic from '@prismicio/client'
 
 // Fill in your repository name
 export const repositoryName = 'resradio'
 export const endpoint = prismic.getEndpoint(repositoryName)
 
-export const client = prismic.createClient(endpoint, {
+export const prismicClient = prismic.createClient(endpoint, {
   // If your repo is private, add an access token
   accessToken: 'MC5ZZVd6RkJFQUFDd0E0cml0.77-9SGDvv70hce-_vVvvv70iPe-_ve-_vS3vv71wKU8EAEp6LO-_ve-_vQZwAQ8277-977-9',
 
@@ -31,5 +32,18 @@ export const client = prismic.createClient(endpoint, {
       type: 'page',
       path: '/page/:uid',
     },
+    {
+      type: 'playlist',
+      path: '/studio/playlist/:uid',
+    },
   ],
+})
+
+export const client = new ApolloClient({
+  link: new HttpLink({
+    uri: prismic.getGraphQLEndpoint(repositoryName),
+    fetch: prismicClient.graphqlFetch,
+    useGETForQueries: true,
+  }),
+  cache: new InMemoryCache(),
 })

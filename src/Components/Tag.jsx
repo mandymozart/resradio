@@ -1,13 +1,20 @@
 import styled from "@emotion/styled";
 
 export const Tag = styled.span`
-  border: 1px solid var(--color);
-  color: var(--color);
-  font-size: 0.75rem;
-  padding: 0.1rem 0.25rem;
-  margin-right: 0.25rem;
-  border-radius: 0.25rem;
-  line-height: 1.5rem;
+  color: var(--background);
+  font-size: 1rem;
+  background-color: var(--color);
+  padding: 0 1rem;
+  display: inline-block;
+  font-family: var(--font-light);
+  text-transform: uppercase;
+  line-height: 2rem;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
   white-space: nowrap;
+  border-radius: .1rem;
+  &:hover {
+    background-color: var(--second)
+  }
 `;
 export default Tag;

@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 node_modules
+/sanity/node_modules
 /.pnp
 .pnp.js
 
@@ -10,7 +11,9 @@ node_modules
 /coverage
 
 # production
+/dist
 /build
+/dist/static
 
 # misc
 .DS_Store
@@ -23,4 +26,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Local Netlify folder
 .netlify

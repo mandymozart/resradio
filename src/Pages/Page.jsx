@@ -1,60 +1,56 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
-import React, { useEffect } from "react";
+import { PrismicRichText } from "@prismicio/react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import FadeIn from "../Animations/FadeIn";
-import KeyFieldParagraph from "../Components/KeyFieldParagraph";
-import Layout from "../Components/Layout";
 import NotFound from "../Components/NotFound";
-import PageLoader from "../Components/PageLoader";
-import TeaserImage from "../Components/TeaserImage/TeaserImage";
-import useThemeStore from "../Stores/ThemeStore";
+import SectionLoader from "../Components/SectionLoader";
+import HeroImage from "../Components/TeaserImage/HeroImage";
+import { getPageQuery } from "../Queries/pages";
+import { BREAKPOINT_XS } from "../config";
 
-const Container = styled.div``;
+const Container = styled.div`
+padding: 2rem;
+@media (max-width: ${BREAKPOINT_XS}px) {
+  padding: 1rem;
+}
+`;
 const Header = styled.header`
   text-align: center;
 `;
-const Meta = styled.div`
-  text-align: center;
+
+const Description = styled.section`
+h2 {
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+}
 `;
 
-const Description = styled.section``;
 const Page = () => {
   const { uid } = useParams();
-  const setKeyword = useThemeStore((store) => store.setKeyword);
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("page", [
-    uid,
-  ]);
+  const { loading, error, data } = useQuery(getPageQuery, { variables: { uid: uid } });
 
-  useEffect(() => {
-    if (document) setKeyword(document[0].data.keyword);
-  }, [setKeyword]);
-  console.log(state);
-  if (state === "loading") return <PageLoader />;
-  else if (state === "failed") return <NotFound />;
-  else if (state === "loaded" && document[0])
-    return (
-      <Layout>
-        <Container>
-          {document[0].data.image && (
-            <FadeIn>
-              <Header>
-                <TeaserImage image={document[0].data.image} />
-              </Header>
-            </FadeIn>
-          )}
-          <Description>
-            <FadeIn>
-              <h3>{document[0].data?.title}</h3>
-            </FadeIn>
-            <FadeIn>
-              <KeyFieldParagraph text={document[0].data.text} />
-            </FadeIn>
-          </Description>
-        </Container>
-      </Layout>
-    );
-  else return <NotFound />;
+  if (loading) return <SectionLoader />;
+  if (error) return <NotFound error={error.message} />;
+  if (!data.page) return <NotFound error={"Page does not exist"} />
+  const page = data.page
+  return (
+    <>
+      {page.image && (
+        <Header>
+          <HeroImage image={page.image} />
+        </Header>
+      )}
+      <Container>
+        <Description>
+          <h2>{page.title}</h2>
+          <PrismicRichText field={page.text} />
+        </Description>
+      </Container>
+    </>
+  );
 };
 
 export default Page;

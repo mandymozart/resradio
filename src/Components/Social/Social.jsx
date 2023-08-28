@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { BsFacebook, BsInstagram } from "react-icons/bs";
+import { BsInstagram, BsTelegram } from "react-icons/bs";
 
-const Container = styled.p`
+const Container = styled.div`
 text-align: center;
-font-size: 2rem;
+font-size: 1.5rem;
+white-space: nowrap;
 `;
 
 const Social = () => {
@@ -17,11 +18,11 @@ const Social = () => {
         <BsInstagram />
       </a>{" "}
       <a
-        href="https://www.facebook.com/res.radio.V"
+        href="https://t.me/resradio"
         rel="noreferrer"
         target="_blank"
       >
-        <BsFacebook />
+        <BsTelegram />
       </a>
     </Container>
   );

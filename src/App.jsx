@@ -1,182 +1,23 @@
-import useMouse from "@react-hook/mouse-position";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { BrowserView } from "react-device-detect";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FloatingAnnouncement from "./Components/Announcement/FloatingAnnouncement";
-import Footer from "./Components/Footer";
-import Navigation from "./Components/Navigation/Navigation";
-import NotFound from "./Components/NotFound";
-import RandomImage from "./Components/RandomImages/RandomImage";
-import ScrollToTop from "./Components/ScrollToTop";
-import Symbols from "./Components/Symbols";
-import AboutPage from "./Pages/About";
-import Broadcast from "./Pages/Broadcast";
-import Broadcasts from "./Pages/Broadcasts";
-import Event from "./Pages/Event";
-import Events from "./Pages/Events";
-import ImpressumPage from "./Pages/Impressum";
-import LandingPage from "./Pages/LandingPage";
-import Page from "./Pages/Page";
-import Show from "./Pages/Show";
-import Shows from "./Pages/Shows";
-import useThemeStore from "./Stores/ThemeStore";
-
-const scrollToPosition = (top = 0) => {
-  try {
-    /**
-     * Latest API
-     */
-    window.scroll({
-      top: top,
-      left: 0,
-      behavior: "smooth",
-    });
-  } catch (_) {
-    /**
-     * Fallback
-     */
-    window.scrollTo(0, top);
-  }
-};
-
-const MousePositionProvider = ({ children }) => {
-  const setMousePosition = useThemeStore((store) => store.setMousePosition);
-  const ref = useRef(null);
-  const mouse = useMouse(ref, {
-    enterDelay: 100,
-    leaveDelay: 100,
-  });
-  useEffect(() => {
-    setMousePosition({ x: mouse.screenX, y: mouse.screenY });
-  }, [mouse, setMousePosition]);
-
-  return <div ref={ref}>{children}</div>;
-};
+import { Outlet } from "react-router-dom";
+import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
+import DonationBar from "./Components/Donation/DonationBar";
+import Header from "./Components/Header";
+import HeaderOffset from "./Components/HeaderOffset";
+import SearchBar from "./Components/Search/SearchBar";
+import useBroadcastStore from "./Stores/BroadcastStore";
 
 function App() {
+  const { isVisible } = useBroadcastStore();
   return (
-    <MousePositionProvider>
-      <BrowserRouter>
-        {/* <RandomBackground /> */}
-        <RandomImage scale={0.9} />
-        {/* <RandomImage /> */}
-        {/* <RandomImage /> */}
-        <ScrollToTop>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <PageWrapper>
-                  <LandingPage />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/broadcasts"
-              element={
-                <PageWrapper>
-                  <Broadcasts />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/broadcast/:uid"
-              element={
-                <PageWrapper>
-                  <Broadcast />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/events"
-              element={
-                <PageWrapper>
-                  <Events />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/event/:uid"
-              element={
-                <PageWrapper>
-                  <Event />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/shows"
-              element={
-                <PageWrapper>
-                  <Shows />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/show/:uid"
-              element={
-                <PageWrapper>
-                  <Show />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/page/:uid"
-              element={
-                <PageWrapper>
-                  <Page />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/about"
-              element={
-                <PageWrapper>
-                  <AboutPage />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/symbols"
-              element={
-                <PageWrapper>
-                  <Symbols />
-                </PageWrapper>
-              }
-            />
-            <Route
-              exact
-              path="/impressum"
-              element={
-                <PageWrapper>
-                  <ImpressumPage />
-                </PageWrapper>
-              }
-            />
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </ScrollToTop>
-        <Navigation />
-        <RandomImage scale={1.1} />
-        {/* <RandomImage scale={1.15}/> */}
-        <BrowserView>
-        <FloatingAnnouncement/>
-        </BrowserView>
-        <Footer />
-        {/* <Chat /> */}
-      </BrowserRouter>
-    </MousePositionProvider>
+    <>
+      <Header />
+      <PageWrapper>
+        <Outlet />
+        {isVisible && (<div style={{ height: "6rem" }}>&nbsp;</div>)}
+      </PageWrapper>
+      <BroadcastPlayer />
+    </>
   );
 }
 
@@ -218,7 +59,11 @@ const PageWrapper = ({ children }) => {
       variants={pageVariants}
       transition={pageTransition}
     >
-      {children}
+      <HeaderOffset>
+        <SearchBar />
+        <DonationBar />
+        {children}
+      </HeaderOffset>
     </motion.div>
   );
 };

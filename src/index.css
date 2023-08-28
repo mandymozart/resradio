@@ -1,86 +1,79 @@
-:root {
-  --content-width: min(100%, 32rem);
-  --header-width: min(100%, 72rem);
-
-  /* Day */
-  --color-day: #f2fefd;
-  --second-day: #FAFF00;
-  --background-day: rgb(66, 154, 235);
-  --background-night-translucent: rgb(66, 154, 235, 0.9);;
-  --background-night-blured: rgb(66, 154, 235, 0.7);
-
-  /* Night */
-  --color-night: #f2fefd;
-  --second-night: #FAFF00;
-  --background-night: rgb(0, 28, 99);
-  --background-night-translucent: rgb(0, 28, 99, 0.9);;
-  --background-night-blured: rgb(0, 28, 99, 0.7);
-
-  --color: var(--color-day);
-  --second: var(--second-day);
-  --background: var(--background-day);
-  --background-translucent: var(--background-day-translucent);
-  --background-blured: var(--background-day-blured);
-}
-.glassomorphism {
-  background: var(--background-translucent);
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  .glassomorphism {
-    background: var(--background-blured);
-    backdrop-filter: blur(6px);
-  }
-}
-
-@font-face {
-  font-family: "Scope-Medium";
-  src: url("Fonts/Scope-Medium.woff2") format("woff2"),
-    url("Fonts/Scope-Medium.woff") format("woff");
-}
 @font-face {
   font-family: "Scope-BoldExpanded";
   src: url("Fonts/Scope-BoldExpanded.woff2") format("woff2"),
     url("Fonts/Scope-BoldExpanded.woff") format("woff");
 }
+
 @font-face {
   font-family: "Scope-LightExpanded";
   src: url("Fonts/Scope-LightExpanded.woff2") format("woff2"),
     url("Fonts/Scope-LightExpanded.woff") format("woff");
 }
+
 @font-face {
-  font-family: "Scope-LightCondensed";
-  src: url("Fonts/Scope-LightCondensed.woff2") format("woff2"),
-    url("Fonts/Scope-LightCondensed.woff") format("woff");
+  font-family: "Scope-MediumExpanded";
+  src: url("Fonts/Scope-MediumExpanded.woff2") format("woff2"),
+    url("Fonts/Scope-MediumExpanded.woff") format("woff");
 }
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600&display=swap");
+
+:root {
+  --content-width: 100%;
+
+  /* Day */
+  --color-day: hsl(0, 0%, 5%);
+  --second-day:  hsl(248, 88%, 57%);
+  --background-day: hsl(248, 0%, 98%);
+
+  /* Night */
+  --color-night: var(--background-day);
+  --second-night: var(--second-day);
+  --background-night: var(--color-day);
+
+  --color: var(--color-day);
+  --second: var(--second-day);
+  --background: var(--background-day);
+  --yellow: hsl(59, 100%, 61%);
+  --green: hsl(135, 100%, 61%);
+  --grey: hsl(248, 10%, 95%);
+  --dark-grey: hsl(0, 0%, 57%);
+  --red: #e02500;
+
+  --font-light: "Scope-LightExpanded", "Courir", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-bold: "Scope-MediumExpanded", "Courir", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-medium: "Scope-MediumExpanded", "Courir", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+
 
 html {
   font-size: 16px;
 }
+
 body {
   margin: 0;
-  font-family: "Scope-LightExpanded", "Courir", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--font-light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
-  line-height: 1.3;
+  line-height: 1.25;
+  font-size: 1.5rem;
   color: var(--color);
   background: var(--background);
 }
+
 a {
   color: var(--color);
   text-decoration: none;
+  text-transform: uppercase;
 }
+
 a:hover {
   color: var(--second);
-  text-decoration: underline;
-  text-decoration: var(--second) wavy underline;
-    /* text-decoration-skip-ink: none; */
-  text-decoration-thickness: 2px;
-  text-decoration-color: var(--color);
 }
 
 h1,
@@ -89,19 +82,49 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Scope-LightExpanded", "Courir", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--font-bold);
   font-weight: 400;
-  letter-spacing: 0.05rem;
   font-size: 2rem;
-
-}
-h1,
-h2 {
-  font-size: 2.2rem;
   text-transform: uppercase;
 }
+
+h4,
+h5,
+h6 {
+  font-size: 1.5rem;
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 4rem;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 4rem;
+}
+
+h4 {
+  margin-bottom: 0rem;
+    margin-top: 4rem;
+}
+
+h5 {
+  margin-bottom: 0rem;
+    margin-top: 4rem;
+}
+
+h6 {
+  margin-top: 0;
+  margin-bottom: 0rem;
+    margin-top: 4rem;
+}
+
 b,
 strong {
   font-family: "Scope-BoldExpanded", "Courir", -apple-system, BlinkMacSystemFont,
@@ -114,17 +137,72 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 p {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
+@media (max-width: 769px) {
+  p {
+    font-size: 1rem;
+  }
+}
+img {
+  display: block;
+}
+button {
+  font-family: var(--font-light);
+  font-size: 1rem;
+  background: none;
+  border: none;
+  color: var(--color);
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  text-align: left;
+  border-radius: .1rem;
+}
+button:hover {
+  color: var(--second);
+}
+button:focus {
+  outline: var(--second);
+}
+
+input {
+  border:none;
+  outline: none;
+  font-family: var(--font-medium);
+  font-size: 1.25rem;
+  background: none;
+  line-height: 2rem;
+  padding: 0 .5rem;
+  border-radius: .1rem;
+  color:var(--color);
+  background: var(--background);
+}
+input[type=range] {
+  padding: 0;
+}
+input:hover {
+    color: var(--second);
+}
+input:focus, input:focus-visible {
+    border:none;
+    outline: none;
+}
+
+
 .rotate {
   transform: rotateY(45deg);
   animation: rotateAnimation 3s linear infinite;
 }
+
 @keyframes rotateAnimation {
   from {
     transform: rotateY(0deg);
   }
+
   to {
     transform: rotateY(359deg);
   }

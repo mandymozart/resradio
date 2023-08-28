@@ -1,27 +1,20 @@
-import React, { useEffect } from "react";
-import FadeIn from "../Animations/FadeIn";
-import Divider from "../Components/Divider";
-import Layout from "../Components/Layout";
+import styled from "@emotion/styled";
+import React from "react";
 import ShowList from "../Components/Shows/ShowList";
-import useThemeStore from "../Stores/ThemeStore";
+
+const Container = styled.div`
+  h2 {
+    margin: 0;
+    padding: 3rem 2rem;
+  }
+`
 
 const Shows = () => {
-  const setKeyword = useThemeStore((store) => store.setKeyword);
-  useEffect(() => {
-    setKeyword("spectacle");
-  }, [setKeyword]);
   return (
-    <Layout>
-      <FadeIn>
-        <h2>Meet our show hosts</h2>
-      </FadeIn>
-      <FadeIn>
-        <p>We are an open call radio. Hosts can apply with a program <a href="mailto:program@res.radio">here</a>.</p>
-      </FadeIn>
-      <Divider />
+    <Container>
+      <h2>Shows</h2>
       <ShowList />
-      <Divider />
-    </Layout>
+    </Container>
   );
 };
 

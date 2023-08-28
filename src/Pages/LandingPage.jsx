@@ -1,63 +1,50 @@
 import styled from "@emotion/styled";
-import { useAllPrismicDocumentsByType } from "@prismicio/react";
-import React, { useEffect } from "react";
-import { MobileView } from "react-device-detect";
-import FadeIn from "../Animations/FadeIn";
-import Announcement from "../Components/Announcement/Announcement";
-import BroadcastSlice from "../Components/Broadcasts/BroadcastSlice";
-import Divider from "../Components/Divider";
-import Layout from "../Components/Layout";
-import NotFound from "../Components/NotFound";
-import PageLoader from "../Components/PageLoader";
-import useThemeStore from "../Stores/ThemeStore";
+import React from "react";
+import FeatureBroadcast from "../Components/Broadcasts/FeatureBroadcast";
+import RecentBroadcastList from "../Components/Broadcasts/RecentBroadcastList";
+import Announcement from "../Components/Bulletin/Announcement";
+import Footer from "../Components/Footer";
+import Schedule from "../Components/Schedule/Schedule";
+import RecentShowList from "../Components/Shows/RecentShowList";
+import { BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
+import Apply from "../images/Apply";
 
-const Hero = styled.section`
-  text-align: center;
-`;
-
+const BulletinSection = styled.section`
+  padding: 2rem;
+  display: grid;
+  grid-row: span 2;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(auto, 1fr);
+  border-bottom: 1px solid var(--color);
+  @media (max-width: ${BREAKPOINT_MD}px) {
+    grid-template-columns: 1fr;
+  }
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .apply {
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+`
 const LandingPage = () => {
-  const setKeyword = useThemeStore((store) => store.setKeyword);
-  const [document, { state, error }] = useAllPrismicDocumentsByType(
-    "landingpage",
-    { fetchLinks: "broadcasts.title" }
+  return (
+    <>
+      <FeatureBroadcast />
+      <BulletinSection>
+        <Schedule />
+        <Announcement />
+        <a className="apply" href="mailto:resradio.program@gmail.com"><Apply /></a>
+      </BulletinSection>
+      <RecentShowList />
+      <RecentBroadcastList />
+      <Footer />
+    </>
   );
-  useEffect(() => {
-    if (document) setKeyword(document[0].data.keyword);
-  }, [document, setKeyword]);
-  if (state === "loading") return <PageLoader />;
-  else if (state === "failed") return <NotFound />;
-  else if (state === "loaded" && document[0])
-    return (
-      <>
-        <Layout>
-          <FadeIn>
-            <Hero image={document[0].data.image}>
-              <h2>{document[0].data.welcome_message}</h2>
-              {/* <a
-                href="mailto:program.resradio@gmail.com"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button large>Join us</Button>
-              </a> */}
-              {/* <Social /> */}
-            </Hero>
-          </FadeIn>
-          <MobileView>
-            <FadeIn>
-              <Announcement />
-            </FadeIn>
-          </MobileView>
-          {document[0].data.body?.map((slice, index) => {
-            if ((slice.type = "featured_broadcasts"))
-              return <BroadcastSlice key={index} slice={slice} />;
-            else return <></>;
-          })}
-          <Divider />
-        </Layout>
-      </>
-    );
-  return <>error</>;
 };
 
 export default LandingPage;

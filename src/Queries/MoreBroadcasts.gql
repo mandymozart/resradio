@@ -1,0 +1,29 @@
+query MoreBroadcasts($after: String!, $itemsPerPage: Int!) {
+  allBroadcastss(after: $after, first: $itemsPerPage) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        tags {
+          ... on BroadcastsTags {
+            tag {
+              _linkType
+            }
+          }
+        }
+        _meta {
+          ... on Meta {
+            uid
+            id
+          }
+        }
+        title
+      }
+    }
+  }
+}

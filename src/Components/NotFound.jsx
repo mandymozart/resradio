@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../Animations/FadeIn";
-import useThemeStore from "../Stores/ThemeStore";
-import icon from "./../images/middle-finger.png";
+import { BREAKPOINT_XS } from "../config";
+import icon from "./../images/cat.png";
 
 const Container = styled.section`
   display: flex;
@@ -12,13 +12,12 @@ const Container = styled.section`
   justify-content: center;
   height: 100vh;
   text-align: center;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    height: auto;margin-top: 2rem;
+  }
 `;
 
 const NotFound = ({ error }) => {
-  const setKeyword = useThemeStore((store) => store.setKeyword);
-  useEffect(() => {
-    if (document) setKeyword("fuckoff");
-  }, [setKeyword]);
   return (
     <FadeIn>
       <Container>

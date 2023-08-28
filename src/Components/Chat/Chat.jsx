@@ -1,36 +1,116 @@
-import styled from "@emotion/styled";
-import WidgetBot from "@widgetbot/react-embed";
-import React, { useState } from "react";
-import { BsChat } from "react-icons/bs";
-import { FaCross } from "react-icons/fa";
+import { useChannel, usePresence } from '@ably-labs/react-hooks';
+import styled from '@emotion/styled';
+import React, { useEffect, useRef, useState } from 'react';
+import { GoPaperAirplane } from 'react-icons/go';
+import useChatStore from '../../Stores/ChatStore';
+import { ABLY_CHAT_CHANNEL, BREAKPOINT_XS } from '../../config';
+import PrimaryButtonSquare from '../FormElements/PrimaryButtonSquare';
+import Message from './Message';
 
 const Container = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  &&& .widgetbot {
-    width: 100%;
-    border-radius: 0;
-  }
-`;
+font-size: 1rem;
+font-family: var(--font-light);
+width: 100%;
+padding-top: 1rem;
+form {
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+    }
+    background: var(--grey);
+    display: flex;
+    input {
+        flex: 1;
+        margin-right: 1rem;
+        padding: 0 0.5rem;
+        line-height: 2rem;
+        border-radius: 0.1rem;
+        border: 1px solid var(--color);
+        font-size: 1rem;
+        font-family: var(--font-light)
+    }
+}
+.list {
+    height: calc(100vh - 29rem);
+    overflow: auto;
+    padding: 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        padding: 1rem;
+    }
+}
+`
 
 const Chat = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <Container>
-      <button onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? <BsChat /> : <FaCross />}
-      </button>
-      {isOpen && (
-        <WidgetBot
-          className="widgetbot"
-          server="299881420891881473"
-          channel="355719584830980096"
-        />
-      )}
-    </Container>
-  );
-};
+    const { username } = useChatStore();
+    const [body, setBody] = useState('');
+    const [items, setItems] = useState([]);
+
+    const messageEl = useRef(null);
+
+    useEffect(() => {
+        if (messageEl) {
+            messageEl.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
+
+    const [channel] = useChannel(ABLY_CHAT_CHANNEL, (update) => {
+        console.log(update)
+        const newItem = { id: update.id, username: update.data.username, body: update.data.body, created_at: update.data.created_at, action: update.action }
+        setItems((prevState) => [...prevState, newItem]);
+    });
+
+    usePresence(ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
+        if (update.action === "enter") {
+            setItems((prevState) => [...prevState, { id: update.id, 'username': update.data.username, 'body': 'entered', created_at: new Date(), action: update.action }]);
+            return
+        }
+        if (update.action === "leave") {
+            setItems((prevState) => [...prevState, { id: update.id, 'username': update.data.username, 'body': 'left', created_at: new Date(), action: update.action }]);
+            return
+        }
+    });
+
+    const handleMessageChange = (e) => {
+        setBody(e.target.value);
+    }
+
+    const handleMessageSubmit = (e) => {
+        e.preventDefault();
+        if (body.length < 1) {
+            return;
+        }
+        const newItem = {
+            username: username,
+            body: body,
+            created_at: new Date(),
+        };
+        channel.publish('message', newItem);
+
+        setBody('');
+    }
+    return (
+        <Container>
+            <div className='list' ref={messageEl}>
+                {items?.map(item => (
+                    <div key={item.id} className="message-item">
+                        <Message message={item} username={username} />
+                    </div>
+                ))}
+            </div>
+            <form className="form" onSubmit={handleMessageSubmit}>
+                <input
+                    id="new-message"
+                    onChange={handleMessageChange}
+                    value={body}
+                    placeholder='Message'
+                />
+                <PrimaryButtonSquare><GoPaperAirplane /></PrimaryButtonSquare>
+            </form>
+        </Container>
+    );
+}
 
 export default Chat;
