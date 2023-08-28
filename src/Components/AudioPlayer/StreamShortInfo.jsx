@@ -74,7 +74,7 @@ const StreamShortInfo = ({ onClick }) => {
             <>
               {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
             </>
-          ) : (<>{history?.title}</>)}
+          ) : (<>{history?.hostedBy}&mdash;{history?.title}</>)}
         </>
       )}
     </Container>

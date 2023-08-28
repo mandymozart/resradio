@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import { configureAbly } from "@ably-labs/react-hooks";
 import { ApolloProvider } from "@apollo/client";
+import { PrismicToolbar } from "@prismicio/react";
 import { nanoid } from "nanoid";
 import { createRoot } from "react-dom/client";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
@@ -29,17 +30,16 @@ import Sandbox from "./Sandbox";
 import Studio from "./Studio";
 import { ABLY_KEY } from "./config";
 import { client } from "./prismic";
-import { getBaseURL } from "./utils";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-
+console.log(process.env)
 configureAbly({ key: ABLY_KEY, clientId: nanoid() })
 
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IdentityContextProvider url={getBaseURL()}>
+      <IdentityContextProvider url={process.env.REACT_APP_NETLIFY_IDENTITY_PROVIDER}>
         <Router>
           <ScrollToTop>
             <Routes>
@@ -144,6 +144,7 @@ root.render(
               <Route path="*" element={<NotFound />} />
             </Routes>
           </ScrollToTop>
+          <PrismicToolbar />
         </Router>
       </IdentityContextProvider>
     </ApolloProvider>
