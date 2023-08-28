@@ -39,6 +39,7 @@ const StreamShortInfo = ({ onClick }) => {
 
   const getBroadcastHistory = async () => {
     if (dayjs(rotationInfo?.data?.current.end).isAfter(after) && dayjs(rotationInfo?.data?.current.begin).isBefore(before)) {
+
     } else {
       // Get info from History
       const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
@@ -66,7 +67,7 @@ const StreamShortInfo = ({ onClick }) => {
     <Container>
       {currentBroadcast ? (
         <>
-          {currentBroadcast.hostedby?._meta.uid}&mdash;{currentBroadcast.title}
+          {currentBroadcast.hostedby?.title}&mdash;{currentBroadcast.title}
         </>
       ) : (
         <>

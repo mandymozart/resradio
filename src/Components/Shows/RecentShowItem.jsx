@@ -19,6 +19,9 @@ h4 {
   font-family: var(--font-medium);
   margin-bottom: 0.25rem;
   margin-top: 2rem;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   @media (max-width: ${BREAKPOINT_XS}px) {
     font-size: 1rem;
     margin-bottom: 0rem;
