@@ -59,7 +59,7 @@ const RecentShowItem = ({ broadcast }) => {
     <Container>
       <Link to={linkTo}>
         <div className="image">
-          <ThumbnailPanoramaImage image={broadcast.node.hostedby?.image.thumbnailPanorama} />
+          <ThumbnailPanoramaImage image={broadcast.node.hostedby?.image?.thumbnailPanorama} />
         </div>
       </Link>
       <div className="meta">
