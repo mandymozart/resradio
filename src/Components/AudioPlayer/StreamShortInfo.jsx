@@ -22,20 +22,36 @@ align-items: center;
 `;
 
 const StreamShortInfo = ({ onClick }) => {
+  const { history, setHistory, currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
 
   const after = dayjs();
-  const before = dayjs()
+  const before = dayjs();
+
   const { error, data } = useQuery(
     getBroadcastsQuery,
     {
       variables:
       {
         endAfter: after.format(),
-        beginBefore: before.format(),
+        sortBy: "begin_ASC"
       },
-      pollInterval: 60 * 1000
+      pollInterval: 6 * 1000
     });
-  const { history, setHistory, currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
+
+  useEffect(() => {
+    if (data) {
+      data?.allBroadcastss.edges.forEach((item) => {
+        if (dayjs(item.node.begin).isBefore(before)) {
+          setCurrentBroadcast(item.node)
+          if (data.allBroadcastss.edges[1]?.node)
+            setNextBroadcast(data.allBroadcastss.edges[1].node)
+          return
+        }
+      })
+    }
+  }, [data, setCurrentBroadcast, setNextBroadcast])
+
+
 
   const getBroadcastHistory = async () => {
     if (dayjs(rotationInfo?.data?.current.end).isAfter(after) && dayjs(rotationInfo?.data?.current.begin).isBefore(before)) {
@@ -55,14 +71,12 @@ const StreamShortInfo = ({ onClick }) => {
 
   // ably websocket
   useChannel(ABLY_ROTATION_CHANNEL, (message) => {
+    console.log(message)
     setRotationInfo(message)
   });
   usePresence(ABLY_ROTATION_CHANNEL, "listener");
 
   if (error) return <>Error : {error.message}</>;
-  if (data?.allBroadcastss?.edges > 0)
-    setCurrentBroadcast(data.allBroadcastss.edges[0].node)
-  if (data?.allBroadcastss?.edges[1]) setNextBroadcast(data.allBroadcastss.edges[1].node);
   return (
     <Container>
       {currentBroadcast ? (
