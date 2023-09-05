@@ -199,6 +199,11 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
 
   useEffect(() => {
     setBroadcast(currentBroadcast)
+    if (nextBroadcast)
+      setNextBroadcastPreview({
+        ...nextBroadcast,
+        hostedby: nextBroadcast.hostedby.title
+      })
   }, [currentBroadcast, nextBroadcast])
 
 
@@ -214,7 +219,6 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     <div className={clsx({ isExpanded: isExpanded })} ref={ref}>
       <div className="top">
         {loading && <InlineLoader />}
-        {currentBroadcast && <>current Broadcast {JSON.stringify(currentBroadcast)}</>}
         {broadcast && (<>
           <div className="image">
             <ThumbnailPanoramaImage image={broadcast.image.hero} />
