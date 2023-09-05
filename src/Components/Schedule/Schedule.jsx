@@ -154,6 +154,7 @@ const Schedule = ({ from, inverted }) => {
 
     useEffect(() => {
         getBroadcastHistory()
+        throw (new Error("This is a forced error and not real!"))
     }, [from])
 
 
