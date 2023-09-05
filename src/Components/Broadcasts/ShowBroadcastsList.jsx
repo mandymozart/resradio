@@ -37,6 +37,7 @@ const ShowBroadcastsList = ({ id }) => {
     variables: {
       id: id,
       itemsPerPage: ITEMS_PER_PAGE,
+      sortBy: "begin_DESC",
       currentCursor: endCursor,
     }, onCompleted: (data) => {
       if (isInitial) setIsInitial(false);
@@ -72,7 +73,7 @@ const ShowBroadcastsList = ({ id }) => {
     <Container>
       <h3>Recent Broadcasts ({data?.allBroadcastss.totalCount})</h3>
       <div className="list">
-        {broadcasts?.map(broadcast => (<ShowBroadcastsItem broadcast={broadcast} />))}
+        {broadcasts?.map((broadcast, index) => (<ShowBroadcastsItem key={index + broadcast.node._meta.uid} broadcast={broadcast} />))}
       </div>
       {hasNextPage && (
         <LoadMoreButton onClick={() => loadMore()} loading={loading}>Load More</LoadMoreButton>

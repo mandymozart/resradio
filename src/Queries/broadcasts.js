@@ -53,10 +53,12 @@ query GetBroadcastsByShowQuery(
   $id: String!,
   $itemsPerPage: Int,
   $currentCursor: String,
+  $sortBy: SortBroadcastsy,
   ) {
   allBroadcastss(
     first: $itemsPerPage,
     after: $currentCursor,
+    sortBy: $sortBy,
     where: {
       hostedby: $id,
     }) {
