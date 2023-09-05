@@ -136,6 +136,7 @@ const Schedule = ({ from, inverted }) => {
             variables:
             {
                 endAfter: after.format(),
+                sortBy: "begin_ASC",
                 beginBefore: after.add(7, 'days').format(),
             }
         });
