@@ -77,9 +77,13 @@ const RecentBroadcastsSectionLoader = () => {
 const ExploreButtonContainer = styled.button`
   border: none;
   padding: 0 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 0 1rem;
+  }
   display: flex;
   background: transparent;
   justify-content: center;
+  text-transform: uppercase;
   font-family: var(--font-bold);
   font-size: 2rem;
   width:100%;

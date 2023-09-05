@@ -74,6 +74,7 @@ const AllShowsButtonContainer = styled.button`
   justify-content: center;
   font-family: var(--font-bold);
   font-size: 2rem;
+  text-align: center;
   color: var(--background);
   width:100%;
   cursor: pointer;
