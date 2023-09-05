@@ -13,27 +13,35 @@ const client = createClient({
 const handler = async (event) => {
     const from = event.queryStringParameters.from;
     const to = event.queryStringParameters.to;
+    const beginBefore = event.queryStringParameters.beginBefore;
+    const endAfter = event.queryStringParameters.endAfter;
 
-    /* no from, no go */
     if (!from) {
+        from = 0;
+    }
+    if (!to) {
+        to = 0
+    }
+
+    if (!beginBefore) {
         return {
-            statusCode: 401,
+            statusCode: 400,
             body: JSON.stringify({
-                data: "no from date",
+                data: "no beginBefore",
             }),
         };
     }
-    if (!to) {
+    if (!endAfter) {
         return {
-            statusCode: 401,
+            statusCode: 400,
             body: JSON.stringify({
-                data: "no to date",
+                data: "no endAfter",
             }),
         };
     }
 
     try {
-        const query = `*[_type == "broadcast"] | order(_updatedAt desc) [${from}...${to}]`;
+        const query = `*[_type == "broadcast" && dateTime(begin) < dateTime('${beginBefore}') && dateTime(end) > dateTime('${endAfter}')] | order(beginBefore desc) [${from}...${to}]`;
         let broadcasts;
 
         await client.fetch(query).then((r) => {

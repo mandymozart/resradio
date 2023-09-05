@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useNetlifyIdentity } from "react-netlify-identity";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_XS, DATE_FORMAT, FUNCTIONS } from "../../config";
-import palm from "../../images/palm.png";
+import { convertToZuluTimeString } from "../../utils";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import ScheduleHistoricalBroadcast from "../Broadcasts/ScheduleHistoricalBroadcast";
 import SectionLoader from "../SectionLoader";
@@ -124,6 +124,10 @@ const Container = styled.section`
         margin-bottom: 1rem;
         margin-top: 2rem;
     }
+    h3 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
     `;
 
 const Schedule = ({ from, inverted }) => {
@@ -142,16 +146,15 @@ const Schedule = ({ from, inverted }) => {
         });
 
     const [history, setHistory] = useState([]);
-
     const getBroadcastHistory = async () => {
-        const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
+        const res = await fetch(`${FUNCTIONS}/broadcasts?beginBefore=${convertToZuluTimeString(after.add(7, 'days').utc())}&endAfter=${convertToZuluTimeString(after.utc())}&from=0&to=100`)
         const history = await res.json()
         setHistory(history)
     }
 
     useEffect(() => {
         getBroadcastHistory()
-    }, [])
+    }, [from])
 
 
     if (loading) return <SectionLoader />;
@@ -162,8 +165,7 @@ const Schedule = ({ from, inverted }) => {
             <h2>Schedule</h2>
             <p>our weekly updated schedule (UTC+2)</p>
             {days.length < 1 && (<p className="notice">
-                No upcoming shows scheduled. It's possible, <br />that we might be on vacation.<br />
-                <img src={palm} alt="vacation" />
+                No broadcasts found! Try adjusting the time frame.
             </p>)}
             <div className="list">
                 {days?.map((day) => {
@@ -174,8 +176,9 @@ const Schedule = ({ from, inverted }) => {
                 })}
                 {isLoggedIn && (
                     <>
-                        <h3>Historical</h3>
-                        {mapHistoricalBroadcastsToDays(history).map((index, day) => {
+                        <h3>Reruns</h3>
+                        {mapHistoricalBroadcastsToDays(history).map((day, index) => {
+                            if (day.broadcasts.length < 1) return
                             return (<div className="list-day" key={day.date + "historical"}>
                                 <h4>{day.date}</h4>
                                 {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId + index} broadcast={broadcast} />)}

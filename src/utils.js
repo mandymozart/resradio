@@ -76,6 +76,24 @@ export const formatTime = (time) => {
   return '00:00';
 };
 
+export const convertToZuluTimeString = (dayjsObject) => {
+  // Ensure the input is a dayjs object
+  if (!dayjsObject || !dayjsObject.isValid()) {
+    throw new Error('Input must be a valid dayjs object.');
+  }
+
+  // Convert the dayjs object to a JavaScript Date object
+  const date = dayjsObject.toDate();
+
+  // Convert the Date to an ISO 8601 formatted string in UTC (Zulu) time
+  const zuluTimeString = date.toISOString();
+
+  // Remove milliseconds and add 'Z' to indicate Zulu time
+  const sanitizedZuluTimeString = zuluTimeString.slice(0, -5) + 'Z';
+
+  return sanitizedZuluTimeString;
+}
+
 /**
  * 
  * @param {number} seconds 
