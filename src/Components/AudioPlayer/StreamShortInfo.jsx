@@ -8,6 +8,7 @@ import React, { useEffect } from "react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import useBroadcastStore from "../../Stores/BroadcastStore";
 import { ABLY_ROTATION_CHANNEL, FUNCTIONS } from "../../config";
+import { convertToZuluTimeString } from "../../utils";
 dayjs.extend(isBetween);
 dayjs.extend(utc);
 
@@ -35,7 +36,7 @@ const StreamShortInfo = ({ onClick }) => {
         endAfter: after.format(),
         sortBy: "begin_ASC"
       },
-      pollInterval: 6 * 1000
+      pollInterval: 10 * 1000
     });
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const StreamShortInfo = ({ onClick }) => {
 
     } else {
       // Get info from History
-      const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
+      const res = await fetch(`${FUNCTIONS}/broadcasts?beginBefore=${convertToZuluTimeString(before.utc())}&endAfter=${convertToZuluTimeString(after.utc())}&from=0&to=24`)
       const history = await res.json()
       const historyCurrent = history.filter(broadcast => dayjs(broadcast.end).isAfter(after) && dayjs(broadcast.begin).isBefore(before))[0]
       setHistory(historyCurrent)

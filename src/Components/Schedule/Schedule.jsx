@@ -8,6 +8,7 @@ import { useNetlifyIdentity } from "react-netlify-identity";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_XS, DATE_FORMAT, FUNCTIONS } from "../../config";
 import palm from "../../images/palm.png";
+import { convertToZuluTimeString } from "../../utils";
 import ScheduleBroadcast from "../Broadcasts/ScheduleBroadcast";
 import ScheduleHistoricalBroadcast from "../Broadcasts/ScheduleHistoricalBroadcast";
 import SectionLoader from "../SectionLoader";
@@ -142,16 +143,15 @@ const Schedule = ({ from, inverted }) => {
         });
 
     const [history, setHistory] = useState([]);
-
     const getBroadcastHistory = async () => {
-        const res = await fetch(`${FUNCTIONS}/broadcasts?from=0&to=24`)
+        const res = await fetch(`${FUNCTIONS}/broadcasts?beginBefore=${convertToZuluTimeString(after.add(7, 'days').utc())}&endAfter=${convertToZuluTimeString(after.utc())}&from=0&to=100`)
         const history = await res.json()
         setHistory(history)
     }
 
     useEffect(() => {
         getBroadcastHistory()
-    }, [])
+    }, [from])
 
 
     if (loading) return <SectionLoader />;
@@ -175,7 +175,7 @@ const Schedule = ({ from, inverted }) => {
                 {isLoggedIn && (
                     <>
                         <h3>Historical</h3>
-                        {mapHistoricalBroadcastsToDays(history).map((index, day) => {
+                        {mapHistoricalBroadcastsToDays(history).map((day, index) => {
                             return (<div className="list-day" key={day.date + "historical"}>
                                 <h4>{day.date}</h4>
                                 {day.broadcasts?.map(broadcast => <ScheduleHistoricalBroadcast key={broadcast.prismicId + index} broadcast={broadcast} />)}

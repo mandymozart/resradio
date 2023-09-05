@@ -140,8 +140,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
         />
         {canPlay ? (<>
           <div className="status">
-            {isLive() && (<Dot />)}
-            {isStreaming() && (<DotGrey />)}
+            {isLive() ? (<Dot />) : (<>{isStreaming() && (<DotGrey />)}</>)}
           </div>
           {isPlaying ? (
             <PlayButton onClick={() => pause()}>
