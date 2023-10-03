@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@reach/tabs';
 import React from "react";
-import { GoListOrdered, GoPerson, GoPlug, GoSignOut } from 'react-icons/go';
+import { GoListOrdered, GoPerson, GoSignOut } from 'react-icons/go';
 import { useIdentityContext } from 'react-netlify-identity';
 import { Link } from 'react-router-dom';
 import CreateAccount from './Components/Account/CreateAccount';
@@ -62,7 +62,6 @@ function Studio() {
         <h1>res.studio</h1>
         <nav className='menu'>
           <Link to="/studio/playlists"><GoListOrdered /><span> Playlists</span></Link>
-          <Link to="/studio/remote"><GoPlug /><span> Remote</span></Link>
         </nav>
         <nav className='account'>
           <div>
