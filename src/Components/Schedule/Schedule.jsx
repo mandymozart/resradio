@@ -34,8 +34,6 @@ const populateDays = (days, broadcasts) => {
     broadcasts.forEach(function (b) {
         if (days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)))
             days.find(d => d.date === dayjs(b.node.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
-        else console.error("date string mismatch")
-
     })
     return days
 }
@@ -61,8 +59,6 @@ const populateHistoricalDays = (days, broadcasts) => {
     broadcasts.forEach(function (b) {
         if (days.find(d => d.date === dayjs(b.begin).format('dddd, ' + DATE_FORMAT)))
             days.find(d => d.date === dayjs(b.begin).format('dddd, ' + DATE_FORMAT)).broadcasts.push(b)
-        else console.error("date string mismatch")
-
     })
     return days
 }
