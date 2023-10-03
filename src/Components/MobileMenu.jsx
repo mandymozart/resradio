@@ -32,13 +32,17 @@ nav {
     margin: 0;
     padding: 0;
     line-height: 3rem;
-    border-bottom: 2px solid var(--color);
-    background-color: var(--grey);
+    border-bottom: 2px solid var(--background);
+    background-color: var(--color);
     button {
+      color: var(--background);
       width: 100%;
       font-size: 1.5rem;
       text-transform: uppercase;
       text-align: center;
+      &:focus, &:active, &:hover {
+        color: var(--second);
+      }
     }
   }
 
