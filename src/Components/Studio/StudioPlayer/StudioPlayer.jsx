@@ -179,6 +179,8 @@ const StudioPlayer = () => {
     const [isBlocked, setIsBlocked] = useState(true);
 
     const [broadcasts, setBroadcasts] = useState();
+    const [playlist, setPlaylist] = useState();
+    const [faultyPlaylist, setFaultyPlaylist] = useState();
     const [faultyBroadcasts, setFaultyBroadcasts] = useState();
     const [trackProgress, setTrackProgress] = useState(0);
     const [remote, setRemote] = useState(undefined);
@@ -287,6 +289,18 @@ const StudioPlayer = () => {
         request.send()
     }
 
+    /* get an immutable playlist in its initial order */
+    const getOrderedPlaylist = (broadcasts) => {
+        let playlist = []
+        broadcasts.array.forEach((broadcast, index) => {
+            playlist.push({
+                broadcast: broadcast,
+                index: index
+            })
+        })
+        return playlist;
+    }
+
     const getPreviousIndex = (broadcast) => {
         const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
         if (index - 1 > -1) {
@@ -340,6 +354,7 @@ const StudioPlayer = () => {
      * @param {number} index *optional
      */
     const updateBroadcast = (index) => {
+        console.log(i)
         const i = getNextIndex(current);
         const broadcast = index !== undefined ? broadcasts[index].broadcast : broadcasts[i].broadcast
         const nI = getNextIndex(broadcast);
@@ -378,10 +393,12 @@ const StudioPlayer = () => {
 
     useEffect(() => {
         // init Player
+        console.log("init", getOrderedPlaylist(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3"))))
         if (data) {
-            console.log(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")))
+            console.log(getOrderedPlaylist(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3"))))
             setBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")))
             setFaultyBroadcasts(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.length < BROADCAST_MIN_ALLOWED_DURATION || i.broadcast.length > BROADCAST_MAX_ALLOWED_DURATION))
+            setPlaylist(getOrderedPlaylist(data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3"))))
         }
     }, [data])
 
@@ -468,7 +485,7 @@ const StudioPlayer = () => {
 
     if (loading || !broadcasts || !current || !next) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;
-    const playlist = data.allPlaylists.edges[0].node;
+    console.log("init")
     return (
         <Container>
             <HeroImage image={playlist.image.hero ? playlist.image.hero : playlist.image} />

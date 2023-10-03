@@ -117,7 +117,6 @@ const ProgressBar = ({
             <input
                 type="range"
                 ref={progressBarRef}
-                defaultValue="0"
                 max={duration ? duration : 3600}
                 onChange={handleProgressChange}
                 value={timeProgress}

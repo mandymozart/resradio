@@ -48,21 +48,34 @@ const Playlist = () => {
     const [faultyBroadcasts, setFaultyBroadcasts] = useState();
 
 
+    /* get an immutable playlist in its initial order */
+    const getOrderedBroadcasts = (broadcasts) => {
+        let playlist = []
+        broadcasts.forEach((broadcast, index) => {
+            playlist.push({
+                broadcast: broadcast.broadcast,
+                index: index + 1
+            })
+        })
+        return playlist;
+    }
+
     useEffect(() => {
         // init Player
         if (data) {
             const valid = data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")).filter(i => i.broadcast.duration || i.broadcast.length);
             const faulty = data.allPlaylists.edges[0].node.broadcasts.filter(i => !i.broadcast.audio?.includes(".mp3")).filter(i => !i.broadcast.duration || !i.broadcast.length);
-            setBroadcasts(valid)
-            setFaultyBroadcasts(faulty)
-            console.log("These broadcasts were faulty and ommited from the list:", faulty);
+            setBroadcasts(getOrderedBroadcasts(valid))
+            setFaultyBroadcasts(getOrderedBroadcasts(faulty))
+            if (faulty.length > 0)
+                console.log("These broadcasts were faulty and ommited from the list:", faulty);
         }
     }, [data])
 
 
     if (loading || !broadcasts) return <SectionLoader />;
     if (error) return <>Error : {error.message}</>;
-    const playlist = data.allPlaylists.edges[0].node;
+    const playlist = data.allPlaylists.edges[0].node
     return (
         <Container>
             <div>

@@ -1,20 +1,14 @@
-import { useChannel } from "@ably-labs/react-hooks";
-import { useLazyQuery } from "@apollo/client";
+import { useChannel } from '@ably-labs/react-hooks';
 import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useNetlifyIdentity } from "react-netlify-identity";
-import useDebounce from "../../../Hooks/useDebounce.";
-import { getBroadcastsQuery } from "../../../Queries/broadcasts";
-import { ABLY_REMOTE_CHANNEL, ABLY_ROTATION_CHANNEL, BREAKPOINT_XS, FUNCTIONS, ITEMS_PER_PAGE } from "../../../config";
+import { ABLY_ROTATION_CHANNEL, BREAKPOINT_XS, FUNCTIONS } from "../../../config";
 import PauseBig from "../../../images/PauseBig";
 import PlayBig from "../../../images/PlayBig";
 import { formatTime, getQueryString } from "../../../utils";
 import ProgressBar from "../../AudioPlayer/ProgressBar";
-import Button from "../../Button";
 import SectionLoader from "../../SectionLoader";
-import { RemoteMethods } from "../Remote/Remote";
 dayjs.extend(localizedFormat);
 
 const Container = styled.div`
@@ -155,105 +149,28 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(3600);
     const [currentTime, setCurrentTime] = useState(0);
-    const [isBlocked, setIsBlocked] = useState(true);
 
-
-    const [endCursor, setEndCursor] = useState(null)
-    const [isInitial, setIsInitial] = useState(true);
-    const [hasNextPage, setHasNextPage] = useState(true);
-    const [getData, { loading, error, data }] = useLazyQuery(
-        getBroadcastsQuery, {
-        variables: {
-            itemsPerPage: ITEMS_PER_PAGE,
-            currentCursor: endCursor,
-        }, onCompleted: (data) => {
-            if (isInitial) setIsInitial(false);
-            // more pages availables
-            setHasNextPage(data.allBroadcastss.pageInfo.hasNextPage)
-            const newBroadcasts = []
-            data.allBroadcastss.edges.filter(i => i.node.audio?.includes(".mp3")).filter(i => i.node.duration || i.node.length).forEach(i => {
-                newBroadcasts.push({ broadcast: i.node })
-            })
-            console.log("data", newBroadcasts)
-            setBroadcasts([...broadcasts, ...newBroadcasts])
-        }
-    });
-
-    const debouncedRequest = useDebounce(() => {
-        getData()
-    });
-
-    const loadMore = () => {
-        setEndCursor(data?.allBroadcastss.pageInfo.endCursor ? data.allBroadcastss.pageInfo.endCursor : null)
-        debouncedRequest();
-    }
-
-    const [remote, setRemote] = useState(undefined);
-    // const [token, setToken] = useState();
     const intervalRef = useRef();
 
     // rotation socket
     const [rotationChannel] = useChannel(ABLY_ROTATION_CHANNEL, () => { });
 
-    // remote socket
-    const { user } = useNetlifyIdentity();
-
-    const [remoteChannel] = useChannel(ABLY_REMOTE_CHANNEL, (message) => {
-        // if (isBlocked) {
-
-        //     handleBlocked();
-        //     return
-        // }
-        if (message.data.method === RemoteMethods.outgoing.CONNECT) {
-            handleConnect(message);
-            return
-        }
-        // if (!remote?.data?.token === message.data.token) {
-        //     handleUnauthorized()
-        //     return
-        // }
-        if (message.data.method === RemoteMethods.outgoing.CLOSE) {
-            handleClose()
-            return
-        }
-        if (message.data.method === RemoteMethods.outgoing.PLAY) {
-            handlePlay()
-            return
-        }
-        if (message.data.method === RemoteMethods.outgoing.PAUSE) {
-            handlePause()
-            return
-        }
-        if (message.data.method === RemoteMethods.outgoing.NEXT) {
-            handleNext()
-            return
-        }
-        if (message.data.method === RemoteMethods.outgoing.PREVIOUS) {
-            handlePrevious()
-            return
-        }
-        if (!remote) {
-            return
-        }
-        return
-    });
-
     const getPreviousIndex = (broadcast) => {
-        const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
-        if (index - 1 > -1) {
-            return index - 1
+        const b = broadcasts.find(node => node.broadcast._meta.id === broadcast._meta.id)
+        if (b.index - 1 > 0) {
+            return b.index - 1
         }
         else {
-            return broadcasts.length - 1
+            return broadcasts[broadcasts.length - 1].index
         }
     }
     const getNextIndex = (broadcast) => {
-        const index = broadcasts.findIndex(node => node.broadcast._meta.id === broadcast._meta.id)
-        if (index + 1 < broadcasts.length) {
-            return index + 1
+        const next = broadcasts.find(node => node.broadcast._meta.id === broadcast._meta.id)
+        if (next.index + 1 < broadcasts.length) {
+            return next.index + 1
         }
         else {
-            return 0
+            return 1
         }
     }
 
@@ -286,21 +203,22 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         });
     }
 
+
     /**
      * 
      * @param {number} index *optional
      */
     const updateBroadcast = (index) => {
         const i = getNextIndex(current);
-        const broadcast = index !== undefined ? broadcasts[index].broadcast : broadcasts[i].broadcast
+        const broadcast = index !== undefined ? broadcasts.find(b => b.index === index).broadcast : broadcasts.find(b => b.index === index).broadcast
         setCurrentIndex(index ? index : i);
         const nI = getNextIndex(broadcast);
-        const nextBroadcast = broadcasts[nI].broadcast;
+        console.log(nI)
+        const nextBroadcast = broadcasts.find(b => b.index === nI).broadcast;
         if (broadcast) {
             setSource(broadcast.audio);
             setDuration(broadcast.duration ? broadcast.duration : broadcast.length ? broadcast.length * 60 : 3600);
             setCurrentTime(0);
-            console.log(currentTime)
             setCurrent(broadcast);
             isPlaying ? setIsPlaying(true) : setIsPlaying(false);
             setNext(nextBroadcast)
@@ -332,45 +250,7 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         loadBroadcast(broadcasts[0].broadcast)
     }, [])
 
-
-    const onPlaying = (event) => {
-        const audioElement = event.target;
-        // Perform actions based on the updated time
-        setCurrentTime(parseInt(event.target.currentTime));
-    };
-
-    // TODO: Increase blocking authorization 
-    // const handleUnauthorized = () => {
-    //     const data = {
-    //         status: "unauthorized",
-    //         method: RemoteMethods.incoming.AUTHORIZE
-    //     }
-    //     remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
-    // }
-
-    const handleConnect = (message) => {
-        setRemote(message.connectionId)
-        const data = {
-            token: "approved",
-            status: "ok",
-            method: RemoteMethods.incoming.AUTHORIZE,
-            user: user
-        }
-        remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
-    }
-
-    const handleBlocked = () => {
-        setIsBlocked(true);
-        // const data = {
-        //     status: "blocked",
-        //     method: RemoteMethods.incoming.BLOCKED,
-        //     user: user
-        // }
-        // remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
-    }
-
     const handleEnded = () => {
-
         updateBroadcast()
     }
 
@@ -389,18 +269,10 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
     const handlePrevious = () => {
         updateBroadcast(getPreviousIndex(current))
     }
-    const handleClose = () => {
-        setRemote(undefined)
-        const data = {
-            method: RemoteMethods.incoming.CONNECTION_CLOSED,
-        }
-        remoteChannel.publish(ABLY_REMOTE_CHANNEL, data)
-    }
 
     useEffect(() => {
         // Pause and clean up on unmount
         return () => {
-            // audioRef.current.pause();
             clearInterval(intervalRef.current);
         };
     }, []);
@@ -425,10 +297,6 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         <Container>
             <div className="remote">
                 {!isPlaying && <span>Paused</span>}
-                {remote && (<>
-                    <span style={{ color: "var(--second)" }}>Remote</span>
-                </>)}
-                {isBlocked ? <Button onClick={() => { setIsBlocked(false); }}>Unblock Remote</Button> : <Button onClick={() => { handleClose(); handleBlocked(); }}>Block</Button>}
             </div>
             <div className='controls'>
                 <div>
@@ -453,21 +321,19 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
             </div>
             <h6>Cue <div>{getTotalDuration()}</div></h6>
             <div className='list'>
-                {broadcasts.map((node, index) => {
+                {broadcasts.map((broadcast) => {
                     return (
-                        <div key={index}
-                            onClick={() => updateBroadcast(index)}
-                            className={index === currentIndex ? "broadcast current" : "broadcast"}>
-                            <div className="index">{index}</div>
-                            <div className="title">{node?.broadcast?.hostedby?.title} &mdash; {node.broadcast?.title}</div>
-                            <div className="duration">{node.broadcast?.duration ? formatTime(node.broadcast?.duration) : formatTime(node.broadcast?.length * 60)}</div>
+                        <div key={broadcast.index}
+                            onClick={() => updateBroadcast(broadcast.index)}
+                            className={broadcast.index === currentIndex ? "broadcast current" : "broadcast"}>
+                            <div className="index">{broadcast.index}</div>
+                            <div className="title">{broadcast.broadcast.hostedby?.title} &mdash; {broadcast.broadcast?.title}</div>
+                            <div className="duration">{broadcast.broadcast?.duration ? formatTime(broadcast.broadcast?.duration) : formatTime(broadcast.broadcast?.length * 60)}</div>
                         </div>
                     )
                 }
                 )}
-                {hasNextPage && (<Button onClick={() => loadMore()}>Add random</Button>)}
             </div>
-
         </Container>
     )
 }
