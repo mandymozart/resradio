@@ -1,7 +1,7 @@
 const process = require("process");
 
 const { createClient } = require("@sanity/client");
-
+console.log(process.env)
 const client = createClient({
     projectId: process.env.SANITY_PROJECT,
     dataset: process.env.SANITY_DATASET,

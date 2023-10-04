@@ -4,8 +4,11 @@ export const OFFLINE_URL = "/resradio-signatur.mp3";
 export const ABLY_ROTATION_CHANNEL = "rotation";
 export const ABLY_REMOTE_CHANNEL = "remote";
 export const ABLY_CHAT_CHANNEL = "chat";
-// export const ABLY_KEY = process.env.REACT_APP_ABLY_API_KEY;
-export const ABLY_KEY = "-UKVOQ.551SOg:ATV3cBDTx4wFI1GZpLbCH0EynLqak8T74g85L2o-JJA";
+
+// Netlify environment variables for forwarding
+// Currently only two environments are configured, due to the limitations of the free account tier
+export const ABLY_KEY = process.env.REACT_APP_ABLY_API_KEY;
+export const NETLIFY_IDENTITY_PROVIDER = process.env.REACT_APP_NETLIFY_IDENTITY_PROVIDER;
 
 export const BREAKPOINT_L = 1279;
 export const BREAKPOINT_MD = 769;

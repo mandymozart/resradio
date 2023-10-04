@@ -210,7 +210,7 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
      */
     const updateBroadcast = (index) => {
         const i = getNextIndex(current);
-        const broadcast = index !== undefined ? broadcasts.find(b => b.index === index).broadcast : broadcasts.find(b => b.index === index).broadcast
+        const broadcast = index !== undefined ? broadcasts.find(b => b.index === index).broadcast : broadcasts.find(b => b.index === i).broadcast
         setCurrentIndex(index ? index : i);
         const nI = getNextIndex(broadcast);
         console.log(nI)

@@ -38,7 +38,7 @@ import { client } from "./prismic";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-// console.log(process.env)
+console.log(process.env)
 configureAbly({ key: ABLY_KEY, clientId: nanoid() })
 
 function fallbackRender({ error, resetErrorBoundary }) {
