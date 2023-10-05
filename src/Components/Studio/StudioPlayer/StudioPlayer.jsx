@@ -256,6 +256,9 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
 
     const handlePlay = () => {
         audioRef.current.play();
+        sendRotationMessage(current, next)
+        setCurrentIndex(broadcasts.find(b => b.broadcast._meta.id === current._meta.id).index)
+        console.log(broadcasts.find(b => b.index === current.index))
         setIsPlaying(true);
     }
 
