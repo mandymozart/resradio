@@ -1,24 +1,19 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { BREAKPOINT_XS } from "../../config";
 import { formatTime } from "../../utils";
 
 const Container = styled.div`
 display: flex;
 align-items: center;
 flex: calc(50% - 8rem);
-@media (max-width: ${BREAKPOINT_XS}px) {
-    grid-area: bottom;
-    padding-left: 1rem;
-}
+gap: 1.5rem;
 .time {
     white-space: nowrap;
-    font-size: 1rem;
+    font-size: .75rem;
     width: 4rem;
     text-align: center;
-    margin-right: 1rem;
     &.duration {
-        padding-left: 1rem;
+
     }
 }
 input[type=range] {

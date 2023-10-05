@@ -68,18 +68,13 @@ const BroadcastPagePlayer = styled.div`
     background: none;
     border: none;
     padding: 0;
-    width: 6rem;
     color: var(--color);
     cursor: pointer;
     margin: 0;
     text-align: center;
     align-items: top;
     @media (max-width: ${BREAKPOINT_MD}px) {
-      width: 1.5rem;
       margin-right: 1rem;
-    }
-    svg {
-      width: 1rem;
     }
     &:hover{
       color: var(--second);

@@ -1,9 +1,9 @@
 import React from "react";
 
 const PauseBig = () => {
-  return (<svg width="28" height="46" viewBox="0 0 28 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5 5L5 41" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
-    <path d="M23 5L23 41" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
+  return (<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.5 9.5V38.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+    <path d="M30.5 9.5V38.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
   </svg>
   )
 }
