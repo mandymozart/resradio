@@ -56,12 +56,19 @@ const Container = styled.div`
     z-index: 10;
     cursor: pointer;
     display: flex;
-    background-color: var(--color);
     align-items: center;
     justify-content: center;
     color: var(--background);
     &.swiper-button-disabled {
       display: none;
+    }
+    &:hover {
+      &::after {
+        color: var(--second);
+      }
+    }
+    &::after {
+      font-size: 2rem;
     }
 }
 `;
