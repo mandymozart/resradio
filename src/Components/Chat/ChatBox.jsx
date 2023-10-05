@@ -32,10 +32,11 @@ height: calc(100vh - 10.5rem);
     pointer-events: all;
     background-color: var(--background);
     width: 23rem;
+    transform: translateX(23rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
         width: 100vw;
+        transform: translateX(100vw);
     }
-    transform: translateX(23rem);
     transition: transform ease-in 0.3s;
     &.isVisible {
         transform: translateX(0);
