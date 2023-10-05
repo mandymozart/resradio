@@ -9,7 +9,7 @@ import { BREAKPOINT_XS } from "../../../config";
 import KeyFieldParagraph from "../../KeyFieldParagraph";
 import SectionLoader from "../../SectionLoader";
 import ThumbnailImage from '../../TeaserImage/ThumbnailImage';
-import StudioPlayer from "../StudioPlayer/StudioPlayerReloaded";
+import StudioPlayer from "../StudioPlayer/StudioPlayer";
 dayjs.extend(localizedFormat);
 
 const Container = styled.div`

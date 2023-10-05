@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import BigArrow from "../images/BigArrow";
+import { GoChevronDown } from "react-icons/go";
 import Button from "./Button";
 import SectionLoader from "./SectionLoader";
 
@@ -13,7 +13,7 @@ const Container = styled(Button)`
     width: 100%;
     padding: 7.5rem;
     svg {
-        margin-top: 1rem;
+        font-size: 3rem;
     }
     &:hover {
         color: var(--second);
@@ -24,7 +24,7 @@ const LoadMoreButton = ({ children, loading, ...props }) => {
     if (loading) return <SectionLoader />
     return <Container {...props}>
         {children ? children : "load more"}
-        <BigArrow />
+        <GoChevronDown />
     </Container>
 }
 

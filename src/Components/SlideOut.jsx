@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useRef, useState } from "react";
-import { GoIterations } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { useOnClickOutside } from 'usehooks-ts';
 import useDebounce from "../Hooks/useDebounce.";
@@ -65,7 +64,7 @@ p {
 .more {
   font-size: 1rem;
   text-transform: uppercase;
-  margin-bottom: .5rem;
+  margin-bottom: 0;
   display: block;
 }
 img {
@@ -111,45 +110,6 @@ img {
       }
       @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 0 1rem 1rem 1rem;
-      }
-    }
-
-
-  }
-  footer {
-    display: flex;
-    gap: 1rem;
-    padding: 0 2rem;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-      padding: 0 1rem;
-    }
-    line-height: 3rem;
-    justify-content: space-between;
-    border-bottom: 2px solid var(--color);
-
-    div:first-of-type {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .next {
-      padding: 0 0 0 1.75rem;
-    }
-    .status {
-      flex: 1;
-    }
-    .schedule {
-      text-align: center;
-      text-transform: uppercase;
-      line-height: 3rem;
-    }
-    button {
-      font-size: 1.25rem;
-    }
-    .show-more-prefix {
-      white-space: nowrap;
-      @media (max-width: ${BREAKPOINT_MD}px) {
-        display: none;
       }
     }
   }
@@ -238,24 +198,18 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
             <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
               read more
             </button>
+            {nextBroadcastPreview && (
+              <button onClick={() => goToLink("../shows/" + nextBroadcastPreview.hostedby._meta.uid)} className="more">
+                {loading ? <InlineLoader /> : (<>
+                  {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
+                </>)}
+              </button>
+            )}
           </div>
 
         </>)}
 
       </div>
-      <footer>
-        <span className="next">{nextBroadcastPreview && (<GoIterations />)}</span>
-        <div className="status">
-          {nextBroadcastPreview && (
-            <>
-              {loading ? <InlineLoader /> : (<>
-                {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
-              </>)}
-            </>
-          )}
-        </div>
-        <button onClick={() => goToLink("/schedule")} className="schedule"><span className="show-more-prefix">Show </span>Schedule</button>
-      </footer>
     </div>
   </Container>
   )
