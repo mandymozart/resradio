@@ -5,7 +5,7 @@ import { GoGear } from 'react-icons/go';
 import { useNetlifyIdentity } from 'react-netlify-identity';
 import useChatStore from '../../Stores/ChatStore';
 import { BREAKPOINT_XS } from '../../config';
-import ClearSmall from '../../images/ClearSmall';
+import Clear from '../../images/Clear';
 import Button from '../Button';
 import Chat from './Chat';
 import ChatLogin from './ChatLogin';
@@ -82,7 +82,7 @@ const ChatBox = () => {
                     <div className='controls'>
                         <span>{chatterCount} Online</span>
                         <Button ghost hasIcon onClick={() => setActivate(false)}><GoGear /></Button>
-                        <Button ghost hasIcon onClick={() => setIsVisible(false)}><ClearSmall /></Button>
+                        <Button ghost hasIcon onClick={() => setIsVisible(false)}><Clear /></Button>
                     </div>
                 </h2>
                 {activate ? (

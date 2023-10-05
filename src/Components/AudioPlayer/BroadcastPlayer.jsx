@@ -8,8 +8,8 @@ import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, BREAKPOINT_XS, FUNCTIONS, OFFLINE_URL } from "../../config";
-import ClearSmall from "../../images/ClearSmall";
+import { BREAKPOINT_MD, FUNCTIONS, OFFLINE_URL } from "../../config";
+import ClearBig from "../../images/ClearBig";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
 import { getQueryString } from "../../utils";
@@ -23,59 +23,51 @@ bottom: 0;
 `;
 
 const Player = styled.div`
-    display: flex;
-    align-items: center;
-    height: 6rem;
-    padding: 0 0 0 0;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        height: 5rem;
-        padding-top: .5rem;
-        display: grid;
-        grid-template-columns: 4rem auto;
-        grid-template-areas:
-            "left top"
-            "bottom bottom";
-    }
-
-  h3 {
-    font-size: 1rem;
-    font-family: var(--font-bold);
-    margin-bottom: 0; 
-    text-transform: none;
-  }
-  font-size: 1.5rem;
-  button {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 3rem auto 3rem;
+    gap: 1rem;
+button {
     background: none;
     border: none;
     padding: 0;
     text-align: center;
     display: block;
-    flex: 4rem 0 0;
     cursor: pointer;
     margin: 0;
     color: var(--background);
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        grid-area: left
-    }
-    svg {
-        height: 3rem;
-        @media (max-width: ${BREAKPOINT_XS}px) {
-            height: 2rem;
-        }
-    }
     &:hover{
-      color: var(--second);
+        color: var(--second);
     }
-  }
-  .info {
-    flex: calc(50% - 2rem) 0 0;
-    font-size: 1rem;
-    div, h3  { 
+}
+.info {
+    display: flex;
+    align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    a {
+        display: block;
+        line-height: 1.1rem;
+    }
+    .show-title, .broadcast-title {
         color: var(--background);
+        font-family: var(--font-bold);
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: none;
+        font-size: 1rem;
     }
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        grid-area: top;
+    .broadcast-title {
+        font-family: var(--font-light);
     }
+    color: var(--background);
+  }
+  .progress {
+    grid-column: span 3;
+    padding: 0 0.5rem;
+    height: 3rem;
   }
 `
 
@@ -87,7 +79,7 @@ width: 50%;
 @media (max-width: ${BREAKPOINT_MD}px) {
     width: 100%;
 }
-height: 6rem;
+height: 9rem;
 transform: translateY(10rem);
 transition: transform .2s ease-out;
 background: var(--color);
@@ -96,6 +88,8 @@ color: var(--background);
     position: absolute;
     top: 1rem;
     right: 1rem;
+    height: 3rem;
+    width: 3rem;
     cursor: pointer;
 }
 &.isVisible {
@@ -227,16 +221,16 @@ const BroadcastPlayer = () => {
                                 <PlayBig />
                             </button>
                         )}
-                        <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={currentTime} duration={duration} />
                         <div className="info">
                             <Link to={"../broadcasts/" + broadcast._meta.uid}>
-                                <h3>{broadcast.hostedby.title}</h3>
-                                <div>{broadcast.title}</div>
+                                <h3 className="show-title">{broadcast.hostedby.title}</h3>
+                                <span className="broadcast-title">{broadcast.title}</span>
                             </Link>
                         </div>
+                        <ProgressBar className="progress-bar" progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={currentTime} duration={duration} />
                     </Player>
                     <div className="close" onClick={() => close()}>
-                        <ClearSmall />
+                        <ClearBig />
                     </div>
                 </Controls>
             )}

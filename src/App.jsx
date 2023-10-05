@@ -15,7 +15,7 @@ function App() {
       <Header />
       <PageWrapper>
         <Outlet />
-        {isVisible && (<div style={{ height: "6rem" }}>&nbsp;</div>)}
+        {isVisible && (<div style={{ height: "9rem" }}>&nbsp;</div>)}
       </PageWrapper>
       <BroadcastPlayer />
       <ChatBox />
