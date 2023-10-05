@@ -3,6 +3,7 @@ import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { GoComment } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
+import useChatStore from "../Stores/ChatStore";
 import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 import Logo from "./../images/Logo";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
@@ -118,6 +119,7 @@ const ChatButton = styled(HeaderButton)`
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isVisible, setIsVisible } = useChatStore();
   const navigate = useNavigate();
 
   const goToLink = (link) => {
@@ -137,7 +139,7 @@ const Header = () => {
             <Link to="page/about" className="link link--about">About</Link>
             <div className="icons">
               <SearchBarToggle />
-              <ChatButton><Link to={"/chat"}><GoComment /></Link></ChatButton>
+              <ChatButton onClick={() => setIsVisible(!isVisible)}><GoComment /></ChatButton>
               <VolumeButton />
             </div>
           </div>

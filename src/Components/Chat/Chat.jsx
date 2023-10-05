@@ -31,16 +31,17 @@ form {
     }
 }
 .list {
-    height: calc(100vh - 29rem);
+    height: calc(100vh - 27.5rem);
     overflow: auto;
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
+        height: calc(100vh - 21.5rem);
     }
 }
 `
 
-const Chat = () => {
+const Chat = ({ setChatterCount }) => {
     const { username } = useChatStore();
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
@@ -62,7 +63,7 @@ const Chat = () => {
         setItems((prevState) => [...prevState, newItem]);
     });
 
-    usePresence(ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
+    const [presenceData] = usePresence(ABLY_CHAT_CHANNEL, { username: username, role: "chatter" }, (update) => {
         if (update.action === "enter") {
             setItems((prevState) => [...prevState, { id: update.id, 'username': update.data.username, 'body': 'entered', created_at: new Date(), action: update.action }]);
             return
@@ -72,6 +73,10 @@ const Chat = () => {
             return
         }
     });
+    useEffect(() => {
+        setChatterCount(presenceData.filter(m => m.data !== "chatter").length)
+    }, [presenceData])
+
 
     const handleMessageChange = (e) => {
         setBody(e.target.value);

@@ -6,11 +6,16 @@ import PrimaryButton from '../FormElements/PrimaryButton';
 
 const Container = styled.div`
     padding: 2rem;
+    height: calc(100vh - 20rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
+        height: calc(100vh - 16rem);
     }
-margin: 0 auto;
-max-width: 25rem;
+    margin: 0 auto;
+    max-width: 25rem;
+    p {
+        font-size: 1rem;;
+    }
     form {
     padding: 1rem;
     background-color: var(--grey);
@@ -27,6 +32,7 @@ max-width: 25rem;
     }
     .submit {
         width: 100%;
+        text-align: center;
     }
 }
 `

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
+import ChatBox from "./Components/Chat/ChatBox";
 import DonationBar from "./Components/Donation/DonationBar";
 import Header from "./Components/Header";
 import HeaderOffset from "./Components/HeaderOffset";
@@ -17,6 +18,7 @@ function App() {
         {isVisible && (<div style={{ height: "6rem" }}>&nbsp;</div>)}
       </PageWrapper>
       <BroadcastPlayer />
+      <ChatBox />
     </>
   );
 }

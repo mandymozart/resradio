@@ -6,6 +6,8 @@ import { persist } from "zustand/middleware";
 const useChatStore = create(
   persist(
     produce((set) => ({
+      isVisible: false,
+      setIsVisible: (value) => set(() => ({ isVisible: value })),
       activate: false,
       setActivate: (value) => set(() => ({ activate: value })),
       username: "",

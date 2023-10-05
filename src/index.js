@@ -13,7 +13,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import App from "./App";
 import Alert from "./Components/Alert/Alert";
-import ChatBox from "./Components/Chat/ChatBox";
 import PrimaryButton from "./Components/FormElements/PrimaryButton";
 import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
@@ -131,13 +130,6 @@ root.render(
                     path="/shop"
                     element={
                       <ShopPage />
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/chat"
-                    element={
-                      <ChatBox />
                     }
                   />
 
