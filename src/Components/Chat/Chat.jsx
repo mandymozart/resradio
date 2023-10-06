@@ -31,9 +31,10 @@ form {
     }
 }
 .list {
-    height: calc(100vh - 27.5rem);
     overflow: auto;
+    transition: transform .2s ease-out;
     padding: 2rem;
+    height: calc(100vh - 27.5rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
         height: calc(100vh - 21.5rem);

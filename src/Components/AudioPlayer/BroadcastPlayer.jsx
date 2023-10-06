@@ -20,6 +20,7 @@ const Container = styled.div`
 position: fixed;
 right: 0;
 bottom: 0;
+z-index: 1;
 `;
 
 const Player = styled.div`
@@ -43,8 +44,8 @@ button {
 .info {
     display: flex;
     align-items: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
     a {
         display: block;
         line-height: 1.1rem;
