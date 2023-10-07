@@ -1,8 +1,8 @@
+import { useChannel } from "@ably-labs/react-hooks";
 import styled from "@emotion/styled";
-import { Realtime } from "ably";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { ABLY_KEY, ABLY_ROTATION_CHANNEL } from "../../config";
+import { ABLY_ROTATION_CHANNEL } from "../../config";
 
 const Container = styled.div`
 
@@ -13,15 +13,16 @@ const RotationInfo = () => {
     const [rotationInfo, setRotationInfo] = useState();
     const [items, setItems] = useState();
 
-    var realtime = new Realtime(ABLY_KEY);
-    var channel = realtime.channels.get(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`);
-    channel.subscribe(function (message) {
-        console.log("last message", message.data)
-        setRotationInfo(message)
-    });
-    // useChannel(ABLY_ROTATION_CHANNEL, (message) => {
+    // var realtime = new Realtime(ABLY_KEY);
+    // var channel = realtime.channels.get(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`);
+    // channel.subscribe(function (message) {
+    //     console.log("last message", message.data)
     //     setRotationInfo(message)
     // });
+    const [channel] = useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
+        // This call will rewind 100 messages
+        console.log(message);
+    });
     return (<Container>
         <h6>Status</h6>
         {rotationInfo ? (

@@ -38,11 +38,6 @@ const useBroadcastStore = create(
       set(() => ({
         nextBroadcast: broadcast,
       })),
-    history: undefined,
-    setHistory: (history) =>
-      set(() => ({
-        history: history,
-      })),
   }))
 );
 
