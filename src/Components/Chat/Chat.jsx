@@ -58,8 +58,7 @@ const Chat = ({ setChatterCount }) => {
         }
     }, [])
 
-    const [channel] = useChannel(ABLY_CHAT_CHANNEL, (update) => {
-        console.log(update)
+    const [channel] = useChannel(`[?rewind=100]${ABLY_CHAT_CHANNEL}`, (update) => {
         const newItem = { id: update.id, username: update.data.username, body: update.data.body, created_at: update.data.created_at, action: update.action }
         setItems((prevState) => [...prevState, newItem]);
     });
