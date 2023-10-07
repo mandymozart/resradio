@@ -222,13 +222,15 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
             setCurrent(broadcast);
             isPlaying ? setIsPlaying(true) : setIsPlaying(false);
             setNext(nextBroadcast)
+            sendRotationMessage(broadcast, nextBroadcast)
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.load();
                 if (isPlaying)
                     audioRef.current.play();
             }
-            sendRotationMessage(broadcast, nextBroadcast)
+        } else {
+            throw new Error("no broadcast found");
         }
     }
 
@@ -243,6 +245,8 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
             }
             setCurrent(broadcast)
             setNext(broadcasts[getNextIndex(broadcast)].broadcast);
+        } else {
+            throw new Error("no broadcast to load");
         }
     }
 
