@@ -23,7 +23,7 @@ export const HeaderButton = styled.button`
 const Container = styled.header`
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 1000;;
   width: 100%;
   background: transparent;
   box-sizing: border-box;

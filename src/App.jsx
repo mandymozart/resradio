@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
 import ChatBox from "./Components/Chat/ChatBox";
@@ -53,20 +52,11 @@ const pageStyle = {
 
 const PageWrapper = ({ children }) => {
   return (
-    <motion.div
-      style={pageStyle}
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
-      <HeaderOffset>
-        <SearchBar />
-        <DonationBar />
-        {children}
-      </HeaderOffset>
-    </motion.div>
+    <HeaderOffset>
+      <SearchBar />
+      <DonationBar />
+      {children}
+    </HeaderOffset>
   );
 };
 

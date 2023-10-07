@@ -64,7 +64,7 @@ const Playlist = () => {
         // init Player
         if (data) {
             const valid = data.allPlaylists.edges[0].node.broadcasts.filter(i => i.broadcast.audio?.includes(".mp3")).filter(i => i.broadcast.duration || i.broadcast.length);
-            const faulty = data.allPlaylists.edges[0].node.broadcasts.filter(i => !i.broadcast.audio?.includes(".mp3")).filter(i => !i.broadcast.duration || !i.broadcast.length);
+            const faulty = data.allPlaylists.edges[0].node.broadcasts.filter(i => !i.broadcast.audio?.includes(".mp3")).filter(i => !i.broadcast.duration);
             setBroadcasts(getOrderedBroadcasts(valid))
             setFaultyBroadcasts(getOrderedBroadcasts(faulty))
             if (faulty.length > 0)

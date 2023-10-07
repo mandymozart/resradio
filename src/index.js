@@ -18,7 +18,7 @@ import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import Playlist from "./Components/Studio/Playlists/Playlist";
 import Playlists from "./Components/Studio/Playlists/Playlists";
-import Remote from "./Components/Studio/Remote/Remote";
+import RotationInfo from "./Components/Studio/RotationInfo";
 import SystemMessage from "./Components/SystemMessage";
 import BroadcastPage from "./Pages/Broadcast";
 import Explore from "./Pages/Explore";
@@ -142,9 +142,9 @@ root.render(
                       <Playlists />
                     } />
                   <Route
-                    path="remote"
+                    path="info"
                     element={
-                      <Remote />
+                      <RotationInfo />
                     } />
                   <Route
                     path="playlists/:uid"

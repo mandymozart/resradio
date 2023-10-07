@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { GoGear } from 'react-icons/go';
 import { useNetlifyIdentity } from 'react-netlify-identity';
+import useBroadcastStore from '../../Stores/BroadcastStore';
 import useChatStore from '../../Stores/ChatStore';
 import { BREAKPOINT_XS } from '../../config';
 import Clear from '../../images/Clear';
@@ -16,6 +17,7 @@ position: fixed;
 bottom: 0;
 right: 0;
 pointer-events: none;
+z-index: 1;
 height: calc(100vh - 10.5rem);
 .chat-button {
     pointer-events: all;
@@ -30,7 +32,7 @@ height: calc(100vh - 10.5rem);
 
 .slideout {
     pointer-events: all;
-    background-color: var(--background);
+    background-color: var(--light);
     width: 23rem;
     transform: translateX(23rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
@@ -41,11 +43,15 @@ height: calc(100vh - 10.5rem);
     &.isVisible {
         transform: translateX(0);
     }
+    &.isBroadcastVisible .list {
+        height: calc(100vh - 36.5rem);
+    }
 }
 h2 {
     display: flex;
     justify-content: space-between;
     font-size: 1.5rem;
+    background-color: var(--grey);
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
@@ -68,7 +74,8 @@ h2 {
 
 const ChatBox = () => {
     const { user, isLoggedIn } = useNetlifyIdentity()
-    const { setUsername, activate, setActivate, isVisible, setIsVisible } = useChatStore()
+    const { setUsername, activate, setActivate, isVisible, setIsVisible } = useChatStore();
+    const { isVisible: isBroadcastVisible } = useBroadcastStore()
     const [chatterCount, setChatterCount] = useState(0);
     // Automatically sign in logged in netlify identity users
     useEffect(() => {
@@ -78,7 +85,7 @@ const ChatBox = () => {
     }, [user, isLoggedIn, setUsername])
     return (
         <Container>
-            <div className={clsx("slideout", { isVisible: isVisible })}>
+            <div className={clsx("slideout", { isVisible: isVisible, isBroadcastVisible: isBroadcastVisible })}>
                 <h2>Chat
                     <div className='controls'>
                         <span>{chatterCount} Online</span>

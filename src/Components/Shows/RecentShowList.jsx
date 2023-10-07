@@ -11,9 +11,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE, RECENT_SHOWS_BEGIN_BEFORE, RECENT_SHOWS_END_AFTER } from "../../config";
 import placeholder from "../../images/placeholder-panorama-thumbnail-secondary.png";
-import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import RecentShowItem from "./RecentShowItem";
+import RecentShowsListLoader from "./RecentShowListLoader";
 dayjs.extend(utc);
 
 const Container = styled.div`
@@ -119,7 +119,7 @@ const RecentShowsList = () => {
       }
     })
 
-  if (loading) return <SectionLoader />;
+  if (loading) return <RecentShowsListLoader />;
   if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
   const broadcasts = data.allBroadcastss.edges
   if (broadcasts.length === 0) return <></>
