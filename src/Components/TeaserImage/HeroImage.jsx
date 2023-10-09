@@ -1,5 +1,5 @@
 import React from "react";
-import placeholderHero from "../../images/placeholder-hero.png";
+import placeholderHero from "../../images/placeholder-hero-grey.png";
 import Image from "./Image";
 
 

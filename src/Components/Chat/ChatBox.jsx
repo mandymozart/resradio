@@ -51,7 +51,6 @@ h2 {
     display: flex;
     justify-content: space-between;
     font-size: 1.5rem;
-    background-color: var(--grey);
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
