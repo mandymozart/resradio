@@ -5,9 +5,8 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useOnClickOutside } from 'usehooks-ts';
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
@@ -21,7 +20,6 @@ dayjs.extend(utc);
 const Container = styled.menu`
 margin: 0;
 padding: 0;
-border-bottom: 2px solid var(--color);
 font-size: 1.5rem;
 .date {
   margin-bottom: 1rem;
@@ -72,12 +70,14 @@ img {
 }
 > div {
   z-index: 1;
-  position: fixed;
-  top: 10.5rem;
+  position: absolute;
+  top: calc(10.5rem + 2px);
   width: 100%;
   background: var(--background);
-  transform: translateY(-40rem);
-  transition: transform .2s ease-out;
+  transform: translateY(calc(-40rem - 2px));
+  transition: transform opacity .2s ease-out;
+  border-bottom: 2px solid var(--color);
+  opacity: 0;
 
   &.isExpanded {
     opacity: 1;
@@ -88,7 +88,6 @@ img {
   }
 
   .top {
-    border-bottom: 2px solid var(--color);
     display: grid;
     grid-template-columns: 2fr 2fr;
     @media (max-width: ${BREAKPOINT_L}px) {
@@ -117,14 +116,6 @@ img {
 `
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const navigate = useNavigate()
-  const ref = useRef(null);
-
-  const handleClickOutside = () => {
-    if (isExpanded)
-      setIsExpanded(false);
-  }
-
-  useOnClickOutside(ref, handleClickOutside)
 
   // ably websocket
   const [broadcast, setBroadcast] = useState()
@@ -175,7 +166,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     setIsExpanded(false)
   }
   return (<Container>
-    <div className={clsx({ isExpanded: isExpanded })} ref={ref}>
+    <div className={clsx({ isExpanded: isExpanded })}>
       <div className="top">
         {loading && <InlineLoader />}
         {broadcast && (<>
@@ -194,11 +185,11 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
             <p className="description">
               {broadcast.description?.substring(0, 120)} ...
             </p>
-            <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
+            <button onClick={() => goToLink("../broadcasts/" + broadcast._meta.uid)} className="more">
               read more
             </button>
             {nextBroadcastPreview && (
-              <button onClick={() => goToLink("../shows/" + nextBroadcastPreview.hostedby._meta.uid)} className="more">
+              <button onClick={() => goToLink("../broadcasts/" + nextBroadcastPreview.uid)} className="more">
                 {loading ? <InlineLoader /> : (<>
                   NEXT: {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
                 </>)}

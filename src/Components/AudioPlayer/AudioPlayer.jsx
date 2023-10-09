@@ -15,6 +15,8 @@ padding: 0 2rem;
   padding: 0 1rem;
 }
 
+border-bottom: 2px solid var(--color);
+
 button {
   cursor: pointer;
 }
@@ -151,7 +153,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
               <GoPlay />
             </PlayButton>
           )}
-          <StreamShortInfo />
+          <StreamShortInfo onClick={handleClick} />
           <button onClick={handleClick}>
             <Arrow flipped={!isExpanded} />
           </button>
