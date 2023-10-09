@@ -5,9 +5,8 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useOnClickOutside } from 'usehooks-ts';
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
@@ -21,7 +20,6 @@ dayjs.extend(utc);
 const Container = styled.menu`
 margin: 0;
 padding: 0;
-border-bottom: 2px solid var(--color);
 font-size: 1.5rem;
 .date {
   margin-bottom: 1rem;
@@ -72,12 +70,14 @@ img {
 }
 > div {
   z-index: 1;
-  position: fixed;
-  top: 10.5rem;
+  position: absolute;
+  top: calc(10.5rem + 2px);
   width: 100%;
   background: var(--background);
-  transform: translateY(-40rem);
-  transition: transform .2s ease-out;
+  transform: translateY(calc(-40rem - 2px));
+  transition: transform opacity .2s ease-out;
+  border-bottom: 2px solid var(--color);
+  opacity: 0;
 
   &.isExpanded {
     opacity: 1;
@@ -88,7 +88,6 @@ img {
   }
 
   .top {
-    border-bottom: 2px solid var(--color);
     display: grid;
     grid-template-columns: 2fr 2fr;
     @media (max-width: ${BREAKPOINT_L}px) {
@@ -117,25 +116,19 @@ img {
 `
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const navigate = useNavigate()
-  const ref = useRef(null);
-
-  const handleClickOutside = () => {
-    if (isExpanded)
-      setIsExpanded(false);
-  }
-
-  useOnClickOutside(ref, handleClickOutside)
 
   // ably websocket
   const [broadcast, setBroadcast] = useState()
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
   const [uid, setUid] = useState();
-  useChannel(ABLY_ROTATION_CHANNEL, (message) => {
+  // wire up ably websocket
+  useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
     setUid(message.data.current.uid)
     console.log("Rotation update received", message.data)
     setNextBroadcastPreview(message.data.next)
   });
-  const { history, currentBroadcast, nextBroadcast } = useBroadcastStore();
+  const { currentBroadcast, nextBroadcast } = useBroadcastStore();
+  // get full data from Prismic for broadcast
   const [getData, { loading, data }] = useLazyQuery(getBroadcastQuery,
     {
       variables: {
@@ -149,10 +142,12 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     }
   });
   useEffect(() => {
+    console.log(uid)
     debouncedRequest()
   }, [uid, getData, debouncedRequest])
 
   useEffect(() => {
+    console.log("Prismic data received", data)
     if (data?.broadcasts)
       setBroadcast(data.broadcasts)
   }, [data])
@@ -166,17 +161,12 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
       })
   }, [currentBroadcast, nextBroadcast])
 
-
-  useEffect(() => {
-    setUid(history?.prismicId);
-  }, [history])
-
   const goToLink = (to) => {
     navigate(to)
     setIsExpanded(false)
   }
   return (<Container>
-    <div className={clsx({ isExpanded: isExpanded })} ref={ref}>
+    <div className={clsx({ isExpanded: isExpanded })}>
       <div className="top">
         {loading && <InlineLoader />}
         {broadcast && (<>
@@ -195,13 +185,13 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
             <p className="description">
               {broadcast.description?.substring(0, 120)} ...
             </p>
-            <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
+            <button onClick={() => goToLink("../broadcasts/" + broadcast._meta.uid)} className="more">
               read more
             </button>
             {nextBroadcastPreview && (
-              <button onClick={() => goToLink("../shows/" + nextBroadcastPreview.hostedby._meta.uid)} className="more">
+              <button onClick={() => goToLink("../broadcasts/" + nextBroadcastPreview.uid)} className="more">
                 {loading ? <InlineLoader /> : (<>
-                  {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
+                  NEXT: {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
                 </>)}
               </button>
             )}

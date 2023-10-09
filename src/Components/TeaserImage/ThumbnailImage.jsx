@@ -1,5 +1,5 @@
 import React from "react";
-import placeholderThumbnail from "../../images/placeholder-thumbnail.png";
+import placeholderThumbnail from "../../images/placeholder-thumbnail-grey.png";
 import Image from "./Image";
 
 const ThumbnailImage = ({ image, ...props }) => {

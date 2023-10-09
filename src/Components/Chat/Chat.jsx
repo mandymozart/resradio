@@ -11,7 +11,6 @@ const Container = styled.div`
 font-size: 1rem;
 font-family: var(--font-light);
 width: 100%;
-padding-top: 1rem;
 form {
     padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
@@ -34,7 +33,7 @@ form {
     overflow: auto;
     transition: transform .2s ease-out;
     padding: 2rem;
-    height: calc(100vh - 27.5rem);
+    height: calc(100vh - 26.5rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
         height: calc(100vh - 21.5rem);

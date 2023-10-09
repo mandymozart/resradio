@@ -14,6 +14,10 @@ background: var(--grey);
 border-radius: 0.5rem;
 .username {
     font-family: var(--font-medium);
+    white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
 }
 &.isSelf {
     background-color: var(--second);
@@ -37,6 +41,10 @@ border-radius: 0.5rem;
     }
     .username {
         font-family: var(--font-light);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
     }
     .time {
         font-size: 1rem;

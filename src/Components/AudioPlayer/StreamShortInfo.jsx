@@ -19,6 +19,9 @@ flex: 1;
 padding-left: 1rem;
 justify-content: center;
 align-items: center;
+div {
+  cursor: pointer;
+}
 `;
 
 const StreamShortInfo = ({ onClick }) => {
@@ -67,20 +70,22 @@ const StreamShortInfo = ({ onClick }) => {
   if (error) return <>Error : {error.message}</>;
   if (initial) return (<Container>Loading ...</Container>)
   return (
-    <Container>
-      {currentBroadcast ? (
-        <>
-          {currentBroadcast.hostedby?.title}&mdash;{currentBroadcast.title}
-        </>
-      ) : (
-        <>
-          {rotationInfo ? (
-            <>
-              {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
-            </>
-          ) : (<></>)}
-        </>
-      )}
+    <Container >
+      <div onClick={() => onClick()}>
+        {currentBroadcast ? (
+          <>
+            {currentBroadcast.hostedby?.title}&mdash;{currentBroadcast.title}
+          </>
+        ) : (
+          <>
+            {rotationInfo ? (
+              <>
+                {rotationInfo.data.current.hostedby}&mdash;{rotationInfo.data.current.title}
+              </>
+            ) : (<></>)}
+          </>
+        )}
+      </div>
     </Container>
   );
 };

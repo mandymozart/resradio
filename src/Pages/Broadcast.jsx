@@ -53,7 +53,7 @@ const Description = styled.section`
 
 const BroadcastPagePlayer = styled.div`
 
-  padding: 0 2rem 0 0;
+  padding: 0 2rem 0 1rem;
   h3 {
     font-size: 1.5rem;
     font-family: var(--font-bold);
@@ -63,6 +63,7 @@ const BroadcastPagePlayer = styled.div`
   font-size: 1.5rem;
   .controls {
     padding-top: 2rem;
+    margin-right: 1rem;
   }
   button {
     background: none;
@@ -86,10 +87,10 @@ const BroadcastPagePlayer = styled.div`
     justify-content: space-between;
     @media (max-width: ${BREAKPOINT_MD}px) {
       display: block;
-      padding: 0 2rem;
+      padding: 0 1rem;
     }
     @media (max-width: ${BREAKPOINT_XS}px) {
-      padding: 0 1rem;
+      padding: 0;
     }
   }
   .info {

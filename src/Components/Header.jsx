@@ -6,11 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import useChatStore from "../Stores/ChatStore";
 import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 import Logo from "./../images/Logo";
-import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import Button from "./Button";
 import MobileMenu from "./MobileMenu";
 import SearchBarToggle from "./Search/SearchBarToggle";
-import SlideOut from "./SlideOut";
+import TopBar from "./TopBar";
 import VolumeButton from "./VolumeButton";
 
 export const HeaderButton = styled.button`
@@ -103,22 +102,14 @@ const Container = styled.header`
 
 `;
 
-const Topbar = styled.div`
-  box-sizing: border-box;
-  border-bottom: 2px solid var(--color);
-  min-height: calc(3rem + 2px);
-`
-
 const ChatButton = styled(HeaderButton)`
   font-size: 1.5rem;
   font-family: var(--font-copy);
   text-transform: uppercase;
-  `
-
+`;
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const { isVisible, setIsVisible } = useChatStore();
   const navigate = useNavigate();
 
@@ -151,12 +142,8 @@ const Header = () => {
             <Hamburger distance="sm" size={48} toggled={isOpen} onToggle={setIsOpen} />
           </Button>
         </nav>
-        <Topbar>
-          <AudioPlayer isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-        </Topbar>
+        <TopBar />
       </Container>
-
-      <SlideOut isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
