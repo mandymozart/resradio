@@ -1,8 +1,10 @@
 import styled from "@emotion/styled"
+import clsx from "clsx"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import FadeIn from "../../Animations/FadeIn"
 import useLocalStorage from "../../Hooks/useLocalStorage"
+import useChatStore from "../../Stores/ChatStore"
 import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config"
 import Clear from "../../images/Clear"
 
@@ -15,6 +17,9 @@ font-family: var(--font-light);
 display: flex;
 gap: 2rem;
 justify-content: space-between;
+&.isChatVisible {
+    width: calc(100% - 27rem);
+}
 @media(max-width: ${BREAKPOINT_MD}px) { 
     flex-direction: column;
 }
@@ -72,6 +77,7 @@ button {
 
 const DonationBar = () => {
     const [visible, setVisible] = useState(true);
+    const { isVisible: isChatVisible } = useChatStore();
     const navigate = useNavigate();
     const [hidden, setHidden] = useLocalStorage("donationBarHidden", "false");
 
@@ -86,7 +92,7 @@ const DonationBar = () => {
     if (!visible || hidden === "true") return <></>
     return (
         <FadeIn>
-            <Container>
+            <Container className={clsx({ isChatVisible: isChatVisible })}>
                 <div className="text">
                     Do you want to support res.radio?
                 </div>

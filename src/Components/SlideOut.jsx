@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
+import useChatStore from "../Stores/ChatStore";
 import { ABLY_ROTATION_CHANNEL, BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from '../config';
 import { getTimeRangeString } from "../utils";
 import InlineLoader from "./InlineLoader";
@@ -75,7 +76,6 @@ img {
   width: 100%;
   background: var(--background);
   transform: translateY(calc(-40rem - 2px));
-  transition: transform opacity .2s ease-out;
   border-bottom: 2px solid var(--color);
   opacity: 0;
 
@@ -85,6 +85,9 @@ img {
     /* .top {
       padding: 0;
     } */
+  }
+  &.isChatVisible {
+    width: calc(100% - 23rem);
   }
 
   .top {
@@ -115,11 +118,11 @@ img {
 }
 `
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // ably websocket
-  const [broadcast, setBroadcast] = useState()
-  const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
+  const { isVisible: isChatVisible } = useChatStore();
+  const [broadcast, setBroadcast] = useState();
+  const [nextBroadcastPreview, setNextBroadcastPreview] = useState();
   const [uid, setUid] = useState();
   // wire up ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
@@ -166,7 +169,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     setIsExpanded(false)
   }
   return (<Container>
-    <div className={clsx({ isExpanded: isExpanded })}>
+    <div className={clsx({ isExpanded: isExpanded, isChatVisible: isChatVisible })}>
       <div className="top">
         {loading && <InlineLoader />}
         {broadcast && (<>
