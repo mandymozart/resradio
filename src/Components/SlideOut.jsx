@@ -130,12 +130,14 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const [broadcast, setBroadcast] = useState()
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
   const [uid, setUid] = useState();
-  useChannel(ABLY_ROTATION_CHANNEL, (message) => {
+  // wire up ably websocket
+  useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
     setUid(message.data.current.uid)
     console.log("Rotation update received", message.data)
     setNextBroadcastPreview(message.data.next)
   });
-  const { history, currentBroadcast, nextBroadcast } = useBroadcastStore();
+  const { currentBroadcast, nextBroadcast } = useBroadcastStore();
+  // get full data from Prismic for broadcast
   const [getData, { loading, data }] = useLazyQuery(getBroadcastQuery,
     {
       variables: {
@@ -149,10 +151,12 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     }
   });
   useEffect(() => {
+    console.log(uid)
     debouncedRequest()
   }, [uid, getData, debouncedRequest])
 
   useEffect(() => {
+    console.log("Prismic data received", data)
     if (data?.broadcasts)
       setBroadcast(data.broadcasts)
   }, [data])
@@ -165,11 +169,6 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
         hostedby: nextBroadcast.hostedby.title
       })
   }, [currentBroadcast, nextBroadcast])
-
-
-  useEffect(() => {
-    setUid(history?.prismicId);
-  }, [history])
 
   const goToLink = (to) => {
     navigate(to)
@@ -201,7 +200,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
             {nextBroadcastPreview && (
               <button onClick={() => goToLink("../shows/" + nextBroadcastPreview.hostedby._meta.uid)} className="more">
                 {loading ? <InlineLoader /> : (<>
-                  {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
+                  NEXT: {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
                 </>)}
               </button>
             )}
