@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { GoGear } from 'react-icons/go';
 import { useNetlifyIdentity } from 'react-netlify-identity';
-import useBroadcastStore from '../../Stores/BroadcastStore';
 import useChatStore from '../../Stores/ChatStore';
 import { BREAKPOINT_XS } from '../../config';
 import Clear from '../../images/Clear';
@@ -39,12 +38,8 @@ height: calc(100vh - 10.5rem);
         width: 100vw;
         transform: translateX(100vw);
     }
-    transition: transform ease-in 0.3s;
     &.isVisible {
         transform: translateX(0);
-    }
-    &.isBroadcastVisible .list {
-        height: calc(100vh - 36.5rem);
     }
 }
 h2 {
@@ -74,7 +69,6 @@ h2 {
 const ChatBox = () => {
     const { user, isLoggedIn } = useNetlifyIdentity()
     const { setUsername, activate, setActivate, isVisible, setIsVisible } = useChatStore();
-    const { isVisible: isBroadcastVisible } = useBroadcastStore()
     const [chatterCount, setChatterCount] = useState(0);
     // Automatically sign in logged in netlify identity users
     useEffect(() => {
@@ -84,7 +78,7 @@ const ChatBox = () => {
     }, [user, isLoggedIn, setUsername])
     return (
         <Container>
-            <div className={clsx("slideout", { isVisible: isVisible, isBroadcastVisible: isBroadcastVisible })}>
+            <div className={clsx("slideout", { isVisible: isVisible })}>
                 <h2>Chat
                     <div className='controls'>
                         <span>{chatterCount} Online</span>

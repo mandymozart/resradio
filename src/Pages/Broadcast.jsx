@@ -15,7 +15,7 @@ import useBroadcastStore from "../Stores/BroadcastStore";
 import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
-import Scheduled from "../images/Schedule";
+import ScheduledBig from "../images/ScheduledBig";
 import { getTimeRangeString } from "../utils";
 
 const Container = styled.div`
@@ -64,6 +64,12 @@ const BroadcastPagePlayer = styled.div`
   .controls {
     padding-top: 2rem;
     margin-right: 1rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      margin-right: 1rem;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      margin-right: 0;
+    }
   }
   button {
     background: none;
@@ -74,9 +80,6 @@ const BroadcastPagePlayer = styled.div`
     margin: 0;
     text-align: center;
     align-items: top;
-    @media (max-width: ${BREAKPOINT_MD}px) {
-      margin-right: 1rem;
-    }
     &:hover{
       color: var(--second);
     }
@@ -160,17 +163,18 @@ const BroadcastPage = () => {
               </>
               ) : (
                 <button disabled>
-                  <Scheduled />
+                  <ScheduledBig />
                 </button>
               )}
             </div>
             <div>
-              <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}{isLoggedIn && <>
-                {playbacks ? <> ({playbacks})</> : <><button onClick={() => getPlaybacks()}>?</button></>}
-              </>}</h3>
+              <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}</h3>
               <div className="date">
                 {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
                 {getTimeRangeString(broadcast.begin, broadcast.end)}
+                {isLoggedIn && <><br />Plays:
+                  {playbacks ? <> {playbacks}</> : <> <button onClick={() => getPlaybacks()}>Get play count</button></>}
+                </>}
               </div>
             </div>
           </div>

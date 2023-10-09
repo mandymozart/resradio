@@ -13,6 +13,7 @@ import SystemMessage from "../SystemMessage";
 import ShowBroadcastsItem from "./ShowBroadcastsItem";
 
 const Container = styled.div`
+margin-bottom: 1rem;
   h3 {
     padding: 2rem;
     margin: 0;

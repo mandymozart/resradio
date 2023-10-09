@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import clsx from "clsx";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import React from "react";
@@ -6,6 +7,7 @@ import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../Components/Button";
 import Schedule from "../Components/Schedule/Schedule";
+import useChatStore from "../Stores/ChatStore";
 import { BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS } from "../config";
 dayjs.extend(utc);
 
@@ -22,11 +24,16 @@ const Container = styled.div`
 .spacer {
     height: 90vh;
 }
+
 .controls {
     position: sticky;
     bottom: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    &.isChatVisible {
+
+        width: calc(100% - 23rem);
+}
     background-color: var(--grey);
     display: flex;
     justify-content: space-between;
@@ -53,12 +60,14 @@ const Container = styled.div`
         }
     }
 }
+
 `
 
 const SchedulePage = () => {
 
     const { from } = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const { isVisible: isChatVisible } = useChatStore();
 
     const current = dayjs(from);
     const previous = current.subtract(7, "days")
@@ -71,12 +80,12 @@ const SchedulePage = () => {
         navigate("/schedule/" + next.format("YYYYMMDD"))
     }
     return (
-        <Container>
+        <Container className={clsx({ isChatVisible: isChatVisible })}>
             <Schedule from={from} inverted />
             <div className="spacer">
                 &nbsp;
             </div>
-            <div className="controls">
+            <div className={clsx("controls", { isChatVisible: isChatVisible })}>
                 <Button ghost large onClick={() => gotoPreviousWeek()}><GoChevronLeft /><span>&nbsp;back</span></Button>
                 <div></div>
                 <Button ghost large onClick={() => gotoNextWeek()}><span>next&nbsp;</span><GoChevronRight /></Button>

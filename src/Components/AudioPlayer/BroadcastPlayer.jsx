@@ -81,8 +81,7 @@ width: 50%;
     width: 100%;
 }
 height: 9rem;
-transform: translateY(10rem);
-transition: transform .2s ease-out;
+transform: translateY(9rem);
 background: var(--color);
 color: var(--background);
 .close {

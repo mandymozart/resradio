@@ -1,7 +1,9 @@
 import { useChannel, usePresence } from '@ably-labs/react-hooks';
 import styled from '@emotion/styled';
+import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { GoPaperAirplane } from 'react-icons/go';
+import useBroadcastStore from '../../Stores/BroadcastStore';
 import useChatStore from '../../Stores/ChatStore';
 import { ABLY_CHAT_CHANNEL, BREAKPOINT_XS } from '../../config';
 import PrimaryButtonSquare from '../FormElements/PrimaryButtonSquare';
@@ -29,20 +31,27 @@ form {
         font-family: var(--font-light)
     }
 }
+
 .list {
     overflow: auto;
     transition: transform .2s ease-out;
     padding: 2rem;
-    height: calc(100vh - 26.5rem);
+    height: calc(100vh - 20.5rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
-        height: calc(100vh - 21.5rem);
+    }
+}
+&.isBroadcastVisible .list {
+    height: calc(100vh - 35.5rem);
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        height: calc(100vh - 29.5rem);
     }
 }
 `
 
 const Chat = ({ setChatterCount }) => {
     const { username } = useChatStore();
+    const { isVisible: isBroadcastVisible } = useBroadcastStore();
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
 
@@ -96,7 +105,7 @@ const Chat = ({ setChatterCount }) => {
         setBody('');
     }
     return (
-        <Container>
+        <Container className={clsx({ isBroadcastVisible: isBroadcastVisible })}>
             <div className='list' ref={messageEl}>
                 {items?.map(item => (
                     <div key={item.id} className="message-item">

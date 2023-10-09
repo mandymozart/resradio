@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { BREAKPOINT_XS } from "../../config";
-import placeholder from "../../images/placeholder-panorama-thumbnail.png";
+import placeholder from "../../images/placeholder-panorama-thumbnail-grey.png";
 import SectionLoader from "../SectionLoader";
 
 const Container = styled.div`
