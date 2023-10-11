@@ -36,7 +36,7 @@ form {
     overflow: auto;
     transition: transform .2s ease-out;
     padding: 2rem;
-    height: calc(100vh - 20.5rem);
+    height: calc(100vh - 26.5rem);
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
     }
