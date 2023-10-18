@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { useNavigate } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
@@ -75,19 +76,17 @@ img {
   top: calc(10.5rem + 2px);
   width: 100%;
   background: var(--background);
-  transform: translateY(calc(-40rem - 2px));
   border-bottom: 2px solid var(--color);
   opacity: 0;
-
+  pointer-events: none;
   &.isExpanded {
     opacity: 1;
-    transform: translateY(0);
-    /* .top {
-      padding: 0;
-    } */
+    pointer-events: all;
   }
   &.isChatVisible {
+    @media (min-width: ${BREAKPOINT_MD}px) {
     width: calc(100% - 23rem);
+    }
   }
 
   .top {
@@ -120,7 +119,7 @@ img {
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const navigate = useNavigate();
 
-  const { isVisible: isChatVisible } = useChatStore();
+  const { isVisible: isChatVisible, setIsVisible: setIsChatVisible } = useChatStore();
   const [broadcast, setBroadcast] = useState();
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState();
   const [uid, setUid] = useState();
@@ -165,8 +164,10 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   }, [currentBroadcast, nextBroadcast])
 
   const goToLink = (to) => {
-    navigate(to)
-    setIsExpanded(false)
+    navigate(to);
+    setIsExpanded(false);
+    isChatVisible && isMobile && setIsChatVisible(false);
+
   }
   return (<Container>
     <div className={clsx({ isExpanded: isExpanded, isChatVisible: isChatVisible })}>

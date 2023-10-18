@@ -1,9 +1,8 @@
 import { useChannel, usePresence } from '@ably-labs/react-hooks';
 import styled from '@emotion/styled';
-import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { GoPaperAirplane } from 'react-icons/go';
-import useBroadcastStore from '../../Stores/BroadcastStore';
+
 import useChatStore from '../../Stores/ChatStore';
 import { ABLY_CHAT_CHANNEL, BREAKPOINT_XS } from '../../config';
 import PrimaryButtonSquare from '../FormElements/PrimaryButtonSquare';
@@ -13,8 +12,11 @@ const Container = styled.div`
 font-size: 1rem;
 font-family: var(--font-light);
 width: 100%;
+display: flex;
+flex-direction: column;
+overflow: auto;
+
 form {
-    padding: 2rem;
     @media (max-width: ${BREAKPOINT_XS}px) {
         padding: 1rem;
     }
@@ -35,23 +37,18 @@ form {
 .list {
     overflow: auto;
     transition: transform .2s ease-out;
-    padding: 2rem;
-    height: calc(100vh - 26.5rem);
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        padding: 1rem;
-    }
 }
-&.isBroadcastVisible .list {
-    height: calc(100vh - 35.5rem);
-    @media (max-width: ${BREAKPOINT_XS}px) {
-        height: calc(100vh - 29.5rem);
+.chat-footer {
+    flex: 1 1 6rem;
+    form {
+        padding: 2rem;
     }
 }
 `
 
 const Chat = ({ setChatterCount }) => {
     const { username } = useChatStore();
-    const { isVisible: isBroadcastVisible } = useBroadcastStore();
+
     const [body, setBody] = useState('');
     const [items, setItems] = useState([]);
 
@@ -105,7 +102,7 @@ const Chat = ({ setChatterCount }) => {
         setBody('');
     }
     return (
-        <Container className={clsx({ isBroadcastVisible: isBroadcastVisible })}>
+        <Container>
             <div className='list' ref={messageEl}>
                 {items?.map(item => (
                     <div key={item.id} className="message-item">
@@ -113,15 +110,17 @@ const Chat = ({ setChatterCount }) => {
                     </div>
                 ))}
             </div>
-            <form className="form" onSubmit={handleMessageSubmit}>
-                <input
-                    id="new-message"
-                    onChange={handleMessageChange}
-                    value={body}
-                    placeholder='Message'
-                />
-                <PrimaryButtonSquare><GoPaperAirplane /></PrimaryButtonSquare>
-            </form>
+            <footer className='chat-footer'>
+                <form className="form" onSubmit={handleMessageSubmit}>
+                    <input
+                        id="new-message"
+                        onChange={handleMessageChange}
+                        value={body}
+                        placeholder='Message'
+                    />
+                    <PrimaryButtonSquare><GoPaperAirplane /></PrimaryButtonSquare>
+                </form>
+            </footer>
         </Container>
     );
 }
