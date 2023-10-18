@@ -83,7 +83,9 @@ img {
     pointer-events: all;
   }
   &.isChatVisible {
+    @media (min-width: ${BREAKPOINT_MD}px) {
     width: calc(100% - 23rem);
+    }
   }
 
   .top {

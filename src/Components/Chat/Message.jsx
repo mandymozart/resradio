@@ -4,11 +4,15 @@ import clsx from "clsx";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
 import React from "react";
+import { BREAKPOINT_XS } from "../../config";
 dayjs.extend(relativeTime);
 
 const Container = styled.div`
 font-size: 1rem;
-margin: 1rem 0 0 0;
+margin: 1rem 2rem 1rem 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        margin: 1rem 0 1rem 0;
+    }
 padding: 1rem;
 background: var(--grey);
 border-radius: 0.5rem;
