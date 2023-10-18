@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
 import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { useNavigate } from "react-router-dom";
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
@@ -118,7 +119,7 @@ img {
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const navigate = useNavigate();
 
-  const { isVisible: isChatVisible } = useChatStore();
+  const { isVisible: isChatVisible, setIsVisible: setIsChatVisible } = useChatStore();
   const [broadcast, setBroadcast] = useState();
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState();
   const [uid, setUid] = useState();
@@ -163,8 +164,10 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   }, [currentBroadcast, nextBroadcast])
 
   const goToLink = (to) => {
-    navigate(to)
-    setIsExpanded(false)
+    navigate(to);
+    setIsExpanded(false);
+    isChatVisible && isMobile && setIsChatVisible(false);
+
   }
   return (<Container>
     <div className={clsx({ isExpanded: isExpanded, isChatVisible: isChatVisible })}>
