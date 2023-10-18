@@ -75,16 +75,12 @@ img {
   top: calc(10.5rem + 2px);
   width: 100%;
   background: var(--background);
-  transform: translateY(calc(-40rem - 2px));
   border-bottom: 2px solid var(--color);
   opacity: 0;
-
+  pointer-events: none;
   &.isExpanded {
     opacity: 1;
-    transform: translateY(0);
-    /* .top {
-      padding: 0;
-    } */
+    pointer-events: all;
   }
   &.isChatVisible {
     width: calc(100% - 23rem);
