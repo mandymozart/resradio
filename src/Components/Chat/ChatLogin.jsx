@@ -45,7 +45,6 @@ const ChatLogin = () => {
     }
 
     const login = () => {
-        console.log(username)
         if (username.length > 0)
             setActivate(true)
     }

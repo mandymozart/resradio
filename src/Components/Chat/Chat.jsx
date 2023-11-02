@@ -56,10 +56,23 @@ const Chat = ({ setChatterCount }) => {
 
     useEffect(() => {
         if (messageEl) {
-            messageEl.current.addEventListener('DOMNodeInserted', event => {
-                const { currentTarget: target } = event;
-                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            const observer = new MutationObserver((mutationsList, observer) => {
+                mutationsList.forEach((mutation) => {
+                    const { target } = mutation;
+                    // Use requestAnimationFrame for smoother animation
+                    requestAnimationFrame(() => {
+                        target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+                    });
+
+                });
             });
+
+            observer.observe(messageEl.current, { childList: true, subtree: true });
+
+            // Cleanup the observer when the component unmounts
+            return () => {
+                observer.disconnect();
+            };
         }
     }, [])
 

@@ -47,11 +47,8 @@ const StreamShortInfo = ({ onClick }) => {
       data?.allBroadcastss.edges.forEach((item) => {
         if (dayjs(item.node.begin).isBefore(before)) {
           setCurrentBroadcast(item.node)
-          console.log(item.node)
           if (data.allBroadcastss.edges[1]?.node) {
-
             setNextBroadcast(data.allBroadcastss.edges[1].node)
-            console.log(data.allBroadcastss.edges[1].node)
           }
           return
         }
@@ -62,7 +59,6 @@ const StreamShortInfo = ({ onClick }) => {
 
   // ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
-    console.log(message)
     setRotationInfo(message)
   });
   usePresence(ABLY_ROTATION_CHANNEL, "listener");
