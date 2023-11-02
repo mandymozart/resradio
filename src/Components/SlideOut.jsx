@@ -126,7 +126,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   // wire up ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
     setUid(message.data.current.uid)
-    console.log("Rotation update received", message.data)
+    // Rotation update received
     setNextBroadcastPreview(message.data.next)
   });
   const { currentBroadcast, nextBroadcast } = useBroadcastStore();
@@ -144,12 +144,11 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     }
   });
   useEffect(() => {
-    console.log(uid)
     debouncedRequest()
   }, [uid, getData, debouncedRequest])
 
   useEffect(() => {
-    console.log("Prismic data received", data)
+    // Prismic data received
     if (data?.broadcasts)
       setBroadcast(data.broadcasts)
   }, [data])
