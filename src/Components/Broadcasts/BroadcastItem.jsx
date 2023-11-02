@@ -128,6 +128,7 @@ const BroadcastItem = ({ broadcast }) => {
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`} className="host">
           <h4>
+            {console.log("hier hauts gleich", broadcast)}
             {broadcast.node.hostedby.title}
           </h4>
         </Link>
