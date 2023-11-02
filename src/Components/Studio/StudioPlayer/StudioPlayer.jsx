@@ -213,7 +213,6 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         const broadcast = index !== undefined ? broadcasts.find(b => b.index === index).broadcast : broadcasts.find(b => b.index === i).broadcast
         setCurrentIndex(index ? index : i);
         const nI = getNextIndex(broadcast);
-        console.log(nI)
         const nextBroadcast = broadcasts.find(b => b.index === nI).broadcast;
         if (broadcast) {
             setSource(broadcast.audio);
@@ -262,7 +261,6 @@ const StudioPlayer = ({ broadcasts, setBroadcasts }) => {
         audioRef.current.play();
         sendRotationMessage(current, next)
         setCurrentIndex(broadcasts.find(b => b.broadcast._meta.id === current._meta.id).index)
-        console.log(broadcasts.find(b => b.index === current.index))
         setIsPlaying(true);
     }
 
