@@ -158,6 +158,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     if (nextBroadcast)
       setNextBroadcastPreview({
         ...nextBroadcast,
+        uid: nextBroadcast._meta.uid,
         hostedby: nextBroadcast.hostedby.title
       })
   }, [currentBroadcast, nextBroadcast])
