@@ -12,15 +12,16 @@ dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
-white-space: nowrap;
 overflow: hidden;
-text-overflow: ellipsis;
 flex: 1;
 padding-left: 1rem;
 justify-content: center;
 align-items: center;
 div {
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 `;
 
