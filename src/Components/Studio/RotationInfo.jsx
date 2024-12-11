@@ -10,18 +10,11 @@ const Container = styled.div`
 
 const RotationInfo = () => {
     // rotation socket
-    const [rotationInfo, setRotationInfo] = useState();
-    const [items, setItems] = useState();
+    const [rotationInfo] = useState();
 
-    // var realtime = new Realtime(ABLY_KEY);
-    // var channel = realtime.channels.get(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`);
-    // channel.subscribe(function (message) {
-    //     console.log("last message", message.data)
-    //     setRotationInfo(message)
-    // });
-    const [channel] = useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
+    const [_] = useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (_) => {
         // This call will rewind 100 messages
-        console.log(message);
+        // console.log(message);
     });
     return (<Container>
         <h6>Status</h6>

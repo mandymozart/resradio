@@ -30,7 +30,7 @@ const Sandbox = () => {
             }
         }
         else {
-            console.log("nope")
+            console.log("no audio")
         }
     }, []); // Empty array ensures effect is only run once on mount
 
