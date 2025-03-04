@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useIdentityContext } from "react-netlify-identity";
+import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from "react-router-dom";
 import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
@@ -185,8 +186,9 @@ const BroadcastPage = () => {
       </BroadcastPagePlayer>
 
       <Description>
-        {broadcast.description ? (
-          <KeyFieldParagraph text={broadcast.description} />
+        {broadcast.description ? (<div>
+          <ReactMarkdown>{broadcast.description}</ReactMarkdown>
+        </div>
         ) : (
           <div></div>
         )}
