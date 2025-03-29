@@ -108,6 +108,15 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
     console.warn('No Stream available', e.target.error)
     setIsLoading(false)
     setCanPlay(false);
+    /** 
+     * TODO: I want to check that if the audio stream fails server side.
+     * If so, the player starts a polling until the stream restarts, and displays loading
+     * meanwhile. It shall continue to play the stream once it's back online. 
+     * If the stream is not back after 5 minutes, display the loading message, but add
+     * an info that the Station is currently offline and it will restart once it's back
+     * on broadcast.
+     * 
+     **/ 
   }
 
   const onCanPlayThrough = () => {
@@ -124,8 +133,7 @@ const AudioPlayer = ({ isExpanded, setIsExpanded }) => {
     if (!isPlaying) {
       pause()
     }
-  }
-    , [isPlaying])
+  }, [isPlaying])
 
   const handleClick = () => { setIsExpanded(!isExpanded) }
 
