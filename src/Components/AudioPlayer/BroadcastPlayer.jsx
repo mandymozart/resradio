@@ -146,6 +146,7 @@ const BroadcastPlayer = () => {
             getData()
         }
         // play if uid is available
+        // TODO: Refactor to remove redundancy, here and in the getData() useEffect - SideEffect
         else {
             audioRef.current.play();
             setIsPlaying(true);
