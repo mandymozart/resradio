@@ -121,6 +121,10 @@ const BroadcastPlayer = () => {
             const duration = data.broadcasts.duration ? data.broadcasts.duration : data.broadcasts.length ? data.broadcasts.length * 60 : 3600
             setDuration(duration);
             setCurrentTime(0);
+            // play 
+            audioRef.current.play();
+            setIsPlaying(true);
+            // logging
             const playback = {
                 uid: playing,
                 referenceText: data.broadcasts.title + " - " + data.broadcasts.hostedby.title,
