@@ -8,7 +8,7 @@ import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
 import useBroadcastStore from "../../Stores/BroadcastStore";
-import { BREAKPOINT_MD, FUNCTIONS, OFFLINE_URL } from "../../config";
+import { BREAKPOINT_MD, FUNCTIONS } from "../../config";
 import ClearBig from "../../images/ClearBig";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
@@ -99,12 +99,40 @@ color: var(--background);
 const BroadcastPlayer = () => {
     const { setIsPlaying: setStreamIsPlaying, volume } = useAudioPlayerStore()
     const { playing, isPlaying, setIsPlaying, isVisible, setIsVisible } = useBroadcastStore()
-    const [currentTime, setCurrentTime] = useState(1);
-    const [source, setSource] = useState(OFFLINE_URL);
-    const [duration, setDuration] = useState();
-    const [broadcast, setBroadcast] = useState();
+    const [currentTime, setCurrentTime] = useState(0);
+    const [source, setSource] = useState(null);
+    const [duration, setDuration] = useState(0);
+    const [broadcast, setBroadcast] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const audioRef = useRef();
     const progressBarRef = useRef();
+
+    const playAudio = useCallback(async () => {
+        if (!audioRef.current || !source) {
+            console.log("Cannot play: audio element or source not available");
+            return;
+        }
+        
+        try {
+            setIsLoading(true);
+            await audioRef.current.play();
+            setIsPlaying(true);
+            setStreamIsPlaying(false);
+            setIsVisible(true);
+        } catch (error) {
+            console.error("Failed to play audio:", error);
+            setIsPlaying(false);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [setIsPlaying, setStreamIsPlaying, setIsVisible, source]);
+    
+    const pauseAudio = useCallback(() => {
+        if (!audioRef.current) return;
+        
+        audioRef.current.pause();
+        setIsPlaying(false);
+    }, [setIsPlaying]);
 
     const [getData] = useLazyQuery(
         getBroadcastQuery, {
@@ -115,23 +143,27 @@ const BroadcastPlayer = () => {
             console.error("api error", res)
         },
         onCompleted: async (data) => {
-            setBroadcast(data.broadcasts)
+            setBroadcast(data.broadcasts);
             setSource(data.broadcasts.audio);
-            // getLengthOfMp3(broadcast.audio);
-            const duration = data.broadcasts.duration ? data.broadcasts.duration : data.broadcasts.length ? data.broadcasts.length * 60 : 3600
+            const duration = data.broadcasts.duration ? data.broadcasts.duration : data.broadcasts.length ? data.broadcasts.length * 60 : 3600;
             setDuration(duration);
             setCurrentTime(0);
-            // play 
-            audioRef.current.play();
-            setIsPlaying(true);
-            // logging
+            
+            // If isPlaying is true, attempt to play once the source is set
+            if (isPlaying) {
+                // Use setTimeout to ensure this runs after state updates have been applied
+                setTimeout(() => {
+                    playAudio();
+                }, 0);
+            }
+            
+            // Log the playback
             const playback = {
                 uid: playing,
                 referenceText: data.broadcasts.title + " - " + data.broadcasts.hostedby.title,
                 hostedbyUid: data.broadcasts.hostedby._meta.uid,
                 date: dayjs().toISOString(),
                 timezone: Intl.DateTimeFormat().resolvedOptions().locale + " " + Intl.DateTimeFormat().resolvedOptions().timeZone,
-
             }
             const queryString = getQueryString(playback);
             await fetch(`${FUNCTIONS}/log-playback?${queryString}`);
@@ -142,36 +174,56 @@ const BroadcastPlayer = () => {
         if (playing === null) {
             return
         }
+        
         if (playing !== broadcast?._meta?.uid) {
-            getData()
-        }
-        // play if uid is available
-        // TODO: Refactor to remove redundancy, here and in the getData() useEffect - SideEffect
-        else {
-            audioRef.current.play();
-            setIsPlaying(true);
+            getData();
         }
     });
 
     useEffect(() => {
         if (audioRef.current)
             audioRef.current.volume = volume;
-    }, [volume])
+    }, [volume]);
 
     useEffect(() => {
+        if (playing === null) return;
+        
+        // Reset state for new selection
         setCurrentTime(0);
-        setIsPlaying(false);
+        
+        // Clear previous broadcast data to avoid trying to play wrong audio
+        if (playing !== broadcast?._meta?.uid) {
+            // Only clear source if we're changing broadcasts
+            setSource(null);
+            setBroadcast(null);
+        }
+        
+        // Start loading new broadcast data
         debouncedRequest();
-    }, [playing])
+    }, [playing, broadcast, debouncedRequest]);
 
-    /** Resetting source audio magic and tracking progress */
     useEffect(() => {
+        if (!source) return; // Skip if no source
+        
         if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.load();
+            
+            // If isPlaying is true and we have a valid source, attempt to play
+            if (isPlaying) {
+                playAudio();
+            }
         }
-        setCurrentTime(0);
-    }, [source])
+    }, [source, playAudio, isPlaying]);
+
+    useEffect(() => {
+        // Only attempt to play if we have a valid source
+        if (isPlaying && audioRef.current && source) {
+            playAudio();
+        } else if (!isPlaying && audioRef.current) {
+            pauseAudio();
+        }
+    }, [isPlaying, pauseAudio, playAudio, source]);
 
     const handleEnded = () => {
         setIsPlaying(false);
@@ -182,40 +234,35 @@ const BroadcastPlayer = () => {
     };
 
     const play = () => {
-        setIsPlaying(true)
-        setIsVisible(true)
-        setStreamIsPlaying(false)
-        audioRef.current.play();
+        playAudio();
     }
+    
     const pause = () => {
-        audioRef.current.pause();
-        setIsPlaying(false)
-    }
-    useEffect(() => {
-        isPlaying ? play() : pause();
-    }, [isPlaying])
-
-    const close = () => {
-        pause();
-        setIsVisible(false);
+        pauseAudio();
     }
 
     const handleTimeUpdate = useCallback(event => {
         const audioElement = event.target;
-        // Perform actions based on the updated time
         setCurrentTime(parseInt(audioElement.currentTime));
     }, []);
 
+    const close = () => {
+        pauseAudio();
+        setIsVisible(false);
+    }
+
     return (
         <Container>
-            <audio
-                ref={audioRef}
-                volume={volume}
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={handleEnded}
-            >
-                <source src={source} type='audio/mpeg'></source>
-            </audio>
+            {source && (
+                <audio
+                    ref={audioRef}
+                    volume={volume}
+                    onTimeUpdate={handleTimeUpdate}
+                    onEnded={handleEnded}
+                >
+                    <source src={source} type='audio/mpeg'></source>
+                </audio>
+            )}
             {broadcast && (
                 <Controls className={isVisible ? "isVisible" : ""}>
                     <Player>
