@@ -5393,7 +5393,7 @@ const Shapes = ({ shape }) => {
             d="M37.72 43.42C40.5256 43.42 42.8 41.1501 42.8 38.35C42.8 35.5499 40.5256 33.28 37.72 33.28C34.9144 33.28 32.64 35.5499 32.64 38.35C32.64 41.1501 34.9144 43.42 37.72 43.42Z"
             stroke="currentColor"
             strokemitterlimit="10" fill="currentColor"
-            stroke-linecap="round"
+            strokeLinecap="round"
           />
         </>
       )}

@@ -31,13 +31,13 @@ import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Sandbox from "./Sandbox";
 import Studio from "./Studio";
-import { ABLY_KEY } from "./config";
+import { ABLY_KEY, NETLIFY_IDENTITY_PROVIDER } from "./config";
 import Logo from "./images/Logo";
 import { client } from "./prismic";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-
+console.log(ABLY_KEY, NETLIFY_IDENTITY_PROVIDER)
 configureAbly({ key: ABLY_KEY, clientId: nanoid() })
 
 function fallbackRender({ error, resetErrorBoundary }) {
@@ -57,7 +57,7 @@ function fallbackRender({ error, resetErrorBoundary }) {
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IdentityContextProvider url={process.env.REACT_APP_NETLIFY_IDENTITY_PROVIDER}>
+      <IdentityContextProvider url={NETLIFY_IDENTITY_PROVIDER}>
         <Router>
           <ScrollToTop>
             <ErrorBoundary fallbackRender={fallbackRender}>

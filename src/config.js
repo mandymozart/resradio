@@ -7,8 +7,10 @@ export const ABLY_CHAT_CHANNEL = "chat";
 
 // Netlify environment variables for forwarding
 // Currently only two environments are configured, due to the limitations of the free account tier
-export const ABLY_KEY = process.env.REACT_APP_ABLY_API_KEY;
-export const NETLIFY_IDENTITY_PROVIDER = process.env.REACT_APP_NETLIFY_IDENTITY_PROVIDER;
+// export const ABLY_KEY = process.env.REACT_APP_ABLY_API_KEY;
+export const ABLY_KEY = `Gc6o2Q.mVQIIA:Ooibm_VgnyretELdURXymImClV_LJz-OgC57_EX8KJo`;
+// export const NETLIFY_IDENTITY_PROVIDER = process.env.REACT_APP_NETLIFY_IDENTITY_PROVIDER;
+export const NETLIFY_IDENTITY_PROVIDER = `https://res-stage.netlify.app`;
 
 export const BREAKPOINT_L = 1279;
 export const BREAKPOINT_MD = 769;
