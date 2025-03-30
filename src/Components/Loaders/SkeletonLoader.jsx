@@ -10,7 +10,7 @@ const SkeletonLoader = ({ width, fontSize, className }) => {
     if (fontSize === undefined) fontSize = 1
     if (width === undefined) width = 12
     return (<Container>
-        <svg style={{ display: "block" }} className={className} role="img" width={16 * width} height={16 * fontSize * 1.25} ariaLabelledBy="loading-aria" viewBox={`0 0 ${16 * width} ${16 * fontSize * 1.25}`} preserveAspectRatio="none">
+        <svg style={{ display: "block" }} className={className} role="img" width={16 * width} height={16 * fontSize * 1.25} aria-labelledBy="loading-aria" viewBox={`0 0 ${16 * width} ${16 * fontSize * 1.25}`} preserveAspectRatio="none">
             <title id="loading-aria">Loading...</title>
             <rect x="0" y="0" width={16 * width} height={16 * fontSize} clipPath="url(#clip-path)"></rect>
             <defs>

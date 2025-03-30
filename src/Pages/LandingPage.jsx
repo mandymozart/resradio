@@ -40,7 +40,7 @@ const LandingPage = () => {
       <BulletinSection>
         <Schedule />
         <Announcement />
-        <a className="apply" href="mailto:resradio.program@gmail.com">{isMobile ? <ApplyMobile /> : <Apply />}</a>
+        <a className="apply" href="mailto:program.resradio@gmail.com">{isMobile ? <ApplyMobile /> : <Apply />}</a>
       </BulletinSection>
       <RecentShowList />
       <RecentBroadcastList />
