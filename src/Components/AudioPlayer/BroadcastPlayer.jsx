@@ -121,6 +121,10 @@ const BroadcastPlayer = () => {
             const duration = data.broadcasts.duration ? data.broadcasts.duration : data.broadcasts.length ? data.broadcasts.length * 60 : 3600
             setDuration(duration);
             setCurrentTime(0);
+            // play 
+            audioRef.current.play();
+            setIsPlaying(true);
+            // logging
             const playback = {
                 uid: playing,
                 referenceText: data.broadcasts.title + " - " + data.broadcasts.hostedby.title,
@@ -142,6 +146,7 @@ const BroadcastPlayer = () => {
             getData()
         }
         // play if uid is available
+        // TODO: Refactor to remove redundancy, here and in the getData() useEffect - SideEffect
         else {
             audioRef.current.play();
             setIsPlaying(true);
