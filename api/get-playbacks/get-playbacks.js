@@ -17,7 +17,7 @@ const handler = async (event) => {
     try {
         // Query to count playbacks with the given prismic_id
         const [result] = await pool.execute(
-            'SELECT COUNT(*) as count FROM playbacks WHERE show_prismic_id = ?',
+            'SELECT COUNT(*) as count FROM playbacks WHERE prismic_id = ?',
             [uid]
         );
 
