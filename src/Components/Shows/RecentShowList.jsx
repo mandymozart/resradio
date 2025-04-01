@@ -116,6 +116,14 @@ const RecentShowsList = () => {
         endAfter: dayjs().subtract(RECENT_SHOWS_END_AFTER, 'days').format(),
         beginBefore: dayjs().add(RECENT_SHOWS_BEGIN_BEFORE, 'days').format(),
         itemsPerPage: 100
+      },
+      fetchPolicy: 'cache-first',
+      nextFetchPolicy: 'cache-only',
+      // Only refetch if explicitly called or after this time passes
+      pollInterval: 0,
+      // Add a unique cache key to prevent cache conflicts
+      context: {
+        cacheKey: 'recentShows'
       }
     })
 

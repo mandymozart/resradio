@@ -83,7 +83,16 @@ padding: 0 2rem;
 `
 
 const FeatureBroadcast = () => {
-  const { loading, error, data } = useQuery(getFeatureBroadcastQuery);
+  const { loading, error, data } = useQuery(getFeatureBroadcastQuery, {
+    fetchPolicy: 'cache-first',
+    nextFetchPolicy: 'cache-only',
+    // Only refetch if explicitly called or after this time passes
+    pollInterval: 0,
+    // Add a unique cache key to prevent cache conflicts
+    context: {
+      cacheKey: 'featureBroadcast'
+    }
+  });
 
   if (loading) return <SectionLoader />;
   if (error) return <>Error : {error.message}</>;

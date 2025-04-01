@@ -39,11 +39,67 @@ export const prismicClient = prismic.createClient(endpoint, {
   ],
 })
 
+// Create a persistent cache for Apollo Client
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        allBroadcastss: {
+          // Properly merge data in the cache
+          keyArgs: ["endAfter", "beginBefore", "sortBy"],
+          merge(existing = { edges: [] }, incoming) {
+            // If exact same query, replace data
+            if (existing.__typename === incoming.__typename) {
+              return incoming;
+            }
+            // Otherwise merge the data
+            return {
+              ...incoming,
+              edges: [...existing.edges, ...incoming.edges],
+            };
+          },
+        },
+        allShowss: {
+          keyArgs: ["endAfter", "beginBefore", "sortBy"],
+          merge(existing = { edges: [] }, incoming) {
+            if (existing.__typename === incoming.__typename) {
+              return incoming;
+            }
+            return {
+              ...incoming,
+              edges: [...existing.edges, ...incoming.edges],
+            };
+          },
+        },
+        allFeaturebroadcasts: {
+          merge(existing, incoming) {
+            return incoming;
+          },
+        },
+      },
+    },
+  },
+});
+
 export const client = new ApolloClient({
   link: new HttpLink({
     uri: prismic.getGraphQLEndpoint(repositoryName),
     fetch: prismicClient.graphqlFetch,
     useGETForQueries: true,
   }),
-  cache: new InMemoryCache(),
+  cache,
+  defaultOptions: {
+    watchQuery: {
+      // First use cache but fetch in background for future renders
+      fetchPolicy: 'cache-and-network',
+      // On subsequent renders of the same query, only use cache
+      nextFetchPolicy: 'cache-only',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'all',
+    },
+  },
+  connectToDevTools: process.env.NODE_ENV === 'development',
 })
