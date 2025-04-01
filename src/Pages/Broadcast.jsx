@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { useIdentityContext } from "react-netlify-identity";
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from "react-router-dom";
-import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";

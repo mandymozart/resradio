@@ -93,7 +93,7 @@ const BroadcastItem = ({ broadcast }) => {
   const play = (uid) => {
     setPlaying(uid)
     setStreamIsPlaying(false);
-    if (playing === uid) setIsPlaying(true);
+    setIsPlaying(true);
   }
   const pause = () => {
     setIsPlaying(false);

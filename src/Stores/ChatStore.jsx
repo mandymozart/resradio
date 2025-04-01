@@ -1,11 +1,10 @@
-import produce from "immer";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-import create from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const useChatStore = create(
   persist(
-    produce((set) => ({
+    (set) => ({
       isVisible: false,
       setIsVisible: (value) => set(() => ({ isVisible: value })),
       activate: false,
@@ -17,12 +16,11 @@ const useChatStore = create(
         set(() => ({
           history: history,
         })),
-    })), { name: "chat-store" }
+    }), { name: "chat-store" }
   )
 );
 
 export default useChatStore;
-
 
 if (process.env.NODE_ENV === 'development') {
   mountStoreDevtool('ChatStore', useChatStore);

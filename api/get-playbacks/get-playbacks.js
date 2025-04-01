@@ -1,14 +1,5 @@
 const process = require("process");
-
-const { createClient } = require("@sanity/client");
-
-const client = createClient({
-    projectId: process.env.SANITY_PROJECT,
-    dataset: process.env.SANITY_DATASET,
-    token: process.env.SANITY_TOKEN,
-    apiVersion: "2022-01-01",
-    useCdn: false,
-});
+const pool = require("../utils/db.js");
 
 const handler = async (event) => {
     const uid = event.queryStringParameters.uid;
@@ -18,19 +9,20 @@ const handler = async (event) => {
         return {
             statusCode: 401,
             body: JSON.stringify({
-                data: "no sanity broadcast id",
+                data: "no broadcast id",
             }),
         };
     }
 
     try {
-        const query = `*[prismicId == "${uid}"]{referenceText,date,timezone}`;
+        // Query to count playbacks with the given prismic_id
+        const [result] = await pool.execute(
+            'SELECT COUNT(*) as count FROM playbacks WHERE prismic_id = ?',
+            [uid]
+        );
 
-        let playbacks;
-
-        await client.fetch(query).then((r) => {
-            playbacks = r.length;
-        });
+        // Extract the count from the result
+        const playbackCount = result[0].count;
 
         return {
             statusCode: 200,
@@ -38,17 +30,17 @@ const handler = async (event) => {
                 "Content-Type": "application/json",
                 "access-control-allow-origin": "*",
             },
-            body: JSON.stringify(playbacks),
+            body: JSON.stringify(playbackCount),
         };
     } catch (error) {
+        console.error("Error counting playbacks:", error);
         return {
             headers: {
                 "Content-Type": "application/json",
                 "access-control-allow-origin": "*",
             },
             statusCode: 500,
-            body:
-                error.responseBody || JSON.stringify({ error: "An error occurred" }),
+            body: JSON.stringify({ error: "An error occurred" }),
         };
     }
 };

@@ -1,14 +1,5 @@
 const process = require("process");
-
-const { createClient } = require("@sanity/client");
-
-const client = createClient({
-    projectId: process.env.SANITY_PROJECT,
-    dataset: process.env.SANITY_DATASET,
-    token: process.env.SANITY_TOKEN,
-    apiVersion: "2022-01-01",
-    useCdn: false,
-});
+const pool = require("../utils/db.js");
 
 const handler = async (event) => {
 
@@ -24,31 +15,39 @@ const handler = async (event) => {
         };
     }
 
-    let newBroadcast = {
-        _type: "broadcast",
-        title: title,
-        hostedBy: hostedby,
-        prismicId: uid,
-        begin: begin,
-        end: end
-    };
-
     try {
-        const result = await client.create(newBroadcast).then((res) => {
-            console.log("RESULT FROM SANITY: ", res);
-        });
+        // Insert the new broadcast record into MySQL
+        const [result] = await pool.execute(
+            'INSERT INTO broadcasts (title, hosted_by, prismic_id, begin_time, end_time) VALUES (?, ?, ?, ?, ?)',
+            [
+                title,
+                hostedby,
+                uid,
+                new Date(begin),
+                new Date(end)
+            ]
+        );
 
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(result),
+            headers: { 
+                "Content-Type": "application/json",
+                "access-control-allow-origin": "*" 
+            },
+            body: JSON.stringify({
+                id: result.insertId,
+                message: "Broadcast created successfully"
+            }),
         };
     } catch (error) {
+        console.error("Error creating broadcast:", error);
         return {
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "access-control-allow-origin": "*" 
+            },
             statusCode: 500,
-            body:
-                error.responseBody || JSON.stringify({ error: "An error occurred" }),
+            body: JSON.stringify({ error: "An error occurred" }),
         };
     }
 };
