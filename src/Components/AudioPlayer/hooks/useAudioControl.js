@@ -7,7 +7,7 @@ import useBroadcastStore from '../../../Stores/BroadcastStore';
  */
 export default function useAudioControl(audioPlayerRef) {
   const { isPlaying, setIsPlaying, setIsLoading, volume } = useAudioPlayerStore();
-  const { setCanPlay, setBroadcastIsPlaying } = useBroadcastStore();
+  const { setCanPlay, setIsPlaying: setBroadcastIsPlaying } = useBroadcastStore();
 
   // Player control functions
   const play = useCallback(() => {

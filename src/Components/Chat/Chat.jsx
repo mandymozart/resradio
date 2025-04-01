@@ -93,7 +93,7 @@ const Chat = ({ setChatterCount }) => {
     });
     useEffect(() => {
         setChatterCount(presenceData.filter(m => m.data !== "chatter").length)
-    }, [presenceData])
+    }, [presenceData, setChatterCount])
 
 
     const handleMessageChange = (e) => {

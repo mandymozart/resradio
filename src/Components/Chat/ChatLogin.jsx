@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { Component } from 'react';
+import React from 'react';
 import useChatStore from '../../Stores/ChatStore';
 import { BREAKPOINT_XS } from '../../config';
 import PrimaryButton from '../FormElements/PrimaryButton';
@@ -64,53 +64,4 @@ const ChatLogin = () => {
     )
 }
 
-class ChatLoginOld extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleUsername = this.handleUsername.bind(this);
-        this.login = this.login.bind(this);
-
-        this.state = {
-            username: '',
-        };
-    }
-
-    handleUsername(e) {
-        this.setState({
-            username: e.target.value,
-        });
-    }
-
-    login = () => {
-        if (!this.state.username) {
-            return
-        };
-        const updated_state = {
-            activate: true,
-            username: this.state.username
-
-        };
-        this.props.changeState(updated_state);
-    }
-
-
-    render() {
-        return (
-            <Container>
-                <p>Please follow the community guidelines and treat any being with respect!</p>
-                <form onSubmit={this.handleUsername}>
-                    <input
-                        placeholder="Name"
-                        id="username-input"
-                        onChange={this.handleUsername}
-                    />
-                    <PrimaryButton className="submit" onClick={this.login}>Login</PrimaryButton>
-                </form>
-            </Container>
-        )
-
-
-    }
-}
 export default ChatLogin;

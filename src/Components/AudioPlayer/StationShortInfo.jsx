@@ -56,7 +56,7 @@ const StationShortInfo = ({ onClick }) => {
       })
       setInitial(false)
     }
-  }, [data, setCurrentBroadcast, setNextBroadcast])
+  }, [data, setCurrentBroadcast, setNextBroadcast, before])
 
   // ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
