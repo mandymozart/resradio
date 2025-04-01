@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
+import useChatStore from "../Stores/ChatStore";
 
 const Container = styled.menu`
 margin: 0;
@@ -56,6 +57,12 @@ nav {
 const MobileMenu = ({ isOpen, setIsOpen }) => {
 
   const navigate = useNavigate();
+  const { setIsVisible } = useChatStore();
+
+  const openChat = () => {
+    setIsOpen(false);
+    setIsVisible(true);
+  }
 
   const goToLink = (link) => {
     setIsOpen(false);
@@ -72,16 +79,16 @@ const MobileMenu = ({ isOpen, setIsOpen }) => {
           <button onClick={() => goToLink("/schedule")}>Schedule</button>
         </li>
         <li>
+          <button onClick={() => goToLink("/search")}>Search</button>
+        </li>
+        <li>
           <button onClick={() => goToLink("/page/about")}>About</button>
         </li>
         <li>
           <button onClick={() => goToLink("/page/donate")}>Donate</button>
         </li>
         <li>
-          <button onClick={() => goToLink("/search")}>Search</button>
-        </li>
-        <li>
-          <button onClick={() => goToLink("/chat")}>Chat</button>
+          <button onClick={() => openChat()}>Chat</button>
         </li>
       </ul>
       {/* </FadeIn> */}

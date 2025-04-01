@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import useFilterStore from "../../Stores/FilterStore";
 import { BREAKPOINT_XS } from "../../config";
-import ClearSmall from "../../images/ClearSmall";
+import Clear from "../../images/Clear";
 
 const Container = styled.div`
 padding: 2rem;
@@ -62,7 +62,7 @@ const Mood = ({ mood }) => {
         onClick={() => toggle(mood)}>
         <h4>{mood?.name}</h4>
         <p>{mood?.description}</p>
-        {selectedMood?._meta.id === mood?._meta.id ? <ClearSmall /> : <></>}
+        {selectedMood?._meta.id === mood?._meta.id ? <Clear /> : <></>}
     </Container>)
 }
 

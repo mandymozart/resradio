@@ -7,7 +7,6 @@ export const GetBroadcastsQuery = gql`
       $sortBy: SortBroadcastsy, 
       $tags: [String!], 
       $moodId: String, 
-      $bpm_range: [Float!],
       $endAfter:DateTime, 
       $beginBefore:DateTime,
       $itemsPerPage: Int,
@@ -26,7 +25,6 @@ export const GetBroadcastsQuery = gql`
           end_after: $endAfter, 
           begin_before: $beginBefore,
           mood: $moodId, 
-          bpm_range: $bpm_range,
           bpm_min_gt: $bpm_min, 
           bpm_max_lt: $bpm_max,
         }) {
@@ -144,10 +142,8 @@ export const BroadcastFragment = gql`
     }
     begin
     end
-    bpm
     bpm_min
     bpm_max
-    length
     duration
     image
     audio

@@ -2,7 +2,6 @@ import React from "react";
 
 import { IdentityContextProvider } from "react-netlify-identity";
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 
 import { configureAbly } from "@ably-labs/react-hooks";
 import { ApolloProvider } from "@apollo/client";
@@ -13,13 +12,12 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import App from "./App";
 import Alert from "./Components/Alert/Alert";
-import ChatBox from "./Components/Chat/ChatBox";
 import PrimaryButton from "./Components/FormElements/PrimaryButton";
 import NotFound from "./Components/NotFound";
 import ScrollToTop from "./Components/ScrollToTop";
 import Playlist from "./Components/Studio/Playlists/Playlist";
 import Playlists from "./Components/Studio/Playlists/Playlists";
-import Remote from "./Components/Studio/Remote/Remote";
+import RotationInfo from "./Components/Studio/RotationInfo";
 import SystemMessage from "./Components/SystemMessage";
 import BroadcastPage from "./Pages/Broadcast";
 import Explore from "./Pages/Explore";
@@ -32,13 +30,13 @@ import Show from "./Pages/Show";
 import Shows from "./Pages/Shows";
 import Sandbox from "./Sandbox";
 import Studio from "./Studio";
-import { ABLY_KEY } from "./config";
+import { ABLY_KEY, NETLIFY_IDENTITY_PROVIDER } from "./config";
 import Logo from "./images/Logo";
 import { client } from "./prismic";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-// console.log(process.env)
+console.log(ABLY_KEY, NETLIFY_IDENTITY_PROVIDER)
 configureAbly({ key: ABLY_KEY, clientId: nanoid() })
 
 function fallbackRender({ error, resetErrorBoundary }) {
@@ -58,7 +56,7 @@ function fallbackRender({ error, resetErrorBoundary }) {
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <IdentityContextProvider url={process.env.REACT_APP_NETLIFY_IDENTITY_PROVIDER}>
+      <IdentityContextProvider url={NETLIFY_IDENTITY_PROVIDER}>
         <Router>
           <ScrollToTop>
             <ErrorBoundary fallbackRender={fallbackRender}>
@@ -133,13 +131,6 @@ root.render(
                       <ShopPage />
                     }
                   />
-                  <Route
-                    exact
-                    path="/chat"
-                    element={
-                      <ChatBox />
-                    }
-                  />
 
                   <Route path="*" element={<NotFound />} />
                 </Route>
@@ -150,9 +141,9 @@ root.render(
                       <Playlists />
                     } />
                   <Route
-                    path="remote"
+                    path="info"
                     element={
-                      <Remote />
+                      <RotationInfo />
                     } />
                   <Route
                     path="playlists/:uid"
@@ -171,8 +162,3 @@ root.render(
     </ApolloProvider>
   </React.StrictMode >
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

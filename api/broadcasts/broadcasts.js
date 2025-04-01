@@ -1,18 +1,9 @@
 const process = require("process");
-
-const { createClient } = require("@sanity/client");
-
-const client = createClient({
-    projectId: process.env.SANITY_PROJECT,
-    dataset: process.env.SANITY_DATASET,
-    token: process.env.SANITY_TOKEN,
-    apiVersion: "2022-01-01",
-    useCdn: false,
-});
+const pool = require("../utils/db.js");
 
 const handler = async (event) => {
-    const from = event.queryStringParameters.from;
-    const to = event.queryStringParameters.to;
+    let from = event.queryStringParameters.from;
+    let to = event.queryStringParameters.to;
     const beginBefore = event.queryStringParameters.beginBefore;
     const endAfter = event.queryStringParameters.endAfter;
 
@@ -41,12 +32,29 @@ const handler = async (event) => {
     }
 
     try {
-        const query = `*[_type == "broadcast" && dateTime(begin) < dateTime('${beginBefore}') && dateTime(end) > dateTime('${endAfter}')] | order(beginBefore desc) [${from}...${to}]`;
-        let broadcasts;
+        // Calculate the LIMIT and OFFSET for pagination
+        const limit = to - from;
+        const offset = from;
 
-        await client.fetch(query).then((r) => {
-            broadcasts = r;
-        });
+        // MySQL query to get broadcasts within the specified time range
+        const [broadcasts] = await pool.execute(
+            `SELECT * FROM broadcasts 
+             WHERE begin_time < ? AND end_time > ? 
+             ORDER BY begin_time DESC
+             ${limit > 0 ? 'LIMIT ? OFFSET ?' : ''}`,
+            limit > 0 
+                ? [new Date(beginBefore), new Date(endAfter), limit, offset]
+                : [new Date(beginBefore), new Date(endAfter)]
+        );
+
+        // Transform the result to match the expected format
+        const formattedBroadcasts = broadcasts.map(broadcast => ({
+            title: broadcast.title,
+            hostedBy: broadcast.hosted_by,
+            prismicId: broadcast.prismic_id,
+            begin: broadcast.begin_time,
+            end: broadcast.end_time
+        }));
 
         return {
             statusCode: 200,
@@ -54,17 +62,17 @@ const handler = async (event) => {
                 "Content-Type": "application/json",
                 "access-control-allow-origin": "*",
             },
-            body: JSON.stringify(broadcasts),
+            body: JSON.stringify(formattedBroadcasts),
         };
     } catch (error) {
+        console.error("Error fetching broadcasts:", error);
         return {
             headers: {
                 "Content-Type": "application/json",
                 "access-control-allow-origin": "*",
             },
             statusCode: 500,
-            body:
-                error.responseBody || JSON.stringify({ error: "An error occurred" }),
+            body: JSON.stringify({ error: "An error occurred" }),
         };
     }
 };

@@ -1,9 +1,7 @@
-import produce from "immer";
 import { mountStoreDevtool } from "simple-zustand-devtools";
-import create from "zustand";
+import { create } from "zustand";
 
-const useBroadcastStore = create(
-  produce((set, get) => ({
+const useBroadcastStore = create((set, get) => ({
     canPlay: true,
     setCanPlay: (value) => set(() => ({ canPlay: value })),
     isPlaying: false,
@@ -38,12 +36,7 @@ const useBroadcastStore = create(
       set(() => ({
         nextBroadcast: broadcast,
       })),
-    history: undefined,
-    setHistory: (history) =>
-      set(() => ({
-        history: history,
-      })),
-  }))
+  })
 );
 
 export default useBroadcastStore;

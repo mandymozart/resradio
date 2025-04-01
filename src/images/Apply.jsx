@@ -1,5 +1,4 @@
 import React from "react";
-
 const Apply = () => {
   return (<svg width="912" height="512" viewBox="0 0 912 512" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clipPath="url(#clip0_542_6179)">

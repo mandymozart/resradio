@@ -1,14 +1,5 @@
 const process = require("process");
-
-const { createClient } = require("@sanity/client");
-
-const client = createClient({
-    projectId: process.env.SANITY_PROJECT,
-    dataset: process.env.SANITY_DATASET,
-    token: process.env.SANITY_TOKEN,
-    apiVersion: "2022-01-01",
-    useCdn: false,
-});
+const pool = require("../utils/db.js");
 
 const handler = async (event) => {
 
@@ -24,31 +15,39 @@ const handler = async (event) => {
         };
     }
 
-    let newPlayback = {
-        _type: "playback",
-        referenceText: referenceText,
-        showPrismicId: hostedbyUid,
-        prismicId: uid,
-        date: date,
-        timezone: timezone,
-    };
-
     try {
-        const result = await client.create(newPlayback).then((res) => {
-            console.log("RESULT FROM SANITY: ", res);
-        });
+        // Insert the new playback record into MySQL
+        const [result] = await pool.execute(
+            'INSERT INTO playbacks (reference_text, show_prismic_id, prismic_id, playback_date, timezone) VALUES (?, ?, ?, ?, ?)',
+            [
+                referenceText,
+                hostedbyUid,
+                uid,
+                new Date(date),
+                timezone || 'UTC'
+            ]
+        );
 
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(result),
+            headers: { 
+                "Content-Type": "application/json",
+                "access-control-allow-origin": "*" 
+            },
+            body: JSON.stringify({
+                id: result.insertId,
+                message: "Playback logged successfully"
+            }),
         };
     } catch (error) {
+        console.error("Error logging playback:", error);
         return {
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "access-control-allow-origin": "*" 
+            },
             statusCode: 500,
-            body:
-                error.responseBody || JSON.stringify({ error: "An error occurred" }),
+            body: JSON.stringify({ error: "An error occurred" }),
         };
     }
 };

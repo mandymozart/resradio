@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import useThemeStore from "../../Stores/ThemeStore"
 import { BREAKPOINT_XS } from "../../config"
-import ClearSmall from "../../images/ClearSmall"
+import Clear from "../../images/Clear"
 import Search from "../../images/Search"
 
 const Container = styled.div`
@@ -81,7 +81,7 @@ const SearchBar = () => {
                     />
                     <button className="submit" type="submit" onClick={handleSubmit}><Search /></button>
                 </div>
-                <button className="clear" onClick={() => setSearchbarIsVisible(false)}><ClearSmall /></button>
+                <button className="clear" onClick={() => setSearchbarIsVisible(false)}><Clear /></button>
             </form>
         </Container>
     )

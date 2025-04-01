@@ -19,6 +19,8 @@ const Container = styled.div`
     }
     @media (max-width: ${BREAKPOINT_XS}px) {
       flex-direction:column;
+      padding: 0 1.5rem;
+      width: calc(100% - 3rem);
     }
     &.default {
         opacity: 0.5;

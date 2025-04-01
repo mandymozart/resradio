@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useIdentityContext } from "react-netlify-identity";
+import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from "react-router-dom";
-import KeyFieldParagraph from "../Components/KeyFieldParagraph";
 import NotFound from "../Components/NotFound";
 import PageLoader from "../Components/PageLoader";
 import Tags from "../Components/Tags";
@@ -15,7 +15,7 @@ import useBroadcastStore from "../Stores/BroadcastStore";
 import { BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT_LONG, FUNCTIONS } from "../config";
 import PauseBig from "../images/PauseBig";
 import PlayBig from "../images/PlayBig";
-import Scheduled from "../images/Schedule";
+import ScheduledBig from "../images/ScheduledBig";
 import { getTimeRangeString } from "../utils";
 
 const Container = styled.div`
@@ -53,7 +53,7 @@ const Description = styled.section`
 
 const BroadcastPagePlayer = styled.div`
 
-  padding: 0 2rem 0 0;
+  padding: 0 2rem 0 1rem;
   h3 {
     font-size: 1.5rem;
     font-family: var(--font-bold);
@@ -63,24 +63,23 @@ const BroadcastPagePlayer = styled.div`
   font-size: 1.5rem;
   .controls {
     padding-top: 2rem;
+    margin-right: 1rem;
+    @media (max-width: ${BREAKPOINT_MD}px) {
+      margin-right: 1rem;
+    }
+    @media (max-width: ${BREAKPOINT_XS}px) {
+      margin-right: 0;
+    }
   }
   button {
     background: none;
     border: none;
     padding: 0;
-    width: 6rem;
     color: var(--color);
     cursor: pointer;
     margin: 0;
     text-align: center;
     align-items: top;
-    @media (max-width: ${BREAKPOINT_MD}px) {
-      width: 1.5rem;
-      margin-right: 1rem;
-    }
-    svg {
-      width: 1rem;
-    }
     &:hover{
       color: var(--second);
     }
@@ -91,10 +90,10 @@ const BroadcastPagePlayer = styled.div`
     justify-content: space-between;
     @media (max-width: ${BREAKPOINT_MD}px) {
       display: block;
-      padding: 0 2rem;
+      padding: 0 1rem;
     }
     @media (max-width: ${BREAKPOINT_XS}px) {
-      padding: 0 1rem;
+      padding: 0;
     }
   }
   .info {
@@ -164,17 +163,18 @@ const BroadcastPage = () => {
               </>
               ) : (
                 <button disabled>
-                  <Scheduled />
+                  <ScheduledBig />
                 </button>
               )}
             </div>
             <div>
-              <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}{isLoggedIn && <>
-                {playbacks ? <> ({playbacks})</> : <><button onClick={() => getPlaybacks()}>?</button></>}
-              </>}</h3>
+              <h3><Link to={"../shows/" + broadcast.hostedby._meta.uid}>{broadcast.hostedby.title}</Link>&mdash;{broadcast.title}</h3>
               <div className="date">
                 {dayjs(broadcast.begin).format(DATE_FORMAT_LONG)}<br />
                 {getTimeRangeString(broadcast.begin, broadcast.end)}
+                {isLoggedIn && <><br />Plays:
+                  {playbacks ? <> {playbacks}</> : <> <button onClick={() => getPlaybacks()}>Get play count</button></>}
+                </>}
               </div>
             </div>
           </div>
@@ -185,8 +185,9 @@ const BroadcastPage = () => {
       </BroadcastPagePlayer>
 
       <Description>
-        {broadcast.description ? (
-          <KeyFieldParagraph text={broadcast.description} />
+        {broadcast.description ? (<div>
+          <ReactMarkdown>{broadcast.description}</ReactMarkdown>
+        </div>
         ) : (
           <div></div>
         )}

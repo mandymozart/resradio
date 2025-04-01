@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import FadeIn from "../../Animations/FadeIn"
 import useLocalStorage from "../../Hooks/useLocalStorage"
 import { BREAKPOINT_MD, BREAKPOINT_XS } from "../../config"
-import ClearSmall from "../../images/ClearSmall"
+import Clear from "../../images/Clear"
 
 const Container = styled.section`
 background-color: var(--grey);
@@ -93,7 +93,7 @@ const DonationBar = () => {
                 <div className="controls">
                     <button className="primary" onClick={() => goToLink()}>Donate</button>
                     <button className="secondary" onClick={() => { setVisible(false) }}>No thanks</button>
-                    <button className="clear" onClick={() => setVisible(false)}><ClearSmall /></button>
+                    <button className="clear" onClick={() => setVisible(false)}><Clear /></button>
                 </div>
             </Container>
         </FadeIn>

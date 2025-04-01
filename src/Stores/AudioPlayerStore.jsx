@@ -1,9 +1,8 @@
-import produce from "immer";
 import { mountStoreDevtool } from 'simple-zustand-devtools';
-import create from "zustand";
+import { create } from "zustand";
 
 const useAudioPlayerStore = create(
-  produce((set) => ({
+  (set) => ({
     isPlaying: false,
     setIsPlaying: (value) =>
       set(() => ({
@@ -21,7 +20,7 @@ const useAudioPlayerStore = create(
       })),
     volume: 0.7,
     setVolume: (value) => set(() => ({ volume: value })),
-  }))
+  })
 );
 
 export default useAudioPlayerStore;

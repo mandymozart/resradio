@@ -1,14 +1,5 @@
 const process = require('process')
-
-const sanityClient = require('@sanity/client')
-console.log(sanityClient)
-const client = sanityClient({
-  projectId: process.env.SANITY_PROJECT,
-  dataset: process.env.SANITY_DATASET,
-  token: process.env.SANITY_TOKEN,
-  apiVersion: '2022-01-01',
-  useCdn: false,
-})
+const pool = require('../utils/db.js');
 
 const handler = async function (event) {
   const data = JSON.parse(event.body)
@@ -18,7 +9,6 @@ const handler = async function (event) {
     prepare data to pass through to netlify as user is created
   */
   const netlifyResponseBody = {
-
     app_metadata: {
       roles: ['basic'],
       app_other_thing: 'some app value'
@@ -28,30 +18,40 @@ const handler = async function (event) {
     },
   }
 
-  /* 
-    create the user in sanity with the new users id as the sanity document id 
-  */
-  const doc = {
-    _id: user.id,
-    _type: 'user',
-    email: user.email,
-    fullName: "",
-  }
-
   try {
-    const result = await client.createIfNotExists(doc).then((res) => {
-      console.log('SANITY RESPONSE: ', res)
-    })
+    // Check if user already exists to implement createIfNotExists behavior
+    const [existingUsers] = await pool.execute(
+      'SELECT * FROM users WHERE email = ?',
+      [user.email]
+    );
+
+    // Only create user if they don't already exist
+    if (existingUsers.length === 0) {
+      // Insert the new user into MySQL
+      const [result] = await pool.execute(
+        'INSERT INTO users (email, full_name) VALUES (?, ?)',
+        [user.email, user.user_metadata?.full_name || ""]
+      );
+      
+      console.log('USER CREATED IN MYSQL:', {
+        id: result.insertId,
+        email: user.email
+      });
+    } else {
+      console.log('USER ALREADY EXISTS IN MYSQL:', user.email);
+    }
+
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(netlifyResponseBody),
     }
   } catch (error) {
+    console.error('Error creating user in MySQL:', error);
     return {
       headers: { 'Content-Type': 'application/json' },
       statusCode: 500,
-      body: error.responseBody || JSON.stringify({ error: 'An error occurred' }),
+      body: JSON.stringify({ error: 'An error occurred' }),
     }
   }
 }

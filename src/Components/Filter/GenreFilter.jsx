@@ -15,7 +15,7 @@ const GenreFilter = () => {
     if (error) return <>Error : {error.message}</>;
     return (
         <Container>
-            {data?.map(genre =>
+            {data?.sort().map(genre =>
                 <Genre key={genre}
                     genre={genre}
                 />

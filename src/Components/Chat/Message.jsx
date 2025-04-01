@@ -4,16 +4,24 @@ import clsx from "clsx";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
 import React from "react";
+import { BREAKPOINT_XS } from "../../config";
 dayjs.extend(relativeTime);
 
 const Container = styled.div`
 font-size: 1rem;
-margin: 1rem 0 0 0;
+margin: 1rem 2rem 1rem 2rem;
+    @media (max-width: ${BREAKPOINT_XS}px) {
+        margin: 1rem 0 1rem 0;
+    }
 padding: 1rem;
 background: var(--grey);
 border-radius: 0.5rem;
 .username {
     font-family: var(--font-medium);
+    white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
 }
 &.isSelf {
     background-color: var(--second);
@@ -37,6 +45,10 @@ border-radius: 0.5rem;
     }
     .username {
         font-family: var(--font-light);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
     }
     .time {
         font-size: 1rem;

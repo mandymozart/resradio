@@ -1,36 +1,30 @@
 const process = require("process");
-
-const { createClient } = require("@sanity/client");
-
-const client = createClient({
-  projectId: process.env.SANITY_PROJECT,
-  dataset: process.env.SANITY_DATASET,
-  token: process.env.SANITY_TOKEN,
-  apiVersion: "2022-01-01",
-  useCdn: false,
-});
+const pool = require("../utils/db.js");
 
 const handler = async (event) => {
   const email = event.queryStringParameters.email;
 
-  /* no id, no go */
+  /* no email, no go */
   if (!email) {
     return {
       statusCode: 401,
       body: JSON.stringify({
-        data: "no sanity user id",
+        data: "no user email provided",
       }),
     };
   }
 
   try {
-    const query = `*[email == "${email}"][0]{email,fullName}`;
+    // Use the MySQL connection pool to query the database
+    const [rows] = await pool.execute(
+      'SELECT email, full_name as fullName FROM users WHERE email = ?',
+      [email]
+    );
 
-    let user;
-
-    await client.fetch(query).then((r) => {
-      user = { email: r.email, fullName: r.fullName };
-    });
+    // If no user is found, rows will be an empty array
+    const user = rows.length > 0 
+      ? { email: rows[0].email, fullName: rows[0].fullName }
+      : { email: null, fullName: null };
 
     return {
       statusCode: 200,
@@ -41,14 +35,14 @@ const handler = async (event) => {
       body: JSON.stringify(user),
     };
   } catch (error) {
+    console.error("Error fetching user:", error);
     return {
       headers: {
         "Content-Type": "application/json",
         "access-control-allow-origin": "*",
       },
       statusCode: 500,
-      body:
-        error.responseBody || JSON.stringify({ error: "An error occurred" }),
+      body: JSON.stringify({ error: "An error occurred" }),
     };
   }
 };

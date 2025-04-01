@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import useFilterStore from "../../Stores/FilterStore";
-import ClearSmall from "../../images/ClearSmall";
+import Clear from "../../images/Clear";
 
 export const Container = styled.span`
   color: var(--background);
@@ -42,7 +42,7 @@ const Genre = ({ genre, children }) => {
         {genre}
         {children}
       </span>
-      {genres.find(g => g === genre) ? <ClearSmall /> : ""}
+      {genres.find(g => g === genre) ? <Clear /> : ""}
     </Container>
   );
 }

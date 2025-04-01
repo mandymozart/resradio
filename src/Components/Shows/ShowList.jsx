@@ -57,6 +57,12 @@ const Container = styled.div`
     }
 
   }
+
+  @media (max-width: ${BREAKPOINT_L}px) {
+    .list {
+      display: none;
+    }
+  }
 `;
 
 const ShowList = () => {

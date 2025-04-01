@@ -11,9 +11,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { getBroadcastsQuery } from "../../Queries/broadcasts";
 import { BREAKPOINT_MD, BREAKPOINT_XS, ITEMS_PER_PAGE, RECENT_SHOWS_BEGIN_BEFORE, RECENT_SHOWS_END_AFTER } from "../../config";
 import placeholder from "../../images/placeholder-panorama-thumbnail-secondary.png";
-import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import RecentShowItem from "./RecentShowItem";
+import RecentShowsListLoader from "./RecentShowListLoader";
 dayjs.extend(utc);
 
 const Container = styled.div`
@@ -56,12 +56,19 @@ const Container = styled.div`
     z-index: 10;
     cursor: pointer;
     display: flex;
-    background-color: var(--color);
     align-items: center;
     justify-content: center;
     color: var(--background);
     &.swiper-button-disabled {
       display: none;
+    }
+    &:hover {
+      &::after {
+        color: var(--second);
+      }
+    }
+    &::after {
+      font-size: 2rem;
     }
 }
 `;
@@ -109,10 +116,18 @@ const RecentShowsList = () => {
         endAfter: dayjs().subtract(RECENT_SHOWS_END_AFTER, 'days').format(),
         beginBefore: dayjs().add(RECENT_SHOWS_BEGIN_BEFORE, 'days').format(),
         itemsPerPage: 100
+      },
+      fetchPolicy: 'cache-first',
+      nextFetchPolicy: 'cache-only',
+      // Only refetch if explicitly called or after this time passes
+      pollInterval: 0,
+      // Add a unique cache key to prevent cache conflicts
+      context: {
+        cacheKey: 'recentShows'
       }
     })
 
-  if (loading) return <SectionLoader />;
+  if (loading) return <RecentShowsListLoader />;
   if (error) return <SystemMessage>Error : {error.message}</SystemMessage>;
   const broadcasts = data.allBroadcastss.edges
   if (broadcasts.length === 0) return <></>

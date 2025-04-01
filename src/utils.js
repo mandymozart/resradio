@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { DATE_FORMAT } from "./config";
+import React from "react";
 dayjs.extend(utc);
 
 export const shuffle = (array) => {
@@ -126,4 +127,24 @@ export const getQueryString = (params) => {
       return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
     })
     .join("&");
+};
+
+export const createLineBreakRenderer = () => {
+  return {
+    paragraph: ({node, children}) => {
+      if (node.children.length > 1 && node.children.every(child => child.type === 'text')) {
+        return (
+          <p>
+            {node.children.map((child, index) => (
+              <React.Fragment key={index}>
+                {index > 0 && <br />}
+                {child.value}
+              </React.Fragment>
+            ))}
+          </p>
+        );
+      }
+      return <p>{children}</p>;
+    }
+  };
 };

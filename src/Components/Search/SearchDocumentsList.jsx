@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { searchShowsQuery } from "../../Queries/documents";
 import useThemeStore from "../../Stores/ThemeStore";
+import { BREAKPOINT_XS } from "../../config";
 import SectionLoader from "../SectionLoader";
 import SystemMessage from "../SystemMessage";
 import SearchBroadcastItem from "./SearchBroadcastItem";
@@ -14,6 +15,13 @@ import SearchPageItem from "./SearchPageItem";
 import SearchShowItem from "./SearchShowItem";
 
 const Container = styled.div`
+h2 {
+  padding: 2rem;
+  @media (max-width: ${BREAKPOINT_XS}px) {
+    padding: 1rem 1rem;
+    font-size: 1.5rem;
+  }
+}
 `;
 
 const SearchDocumentsList = () => {
@@ -36,6 +44,7 @@ const SearchDocumentsList = () => {
   if (data?._allDocuments?.totalCount < 1) return <SystemMessage>No results match your search query!</SystemMessage>
   return (
     <Container>
+      {searchParams.get("q") && <h2>Results for "{searchParams.get("q")}"</h2>}
       <div className="list">
         {data?._allDocuments.edges.map((doc, index) => {
           if (doc.node.__typename === "Shows")

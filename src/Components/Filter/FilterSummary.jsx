@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import useFilterStore, { initialState } from "../../Stores/FilterStore";
 import { BREAKPOINT_XS } from "../../config";
-import ClearSmall from "../../images/ClearSmall";
+import Clear from "../../images/Clear";
 import Genre from "./Genre";
 
 const Container = styled.div`
@@ -59,7 +59,7 @@ const FilterSummary = () => {
           <span>
             {selectedMood.name}
           </span>
-          <ClearSmall />
+          <Clear />
         </span> : <></>}
         {genres?.map(genre =>
           <Genre key={genre}
@@ -72,7 +72,7 @@ const FilterSummary = () => {
 
               {slowest}&mdash;{fastest} BPM
             </span>
-            <ClearSmall />
+            <Clear />
           </span>
         )}
         {isDirty() && (

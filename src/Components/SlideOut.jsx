@@ -5,13 +5,13 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import utc from "dayjs/plugin/utc";
-import React, { useEffect, useRef, useState } from "react";
-import { GoIterations } from "react-icons/go";
+import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { useNavigate } from "react-router-dom";
-import { useOnClickOutside } from 'usehooks-ts';
 import useDebounce from "../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../Queries/broadcasts";
 import useBroadcastStore from "../Stores/BroadcastStore";
+import useChatStore from "../Stores/ChatStore";
 import { ABLY_ROTATION_CHANNEL, BREAKPOINT_L, BREAKPOINT_MD, BREAKPOINT_XS, DATE_FORMAT } from '../config';
 import { getTimeRangeString } from "../utils";
 import InlineLoader from "./InlineLoader";
@@ -22,7 +22,6 @@ dayjs.extend(utc);
 const Container = styled.menu`
 margin: 0;
 padding: 0;
-border-bottom: 2px solid var(--color);
 font-size: 1.5rem;
 .date {
   margin-bottom: 1rem;
@@ -65,7 +64,7 @@ p {
 .more {
   font-size: 1rem;
   text-transform: uppercase;
-  margin-bottom: .5rem;
+  margin-bottom: 0;
   display: block;
 }
 img {
@@ -73,23 +72,24 @@ img {
 }
 > div {
   z-index: 1;
-  position: fixed;
-  top: 10.5rem;
+  position: absolute;
+  top: calc(10.5rem + 2px);
   width: 100%;
   background: var(--background);
-  transform: translateY(-40rem);
-  transition: transform .2s ease-out;
-
+  border-bottom: 2px solid var(--color);
+  opacity: 0;
+  pointer-events: none;
   &.isExpanded {
     opacity: 1;
-    transform: translateY(0);
-    /* .top {
-      padding: 0;
-    } */
+    pointer-events: all;
+  }
+  &.isChatVisible {
+    @media (min-width: ${BREAKPOINT_MD}px) {
+    width: calc(100% - 23rem);
+    }
   }
 
   .top {
-    border-bottom: 2px solid var(--color);
     display: grid;
     grid-template-columns: 2fr 2fr;
     @media (max-width: ${BREAKPOINT_L}px) {
@@ -113,69 +113,24 @@ img {
         padding: 0 1rem 1rem 1rem;
       }
     }
-
-
-  }
-  footer {
-    display: flex;
-    gap: 1rem;
-    padding: 0 2rem;
-    @media (max-width: ${BREAKPOINT_XS}px) {
-      padding: 0 1rem;
-    }
-    line-height: 3rem;
-    justify-content: space-between;
-    border-bottom: 2px solid var(--color);
-
-    div:first-of-type {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .next {
-      padding: 0 0 0 1.75rem;
-    }
-    .status {
-      flex: 1;
-    }
-    .schedule {
-      text-align: center;
-      text-transform: uppercase;
-      line-height: 3rem;
-    }
-    button {
-      font-size: 1.25rem;
-    }
-    .show-more-prefix {
-      white-space: nowrap;
-      @media (max-width: ${BREAKPOINT_MD}px) {
-        display: none;
-      }
-    }
   }
 }
 `
 const SlideOut = ({ isExpanded, setIsExpanded }) => {
-  const navigate = useNavigate()
-  const ref = useRef(null);
+  const navigate = useNavigate();
 
-  const handleClickOutside = () => {
-    if (isExpanded)
-      setIsExpanded(false);
-  }
-
-  useOnClickOutside(ref, handleClickOutside)
-
-  // ably websocket
-  const [broadcast, setBroadcast] = useState()
-  const [nextBroadcastPreview, setNextBroadcastPreview] = useState()
+  const { isVisible: isChatVisible, setIsVisible: setIsChatVisible } = useChatStore();
+  const [broadcast, setBroadcast] = useState();
+  const [nextBroadcastPreview, setNextBroadcastPreview] = useState();
   const [uid, setUid] = useState();
-  useChannel(ABLY_ROTATION_CHANNEL, (message) => {
+  // wire up ably websocket
+  useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
     setUid(message.data.current.uid)
-    console.log("Rotation update received", message.data)
+    // Rotation update received
     setNextBroadcastPreview(message.data.next)
   });
-  const { history, currentBroadcast, nextBroadcast } = useBroadcastStore();
+  const { currentBroadcast, nextBroadcast } = useBroadcastStore();
+  // get full data from Prismic for broadcast
   const [getData, { loading, data }] = useLazyQuery(getBroadcastQuery,
     {
       variables: {
@@ -193,6 +148,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   }, [uid, getData, debouncedRequest])
 
   useEffect(() => {
+    // Prismic data received
     if (data?.broadcasts)
       setBroadcast(data.broadcasts)
   }, [data])
@@ -202,21 +158,19 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     if (nextBroadcast)
       setNextBroadcastPreview({
         ...nextBroadcast,
+        uid: nextBroadcast._meta.uid,
         hostedby: nextBroadcast.hostedby.title
       })
   }, [currentBroadcast, nextBroadcast])
 
-
-  useEffect(() => {
-    setUid(history?.prismicId);
-  }, [history])
-
   const goToLink = (to) => {
-    navigate(to)
-    setIsExpanded(false)
+    navigate(to);
+    setIsExpanded(false);
+    isChatVisible && isMobile && setIsChatVisible(false);
+
   }
   return (<Container>
-    <div className={clsx({ isExpanded: isExpanded })} ref={ref}>
+    <div className={clsx({ isExpanded: isExpanded, isChatVisible: isChatVisible })}>
       <div className="top">
         {loading && <InlineLoader />}
         {broadcast && (<>
@@ -235,27 +189,21 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
             <p className="description">
               {broadcast.description?.substring(0, 120)} ...
             </p>
-            <button onClick={() => goToLink("../shows/" + broadcast.hostedby._meta.uid)} className="more">
+            <button onClick={() => goToLink("../broadcasts/" + broadcast._meta.uid)} className="more">
               read more
             </button>
+            {nextBroadcastPreview && (
+              <button onClick={() => goToLink("../broadcasts/" + nextBroadcastPreview.uid)} className="more">
+                {loading ? <InlineLoader /> : (<>
+                  NEXT: {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
+                </>)}
+              </button>
+            )}
           </div>
 
         </>)}
 
       </div>
-      <footer>
-        <span className="next">{nextBroadcastPreview && (<GoIterations />)}</span>
-        <div className="status">
-          {nextBroadcastPreview && (
-            <>
-              {loading ? <InlineLoader /> : (<>
-                {nextBroadcastPreview?.hostedby}&mdash;{nextBroadcastPreview?.title}
-              </>)}
-            </>
-          )}
-        </div>
-        <button onClick={() => goToLink("/schedule")} className="schedule"><span className="show-more-prefix">Show </span>Schedule</button>
-      </footer>
     </div>
   </Container>
   )

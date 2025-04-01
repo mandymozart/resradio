@@ -93,7 +93,7 @@ const BroadcastItem = ({ broadcast }) => {
   const play = (uid) => {
     setPlaying(uid)
     setStreamIsPlaying(false);
-    if (playing === uid) setIsPlaying(true);
+    setIsPlaying(true);
   }
   const pause = () => {
     setIsPlaying(false);
@@ -128,7 +128,11 @@ const BroadcastItem = ({ broadcast }) => {
       <div className="meta">
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`} className="host">
           <h4>
-            {broadcast.node.hostedby.title}
+            {broadcast.node.hostedby ? (
+              <>
+                {broadcast.node.hostedby.title}
+              </>
+            ):(<>Untitled</>)}
           </h4>
         </Link>
         <Link to={`../broadcasts/${broadcast.node._meta.uid}`} className="title">
