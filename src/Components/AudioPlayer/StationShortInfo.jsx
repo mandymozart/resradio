@@ -25,7 +25,7 @@ div {
 }
 `;
 
-const StreamShortInfo = ({ onClick }) => {
+const StationShortInfo = ({ onClick }) => {
   const { currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
   const [initial, setInitial] = useState(true);
 
@@ -87,4 +87,4 @@ const StreamShortInfo = ({ onClick }) => {
   );
 };
 
-export default StreamShortInfo;
+export default StationShortInfo;

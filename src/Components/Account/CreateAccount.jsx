@@ -41,7 +41,7 @@ const CreateAccount = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const passwordPattern = /^.{6,}$/;
+    // const passwordPattern = /^.{6,}$/;
 
     const signUp = (event) => {
         event.preventDefault();

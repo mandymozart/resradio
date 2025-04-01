@@ -2,9 +2,9 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { motion } from "framer-motion";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import useDebounce from "../../Hooks/useDebounce.";
 import { getBroadcastQuery } from "../../Queries/broadcasts";
 import useAudioPlayerStore from "../../Stores/AudioPlayerStore";
@@ -14,8 +14,8 @@ import ClearBig from "../../images/ClearBig";
 import PauseBig from "../../images/PauseBig";
 import PlayBig from "../../images/PlayBig";
 import { getQueryString } from "../../utils";
-import ProgressBar from "./ProgressBar";
 import LoadingSpinner from "../Loaders/LoadingSpinner";
+import ProgressBar from "./ProgressBar";
 dayjs.extend(utc);
 
 const Container = styled.div`
@@ -236,7 +236,6 @@ const BroadcastPlayer = () => {
       const needsReload = !currentSrc.includes(source);
 
       if (needsReload) {
-        const currentPosition = audioRef.current.currentTime || 0;
         audioRef.current.pause();
         audioRef.current.src = source;
         audioRef.current.load();

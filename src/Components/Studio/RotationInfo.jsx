@@ -1,22 +1,11 @@
-import { useChannel } from "@ably-labs/react-hooks";
-import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { ABLY_ROTATION_CHANNEL } from "../../config";
-
-const Container = styled.div`
-
-`
 
 const RotationInfo = () => {
     // rotation socket
     const [rotationInfo] = useState();
 
-    const [_] = useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (_) => {
-        // This call will rewind 100 messages
-        // console.log(message);
-    });
-    return (<Container>
+    return (<div>
         <h6>Status</h6>
         {rotationInfo ? (
             <>
@@ -24,7 +13,7 @@ const RotationInfo = () => {
             </>
         ) : (<>Currently not playing</>)}
         { }
-    </Container>)
+    </div>)
 }
 
 export default RotationInfo;
