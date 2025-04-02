@@ -12,17 +12,17 @@ dayjs.extend(isBetween);
 dayjs.extend(utc);
 
 const Container = styled.div`
-overflow: hidden;
-flex: 1;
-padding-left: 1rem;
-justify-content: center;
-align-items: center;
-div {
-  cursor: pointer;
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
-}
+  flex: 1;
+  padding-left: 1rem;
+  justify-content: center;
+  align-items: center;
+  div {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 const StationShortInfo = ({ onClick }) => {
@@ -44,31 +44,50 @@ const StationShortInfo = ({ onClick }) => {
     });
 
   useEffect(() => {
-    if (data) {
-      data?.allBroadcastss.edges.forEach((item) => {
-        if (dayjs(item.node.begin).isBefore(before)) {
-          setCurrentBroadcast(item.node)
-          if (data.allBroadcastss.edges[1]?.node) {
-            setNextBroadcast(data.allBroadcastss.edges[1].node)
+    if (data && initial) {
+      const broadcasts = data?.allBroadcastss?.edges || [];
+      if (broadcasts.length > 0) {
+        const currentBroadcastFound = broadcasts.find(item => 
+          dayjs(item.node.begin).isBefore(before)
+        );
+        
+        if (currentBroadcastFound) {
+          setCurrentBroadcast(currentBroadcastFound.node);
+          
+          // Find index of current broadcast
+          const currentIndex = broadcasts.findIndex(item => 
+            item.node.id === currentBroadcastFound.node.id
+          );
+          
+          // Set next broadcast if it exists
+          if (currentIndex !== -1 && broadcasts[currentIndex + 1]?.node) {
+            setNextBroadcast(broadcasts[currentIndex + 1].node);
           }
-          return
+        } else if (broadcasts[0]?.node) {
+          // If no current broadcast found, use the first one
+          setCurrentBroadcast(broadcasts[0].node);
+          if (broadcasts[1]?.node) {
+            setNextBroadcast(broadcasts[1].node);
+          }
         }
-      })
-      setInitial(false)
+        
+        setInitial(false);
+      }
     }
-  }, [data, setCurrentBroadcast, setNextBroadcast, before])
+  }, [data, setCurrentBroadcast, setNextBroadcast, before, initial]);
 
   // ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
-    setRotationInfo(message)
+    setRotationInfo(message);
   });
   usePresence(ABLY_ROTATION_CHANNEL, "listener");
 
   if (error) return <>Error : {error.message}</>;
-  if (initial) return (<Container>Loading ...</Container>)
+  if (initial) return (<Container>Loading ...</Container>);
+  
   return (
-    <Container >
-      <div onClick={() => onClick()}>
+    <Container>
+      <div onClick={onClick}>
         {currentBroadcast ? (
           <>
             {currentBroadcast.hostedby?.title}&mdash;{currentBroadcast.title}
