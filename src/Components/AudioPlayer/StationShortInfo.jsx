@@ -44,7 +44,7 @@ const StationShortInfo = ({ onClick }) => {
     });
 
   useEffect(() => {
-    if (data) {
+    if (data && initial) {
       data?.allBroadcastss.edges.forEach((item) => {
         if (dayjs(item.node.begin).isBefore(before)) {
           setCurrentBroadcast(item.node)
@@ -56,7 +56,7 @@ const StationShortInfo = ({ onClick }) => {
       })
       setInitial(false)
     }
-  }, [data, setCurrentBroadcast, setNextBroadcast])
+  }, [data, setCurrentBroadcast, setNextBroadcast, initial,setInitial, before])
 
   // ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
