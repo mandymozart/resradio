@@ -40,7 +40,7 @@ const StationShortInfo = ({ onClick }) => {
         endAfter: after.format(),
         sortBy: "begin_ASC"
       },
-      pollInterval: 10 * 1000
+      pollInterval: 10 * 5000
     });
 
   useEffect(() => {
