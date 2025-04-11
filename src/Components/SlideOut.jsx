@@ -182,6 +182,7 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
     setIsExpanded(false);
     isChatVisible && isMobile && setIsChatVisible(false);
   }
+  // Deploy
   return (<Container>
     <div className={clsx({ isExpanded: isExpanded, isChatVisible: isChatVisible })}>
       <div className="top">
