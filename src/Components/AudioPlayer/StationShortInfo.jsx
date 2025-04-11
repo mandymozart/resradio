@@ -40,11 +40,11 @@ const StationShortInfo = ({ onClick }) => {
         endAfter: after.format(),
         sortBy: "begin_ASC"
       },
-      pollInterval: 10 * 1000
+      pollInterval: 10 * 5000
     });
 
   useEffect(() => {
-    if (data) {
+    if (data && initial) {
       data?.allBroadcastss.edges.forEach((item) => {
         if (dayjs(item.node.begin).isBefore(before)) {
           setCurrentBroadcast(item.node)
@@ -56,7 +56,7 @@ const StationShortInfo = ({ onClick }) => {
       })
       setInitial(false)
     }
-  }, [data, setCurrentBroadcast, setNextBroadcast, before])
+  }, [data, setCurrentBroadcast, setNextBroadcast, initial,setInitial ])
 
   // ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {

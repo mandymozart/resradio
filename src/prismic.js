@@ -39,47 +39,8 @@ export const prismicClient = prismic.createClient(endpoint, {
   ],
 })
 
-// Create a persistent cache for Apollo Client
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        allBroadcastss: {
-          // Properly merge data in the cache
-          keyArgs: ["endAfter", "beginBefore", "sortBy"],
-          merge(existing = { edges: [] }, incoming) {
-            // If exact same query, replace data
-            if (existing.__typename === incoming.__typename) {
-              return incoming;
-            }
-            // Otherwise merge the data
-            return {
-              ...incoming,
-              edges: [...existing.edges, ...incoming.edges],
-            };
-          },
-        },
-        allShowss: {
-          keyArgs: ["endAfter", "beginBefore", "sortBy"],
-          merge(existing = { edges: [] }, incoming) {
-            if (existing.__typename === incoming.__typename) {
-              return incoming;
-            }
-            return {
-              ...incoming,
-              edges: [...existing.edges, ...incoming.edges],
-            };
-          },
-        },
-        allFeaturebroadcasts: {
-          merge(existing, incoming) {
-            return incoming;
-          },
-        },
-      },
-    },
-  },
-});
+// Create a persistent cache for Apollo Client with default configuration
+const cache = new InMemoryCache();
 
 export const client = new ApolloClient({
   link: new HttpLink({
