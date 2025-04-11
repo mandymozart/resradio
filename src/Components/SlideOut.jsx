@@ -122,52 +122,65 @@ const SlideOut = ({ isExpanded, setIsExpanded }) => {
   const { isVisible: isChatVisible, setIsVisible: setIsChatVisible } = useChatStore();
   const [broadcast, setBroadcast] = useState();
   const [nextBroadcastPreview, setNextBroadcastPreview] = useState();
-  const [uid, setUid] = useState();
-  // wire up ably websocket
+  const [rotationData, setRotationData] = useState(null);
+  // wire up ably websocket - only set rotation data, don't directly set UID or override broadcast
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
-    setUid(message.data.current.uid)
-    // Rotation update received
-    setNextBroadcastPreview(message.data.next)
+    setRotationData(message.data);
   });
+  
   const { currentBroadcast, nextBroadcast } = useBroadcastStore();
-  // get full data from Prismic for broadcast
+  // get full data from Prismic for broadcast - only if no scheduled broadcast
   const [getData, { loading, data }] = useLazyQuery(getBroadcastQuery,
     {
       variables: {
-        uid: uid
+        uid: rotationData?.current?.uid
       }
     })
 
   const debouncedRequest = useDebounce(() => {
-    if (uid) {
+    if (rotationData?.current?.uid && !currentBroadcast) {
       getData()
     }
   });
+  
   useEffect(() => {
     debouncedRequest()
-  }, [uid, getData, debouncedRequest])
+  }, [rotationData, currentBroadcast, getData, debouncedRequest])
 
   useEffect(() => {
-    // Prismic data received
-    if (data?.broadcasts)
-      setBroadcast(data.broadcasts)
-  }, [data])
+    // Prismic data received - only use if no scheduled broadcast
+    if (data?.broadcasts && !currentBroadcast) {
+      setBroadcast(data.broadcasts);
+    }
+  }, [data, currentBroadcast])
 
   useEffect(() => {
-    setBroadcast(currentBroadcast)
-    if (nextBroadcast)
-      setNextBroadcastPreview({
-        ...nextBroadcast,
-        uid: nextBroadcast._meta.uid,
-        hostedby: nextBroadcast.hostedby.title
-      })
-  }, [currentBroadcast, nextBroadcast])
+    // Priority 1: Use scheduled broadcast if available
+    if (currentBroadcast) {
+      setBroadcast(currentBroadcast);
+      
+      // For next broadcast, prioritize scheduled one
+      if (nextBroadcast) {
+        setNextBroadcastPreview({
+          ...nextBroadcast,
+          uid: nextBroadcast._meta.uid,
+          hostedby: nextBroadcast.hostedby.title
+        });
+      }
+    } 
+    // Priority 2: Fall back to rotation data only if no scheduled broadcast
+    else if (rotationData && data?.broadcasts) {
+      setBroadcast(data.broadcasts);
+      if (rotationData.next) {
+        setNextBroadcastPreview(rotationData.next);
+      }
+    }
+  }, [currentBroadcast, nextBroadcast, rotationData, data]);
 
   const goToLink = (to) => {
     navigate(to);
     setIsExpanded(false);
     isChatVisible && isMobile && setIsChatVisible(false);
-
   }
   return (<Container>
     <div className={clsx({ isExpanded: isExpanded, isChatVisible: isChatVisible })}>
