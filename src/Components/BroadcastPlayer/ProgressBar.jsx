@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { formatTime } from "../../utils";
 
 const Container = styled.div`
@@ -109,6 +109,16 @@ const ProgressBar = ({
     const [isDragging, setIsDragging] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    
+    // Update slider progress visually
+    const updateSliderProgress = useCallback(() => {
+        if (progressBarRef.current && duration) {
+            const progress = (sliderValue / duration) * 100;
+            progressBarRef.current.style.setProperty('--range-progress', `${progress}%`);
+        }
+    }, [progressBarRef, duration, sliderValue]);
+
+
     // Update slider value when timeProgress changes (only if not dragging)
     useEffect(() => {
         if (!isDragging) {
@@ -117,12 +127,12 @@ const ProgressBar = ({
         
         // Always update the CSS variable for progress bar appearance
         updateSliderProgress();
-    }, [timeProgress, isDragging]);
+    }, [timeProgress, isDragging, updateSliderProgress]);
 
     // Update when duration changes
     useEffect(() => {
         updateSliderProgress();
-    }, [duration]);
+    }, [duration, updateSliderProgress]);
 
     // Notify parent component when loading state changes
     useEffect(() => {
@@ -153,14 +163,6 @@ const ProgressBar = ({
             }
         };
     }, [audioRef]);
-
-    // Update slider progress visually
-    const updateSliderProgress = () => {
-        if (progressBarRef.current && duration) {
-            const progress = (sliderValue / duration) * 100;
-            progressBarRef.current.style.setProperty('--range-progress', `${progress}%`);
-        }
-    };
 
     // Handle input changes during dragging
     const handleProgressInput = (e) => {

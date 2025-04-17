@@ -99,7 +99,7 @@ const Footer = () => {
           <li>
           </li>
           <li>
-            <Link to={"/page/impressum"}>Impressum</Link><br />&copy; 2023
+            <Link to={"/page/impressum"}>Impressum</Link><br />&copy; 2020 - 2025
             <Link to={"/page/impressum"}>{" "}General Inquiries</Link>
           </li>
         </ul>

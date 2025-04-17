@@ -39,11 +39,28 @@ export const prismicClient = prismic.createClient(endpoint, {
   ],
 })
 
+// Create a persistent cache for Apollo Client with default configuration
+const cache = new InMemoryCache();
+
 export const client = new ApolloClient({
   link: new HttpLink({
     uri: prismic.getGraphQLEndpoint(repositoryName),
     fetch: prismicClient.graphqlFetch,
     useGETForQueries: true,
   }),
-  cache: new InMemoryCache(),
+  cache,
+  defaultOptions: {
+    watchQuery: {
+      // First use cache but fetch in background for future renders
+      fetchPolicy: 'cache-and-network',
+      // On subsequent renders of the same query, only use cache
+      nextFetchPolicy: 'cache-only',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'cache-first',
+      errorPolicy: 'all',
+    },
+  },
+  connectToDevTools: process.env.NODE_ENV === 'development',
 })

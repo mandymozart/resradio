@@ -25,7 +25,7 @@ div {
 }
 `;
 
-const StreamShortInfo = ({ onClick }) => {
+const StationShortInfo = ({ onClick }) => {
   const { currentBroadcast, setCurrentBroadcast, setNextBroadcast, setRotationInfo, rotationInfo } = useBroadcastStore();
   const [initial, setInitial] = useState(true);
 
@@ -40,11 +40,11 @@ const StreamShortInfo = ({ onClick }) => {
         endAfter: after.format(),
         sortBy: "begin_ASC"
       },
-      pollInterval: 10 * 1000
+      pollInterval: 10 * 5000
     });
 
   useEffect(() => {
-    if (data) {
+    if (data && initial) {
       data?.allBroadcastss.edges.forEach((item) => {
         if (dayjs(item.node.begin).isBefore(before)) {
           setCurrentBroadcast(item.node)
@@ -56,7 +56,7 @@ const StreamShortInfo = ({ onClick }) => {
       })
       setInitial(false)
     }
-  }, [data, setCurrentBroadcast, setNextBroadcast])
+  }, [data, setCurrentBroadcast, setNextBroadcast, initial,setInitial ])
 
   // ably websocket
   useChannel(`[?rewind=1]${ABLY_ROTATION_CHANNEL}`, (message) => {
@@ -87,4 +87,4 @@ const StreamShortInfo = ({ onClick }) => {
   );
 };
 
-export default StreamShortInfo;
+export default StationShortInfo;

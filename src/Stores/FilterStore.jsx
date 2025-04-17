@@ -1,6 +1,5 @@
-import produce from "immer";
 import { mountStoreDevtool } from 'simple-zustand-devtools';
-import create from "zustand";
+import { create } from 'zustand';
 
 export const initialState = {
   genres: [],
@@ -9,34 +8,27 @@ export const initialState = {
   selectedMood: null,
 }
 
-const useFilterStore = create(
-
-  produce((set, get) => ({
-    ...initialState,
-    addGenre: (genre) => set(state => {
-      return ({
-        genres: [...state.genres, genre],
-      })
-    }),
-    removeGenre: (genre) => set(state => ({
-      genres: state.genres.filter(g => g !== genre)
-    })),
-    setSlowest: (bpm) => set({ slowest: bpm }),
-    setFastest: (bpm) => set({ fastest: bpm }),
-    clearMood: () => set({ selectedMood: null }),
-    setMood: (mood) => set({ selectedMood: mood }),
-    isDirty: () => {
-      if (get().selectedMood !== null) return true;
-      if (get().genres.length > 0) return true;
-      if (get().slowest !== initialState.slowest) return true;
-      if (get().fastest !== initialState.fastest) return true;
-      return false;
-    },
-    reset: () => set(initialState)
+const useFilterStore = create((set, get) => ({
+  ...initialState,
+  addGenre: (genre) => set((state) => ({
+    genres: [...state.genres, genre],
   })),
-  { name: "filter-store" }
-
-);
+  removeGenre: (genre) => set((state) => ({
+    genres: state.genres.filter(g => g !== genre)
+  })),
+  setSlowest: (bpm) => set({ slowest: bpm }),
+  setFastest: (bpm) => set({ fastest: bpm }),
+  clearMood: () => set({ selectedMood: null }),
+  setMood: (mood) => set({ selectedMood: mood }),
+  isDirty: () => {
+    if (get().selectedMood !== null) return true;
+    if (get().genres.length > 0) return true;
+    if (get().slowest !== initialState.slowest) return true;
+    if (get().fastest !== initialState.fastest) return true;
+    return false;
+  },
+  reset: () => set(initialState)
+}));
 
 export default useFilterStore;
 

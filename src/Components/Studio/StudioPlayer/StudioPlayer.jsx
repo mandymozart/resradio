@@ -7,7 +7,7 @@ import { ABLY_ROTATION_CHANNEL, BREAKPOINT_XS, FUNCTIONS } from "../../../config
 import PauseBig from "../../../images/PauseBig";
 import PlayBig from "../../../images/PlayBig";
 import { formatTime, getQueryString } from "../../../utils";
-import ProgressBar from "../../AudioPlayer/ProgressBar";
+import ProgressBar from "../../BroadcastPlayer/ProgressBar";
 import SectionLoader from "../../SectionLoader";
 dayjs.extend(localizedFormat);
 

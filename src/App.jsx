@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import BroadcastPlayer from "./Components/AudioPlayer/BroadcastPlayer";
+import BroadcastPlayer from "./Components/BroadcastPlayer/BroadcastPlayer";
 import ChatBox from "./Components/Chat/ChatBox";
 import DonationBar from "./Components/Donation/DonationBar";
 import Header from "./Components/Header";
