@@ -1,0 +1,12 @@
+{
+  "name": "resradio-cdn-upload",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "upload": "node upload.mjs"
+  },
+  "dependencies": {
+    "@bunny.net/storage-sdk": "latest"
+  }
+}

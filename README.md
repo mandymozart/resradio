@@ -14,15 +14,3 @@ Open [http://localhost:3000](http://localhost:3000) [http://localhost:8888](http
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm run install`
-
-Known issue: Use npm install --ignore-scripts if you want to build on windows with node version >22. or use 18. since there are canvas build scripts running which have issues with GTK3. So dlls are missing. works fine on netlify inside a docker.
-
-alternatively use this for a more permanent solution:
-
-```
-"canvas": {
-  "skip-install": true
-}
-```
