@@ -74,16 +74,11 @@
     ]
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "simple-zustand-devtools": "^1.1.0",
-    "@faker-js/faker": "^9.6.0"
-=======
     "@sanity/cli": "^3.10.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
     "mysql2": "^3.14.0",
     "simple-zustand-devtools": "^1.1.0"
->>>>>>> 97d3035e8ce13ac60a83fdc09fd7f46470759321
   }
 }

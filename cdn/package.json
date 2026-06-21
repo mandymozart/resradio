@@ -4,9 +4,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "upload": "node upload.mjs"
+    "upload": "node upload.mjs",
+    "watch": "node watch.mjs",
+    "build": "node build.mjs"
   },
   "dependencies": {
-    "@bunny.net/storage-sdk": "latest"
+    "@bunny.net/storage-sdk": "latest",
+    "chokidar": "^5.0.0"
   }
 }

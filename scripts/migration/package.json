@@ -1,0 +1,24 @@
+{
+  "name": "agentic-migration-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@prismicio/client": "^7.21.8",
+    "@prismicio/migrate": "^0.0.2",
+    "next": "latest",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
+  },
+  "resolutions": {
+    "next": "npm:prismic@0.0.1"
+  },
+  "//": "Next.js is installed as a blank package to ensure proper initialization",
+  "dependencies": {
+    "@prismicio/client": "^7.21.8",
+    "@prismicio/next": "^2.2.4",
+    "@prismicio/react": "^3.4.1",
+    "dotenv": "^16.0.1"
+  }
+}

@@ -1,0 +1,14 @@
+<service>
+  <id>resradio-cdn-watcher</id>
+  <name>ResRadio CDN Watcher</name>
+  <description>Syncs audio files to Bunny CDN Storage</description>
+  <executable>node</executable>
+  <arguments>watch.mjs</arguments>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>3</keepFiles>
+  </log>
+  <onfailure action="restart" delay="5 sec"/>
+  <onfailure action="restart" delay="10 sec"/>
+  <onfailure action="restart" delay="30 sec"/>
+</service>
